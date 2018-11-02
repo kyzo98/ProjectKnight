@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RuneSeller_OptionsButtons : MonoBehaviour {
-    public GameObject selectedOption;
+public class RuneSeller_OptionsButtons : MonoBehaviour, IPointerEnterHandler {
     public GameObject NPC;
 
     RuneSeller scriptRuneSeller;

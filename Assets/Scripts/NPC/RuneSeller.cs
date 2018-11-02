@@ -201,6 +201,8 @@ public class RuneSeller : MonoBehaviour {
                 }
                 break;
             case DialogueState.END:
+                buyButton.image.sprite = buyButtonHover;
+                exitButton.image.sprite = exitButtonDefault;
                 render.material = activeMaterial; //Cambiamos de material
                 pressEImage.enabled = true; //Mostramos la imágen en pantalla
                 dialogue.SetActive(false); //Desactivamos el texto
@@ -280,9 +282,10 @@ public class RuneSeller : MonoBehaviour {
 
         public void buyOptionSelected()
         {
-            optionSelected = 0;
+            optionSelected = 0; 
             buyButton.image.sprite = buyButtonHover;
             exitButton.image.sprite = exitButtonDefault;
+            Debug.Log(optionSelected);
         }
 
         public void exitOptionSelected()
@@ -290,5 +293,6 @@ public class RuneSeller : MonoBehaviour {
             optionSelected = 1;
             buyButton.image.sprite = buyButtonDefault;
             exitButton.image.sprite = exitButtonHover;
+            Debug.Log(optionSelected);
         }
 }

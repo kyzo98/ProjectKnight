@@ -51,8 +51,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\NPC\DoorGuy.cs" />
+     <Compile Include="Assets\Scripts\NPC\RuneSeller.cs" />
+     <Compile Include="Assets\Scripts\NPC\RuneSeller_OptionsButtons.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Utilities\UIWorldPosition.cs" />
+     <None Include="Assets\Shaders\Outline.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

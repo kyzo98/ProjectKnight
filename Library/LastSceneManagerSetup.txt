@@ -1,4 +1,4 @@
 sceneSetups:
-- path: C:/Users/Mario/Documents/Proyecto1819/Assets/Scenes/Lobby.unity
+- path: Assets/Scenes/Lobby.unity
   isLoaded: 1
   isActive: 1
