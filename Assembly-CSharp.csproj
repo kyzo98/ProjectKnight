@@ -51,9 +51,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Boss.cs" />
+     <Compile Include="Assets\Scripts\FightController.cs" />
      <Compile Include="Assets\Scripts\NPC\DoorGuy.cs" />
+     <Compile Include="Assets\Scripts\NPC\DoorGuy_OptionsButtons.cs" />
+     <Compile Include="Assets\Scripts\NPC\InformationGuy.cs" />
      <Compile Include="Assets\Scripts\NPC\RuneSeller.cs" />
      <Compile Include="Assets\Scripts\NPC\RuneSeller_OptionsButtons.cs" />
+     <Compile Include="Assets\Scripts\NPC\SpellsChick.cs" />
+     <Compile Include="Assets\Scripts\NPC\SpellsChick_OptionsButtons.cs" />
+     <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Utilities\UIWorldPosition.cs" />
      <None Include="Assets\Shaders\Outline.shader" />
