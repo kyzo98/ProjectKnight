@@ -54,8 +54,8 @@ public class DoorGuy : MonoBehaviour
         letterPause = .0f;                                                                  //Iniciamos el letterPause a 0s
         welcome = false; 
 
-        yesButton.onClick.AddListener(yesOption);                                           //Asignamos la funcion buyOption al buyButton
-        noButton.onClick.AddListener(noOption);                                         //Asignamos la funcion exitOption al exitButton
+        yesButton.onClick.AddListener(noOption);                                           //Asignamos la funcion buyOption al buyButton
+        noButton.onClick.AddListener(yesOption);                                         //Asignamos la funcion exitOption al exitButton
     }
 
     void Update()
@@ -87,13 +87,14 @@ public class DoorGuy : MonoBehaviour
                 pressEImage.enabled = false; //Deja de aparecer el boton E
                 dialogueText.text = ""; //Aparece el cuadro de diálogo vacío
                 dialogue.SetActive(true); //Activamos el texto
-                dialogueTimeLeft = NPCSentencesAudio[0].length; //Preparamos la duración del siguiente audio
                 if (!welcome)
                 {
+                    dialogueTimeLeft = NPCSentencesAudio[0].length; //Preparamos la duración del siguiente audio
                     dialogueState = DialogueState.WELCOME1;
                 }
                 else
                 {
+                    dialogueTimeLeft = NPCSentencesAudio[3].length; //Preparamos la duración del siguiente audio
                     dialogueState = DialogueState.GO_BATTLE; 
                 }
                 optionSelected = 0;
@@ -117,6 +118,9 @@ public class DoorGuy : MonoBehaviour
                     if (Input.GetButtonDown("E"))
                     {
                         dialogueWaiter.SetActive(false);
+                        dialogueText.text = ""; //Reseteamos el texto
+                        dialogueTimeLeft = NPCSentencesAudio[1].length; //Preparamos la duración del siguiente audio
+                        endCorutines = false;
                         dialogueState = DialogueState.WELCOME2; 
                     }
                 }
@@ -151,6 +155,9 @@ public class DoorGuy : MonoBehaviour
                     if (Input.GetButtonDown("E"))
                     {
                         dialogueWaiter.SetActive(false);
+                        dialogueText.text = ""; //Reseteamos el texto
+                        dialogueTimeLeft = NPCSentencesAudio[2].length; //Preparamos la duración del siguiente audio
+                        endCorutines = false;
                         dialogueState = DialogueState.WELCOME3;
                     }
                 }
@@ -289,9 +296,9 @@ public class DoorGuy : MonoBehaviour
                 break;
 
             case DialogueState.NO:
-                if (dialogueTimeLeft == NPCSentenceAudio[5].length)//Inicia la animacion
+                if (dialogueTimeLeft == NPCSentencesAudio[5].length)//Inicia la animacion
                 {
-                    audioSource.clip = NPCSentenceAudio[5];
+                    audioSource.clip = NPCSentencesAudio[5];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[5])); //Escribimos el texto
                 }
