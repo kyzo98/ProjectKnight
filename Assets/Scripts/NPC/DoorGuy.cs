@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DoorGuy : MonoBehaviour
 {
@@ -277,9 +278,8 @@ public class DoorGuy : MonoBehaviour
                         dialogueWaiter.SetActive(false);
                         dialogueText.text = ""; //Reseteamos el texto
                         endCorutines = false;
-                        dialogueState = DialogueState.END;  
-                        //to do. Cambiar escena, a la battle j
-
+                        dialogueState = DialogueState.END;
+                        SceneManager.LoadScene("Fight", LoadSceneMode.Additive);
                     }
                 }
                 else
