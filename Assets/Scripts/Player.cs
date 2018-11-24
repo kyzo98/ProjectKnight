@@ -4,23 +4,19 @@ using UnityEngine;
 
 public struct Stats
 {
-    int vitality;
-    int strenght;
-    int endurance;
-    int power;
-    int vigor;
+    public int vitality;
+    public int strenght;
+    public int endurance;
+    public int power;
+    public int vigor;
 };
+
 public struct Hability
 {
     string name;
     float percentage;
 };
-public struct Equipment
-{
-    string name;
-    Stats stats;
-    Hability hability;
-};
+
 public struct State
 {
     string name;
@@ -28,11 +24,9 @@ public struct State
 };
 
 public class Player : MonoBehaviour {
+
     //Estadísticas
     public Stats stats;
-
-    //Equipamiento
-    public Equipment[] equipment;
 
     //Habilidades
     public Hability[] habilities;
@@ -43,13 +37,19 @@ public class Player : MonoBehaviour {
     //Recursos
     public int maxHealth;
     public int health;
+    public int armor;
     public int coins;
     public int maxEnergy;
     public int energy;
     public int moves;
+    public int spiritBlast;
 
 	void Start () {
-
+        stats.vitality = 20;
+        stats.strenght = 20;
+        stats.endurance = 20;
+        stats.power = 20;
+        stats.vigor = 20;
 	}
 	
 	void Update () {

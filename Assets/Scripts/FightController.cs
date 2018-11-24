@@ -15,6 +15,10 @@ public class FightController : MonoBehaviour {
     public Text playerHealthNumber;
     public Button lightAttackButton;
     public Button heavyAttackButton;
+    public Button lowHealButton;
+    public Button lowMagicButton;
+    public Button guardButton;
+    public Button spiritBlastButton;
 
     //Boss
     public GameObject boss;
@@ -31,6 +35,10 @@ public class FightController : MonoBehaviour {
         //Buttons
         lightAttackButton.onClick.AddListener(LightAttack);
         heavyAttackButton.onClick.AddListener(HeavyAttack);
+        lowHealButton.onClick.AddListener(LowHealing);
+        lowMagicButton.onClick.AddListener(LowMagic);
+        guardButton.onClick.AddListener(Guard);
+        spiritBlastButton.onClick.AddListener(SpiritBlast);
 
         RefreshUI();
     }
@@ -39,7 +47,7 @@ public class FightController : MonoBehaviour {
 	void Update () {
         playerScript = player.GetComponent<Player>();
         bossScript = boss.GetComponent<Boss>();
-        Debug.Log(turn%2);
+        //Debug.Log(turn%2);
         if (bossScript.health > 0 && playerScript.health > 0)
         {
             if (turn % 2 == 0)
@@ -47,6 +55,7 @@ public class FightController : MonoBehaviour {
                 //Player's turn
                 if (playerScript.moves > 0 && playerScript.energy > 0)
                 {
+                    //todo PASAR A SUS PROPIOS SCRIPTS
                     if(playerScript.energy > 2)
                         lightAttackButton.interactable = true;
                     else lightAttackButton.interactable = false;
@@ -56,6 +65,8 @@ public class FightController : MonoBehaviour {
                 }
                 else
                 {
+                    playerScript.spiritBlast += playerScript.energy;
+                    Debug.Log(playerScript.spiritBlast);
                     lightAttackButton.interactable = false;
                     heavyAttackButton.interactable = false;
                     Debug.Log("Boss Turn");
@@ -64,20 +75,31 @@ public class FightController : MonoBehaviour {
             }
             else
             {
-                int randomChoice = Random.Range(0,2); 
+                //Boss's turn
+                int randomChoice = Random.Range(0,2); //Selector de actuación en el turno
                 switch (randomChoice)
                 {
                     case 0:
-                        playerScript.health -= 30;
+                        if (playerScript.armor > 0)
+                        {
+                            playerScript.armor -= bossScript.stats.strenght;
+                            if(playerScript.armor < 0)
+                                playerScript.health += playerScript.armor;
+                        }
+                            
+                        else
+                            playerScript.health -= bossScript.stats.strenght;
                         Debug.Log("Boss ataca");
                         break;
                     case 1:
                         bossScript.health += 100;
+                        if (bossScript.health >= bossScript.maxHealth) bossScript.health = bossScript.maxHealth;
                         Debug.Log("Boss se cura");
                         break;
                 }
                 playerScript.moves = 3;
                 playerScript.energy = playerScript.maxEnergy;
+                if (playerScript.armor > 0) playerScript.armor = 0;
                 turn++;
             }
         }
@@ -103,15 +125,69 @@ public class FightController : MonoBehaviour {
     void LightAttack()
     {
         playerScript.energy -= 3;
-        bossScript.health -= 42;
+        bossScript.health -= playerScript.stats.strenght; //normal light attack
         playerScript.moves--;
     }
 
     void HeavyAttack()
     {
         playerScript.energy -= 7;
-        bossScript.health -= 96;
+        if(Random.Range(0,50) == 1)
+            bossScript.health -= playerScript.stats.strenght * 4; //crtikal
+        else
+            bossScript.health -= playerScript.stats.strenght * 2; //normal heavy attack
         playerScript.moves--;
+    }
+
+    void LowHealing()
+    {
+        if(playerScript.health >= playerScript.maxHealth) //caso de vida maxima igual a vida actual
+        {
+            //boton deshabilitado
+        }
+        else
+        {
+            playerScript.energy -= 3;
+            playerScript.health += playerScript.stats.vigor; //normal healing
+            playerScript.moves--;
+            if (playerScript.health >= playerScript.maxHealth) playerScript.health = playerScript.maxHealth; //exceso de curación
+        }
+    }
+
+    void LowMagic()
+    {
+        playerScript.energy -= 3;
+        bossScript.health -= playerScript.stats.power; //normal magic attack
+        playerScript.moves--;
+    }
+
+    void Guard()
+    {
+        playerScript.energy -= 3;
+        playerScript.armor += playerScript.stats.endurance; //adding armor
+        playerScript.moves--;
+    }
+
+    void SpiritBlast()
+    {
+        if(playerScript.energy == 10)
+        {
+            if (playerScript.spiritBlast >= 10)
+            {
+                playerScript.energy -= 10;
+                bossScript.health -= 200; //damage
+                playerScript.moves--;
+                playerScript.spiritBlast -= 10;
+            }
+            else
+            {
+                //boton desactivado
+            }
+        }
+        else
+        {
+            //boton desactivado
+        }
     }
 
     void RefreshUI()
