@@ -122,6 +122,7 @@ public class FightController : MonoBehaviour {
         RefreshUI();
     }
 
+    //Character Actions
     void LightAttack()
     {
         playerScript.energy -= 3;
@@ -173,6 +174,75 @@ public class FightController : MonoBehaviour {
         if(playerScript.energy == 10)
         {
             if (playerScript.spiritBlast >= 10)
+            {
+                playerScript.energy -= 10;
+                bossScript.health -= 200; //damage
+                playerScript.moves--;
+                playerScript.spiritBlast -= 10;
+            }
+            else
+            {
+                //boton desactivado
+            }
+        }
+        else
+        {
+            //boton desactivado
+        }
+    }
+
+    // Boss Actions
+    void BossLightAttack()
+    {
+        bossScript.energy -= 3;
+        playerScript.health -= playerScript.stats.strenght; //normal light attack
+        bossScript.moves--;
+    }
+
+    void BossHeavyAttack()
+    {
+        bossScript.energy -= 7;
+        if (Random.Range(0, 50) == 1)
+            playerScript.health -= bossScript.stats.strenght * 4; //crtikal
+        else
+            playerScript.health -= bossScript.stats.strenght * 2; //normal heavy attack
+        playerScript.moves--;
+    }
+
+    void BossLowHealing()
+    {
+        if (bossScript.health >= bossScript.maxHealth) //caso de vida maxima igual a vida actual
+        {
+            //boton deshabilitado
+        }
+        else
+        {
+            bossScript.energy -= 3;
+            bossScript.health += bossScript.stats.vigor; //normal healing
+            bossScript.moves--;
+            if (bossScript.health >= bossScript.maxHealth) bossScript.health = bossScript.maxHealth; //exceso de curación
+        }
+    }
+
+    void BossLowMagic()
+    {
+        bossScript.energy -= 3;
+        playerScript.health -= playerScript.stats.power; //normal magic attack
+        bossScript.moves--;
+    }
+
+    void BossGuard()
+    {
+        bossScript.energy -= 3;
+        bossScript.armor += bossScript.stats.endurance; //adding armor
+        bossScript.moves--;
+    }
+
+    void BossSpiritBlast()
+    {
+        if (bossScript.energy == 10)
+        {
+            if (bossScript.spiritBlast >= 10)
             {
                 playerScript.energy -= 10;
                 bossScript.health -= 200; //damage
