@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public struct Stats
 {
     public int vitality;
@@ -45,14 +46,10 @@ public class Player : MonoBehaviour {
     public int spiritBlast;
 
 	void Start () {
-        stats.vitality = 20;
-        stats.strenght = 20;
-        stats.endurance = 20;
-        stats.power = 20;
-        stats.vigor = 20;
+        
 	}
 	
 	void Update () {
-		
-	}
+        
+    }
 }

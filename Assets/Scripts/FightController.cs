@@ -9,14 +9,13 @@ public class FightController : MonoBehaviour {
     //Player
     public GameObject player;
     private Player playerScript;
-
-    public Slider playerEnergyBar;
+    public Text actionPointsText;
     public Slider playerHealthBar;
     public Text playerHealthNumber;
     public Button lightAttackButton;
     public Button heavyAttackButton;
-    public Button lowHealButton;
-    public Button lowMagicButton;
+    public Button basicHealButton;
+    public Button basicMagicButton;
     public Button guardButton;
     public Button spiritBlastButton;
 
@@ -30,13 +29,18 @@ public class FightController : MonoBehaviour {
     void Start () {
         turn = 0;
         playerScript = player.GetComponent<Player>();
+        playerScript.stats.strenght = 20;
+        playerScript.stats.vitality = 20;
+        playerScript.stats.endurance = 20;
+        playerScript.stats.vigor = 20;
+        playerScript.stats.power = 20;
         bossScript = boss.GetComponent<Boss>();
 
         //Buttons
         lightAttackButton.onClick.AddListener(LightAttack);
         heavyAttackButton.onClick.AddListener(HeavyAttack);
-        lowHealButton.onClick.AddListener(LowHealing);
-        lowMagicButton.onClick.AddListener(LowMagic);
+        basicHealButton.onClick.AddListener(LowHealing);
+        basicMagicButton.onClick.AddListener(LowMagic);
         guardButton.onClick.AddListener(Guard);
         spiritBlastButton.onClick.AddListener(SpiritBlast);
 
@@ -128,6 +132,8 @@ public class FightController : MonoBehaviour {
         playerScript.energy -= 3;
         bossScript.health -= playerScript.stats.strenght; //normal light attack
         playerScript.moves--;
+        RefreshUI();
+        Debug.Log(playerScript.stats.strenght);
     }
 
     void HeavyAttack()
@@ -138,6 +144,7 @@ public class FightController : MonoBehaviour {
         else
             bossScript.health -= playerScript.stats.strenght * 2; //normal heavy attack
         playerScript.moves--;
+        RefreshUI();
     }
 
     void LowHealing()
@@ -153,6 +160,7 @@ public class FightController : MonoBehaviour {
             playerScript.moves--;
             if (playerScript.health >= playerScript.maxHealth) playerScript.health = playerScript.maxHealth; //exceso de curación
         }
+        RefreshUI();
     }
 
     void LowMagic()
@@ -160,6 +168,7 @@ public class FightController : MonoBehaviour {
         playerScript.energy -= 3;
         bossScript.health -= playerScript.stats.power; //normal magic attack
         playerScript.moves--;
+        RefreshUI();
     }
 
     void Guard()
@@ -167,6 +176,7 @@ public class FightController : MonoBehaviour {
         playerScript.energy -= 3;
         playerScript.armor += playerScript.stats.endurance; //adding armor
         playerScript.moves--;
+        RefreshUI();
     }
 
     void SpiritBlast()
@@ -189,6 +199,7 @@ public class FightController : MonoBehaviour {
         {
             //boton desactivado
         }
+        RefreshUI();
     }
 
     // Boss Actions
@@ -197,6 +208,7 @@ public class FightController : MonoBehaviour {
         bossScript.energy -= 3;
         playerScript.health -= playerScript.stats.strenght; //normal light attack
         bossScript.moves--;
+        RefreshUI();
     }
 
     void BossHeavyAttack()
@@ -207,6 +219,7 @@ public class FightController : MonoBehaviour {
         else
             playerScript.health -= bossScript.stats.strenght * 2; //normal heavy attack
         playerScript.moves--;
+        RefreshUI();
     }
 
     void BossLowHealing()
@@ -222,6 +235,7 @@ public class FightController : MonoBehaviour {
             bossScript.moves--;
             if (bossScript.health >= bossScript.maxHealth) bossScript.health = bossScript.maxHealth; //exceso de curación
         }
+        RefreshUI();
     }
 
     void BossLowMagic()
@@ -263,10 +277,10 @@ public class FightController : MonoBehaviour {
     void RefreshUI()
     {
         //Energia del player
-        playerEnergyBar.value = 10 - playerScript.energy;
+        actionPointsText.text = playerScript.energy.ToString();
         //Vida del player
         playerHealthNumber.text = playerScript.health.ToString() + '/' + playerScript.maxHealth.ToString();
-        playerHealthBar.value = 1 - (float)playerScript.health / (float)playerScript.maxHealth;
+        playerHealthBar.value = (float)playerScript.health / (float)playerScript.maxHealth;
 
         //Vida del boss
         bossHealthNumber.text = bossScript.health.ToString() + '/' + bossScript.maxHealth.ToString();

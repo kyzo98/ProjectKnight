@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
     private int X_MOVEMENT;                                             // Variable that saves the number that multiplies the control to invert it
     private int Z_MOVEMENT;                                             // Variable that saves the number that multiplies the control to invert it
 
-    Animator anim;                                                      // It saves the animator.
+    public Animator anim;                                                      // It saves the animator.
 
     void Start () {
         anim = GetComponent<Animator>();                                // Gets the animator from the actual character.
