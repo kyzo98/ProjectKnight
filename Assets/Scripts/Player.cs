@@ -11,12 +11,6 @@ public struct Stats
     public int vigor;
 };
 
-public struct Hability
-{
-    string name;
-    float percentage;
-};
-
 public struct State
 {
     string name;
@@ -27,9 +21,6 @@ public class Player : MonoBehaviour {
 
     //Estadísticas
     public Stats stats;
-
-    //Habilidades
-    public Hability[] habilities;
 
     //Estados
     public State[] states;

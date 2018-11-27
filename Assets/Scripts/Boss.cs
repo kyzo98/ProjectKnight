@@ -6,9 +6,6 @@ public class Boss : MonoBehaviour {
     //Estadísticas
     public Stats stats;
 
-    //Habilidades
-    public Hability[] habilities;
-
     //Estados
     public State[] states;
 

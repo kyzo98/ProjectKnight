@@ -205,7 +205,7 @@ public class FightController : MonoBehaviour {
         if (Random.Range(0, 20) == 1) //critico
         {
             int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
-            bossScript.health -= damage;
+            StartCoroutine(BossHealthBarAnimation(damage, false));
             AddCombatText();
             combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
             combatDialogue[0].text = "CRITICAL! Player and dealt " + damage.ToString() + " damge to the Boss";
@@ -213,7 +213,7 @@ public class FightController : MonoBehaviour {
         else //ataque normal
         {
             int damage = Random.Range(playerScript.stats.strenght * 6 - 3, playerScript.stats.strenght * 6 + 3);
-            bossScript.health -= damage;
+            StartCoroutine(BossHealthBarAnimation(damage, false));
             AddCombatText();
             combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -231,7 +231,7 @@ public class FightController : MonoBehaviour {
         if (Random.Range(0, 7) == 1) //critico
         {
             int damage = Random.Range(playerScript.stats.strenght * 32 - 3, playerScript.stats.strenght * 32 + 3);
-            bossScript.health -= damage;
+            StartCoroutine(BossHealthBarAnimation(damage, false));
             AddCombatText();
             combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
             combatDialogue[0].text = "CRITICAL! Player and dealt " + damage.ToString() + " damge to the Boss";
@@ -239,7 +239,7 @@ public class FightController : MonoBehaviour {
         else //ataque normal
         {
             int damage = Random.Range(playerScript.stats.strenght * 16 - 3, playerScript.stats.strenght * 16 + 3);
-            bossScript.health -= damage;
+            StartCoroutine(BossHealthBarAnimation(damage, false));
             AddCombatText();
             combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -256,7 +256,7 @@ public class FightController : MonoBehaviour {
 
         int healing = playerScript.stats.vigor * 7;
         if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
-        playerScript.health += healing; //normal healing
+        StartCoroutine(PlayerHealthBarAnimation(healing, true));
 
         AddCombatText();
         combatDialogue[0].text = "Player healed himself for " + healing.ToString() + " HP";
@@ -272,7 +272,7 @@ public class FightController : MonoBehaviour {
         playerScript.moves--;
 
         int damage = playerScript.stats.power * 4;
-        bossScript.health -= damage;
+        StartCoroutine(BossHealthBarAnimation(damage, false));
         AddCombatText();
         combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
         combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -302,7 +302,7 @@ public class FightController : MonoBehaviour {
         playerScript.moves--;
 
         int damage = 200;
-        bossScript.health -= damage;
+        StartCoroutine(BossHealthBarAnimation(damage, false));
         AddCombatText();
         combatDialogue[0].text = "Player used SPIRIT BLAST: " + damage.ToString() + " damge to the Boss";
         combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -370,6 +370,7 @@ public class FightController : MonoBehaviour {
         //Energia del player
         actionPointsText.text = playerScript.energy.ToString();
         spiritBlastCounter.value = playerScript.spiritBlast;
+
         //Vida del player
         playerHealthNumber.text = playerScript.health.ToString() + '/' + playerScript.maxHealth.ToString();
         playerArmorNumber.text = playerScript.armor.ToString();
@@ -391,5 +392,37 @@ public class FightController : MonoBehaviour {
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         ShowActions();
         RefreshUI();
+    }
+
+    IEnumerator BossHealthBarAnimation(int d, bool isHeal)
+    {
+        if (!isHeal)
+            yield return new WaitForSecondsRealtime(3);
+        for (int i = d; i > 0; i--)
+        {
+            if(isHeal)
+                bossScript.health++;
+            else
+                bossScript.health--;
+            RefreshUI();
+            yield return 0;
+            yield return new WaitForSeconds(0);
+        }
+    }
+
+    IEnumerator PlayerHealthBarAnimation(int d, bool isHeal)
+    {
+        if(!isHeal)
+            yield return new WaitForSecondsRealtime(3);
+        for (int i = d; i > 0; i--)
+        {
+            if (isHeal)
+                playerScript.health++;
+            else
+                playerScript.health--;
+            RefreshUI();
+            yield return 0;
+            yield return new WaitForSeconds(0);
+        }
     }
 }
