@@ -3,49 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class FightController : MonoBehaviour {
     private int turn;
 
-    //Player
+    //PLAYER
     public GameObject player;
     private Player playerScript;
+    //UI PLAYER
     public Text actionPointsText;
     public Slider playerHealthBar;
+    public Slider spiritBlastCounter;
     public Text playerHealthNumber;
     public Text playerArmorNumber;
     public Button lightAttackButton;
     public Button heavyAttackButton;
     public Button basicHealButton;
-    public Button basicMagicButton;
+    public Button basicSpellButton;
     public Button guardButton;
     public Button spiritBlastButton;
+    public GameObject actionPanel;
+    public Text[] combatDialogue;
 
-    //Boss
+    //BOSS
     public GameObject boss;
     private Boss bossScript;
-
+    //UI BOSS
     public Slider bossHealthBar;
     public Text bossHealthNumber;
     public Text bossArmorNumber;
 
+    //CAMERAS
+    public Camera mainCamera;
+    public Camera frontalPlayerCamera;
+
     void Start () {
-        turn = 0;
+        turn = 0; //Turno inicial
         playerScript = player.GetComponent<Player>();
-        playerScript.stats.strenght = 5;
-        playerScript.stats.vitality = 5;
-        playerScript.stats.endurance = 5;
-        playerScript.stats.vigor = 5;
-        playerScript.stats.power = 5;
-        bossScript = boss.GetComponent<Boss>();
+        bossScript = boss.GetComponent<Boss>();      
 
         //Buttons
         lightAttackButton.onClick.AddListener(LightAttack);
         heavyAttackButton.onClick.AddListener(HeavyAttack);
-        basicHealButton.onClick.AddListener(LowHealing);
-        basicMagicButton.onClick.AddListener(LowMagic);
+        basicHealButton.onClick.AddListener(BasicHeal);
+        basicSpellButton.onClick.AddListener(BasicSpell);
         guardButton.onClick.AddListener(Guard);
         spiritBlastButton.onClick.AddListener(SpiritBlast);
 
+        //Cameras
+        mainCamera.enabled = true;
+        frontalPlayerCamera.enabled = false;
+
+        ShowActions();
         RefreshUI();
     }
 	
@@ -53,32 +62,23 @@ public class FightController : MonoBehaviour {
 	void Update () {
         playerScript = player.GetComponent<Player>();
         bossScript = boss.GetComponent<Boss>();
-        //Debug.Log(turn%2);
+
+        //Repartidor de turnos
         if (bossScript.health > 0 && playerScript.health > 0)
         {
             if (turn % 2 == 0)
             {
                 //Player's turn
-                if (playerScript.moves > 0 && playerScript.energy > 2)
+                if (playerScript.moves > 0 && playerScript.energy > 2) //todo Mayor que dos porque ninguna habilidad cuesta menos de 3 actualmente
                 {
-                    //todo PASAR A SUS PROPIOS SCRIPTS
-                    if (playerScript.energy > 6)
-                        heavyAttackButton.interactable = true;
-                    else heavyAttackButton.interactable = false;                        
-                    if (playerScript.health >= playerScript.maxHealth) //caso de vida maxima igual a vida actual
-                    {
-                        basicHealButton.interactable = false;
-                    }
-                    else
-                    {
-                        basicHealButton.interactable = true;
-                    }
-                    }
+                    //ShowActions();                    
+                }
                 else
                 {
+                    HideActions();
                     playerScript.spiritBlast += playerScript.energy;
-                    Debug.Log(playerScript.spiritBlast);
-                    Debug.Log("Boss Turn");
+                    //Debug.Log(playerScript.spiritBlast);
+                    //Debug.Log("Boss Turn");
                     turn++;
                 }
             }
@@ -129,89 +129,183 @@ public class FightController : MonoBehaviour {
                 Debug.Log("Player gana");
             }
         }
-
-        RefreshUI();
     }
+
+
+
+    //UI Info
+    void ShowActions()
+    {
+        actionPanel.SetActive(true);
+
+        //Coste 10
+        if (playerScript.energy > 9)
+            if (playerScript.spiritBlast >= 10) //valor de acumulación de spirit blast
+            {
+                spiritBlastButton.interactable = true;
+            }
+            else spiritBlastButton.interactable = false;
+
+        //Coste 7
+        if (playerScript.energy > 6)
+            heavyAttackButton.interactable = true;
+        else heavyAttackButton.interactable = false;
+
+        //Coste 4
+        if (playerScript.energy > 3)
+            guardButton.interactable = true;
+        else guardButton.interactable = false;
+
+        //Coste 3
+        if (playerScript.energy > 2)
+        {
+            lightAttackButton.interactable = true;
+
+            //Curación cuando la vida es máxima
+            if (playerScript.health >= playerScript.maxHealth)
+                basicHealButton.interactable = false;
+            else basicHealButton.interactable = true;
+
+            basicSpellButton.interactable = true;
+        }
+        else
+        {
+            lightAttackButton.interactable = false;
+            basicHealButton.interactable = false;
+            basicSpellButton.interactable = false;
+        }
+    }
+
+    void HideActions()
+    {
+        actionPanel.SetActive(false);
+    }
+
+    void AddCombatText()
+    {
+        combatDialogue[6].text = combatDialogue[5].text;
+        combatDialogue[5].text = combatDialogue[4].text;
+        combatDialogue[4].text = combatDialogue[3].text;
+        combatDialogue[3].text = combatDialogue[2].text;
+        combatDialogue[2].text = combatDialogue[1].text;
+        combatDialogue[1].text = combatDialogue[0].text;
+    }
+
+
 
     //Character Actions
     void LightAttack()
     {
-        playerScript.energy -= 3;
-        if (Random.Range(0, 20) == 1)
-            bossScript.health -= playerScript.stats.strenght * 12; //crtikal
-        else
-            bossScript.health -= playerScript.stats.strenght * 6; //normal light attack
+        HideActions();
+        StartCoroutine(Waiter());
 
+        playerScript.energy -= 3;
         playerScript.moves--;
-        RefreshUI();
-        Debug.Log(playerScript.stats.strenght);
+
+        if (Random.Range(0, 20) == 1) //critico
+        {
+            int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
+            bossScript.health -= damage;
+            AddCombatText();
+            combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
+            combatDialogue[0].text = "CRITICAL! Player and dealt " + damage.ToString() + " damge to the Boss";
+        }
+        else //ataque normal
+        {
+            int damage = Random.Range(playerScript.stats.strenght * 6 - 3, playerScript.stats.strenght * 6 + 3);
+            bossScript.health -= damage;
+            AddCombatText();
+            combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+        }
     }
 
     void HeavyAttack()
     {
+        HideActions();
+        StartCoroutine(Waiter());
+
         playerScript.energy -= 7;
-        if(Random.Range(0,7) == 1)
-            bossScript.health -= playerScript.stats.strenght * 32; //crtikal
-        else
-            bossScript.health -= playerScript.stats.strenght * 16; //normal heavy attack
-
         playerScript.moves--;
-        RefreshUI();
+
+        if (Random.Range(0, 7) == 1) //critico
+        {
+            int damage = Random.Range(playerScript.stats.strenght * 32 - 3, playerScript.stats.strenght * 32 + 3);
+            bossScript.health -= damage;
+            AddCombatText();
+            combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
+            combatDialogue[0].text = "CRITICAL! Player and dealt " + damage.ToString() + " damge to the Boss";
+        }
+        else //ataque normal
+        {
+            int damage = Random.Range(playerScript.stats.strenght * 16 - 3, playerScript.stats.strenght * 16 + 3);
+            bossScript.health -= damage;
+            AddCombatText();
+            combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+        }
     }
 
-    void LowHealing()
+    void BasicHeal()
     {
-        if(playerScript.health >= playerScript.maxHealth) //caso de vida maxima igual a vida actual
-        {
-            
-        }
-        else
-        {
-            playerScript.energy -= 3;
-            playerScript.health += playerScript.stats.vigor * 7; //normal healing
-            playerScript.moves--;
-            if (playerScript.health >= playerScript.maxHealth) playerScript.health = playerScript.maxHealth; //exceso de curación
-        }
-        RefreshUI();
-    }
+        HideActions();
+        StartCoroutine(Waiter());
 
-    void LowMagic()
-    {
         playerScript.energy -= 3;
-        bossScript.health -= playerScript.stats.power * 4; //normal magic attack
         playerScript.moves--;
-        RefreshUI();
+
+        int healing = playerScript.stats.vigor * 7;
+        if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
+        playerScript.health += healing; //normal healing
+
+        AddCombatText();
+        combatDialogue[0].text = "Player healed himself for " + healing.ToString() + " HP";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+    }
+
+    void BasicSpell()
+    {
+        HideActions();
+        StartCoroutine(Waiter());
+
+        playerScript.energy -= 3;
+        playerScript.moves--;
+
+        int damage = playerScript.stats.power * 4;
+        bossScript.health -= damage;
+        AddCombatText();
+        combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
     }
 
     void Guard()
     {
+        HideActions();
+        StartCoroutine(Waiter());
+
         playerScript.energy -= 4;
-        playerScript.armor += playerScript.stats.endurance * 10; //adding armor
         playerScript.moves--;
-        RefreshUI();
+
+        int armored = playerScript.stats.endurance * 12;
+        playerScript.armor += armored;
+        AddCombatText();
+        combatDialogue[0].text = "Player covered himself with " + armored.ToString() + " armor";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
     }
 
     void SpiritBlast()
     {
-        if(playerScript.energy == 10)
-        {
-            if (playerScript.spiritBlast >= 10)
-            {
-                playerScript.energy -= 10;
-                bossScript.health -= 200; //damage
-                playerScript.moves--;
-                playerScript.spiritBlast -= 10;
-            }
-            else
-            {
-                //boton desactivado
-            }
-        }
-        else
-        {
-            //boton desactivado
-        }
-        RefreshUI();
+        HideActions();
+        StartCoroutine(Waiter());
+
+        playerScript.energy -= 10;
+        playerScript.moves--;
+
+        int damage = 200;
+        bossScript.health -= damage;
+        AddCombatText();
+        combatDialogue[0].text = "Player used SPIRIT BLAST: " + damage.ToString() + " damge to the Boss";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
     }
 
     // Boss Actions
@@ -275,6 +369,7 @@ public class FightController : MonoBehaviour {
     {
         //Energia del player
         actionPointsText.text = playerScript.energy.ToString();
+        spiritBlastCounter.value = playerScript.spiritBlast;
         //Vida del player
         playerHealthNumber.text = playerScript.health.ToString() + '/' + playerScript.maxHealth.ToString();
         playerArmorNumber.text = playerScript.armor.ToString();
@@ -285,5 +380,16 @@ public class FightController : MonoBehaviour {
         bossArmorNumber.text = bossScript.armor.ToString();
         bossHealthBar.value = (float)bossScript.health / (float)bossScript.maxHealth;
     }
-}
 
+    //Corutina de espera
+    IEnumerator Waiter()
+    {
+        mainCamera.enabled = !mainCamera.enabled;
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        yield return new WaitForSecondsRealtime(3);
+        mainCamera.enabled = !mainCamera.enabled;
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        ShowActions();
+        RefreshUI();
+    }
+}
