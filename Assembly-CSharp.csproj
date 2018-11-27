@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Boss.cs" />
+    <Compile Include="Assets\Scripts\CameraRotation.cs" />
     <Compile Include="Assets\Scripts\FightController.cs" />
     <Compile Include="Assets\Scripts\NPC\DoorGuy.cs" />
     <Compile Include="Assets\Scripts\NPC\DoorGuy_OptionsButtons.cs" />

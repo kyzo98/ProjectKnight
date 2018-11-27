@@ -67,3 +67,5 @@ C:\Users\paul moya\Documents\DatosPAULENTI\Proyecto II\Unity.PROJECTII\ProjectKn
 C:\Users\paul moya\Documents\DatosPAULENTI\Proyecto II\Unity.PROJECTII\ProjectKnight\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\paul moya\Documents\DatosPAULENTI\Proyecto II\Unity.PROJECTII\ProjectKnight\obj\Debug\Assembly-CSharp.dll
 C:\Users\paul moya\Documents\DatosPAULENTI\Proyecto II\Unity.PROJECTII\ProjectKnight\obj\Debug\Assembly-CSharp.pdb
+D:\Projects\Unity Projects\ProjectKnight\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Projects\Unity Projects\ProjectKnight\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

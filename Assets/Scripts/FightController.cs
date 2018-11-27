@@ -36,6 +36,7 @@ public class FightController : MonoBehaviour {
     //CAMERAS
     public Camera mainCamera;
     public Camera frontalPlayerCamera;
+    public Camera secondaryCamera;
 
     void Start () {
         turn = 0; //Turno inicial
