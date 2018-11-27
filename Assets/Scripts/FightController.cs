@@ -12,6 +12,7 @@ public class FightController : MonoBehaviour {
     public Text actionPointsText;
     public Slider playerHealthBar;
     public Text playerHealthNumber;
+    public Text playerArmorNumber;
     public Button lightAttackButton;
     public Button heavyAttackButton;
     public Button basicHealButton;
@@ -25,15 +26,16 @@ public class FightController : MonoBehaviour {
 
     public Slider bossHealthBar;
     public Text bossHealthNumber;
+    public Text bossArmorNumber;
 
     void Start () {
         turn = 0;
         playerScript = player.GetComponent<Player>();
-        playerScript.stats.strenght = 20;
-        playerScript.stats.vitality = 20;
-        playerScript.stats.endurance = 20;
-        playerScript.stats.vigor = 20;
-        playerScript.stats.power = 20;
+        playerScript.stats.strenght = 5;
+        playerScript.stats.vitality = 5;
+        playerScript.stats.endurance = 5;
+        playerScript.stats.vigor = 5;
+        playerScript.stats.power = 5;
         bossScript = boss.GetComponent<Boss>();
 
         //Buttons
@@ -57,22 +59,25 @@ public class FightController : MonoBehaviour {
             if (turn % 2 == 0)
             {
                 //Player's turn
-                if (playerScript.moves > 0 && playerScript.energy > 0)
+                if (playerScript.moves > 0 && playerScript.energy > 2)
                 {
                     //todo PASAR A SUS PROPIOS SCRIPTS
-                    if(playerScript.energy > 2)
-                        lightAttackButton.interactable = true;
-                    else lightAttackButton.interactable = false;
                     if (playerScript.energy > 6)
                         heavyAttackButton.interactable = true;
-                    else heavyAttackButton.interactable = false;
-                }
+                    else heavyAttackButton.interactable = false;                        
+                    if (playerScript.health >= playerScript.maxHealth) //caso de vida maxima igual a vida actual
+                    {
+                        basicHealButton.interactable = false;
+                    }
+                    else
+                    {
+                        basicHealButton.interactable = true;
+                    }
+                    }
                 else
                 {
                     playerScript.spiritBlast += playerScript.energy;
                     Debug.Log(playerScript.spiritBlast);
-                    lightAttackButton.interactable = false;
-                    heavyAttackButton.interactable = false;
                     Debug.Log("Boss Turn");
                     turn++;
                 }
@@ -105,6 +110,7 @@ public class FightController : MonoBehaviour {
                 playerScript.moves = 3;
                 playerScript.energy = playerScript.maxEnergy;
                 if (playerScript.armor > 0) playerScript.armor = 0;
+                if (bossScript.armor > 0) bossScript.armor = 0;
                 turn++;
             }
         }
@@ -131,7 +137,11 @@ public class FightController : MonoBehaviour {
     void LightAttack()
     {
         playerScript.energy -= 3;
-        bossScript.health -= playerScript.stats.strenght; //normal light attack
+        if (Random.Range(0, 20) == 1)
+            bossScript.health -= playerScript.stats.strenght * 12; //crtikal
+        else
+            bossScript.health -= playerScript.stats.strenght * 6; //normal light attack
+
         playerScript.moves--;
         RefreshUI();
         Debug.Log(playerScript.stats.strenght);
@@ -140,10 +150,11 @@ public class FightController : MonoBehaviour {
     void HeavyAttack()
     {
         playerScript.energy -= 7;
-        if(Random.Range(0,50) == 1)
-            bossScript.health -= playerScript.stats.strenght * 4; //crtikal
+        if(Random.Range(0,7) == 1)
+            bossScript.health -= playerScript.stats.strenght * 32; //crtikal
         else
-            bossScript.health -= playerScript.stats.strenght * 2; //normal heavy attack
+            bossScript.health -= playerScript.stats.strenght * 16; //normal heavy attack
+
         playerScript.moves--;
         RefreshUI();
     }
@@ -152,13 +163,12 @@ public class FightController : MonoBehaviour {
     {
         if(playerScript.health >= playerScript.maxHealth) //caso de vida maxima igual a vida actual
         {
-            basicHealButton.interactable = false;
+            
         }
         else
         {
-            basicHealButton.interactable = true;
             playerScript.energy -= 3;
-            playerScript.health += playerScript.stats.vigor; //normal healing
+            playerScript.health += playerScript.stats.vigor * 7; //normal healing
             playerScript.moves--;
             if (playerScript.health >= playerScript.maxHealth) playerScript.health = playerScript.maxHealth; //exceso de curación
         }
@@ -168,15 +178,15 @@ public class FightController : MonoBehaviour {
     void LowMagic()
     {
         playerScript.energy -= 3;
-        bossScript.health -= playerScript.stats.power; //normal magic attack
+        bossScript.health -= playerScript.stats.power * 4; //normal magic attack
         playerScript.moves--;
         RefreshUI();
     }
 
     void Guard()
     {
-        playerScript.energy -= 3;
-        playerScript.armor += playerScript.stats.endurance; //adding armor
+        playerScript.energy -= 4;
+        playerScript.armor += playerScript.stats.endurance * 10; //adding armor
         playerScript.moves--;
         RefreshUI();
     }
@@ -267,10 +277,12 @@ public class FightController : MonoBehaviour {
         actionPointsText.text = playerScript.energy.ToString();
         //Vida del player
         playerHealthNumber.text = playerScript.health.ToString() + '/' + playerScript.maxHealth.ToString();
+        playerArmorNumber.text = playerScript.armor.ToString();
         playerHealthBar.value = (float)playerScript.health / (float)playerScript.maxHealth;
 
         //Vida del boss
         bossHealthNumber.text = bossScript.health.ToString() + '/' + bossScript.maxHealth.ToString();
+        bossArmorNumber.text = bossScript.armor.ToString();
         bossHealthBar.value = (float)bossScript.health / (float)bossScript.maxHealth;
     }
 }

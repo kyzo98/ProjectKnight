@@ -1447,12 +1447,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97fa51f7007bb0b4fb4a2f3e9cad09ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-    vitality: 0
-    strenght: 0
-    endurance: 0
-    power: 0
-    vigor: 0
   maxHealth: 1000
   health: 1000
   armor: 0
@@ -1476,14 +1470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e487c3d0c0db7cb41aadc80544345dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-    vitality: 20
-    strenght: 20
-    endurance: 20
-    power: 20
-    vigor: 20
-  maxHealth: 200
-  health: 200
+  maxHealth: 250
+  health: 250
   armor: 0
   coins: 0
   maxEnergy: 10
@@ -2351,6 +2339,7 @@ MonoBehaviour:
   actionPointsText: {fileID: 1858784547}
   playerHealthBar: {fileID: 500440351}
   playerHealthNumber: {fileID: 880629392}
+  playerArmorNumber: {fileID: 1956905576}
   lightAttackButton: {fileID: 168405461}
   heavyAttackButton: {fileID: 685411354}
   basicHealButton: {fileID: 656652825}
@@ -2360,6 +2349,7 @@ MonoBehaviour:
   boss: {fileID: 737581174}
   bossHealthBar: {fileID: 1167181552}
   bossHealthNumber: {fileID: 626364170}
+  bossArmorNumber: {fileID: 1129628887}
 --- !u!4 &1197719444
 Transform:
   m_ObjectHideFlags: 0
@@ -3815,12 +3805,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e487c3d0c0db7cb41aadc80544345dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-    vitality: 0
-    strenght: 0
-    endurance: 0
-    power: 0
-    vigor: 0
   maxHealth: 200
   health: 200
   armor: 0
