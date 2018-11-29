@@ -36,7 +36,7 @@ public class FightController : MonoBehaviour {
     //CAMERAS
     public Camera mainCamera;
     public Camera frontalPlayerCamera;
-    public Camera secondaryCamera;
+    public Camera secondCamera;
 
     void Start () {
         turn = 0; //Turno inicial
@@ -53,6 +53,7 @@ public class FightController : MonoBehaviour {
 
         //Cameras
         mainCamera.enabled = true;
+        secondCamera.enabled = false;
         frontalPlayerCamera.enabled = false;
 
         ShowActions();
@@ -86,26 +87,20 @@ public class FightController : MonoBehaviour {
             else
             {
                 //Boss's turn
-                int randomChoice = Random.Range(0,5); //Selector de actuación en el turno
+                int randomChoice = Random.Range(0,2); //Selector de actuación en el turno
                 switch (randomChoice)
                 {
                     case 0:
-                        BossLowHealing();
+                        BossLightAttack();
+                        Debug.Log("LightAttack");
                         break;
                     case 1:
-                        BossLightAttack();
+                        BossHeavyAttack();
+                        Debug.Log("HeavyAttack");
                         break;
                     case 2:
-                        BossHeavyAttack();
-                        break;
-                    case 3:
-                        BossLowMagic();
-                        break;
-                    case 4:
-                        BossGuard();
-                        break;
-                    case 5:
-                        BossSpiritBlast();
+                        BossLowHealing();
+                        Debug.Log("LowHealing");
                         break;
                 }
                 playerScript.moves = 3;
@@ -313,8 +308,8 @@ public class FightController : MonoBehaviour {
     void BossLightAttack()
     {
         //bossScript.energy -= 1;
-        playerScript.health -= playerScript.stats.strenght; //normal light attack
-        bossScript.moves--;
+        //playerScript.health -= bossScript.stats.strenght; //normal light attack
+        StartCoroutine(PlayerHealthBarAnimation(bossScript.stats.strenght, false));
         RefreshUI();
     }
 
@@ -323,13 +318,12 @@ public class FightController : MonoBehaviour {
         //bossScript.energy -= 4;
         if (Random.Range(0, 50) == 1)
         {
-            playerScript.health -= bossScript.stats.strenght * 4; //crtikal
+            playerScript.health -= bossScript.stats.strenght * 3; //crtikal
         }
         else
         {
             playerScript.health -= bossScript.stats.strenght * 2; //normal heavy attack
         }
-        playerScript.moves--;
         RefreshUI();
     }
 
@@ -337,34 +331,34 @@ public class FightController : MonoBehaviour {
     {
         //bossScript.energy -= 1;
         bossScript.health += bossScript.stats.vigor; //normal healing
-        bossScript.moves--;
         if (bossScript.health >= bossScript.maxHealth) bossScript.health = bossScript.maxHealth; //exceso de curación
         RefreshUI();
     }
 
-    void BossLowMagic()
-    {
-        //bossScript.energy -= 1;
-        playerScript.health -= playerScript.stats.power; //normal magic attack
-        bossScript.moves--;
-        RefreshUI();
-    }
+    //void BossLowMagic()
+    //{
+    //    //bossScript.energy -= 1;
+    //    playerScript.health -= bossScript.stats.power; //normal magic attack
+    //    bossScript.moves--;
+    //    RefreshUI();
+    //}
 
-    void BossGuard()
-    {
-        //bossScript.energy -= 1;
-        bossScript.armor += bossScript.stats.endurance; //adding armor
-        bossScript.moves--;
-        RefreshUI();
-    }
+    //void BossGuard()
+    //{
+    //    //bossScript.energy -= 1;
+    //    bossScript.armor += bossScript.stats.endurance; //adding armor
+    //    bossScript.moves--;
+    //    RefreshUI();
+    //}
 
-    void BossSpiritBlast()
-    {
-        playerScript.health -= 200; //damage
-        bossScript.moves--;
-        bossScript.spiritBlast -= 10;
-        RefreshUI();
-    }
+        //void BossSpiritBlast()
+        //{
+        //    playerScript.health -= 200; //damage
+        //    bossScript.moves--;
+        //    bossScript.spiritBlast -= 10;
+        //    RefreshUI();
+        //}
+        //Finish boss actions
 
     void RefreshUI()
     {
@@ -383,13 +377,29 @@ public class FightController : MonoBehaviour {
         bossHealthBar.value = (float)bossScript.health / (float)bossScript.maxHealth;
     }
 
+    void CameraSelector()
+    {
+        int randomSelection = Random.Range(0, 2);
+        switch (randomSelection)
+        {
+            case 0:
+                mainCamera.enabled = true;
+                secondCamera.enabled = false;
+                break;
+            case 1:
+                mainCamera.enabled = false;
+                secondCamera.enabled = true;
+                break;
+        }
+    }
+
     //Corutina de espera
     IEnumerator Waiter()
     {
-        mainCamera.enabled = !mainCamera.enabled;
+        CameraSelector();
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         yield return new WaitForSecondsRealtime(3);
-        mainCamera.enabled = !mainCamera.enabled;
+        CameraSelector();
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         ShowActions();
         RefreshUI();

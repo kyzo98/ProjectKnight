@@ -280,7 +280,7 @@ public class DoorGuy : MonoBehaviour
                         dialogueText.text = ""; //Reseteamos el texto
                         endCorutines = false;
                         dialogueState = DialogueState.END;
-                        SceneManager.LoadScene("Fight", LoadSceneMode.Additive);
+                        SceneManager.LoadScene("Fight", LoadSceneMode.Single);
                     }
                 }
                 else

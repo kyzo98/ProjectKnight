@@ -15,13 +15,12 @@ public class Boss : MonoBehaviour {
     public int armor;
     public int maxEnergy;
     public int energy;
-    public int moves;
     public int spiritBlast;
 
     // Use this for initialization
     void Start () {
         stats.vitality = 20;
-        stats.strenght = 20;
+        stats.strenght = 15;
         stats.endurance = 20;
         stats.power = 20;
         stats.vigor = 20;

@@ -8,11 +8,14 @@ public class CameraRotation : MonoBehaviour {
     public Transform target;              // Camera targeting gameobject.
     private Vector3 offset;               // Distance between target gameobject and the actual camera.
 
-    //New positions for the camera
+    // Positions for the camera
     public Vector3 mainCameraNewPosition;
+    Vector3 firstPosition;
+    Vector3 updatedPosition;
+    Vector3 positionChange;
 
     // Speed related to the camera movement
-    public float speed = 0.2f;
+    private float speed = 0.2f;
 
     void Start()
     {
@@ -21,15 +24,17 @@ public class CameraRotation : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        StartCoroutine(CameraChanging());
+        StartCoroutine(CameraMovement());
+        firstPosition = transform.position;
     }
 
-    IEnumerator CameraChanging()
+    IEnumerator CameraMovement()
     {
         transform.LookAt(target);
-        Vector3 updatedPosition = mainCameraNewPosition + offset;
-        Vector3 positionChange = Vector3.Lerp(transform.position, updatedPosition, Time.deltaTime * speed);
+        updatedPosition = mainCameraNewPosition + offset;
+        positionChange = Vector3.Lerp(transform.position, updatedPosition, Time.deltaTime * speed);
         transform.position = positionChange;
         yield return new WaitForSeconds(0);
     }
+
 }
