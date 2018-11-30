@@ -33,6 +33,9 @@ public class FightController : MonoBehaviour {
     public Text bossHealthNumber;
     public Text bossArmorNumber;
 
+    //BOSS ANIMATIONS
+    private Animator bossAnimator;
+
     //CAMERAS
     public Camera mainCamera;
     public Camera frontalPlayerCamera;
@@ -41,7 +44,8 @@ public class FightController : MonoBehaviour {
     void Start () {
         turn = 0; //Turno inicial
         playerScript = player.GetComponent<Player>();
-        bossScript = boss.GetComponent<Boss>();      
+        bossScript = boss.GetComponent<Boss>();
+        bossAnimator = boss.GetComponent<Animator>();
 
         //Buttons
         lightAttackButton.onClick.AddListener(LightAttack);
@@ -87,26 +91,44 @@ public class FightController : MonoBehaviour {
             else
             {
                 //Boss's turn
-                int randomChoice = Random.Range(0,2); //Selector de actuación en el turno
-                switch (randomChoice)
+                if(bossScript.health < bossScript.maxHealth) //Si tiene vida reducida tiee posibilidad de tirar curas
                 {
-                    case 0:
-                        BossLightAttack();
-                        Debug.Log("LightAttack");
-                        break;
-                    case 1:
-                        BossHeavyAttack();
-                        Debug.Log("HeavyAttack");
-                        break;
-                    case 2:
-                        BossLowHealing();
-                        Debug.Log("LowHealing");
-                        break;
+                    int randomChoice = Random.Range(0, 2); //Selector de actuación en el turno
+                    switch (randomChoice)
+                    {
+                        case 0:
+                            BossMeleeAtack();
+                            Debug.Log("LightAttack");
+                            break;
+                        case 1:
+                            BossMagicSpell();
+                            Debug.Log("HeavyAttack");
+                            break;
+                        case 2:
+                            BossHealing();
+                            Debug.Log("LowHealing");
+                            break;
+                    }
                 }
+                else
+                {
+                    int randomChoice = Random.Range(0, 1); //Selector de actuación en el turno
+                    switch (randomChoice)
+                    {
+                        case 0:
+                            BossMeleeAtack();
+                            Debug.Log("LightAttack");
+                            break;
+                        case 1:
+                            BossMagicSpell();
+                            Debug.Log("HeavyAttack");
+                            break;
+                    }
+                }
+                
                 playerScript.moves = 3;
                 playerScript.energy = playerScript.maxEnergy;
                 if (playerScript.armor > 0) playerScript.armor = 0;
-                if (bossScript.armor > 0) bossScript.armor = 0;
                 turn++;
             }
         }
@@ -305,60 +327,46 @@ public class FightController : MonoBehaviour {
     }
 
     // Boss Actions
-    void BossLightAttack()
+    void BossMeleeAtack()
     {
-        //bossScript.energy -= 1;
-        //playerScript.health -= bossScript.stats.strenght; //normal light attack
-        StartCoroutine(PlayerHealthBarAnimation(bossScript.stats.strenght, false));
-        RefreshUI();
+        HideActions();
+        bossAnimator.SetTrigger("MeleeAnim");
+        StartCoroutine(Waiter());
+
+        int damage = Random.Range(bossScript.stats.strenght * 2 - 3, bossScript.stats.strenght * 2 + 3);
+        StartCoroutine(PlayerHealthBarAnimation(damage, false));
+        AddCombatText();
+        combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damge to you";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
     }
 
-    void BossHeavyAttack()
+    void BossHealing()
     {
-        //bossScript.energy -= 4;
-        if (Random.Range(0, 50) == 1)
-        {
-            playerScript.health -= bossScript.stats.strenght * 3; //crtikal
-        }
-        else
-        {
-            playerScript.health -= bossScript.stats.strenght * 2; //normal heavy attack
-        }
-        RefreshUI();
+        HideActions();
+        bossAnimator.SetTrigger("HealAnim");
+        StartCoroutine(Waiter());
+
+        int healing = bossScript.stats.vigor * 2;
+        StartCoroutine(BossHealthBarAnimation(healing, true));
+        AddCombatText();
+        combatDialogue[0].text = "Boss healed himself for " + healing.ToString() + " HP";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
     }
 
-    void BossLowHealing()
+    void BossMagicSpell()
     {
-        //bossScript.energy -= 1;
-        bossScript.health += bossScript.stats.vigor; //normal healing
-        if (bossScript.health >= bossScript.maxHealth) bossScript.health = bossScript.maxHealth; //exceso de curación
-        RefreshUI();
+        HideActions();
+        bossAnimator.SetTrigger("SpellCasting");
+        StartCoroutine(Waiter());
+
+        int damage = bossScript.stats.power * 3;
+        StartCoroutine(PlayerHealthBarAnimation(damage, false));
+        AddCombatText();
+        combatDialogue[0].text = "Boss dealt " + damage.ToString() + " magic damage to you";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
     }
 
-    //void BossLowMagic()
-    //{
-    //    //bossScript.energy -= 1;
-    //    playerScript.health -= bossScript.stats.power; //normal magic attack
-    //    bossScript.moves--;
-    //    RefreshUI();
-    //}
 
-    //void BossGuard()
-    //{
-    //    //bossScript.energy -= 1;
-    //    bossScript.armor += bossScript.stats.endurance; //adding armor
-    //    bossScript.moves--;
-    //    RefreshUI();
-    //}
-
-        //void BossSpiritBlast()
-        //{
-        //    playerScript.health -= 200; //damage
-        //    bossScript.moves--;
-        //    bossScript.spiritBlast -= 10;
-        //    RefreshUI();
-        //}
-        //Finish boss actions
 
     void RefreshUI()
     {
@@ -373,7 +381,6 @@ public class FightController : MonoBehaviour {
 
         //Vida del boss
         bossHealthNumber.text = bossScript.health.ToString() + '/' + bossScript.maxHealth.ToString();
-        bossArmorNumber.text = bossScript.armor.ToString();
         bossHealthBar.value = (float)bossScript.health / (float)bossScript.maxHealth;
     }
 
@@ -399,6 +406,10 @@ public class FightController : MonoBehaviour {
         CameraSelector();
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         yield return new WaitForSecondsRealtime(3);
+        //bossAnimator.ResetTrigger("HealAnimation");
+        //bossAnimator.ResetTrigger("");
+        //bossAnimator.ResetTrigger("");
+        //bossAnimator.SetTrigger("");
         CameraSelector();
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         ShowActions();
@@ -420,7 +431,7 @@ public class FightController : MonoBehaviour {
             yield return new WaitForSeconds(0);
         }
     }
-
+    
     IEnumerator PlayerHealthBarAnimation(int d, bool isHeal)
     {
         if(!isHeal)

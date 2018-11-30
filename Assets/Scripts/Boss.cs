@@ -12,10 +12,6 @@ public class Boss : MonoBehaviour {
     //Recursos
     public int maxHealth;
     public int health;
-    public int armor;
-    public int maxEnergy;
-    public int energy;
-    public int spiritBlast;
 
     // Use this for initialization
     void Start () {
