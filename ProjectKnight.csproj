@@ -303,6 +303,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AdultLink\HoloShield\Examples\Scripts\animationController.cs" />
+    <Compile Include="Assets\AdultLink\HoloShield\Examples\Scripts\CameraController.cs" />
+    <Compile Include="Assets\AdultLink\HoloShield\Examples\Scripts\CameraMovement.cs" />
+    <Compile Include="Assets\AdultLink\HoloShield\Examples\Scripts\CameraPositions.cs" />
+    <Compile Include="Assets\AdultLink\HoloShield\Examples\Scripts\Index.cs" />
+    <Compile Include="Assets\AdultLink\HoloShield\Examples\Scripts\RotateAround.cs" />
+    <Compile Include="Assets\AdultLink\HoloShield\Examples\Scripts\TimeController.cs" />
+    <Compile Include="Assets\AdultLink\HoloShield\Examples\Scripts\ToggleDistortion.cs" />
+    <Compile Include="Assets\AdultLink\HoloShield\Examples\Scripts\ToggleNoise.cs" />
     <Compile Include="Assets\Scripts\Boss.cs" />
     <Compile Include="Assets\Scripts\CameraRotation.cs" />
     <Compile Include="Assets\Scripts\FightController.cs" />
@@ -319,6 +328,10 @@
     <Compile Include="Assets\Scripts\Utilities\UIWorldPosition.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\AdultLink\HoloShield\Examples\AssetStore\BOXOPHOBIC\Skybox Cubemap Extended\Shaders\Skybox Cubemap Extended.shader" />
+    <None Include="Assets\AdultLink\HoloShield\Examples\Icons\Attribution.md.txt" />
+    <None Include="Assets\AdultLink\HoloShield\Examples\Textures\Kenney\Particle samples\License.txt" />
+    <None Include="Assets\AdultLink\HoloShield\HoloShield.shader" />
     <None Include="Assets\Shaders\Outline.shader" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />

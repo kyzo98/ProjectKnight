@@ -377,6 +377,10 @@
     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Runtime\TMPro_UGUI_Private.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\AdultLink\HoloShield\Examples\AssetStore\BOXOPHOBIC\Skybox Cubemap Extended\Shaders\Skybox Cubemap Extended.shader" />
+    <None Include="Assets\AdultLink\HoloShield\Examples\Icons\Attribution.md.txt" />
+    <None Include="Assets\AdultLink\HoloShield\Examples\Textures\Kenney\Particle samples\License.txt" />
+    <None Include="Assets\AdultLink\HoloShield\HoloShield.shader" />
     <None Include="Assets\Shaders\Outline.shader" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />

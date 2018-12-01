@@ -34,6 +34,7 @@ public class Player : MonoBehaviour {
     public int energy;
     public int moves;
     public int spiritBlast;
+    public int blockChance;
 
 	void Start () {
         stats.vitality = 5;
@@ -41,7 +42,9 @@ public class Player : MonoBehaviour {
         stats.endurance = 5;
         stats.power = 5;
         stats.vigor = 5;
-	}
+        blockChance = 0;
+
+    }
 	
 	void Update () {
         
