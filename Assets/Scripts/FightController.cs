@@ -44,6 +44,9 @@ public class FightController : MonoBehaviour {
     //BOSS ANIMATIONS
     private Animator bossAnimator;
 
+    //PLAYER ANIMATIONS
+    private Animator playerAnimator;
+
     //CAMERAS
     public Camera mainCamera;
     public Camera frontalPlayerCamera;
@@ -57,6 +60,7 @@ public class FightController : MonoBehaviour {
         playerScript = player.GetComponent<Player>();
         bossScript = boss.GetComponent<Boss>();
         bossAnimator = boss.GetComponent<Animator>();
+        playerAnimator = player.GetComponent<Animator>();
 
         //Buttons
         lightAttackButton.onClick.AddListener(LightAttack);
@@ -368,7 +372,7 @@ public class FightController : MonoBehaviour {
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
+        yield return new WaitForSecondsRealtime(2); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
 
         endedMove = true;
@@ -442,7 +446,7 @@ public class FightController : MonoBehaviour {
             yield return new WaitForSeconds(0);
         }
         armorEffect.SetActive(true);
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación        
+        yield return new WaitForSecondsRealtime(1); //Tiempo de espera de la animación        
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
 
         endedMove = true;
@@ -525,11 +529,14 @@ public class FightController : MonoBehaviour {
     IEnumerator BossMeleeAtackWaiter(int d)
     {
         bossEndedMove = false;
-        //todo cambiar a camara de boss si queremos frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
-        //todo TRIGER animacion de recibir daño del player
-        //todo yield return new  WaitForSecondsRealtime(tiempo de esa animacion);
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; esta va con la primera linea
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        playerAnimator.SetTrigger("HitReaction");
+        yield return new WaitForSecondsRealtime(2);
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+
        
         if(playerScript.blockChance >= Random.Range(0, 99))
         {
@@ -605,11 +612,8 @@ public class FightController : MonoBehaviour {
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        //todo cambiar a camara de boss si queremos frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
-        //todo TRIGER animacion de recibir daño del player
-        //todo yield return new  WaitForSecondsRealtime(tiempo de esa animacion);
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; esta va con la primera linea
+        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        yield return new WaitForSecondsRealtime(2); //Tiempo de espera de la animación
 
         bossEndedMove = true;
         ShowActions();
@@ -631,11 +635,12 @@ public class FightController : MonoBehaviour {
     IEnumerator BossMagicSpellWaiter(int d)
     {
         bossEndedMove = false;
-        //todo cambiar a camara de boss si queremos frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
-        //todo TRIGER animacion de recibir daño del player
-        //todo yield return new  WaitForSecondsRealtime(tiempo de esa animacion);
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; esta va con la primera linea
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        yield return new WaitForSecondsRealtime(0.5f); //Tiempo de espera de la animación
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        playerAnimator.SetTrigger("HitReaction");
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         for (int i = d; i > 0; i--)
         {
             playerScript.health--;
