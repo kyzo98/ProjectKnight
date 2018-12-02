@@ -22,6 +22,7 @@ public class FightController : MonoBehaviour {
 
     //GAMEOBJECTS
     public GameObject armorEffect;
+    public GameObject healEffect;
 
     //PLAYER
     public GameObject player;
@@ -185,11 +186,13 @@ public class FightController : MonoBehaviour {
             HideActions();
             if (bossScript.health > 0)
             {
+                playerScript.health = 0;
                 //Boss gana
                 Debug.Log("Boss gana");
             }
             else
             {
+                bossScript.health = 0;
                 //Player gana
                 Debug.Log("Player gana");
             }
@@ -205,7 +208,7 @@ public class FightController : MonoBehaviour {
 
         //Coste 10
         if (playerScript.energy > 9)
-            if (playerScript.spiritBlast >= 10) //valor de acumulación de spirit blast
+            if (playerScript.spiritBlast >= 5) //valor de acumulación de spirit blast
             {
                 spiritBlastButton.interactable = true;
             }
@@ -377,14 +380,16 @@ public class FightController : MonoBehaviour {
     {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
+        healEffect.SetActive(true);
         for (int i = d; i > 0; i--)
         {
             playerScript.health++;
             RefreshUI();
             yield return 0;
             yield return new WaitForSeconds(0);
-        }
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
+        } 
+        yield return new WaitForSecondsRealtime(1); //Tiempo de espera de la animación
+        healEffect.SetActive(false);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
 
         endedMove = true;
@@ -472,6 +477,7 @@ public class FightController : MonoBehaviour {
         HideActions();
 
         playerScript.energy -= 10;
+        playerScript.spiritBlast = 0;
         playerScript.moves--;
 
         int damage = 200;
