@@ -5,8 +5,18 @@ using UnityEngine.UI;
 
 
 public class FightController : MonoBehaviour {
-    enum Buff { NULL }
-    enum Debuff { NULL }
+    enum BuffType { NULL }
+    enum DebuffType { NULL }
+    struct Buff
+    {
+        public BuffType type;
+        public int remainingTurns;
+    }
+    struct Debuff
+    {
+        public DebuffType type;
+        public int remainingTurns;
+    }
 
     private int turn;
 
@@ -32,6 +42,8 @@ public class FightController : MonoBehaviour {
     public Button spiritBlastButton;
     public GameObject actionPanel;
     public Text[] combatDialogue;
+    //PLAYER ANIMATIONS
+    private Animator playerAnimator;
 
     //BOSS
     public GameObject boss;
@@ -40,12 +52,8 @@ public class FightController : MonoBehaviour {
     public Slider bossHealthBar;
     public Text bossHealthNumber;
     public Text bossArmorNumber;
-
     //BOSS ANIMATIONS
     private Animator bossAnimator;
-
-    //PLAYER ANIMATIONS
-    private Animator playerAnimator;
 
     //CAMERAS
     public Camera mainCamera;
@@ -77,11 +85,15 @@ public class FightController : MonoBehaviour {
 
         //Buffs & Debuffs
         playerBuff = new Buff[2];
-        playerBuff[0] = Buff.NULL;
-        playerBuff[1] = Buff.NULL;
+        playerBuff[0].type = BuffType.NULL;
+        playerBuff[0].remainingTurns = 0;
+        playerBuff[1].type = BuffType.NULL;
+        playerBuff[1].remainingTurns = 0;
         playerDebuff = new Debuff[2];
-        playerDebuff[0] = Debuff.NULL;
-        playerDebuff[1] = Debuff.NULL;
+        playerDebuff[0].type = DebuffType.NULL;
+        playerDebuff[0].remainingTurns = 0;
+        playerDebuff[1].type = DebuffType.NULL;
+        playerDebuff[1].remainingTurns = 0;
 
         ShowActions();
         RefreshUI();
@@ -372,7 +384,7 @@ public class FightController : MonoBehaviour {
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        yield return new WaitForSecondsRealtime(2); //Tiempo de espera de la animación
+        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
 
         endedMove = true;
@@ -446,7 +458,7 @@ public class FightController : MonoBehaviour {
             yield return new WaitForSeconds(0);
         }
         armorEffect.SetActive(true);
-        yield return new WaitForSecondsRealtime(1); //Tiempo de espera de la animación        
+        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación        
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
 
         endedMove = true;
@@ -474,9 +486,11 @@ public class FightController : MonoBehaviour {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
-        //todo TRIGER animacion de recibir daño
-        //todo yield return new  WaitForSecondsRealtime(tiempo de esa animacion);
-        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        bossAnimator.SetTrigger("HeadHit");
+        yield return new WaitForSecondsRealtime(2);
+        frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
         {
             bossScript.health--;
@@ -537,8 +551,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(2);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
 
-       
-        if(playerScript.blockChance >= Random.Range(0, 99))
+        if (playerScript.blockChance >= Random.Range(0, 99))
         {
 
         }
@@ -612,8 +625,7 @@ public class FightController : MonoBehaviour {
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        yield return new WaitForSecondsRealtime(2); //Tiempo de espera de la animación
+        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
 
         bossEndedMove = true;
         ShowActions();
@@ -636,10 +648,11 @@ public class FightController : MonoBehaviour {
     {
         bossEndedMove = false;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        yield return new WaitForSecondsRealtime(0.5f); //Tiempo de espera de la animación
+        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         playerAnimator.SetTrigger("HitReaction");
+        yield return new WaitForSecondsRealtime(2);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         for (int i = d; i > 0; i--)
         {
