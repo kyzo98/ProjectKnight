@@ -53,6 +53,10 @@ public class FightController : MonoBehaviour {
     public Slider bossHealthBar;
     public Text bossHealthNumber;
     public Text bossArmorNumber;
+    //POPUP TEXT UI BOSS
+    public GameObject popupText;
+    //POPUP TEXT UI PLAYER
+    public GameObject popupTextPlayer;
     //BOSS ANIMATIONS
     private Animator bossAnimator;
 
@@ -259,7 +263,24 @@ public class FightController : MonoBehaviour {
         combatDialogue[1].text = combatDialogue[0].text;
     }
 
+    void ShowPopupText(float damage, Color color)
+    {
+        Vector3 newPosition = new Vector3(9.76f, 5.21f, -2.34f);
+        Quaternion newRotation = Quaternion.Euler(0, 90, 0);
+        GameObject popupClone = Instantiate(popupText, newPosition, newRotation);
+        popupClone.GetComponent<TextMesh>().color = color;
+        popupClone.GetComponent<TextMesh>().text = damage.ToString();
+    }
 
+    void ShowPopupTextPlayer(float damage, Color color)
+    {
+        Vector3 newPosition = new Vector3(-10.52f, 2.87f, -0.15f);
+        Quaternion newRotation = Quaternion.Euler(0, 280, 0);
+        GameObject popupClone = Instantiate(popupTextPlayer, newPosition, newRotation);
+        popupClone.GetComponent<TextMesh>().color = color;
+        popupClone.GetComponent<TextMesh>().text = damage.ToString();
+        
+    }
 
     //Character Actions
     void LightAttack()
@@ -295,7 +316,8 @@ public class FightController : MonoBehaviour {
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         bossAnimator.SetTrigger("HeadHit");
-        yield return new WaitForSecondsRealtime(2);
+        ShowPopupText(d, Color.red);
+        yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
         {
@@ -304,7 +326,7 @@ public class FightController : MonoBehaviour {
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-
+        //ShowPopupText(d);
         endedMove = true;
         if (playerScript.moves > 0 && playerScript.energy > 2)
             ShowActions();
@@ -344,7 +366,8 @@ public class FightController : MonoBehaviour {
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         bossAnimator.SetTrigger("HeadHit");
-        yield return new WaitForSecondsRealtime(2);
+        ShowPopupText(d, Color.red);
+        yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
         {
@@ -353,7 +376,7 @@ public class FightController : MonoBehaviour {
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-
+        //ShowPopupText(d);
         endedMove = true;
         if (playerScript.moves > 0 && playerScript.energy > 2)
             ShowActions();
@@ -387,8 +410,9 @@ public class FightController : MonoBehaviour {
             RefreshUI();
             yield return 0;
             yield return new WaitForSeconds(0);
-        } 
-        yield return new WaitForSecondsRealtime(1); //Tiempo de espera de la animación
+        }
+        ShowPopupTextPlayer(d, Color.green);
+        yield return new WaitForSecondsRealtime(2); //Tiempo de espera de la animación
         healEffect.SetActive(false);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
 
@@ -420,7 +444,8 @@ public class FightController : MonoBehaviour {
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         bossAnimator.SetTrigger("HeadHit");
-        yield return new WaitForSecondsRealtime(2);
+        ShowPopupText(d, Color.red);
+        yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
         {
@@ -429,7 +454,7 @@ public class FightController : MonoBehaviour {
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-
+        //ShowPopupText(d);
         endedMove = true;
         if (playerScript.moves > 0 && playerScript.energy > 2)
             ShowActions();
@@ -495,7 +520,8 @@ public class FightController : MonoBehaviour {
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         bossAnimator.SetTrigger("HeadHit");
-        yield return new WaitForSecondsRealtime(2);
+        ShowPopupText(d, Color.red);
+        yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
         {
@@ -504,7 +530,7 @@ public class FightController : MonoBehaviour {
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-
+        //ShowPopupText(d);
         endedMove = true;
         if (playerScript.moves > 0 && playerScript.energy > 2)
             ShowActions();
@@ -554,6 +580,7 @@ public class FightController : MonoBehaviour {
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         playerAnimator.SetTrigger("HitReaction");
+        ShowPopupTextPlayer(d, Color.red);
         yield return new WaitForSecondsRealtime(2);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
 
@@ -631,6 +658,7 @@ public class FightController : MonoBehaviour {
             yield return 0;
             yield return new WaitForSeconds(0);
         }
+        ShowPopupText(d, Color.green);
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
 
         bossEndedMove = true;
@@ -658,6 +686,7 @@ public class FightController : MonoBehaviour {
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         playerAnimator.SetTrigger("HitReaction");
+        ShowPopupTextPlayer(d, Color.red);
         yield return new WaitForSecondsRealtime(2);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         for (int i = d; i > 0; i--)

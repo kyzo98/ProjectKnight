@@ -11561,6 +11561,9 @@ MonoBehaviour:
   bossHealthBar: {fileID: 1167181552}
   bossHealthNumber: {fileID: 626364170}
   bossArmorNumber: {fileID: 1129628887}
+  popupText: {fileID: 1033658341422000, guid: df7831d3843371d4d8ebdb316471eca2, type: 2}
+  popupTextPlayer: {fileID: 1732553065116328, guid: 109bb99556028f44b8aa49e831012c50,
+    type: 2}
   mainCamera: {fileID: 1752930248}
   frontalPlayerCamera: {fileID: 1247873754}
   frontalBossCamera: {fileID: 1624928679}
