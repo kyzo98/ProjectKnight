@@ -2,9 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct BossStats
+{
+    public float vitality;
+    public float strenght;
+    public float endurance;
+    public float power;
+    public float vigor;
+    public bool charge;
+};
+
 public class Boss : MonoBehaviour {
     //Estadísticas
-    public Stats stats;
+    public BossStats stats;
 
     //Estados
     public State[] states;
@@ -12,6 +22,7 @@ public class Boss : MonoBehaviour {
     //Recursos
     public int maxHealth;
     public int health;
+    public int armor;
 
     // Use this for initialization
     void Start () {
@@ -20,6 +31,7 @@ public class Boss : MonoBehaviour {
         stats.endurance = 20;
         stats.power = 20;
         stats.vigor = 20;
+        stats.charge = false;
 	}
 	
 	// Update is called once per frame

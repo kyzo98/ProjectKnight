@@ -17,12 +17,19 @@ public class FightController : MonoBehaviour {
         public DebuffType type;
         public int remainingTurns;
     }
+    //Effects the bosses will make to the player
+    public enum Effects { NULL, POISONED};
+    public Effects actualEffect;
 
     private int turn;
+    private int nAttack;
+    private int nAttack2;
+    private int nAttack3;
 
     //GAMEOBJECTS
     public GameObject armorEffect;
     public GameObject healEffect;
+    public GameObject magicSpell;
 
     //PLAYER
     public GameObject player;
@@ -59,7 +66,8 @@ public class FightController : MonoBehaviour {
     public GameObject popupTextPlayer;
     //BOSS ANIMATIONS
     private Animator bossAnimator;
-
+    //PARTICLE ANIMATIONS
+    private Animation particleAnimator;
     //CAMERAS
     public Camera mainCamera;
     public Camera frontalPlayerCamera;
@@ -69,11 +77,14 @@ public class FightController : MonoBehaviour {
     private bool bossEndedMove = true;
 
     void Start () {
+        actualEffect = Effects.NULL;
+
         turn = 0; //Turno inicial
         playerScript = player.GetComponent<Player>();
         bossScript = boss.GetComponent<Boss>();
         bossAnimator = boss.GetComponent<Animator>();
         playerAnimator = player.GetComponent<Animator>();
+        particleAnimator = magicSpell.GetComponent<Animation>();
 
         //Buttons
         lightAttackButton.onClick.AddListener(LightAttack);
@@ -82,12 +93,10 @@ public class FightController : MonoBehaviour {
         basicSpellButton.onClick.AddListener(BasicSpell);
         guardButton.onClick.AddListener(Guard);
         spiritBlastButton.onClick.AddListener(SpiritBlast);
-
         //Cameras
         mainCamera.enabled = true;
         frontalPlayerCamera.enabled = false;
         frontalBossCamera.enabled = false;
-
         //Buffs & Debuffs
         playerBuff = new Buff[2];
         playerBuff[0].type = BuffType.NULL;
@@ -116,6 +125,15 @@ public class FightController : MonoBehaviour {
             {
                 if (bossEndedMove)
                 {
+                    if(actualEffect == Effects.POISONED)
+                    {
+                        float poisonDamage = 5;
+                        for(float i = poisonDamage; i > 0; i--)
+                        {
+                            playerScript.health--;
+                            RefreshUI();
+                        }
+                    }
                     //Player's turn
                     if (playerScript.moves == 3 && playerScript.armor > 0)//si tenia armadura equipada se retira ya que solo dura 1 turno
                     {
@@ -143,38 +161,320 @@ public class FightController : MonoBehaviour {
             {
                 if (endedMove)
                 {
+                    actualEffect = Effects.NULL;
                     //Boss's turn
-                    if (bossScript.health < bossScript.maxHealth) //Si tiene vida reducida tiee posibilidad de tirar curas
+
+                    if(bossScript.health >= 700)
                     {
-                        int randomChoice = Random.Range(0, 3); //Selector de actuación en el turno
-                        switch (randomChoice)
+                        nAttack++;
+                        Debug.Log(nAttack);
+                        switch (nAttack)
                         {
-                            case 0:
-                                BossMeleeAtack();
-                                Debug.Log("Melee Atack");
-                                break;
                             case 1:
-                                BossMagicSpell();
-                                Debug.Log("Magic Atack");
+                                Attack();
+                                Debug.Log("Boss used normal attack.");
+                                //nAttack++;
                                 break;
                             case 2:
-                                BossHealing();
-                                Debug.Log("Healing");
+                                Attack();
+                                Debug.Log("Boss used normal attack.");
+                                //nAttack++;
+                                break;
+                            case 3:
+                                GuardBoss();
+                                Debug.Log("Boss used Guard.");
+                                //nAttack++;
+                                break;
+                            case 4:
+                                Heal();
+                                Debug.Log("Boss healed himself.");
+                                //nAttack++;
+                                break;
+                            case 5:
+                                GuardBoss();
+                                Debug.Log("Boss used Guard.");
+                                //nAttack++;
+                                break;
+                            case 6:
+                                Attack();
+                                Debug.Log("Boss used normal Attack.");
+                                //nAttack++;
+                                break;
+                            case 7:
+                                Attack();
+                                Debug.Log("Boss used normal attack.");
+                                //nAttack++;
+                                break;
+                            case 8:
+                                bossScript.health += 1;
+                                Debug.Log("Boss healed 1 HP");
+                                RefreshUI();
+                                ShowActions();
+                                //nAttack++;
+                                break;
+                            case 9:
+                                Heal();
+                                Debug.Log("Boss healed himself.");
+                                //nAttack++;
+                                break;
+                            case 10:
+                                Attack();
+                                Debug.Log("Boss used normal attack.");
+                                //nAttack++;
+                                break;
+                            case 11:
+                                Attack();
+                                Debug.Log("Boss used normal attack.");
+                                //nAttack++;
+                                break;
+                            case 12:
+                                GuardBoss();
+                                Debug.Log("Boss used Guard.");
+                                //nAttack++;
+                                break;
+                            case 13:
+                                bossScript.health += 1;
+                                Debug.Log("Boss healed 1 HP");
+                                RefreshUI();
+                                ShowActions();
+                                //nAttack++;
+                                break;
+                            case 14:
+                                AttackPlus();
+                                Debug.Log("Boss used attack plus.");
+                                //nAttack++;
+                                break;
+                            case 15:
+                                Heal();
+                                Debug.Log("Boss healed himself.");
+                                //nAttack++;
+                                break;
+                            case 16:
+                                GuardBoss();
+                                Debug.Log("Boss used Guard.");
+                                //nAttack++;
+                                break;
+                            case 17:
+                                Attack();
+                                Debug.Log("Boss used attack.");
+                                //nAttack++;
+                                break;
+                            case 18:
+                                bossScript.health += 1;
+                                Debug.Log("Boss healed 1 HP");
+                                RefreshUI();
+                                ShowActions();
+                                nAttack = 0;
                                 break;
                         }
                     }
-                    else
+                    else if(bossScript.health >= 250 && bossScript.health <= 700)
                     {
-                        int randomChoice = Random.Range(0, 2); //Selector de actuación en el turno
-                        switch (randomChoice)
+                        nAttack2++;
+                        Debug.Log(nAttack2);
+                        switch (nAttack2)
                         {
-                            case 0:
-                                BossMeleeAtack();
-                                Debug.Log("Melee Atack");
-                                break;
                             case 1:
-                                BossMagicSpell();
-                                Debug.Log("Magic Atack");
+                                AttackPlus();
+                                Debug.Log("Boss used attack plus.");
+                                //nAttack++;
+                                break;
+                            case 2:
+                                EffectAttack();
+                                Debug.Log("Boss used effect attack.");
+                                //nAttack++;
+                                break;
+                            case 3:
+                                bossScript.health += 1;
+                                Debug.Log("Boss healed 1 HP");
+                                RefreshUI();
+                                ShowActions();
+                                //nAttack++;
+                                break;
+                            case 4:
+                                HealPlus();
+                                Debug.Log("Boss used healed himself plus.");
+                                //nAttack++;
+                                break;
+                            case 5:
+                                GuardBoss();
+                                Debug.Log("Boss used guard.");
+                                //nAttack++;
+                                break;
+                            case 6:
+                                bossScript.health += 1;
+                                Debug.Log("Boss healed 1 HP");
+                                RefreshUI();
+                                ShowActions();
+                                //nAttack++;
+                                break;
+                            case 7:
+                                Attack();
+                                Debug.Log("Boos used normal attack.");
+                                //nAttack++;
+                                break;
+                            case 8:
+                                EffectAttack();
+                                Debug.Log("Boss used effect attack");
+                                //nAttack++;
+                                break;
+                            case 9:
+                                GuardBoss();
+                                Debug.Log("Boss used guard");
+                                //nAttack++;
+                                break;
+                            case 10:
+                                HealPlus();
+                                Debug.Log("boss used heal plus.");
+                                //nAttack++;
+                                break;
+                            case 11:
+                                AttackPlus();
+                                Debug.Log("boss used attack plus.");
+                                //nAttack++;
+                                break;
+                            case 12:
+                                GuardBoss();
+                                Debug.Log("Boss used guard");
+                                //nAttack++;
+                                break;
+                            case 13:
+                                bossScript.health += 1;
+                                Debug.Log("Boss healed 1 HP");
+                                RefreshUI();
+                                ShowActions();
+                                //nAttack++;
+                                break;
+                            case 14:
+                                Attack();
+                                Debug.Log("Boss used normal attack.");
+                                //nAttack++;
+                                break;
+                            case 15:
+                                GuardBoss();
+                                Debug.Log("Boss used guard.");
+                                //nAttack++;
+                                break;
+                            case 16:
+                                Heal();
+                                Debug.Log("Boss healed himself");
+                                //nAttack++;
+                                break;
+                            case 17:
+                                EffectAttack();
+                                Debug.Log("Boss used effect attack.");
+                                //nAttack++;
+                                break;
+                            case 18:
+                                bossScript.health += 1;
+                                Debug.Log("Boss healed 1 HP");
+                                RefreshUI();
+                                ShowActions();
+                                nAttack2 = 0;
+                                break;
+                        }
+                    }
+                    else if(bossScript.health >= 0 && bossScript.health <= 250)
+                    {
+                        nAttack3++;
+                        Debug.Log(nAttack3);
+                        switch (nAttack3)
+                        {
+                            case 1:
+                                ChargeAttack();
+                                Debug.Log("Boss charged his big attack.");
+                                //nAttack++;
+                                break;
+                            case 2:
+                                SpecialAttack();
+                                Debug.Log("Boss used special attack. UUU that hurts.");
+                                //nAttack++;
+                                break;
+                            case 3:
+                                GuardBoss();
+                                Debug.Log("Boss used guard.");
+                                //nAttack++;
+                                break;
+                            case 4:
+                                Attack();
+                                Debug.Log("Boss used normal attack.");
+                                //nAttack++;
+                                break;
+                            case 5:
+                                GuardBoss();
+                                Debug.Log("Boss used guard.");
+                                //nAttack++;
+                                break;
+                            case 6:
+                                bossScript.health += 1;
+                                Debug.Log("Boss healed 1 HP");
+                                RefreshUI();
+                                ShowActions();
+                                //nAttack++;
+                                break;
+                            case 7:
+                                EffectAttack();
+                                Debug.Log("boss used effect attack.");
+                                //nAttack++;
+                                break;
+                            case 8:
+                                GuardBoss();
+                                Debug.Log("Boss used guard.");
+                                //nAttack++;
+                                break;
+                            case 9:
+                                Attack();
+                                Debug.Log("Boss used attack.");
+                                //nAttack++;
+                                break;
+                            case 10:
+                                AttackPlus();
+                                Debug.Log("Boss used attack plus");
+                                //nAttack++;
+                                break;
+                            case 11:
+                                HealPlus();
+                                Debug.Log("Boss used heal plus.");
+                                //nAttack++;
+                                break;
+                            case 12:
+                                bossScript.health += 1;
+                                Debug.Log("Boss healed 1 HP");
+                                RefreshUI();
+                                ShowActions();
+                                //nAttack++;
+                                break;
+                            case 13:
+                                Attack();
+                                Debug.Log("Boss used attack.");
+                                //nAttack++;
+                                break;
+                            case 14:
+                                ChargeAttack();
+                                Debug.Log("Boss charged his big attack. Prepare to die bitch.");
+                                //nAttack++;
+                                break;
+                            case 15:
+                                SpecialAttack();
+                                Debug.Log("boss used his special attack. UUUU hurts a lot.");
+                                //nAttack++;
+                                break;
+                            case 16:
+                                Heal();
+                                Debug.Log("Boss healed himself.");
+                                //nAttack++;
+                                break;
+                            case 17:
+                                EffectAttack();
+                                Debug.Log("Boss used effect attack");
+                                //nAttack++;
+                                break;
+                            case 18:
+                                bossScript.health += 1;
+                                Debug.Log("Boss healed 1 HP");
+                                RefreshUI();
+                                ShowActions();
+                                nAttack3 = 0;
                                 break;
                         }
                     }
@@ -440,6 +740,10 @@ public class FightController : MonoBehaviour {
     {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
+        Vector3 particlePos = new Vector3(-9.56f, 1.23f, -0.25f);
+        particleAnimator.Play();
+        GameObject particle = Instantiate(magicSpell, particlePos, Quaternion.identity);
+        Destroy(particle);
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -540,7 +844,7 @@ public class FightController : MonoBehaviour {
 
 
     // Boss Actions
-    void BossMeleeAtack()
+    void Attack()
     {
         HideActions();
         bossAnimator.SetTrigger("MeleeAnim");
@@ -554,25 +858,15 @@ public class FightController : MonoBehaviour {
         }
         else
         {
-            int damage = Random.Range(bossScript.stats.strenght * 2 - 3, bossScript.stats.strenght * 2 + 3);
-            StartCoroutine(BossMeleeAtackWaiter(damage));
+            float damage = bossScript.stats.strenght + 10;
+            StartCoroutine(BasicAtackWaiter(damage));
             AddCombatText();
             combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
         }
     }
-    IEnumerator PlayerBlocked()
-    {
-        bossEndedMove = false;
-        playerScript.blockChance = 0;
-        //Animacion de bloqueo con cambios de camara y demas
-        yield return new WaitForSecondsRealtime(2);
-        bossEndedMove = true;
-        ShowActions();
-        RefreshUI();
-    }
 
-    IEnumerator BossMeleeAtackWaiter(int d)
+    IEnumerator BasicAtackWaiter(float d)
     {
         bossEndedMove = false;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -591,9 +885,9 @@ public class FightController : MonoBehaviour {
         else
         if (playerScript.armor > 0)
         {
-            if(d <= playerScript.armor)
+            if (d <= playerScript.armor)
             {
-                for (int i = d; i > 0; i--)
+                for (float i = d; i > 0; i--)
                 {
                     playerScript.armor--;
                     RefreshUI();
@@ -611,7 +905,7 @@ public class FightController : MonoBehaviour {
                     yield return 0;
                     yield return new WaitForSeconds(0);
                 }
-                for (int i = d; i > 0; i--)
+                for (float i = d; i > 0; i--)
                 {
                     playerScript.health--;
                     RefreshUI();
@@ -622,63 +916,43 @@ public class FightController : MonoBehaviour {
         }
         else
         {
-            for (int i = d; i > 0; i--)
+            for (float i = d; i > 0; i--)
             {
                 playerScript.health--;
                 RefreshUI();
                 yield return 0;
                 yield return new WaitForSeconds(0);
             }
-        }        
-        
-        bossEndedMove = true;
-        ShowActions();
-        RefreshUI();
-    }
-
-    void BossHealing()
-    {
-        HideActions();
-        bossAnimator.SetTrigger("HealAnim");
-
-        int healing = bossScript.stats.vigor * 2;
-        StartCoroutine(BossHealingWaiter(healing));
-        AddCombatText();
-        combatDialogue[0].text = "Boss healed himself for " + healing.ToString() + " HP";
-        combatDialogue[0].color = new Color(1, 1, 1, 1);
-    }
-
-    IEnumerator BossHealingWaiter(int d)
-    {
-        bossEndedMove = false;
-        for (int i = d; i > 0; i--)
-        {
-            bossScript.health++;
-            RefreshUI();
-            yield return 0;
-            yield return new WaitForSeconds(0);
         }
-        ShowPopupText(d, Color.green);
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
 
         bossEndedMove = true;
         ShowActions();
         RefreshUI();
     }
 
-    void BossMagicSpell()
+    void AttackPlus()
     {
         HideActions();
-        bossAnimator.SetTrigger("SpellCasting");
+        bossAnimator.SetTrigger("MeleeAnim");
 
-        int damage = bossScript.stats.power * 3;
-        StartCoroutine(BossMagicSpellWaiter(damage));
-        AddCombatText();
-        combatDialogue[0].text = "Boss dealt " + damage.ToString() + " magic damage to you";
-        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
+        {
+            AddCombatText();
+            combatDialogue[0].text = "Attack Blocked";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+            StartCoroutine(PlayerBlocked());
+        }
+        else
+        {
+            float damage = bossScript.stats.strenght + 25;
+            StartCoroutine(AttackPlusWaiter(damage));
+            AddCombatText();
+            combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+        }
     }
 
-    IEnumerator BossMagicSpellWaiter(int d)
+    IEnumerator AttackPlusWaiter(float d)
     {
         bossEndedMove = false;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -689,12 +963,52 @@ public class FightController : MonoBehaviour {
         ShowPopupTextPlayer(d, Color.red);
         yield return new WaitForSecondsRealtime(2);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        for (int i = d; i > 0; i--)
+
+        if (playerScript.blockChance >= Random.Range(0, 99))
         {
-            playerScript.health--;
-            RefreshUI();
-            yield return 0;
-            yield return new WaitForSeconds(0);
+
+        }
+        else
+        if (playerScript.armor > 0)
+        {
+            if (d <= playerScript.armor)
+            {
+                for (float i = d; i > 0; i--)
+                {
+                    playerScript.armor--;
+                    RefreshUI();
+                    yield return 0;
+                    yield return new WaitForSeconds(0);
+                }
+            }
+            else
+            {
+                d -= playerScript.armor;
+                for (int i = playerScript.armor; i > 0; i--)
+                {
+                    playerScript.armor--;
+                    RefreshUI();
+                    yield return 0;
+                    yield return new WaitForSeconds(0);
+                }
+                for (float i = d; i > 0; i--)
+                {
+                    playerScript.health--;
+                    RefreshUI();
+                    yield return 0;
+                    yield return new WaitForSeconds(0);
+                }
+            }
+        }
+        else
+        {
+            for (float i = d; i > 0; i--)
+            {
+                playerScript.health--;
+                RefreshUI();
+                yield return 0;
+                yield return new WaitForSeconds(0);
+            }
         }
 
         bossEndedMove = true;
@@ -702,7 +1016,286 @@ public class FightController : MonoBehaviour {
         RefreshUI();
     }
 
+    IEnumerator PlayerBlocked()
+    {
+        bossEndedMove = false;
+        playerScript.blockChance = 0;
+        //Animacion de bloqueo con cambios de camara y demas
+        yield return new WaitForSecondsRealtime(2);
+        bossEndedMove = true;
+        ShowActions();
+        RefreshUI();
+    }
 
+    void EffectAttack()
+    {
+        HideActions();
+        //Animacion del boss acorde a esta accion.
+        float dmg = bossScript.stats.strenght;
+        StartCoroutine(EffectAttackWaiter(dmg));
+        AddCombatText();
+        combatDialogue[0].text = "Boss dealt " + dmg.ToString() + " damage.";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        if(actualEffect == Effects.POISONED)
+        {
+            AddCombatText();
+            combatDialogue[0].text = "You've been poisoned.";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+        }
+
+        HideActions();
+    }
+
+    IEnumerator EffectAttackWaiter(float d)
+    {
+        bossEndedMove = false;
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        yield return new WaitForSecondsRealtime(3);
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        playerAnimator.SetTrigger("HitReaction");
+        ShowPopupTextPlayer(d, Color.red);
+        yield return new WaitForSecondsRealtime(2);
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+
+        if(playerScript.armor > 0)
+        {
+            if(d >= playerScript.armor)
+            {
+                for(float i = d; d > 0; i--)
+                {
+                    playerScript.armor--;
+                    RefreshUI();
+                    yield return 0;
+                    yield return new WaitForSeconds(0);
+                }
+            }
+            else
+            {
+                d -= playerScript.armor;
+                for(float i = playerScript.armor; i > 0; i--)
+                {
+                    playerScript.armor--;
+                    RefreshUI();
+                    yield return 0;
+                    yield return new WaitForSeconds(0);
+                }
+                for(float i = d; i > 0; i--)
+                {
+                    playerScript.health--;
+                    RefreshUI();
+                    yield return 0;
+                    yield return new WaitForSeconds(0);
+                }
+            }
+        }
+        else
+        {
+            for(float i = d; i > 0; i--)
+            {
+                playerScript.health--;
+                RefreshUI();
+                yield return 0;
+                yield return new WaitForSeconds(0);
+            }
+        }
+
+        int randomizer = Random.Range(0, 100);
+        if(randomizer % 30 == 0)
+        {
+            actualEffect = Effects.POISONED;
+        }
+        else
+        {
+            actualEffect = Effects.NULL;
+        }
+
+        bossEndedMove = true;
+        ShowActions();
+        RefreshUI();
+    }
+
+    void ChargeAttack()
+    {
+        HideActions();
+        StartCoroutine(ChargeWaiter());
+        AddCombatText();
+        combatDialogue[0].text = "Boss charged his Special Attack.";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+    }
+
+    IEnumerator ChargeWaiter()
+    {
+        bossEndedMove = false;
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        yield return new WaitForSecondsRealtime(3);
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        if(bossScript.stats.charge == false)
+        {
+            bossScript.stats.charge = true;
+        }
+
+        bossEndedMove = true;
+        ShowActions();
+        RefreshUI();
+    }
+
+    void SpecialAttack()
+    {
+        float dmg = bossScript.stats.strenght * 4;
+        if(bossScript.stats.charge == true)
+        {
+            StartCoroutine(SpecialAttackWaiter(dmg));
+        }
+    }
+
+    IEnumerator SpecialAttackWaiter(float d)
+    {
+        bossEndedMove = false;
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        yield return new WaitForSecondsRealtime(3);
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        playerAnimator.SetTrigger("HitReaction");
+        ShowPopupTextPlayer(d, Color.red);
+        yield return new WaitForSecondsRealtime(2);
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+
+        if(playerScript.armor > 0)
+        {
+            if (d <= playerScript.armor)
+            {
+                for (int i = 0; i > 0; i--)
+                {
+                    playerScript.armor--;
+                    RefreshUI();
+                    yield return 0;
+                    yield return new WaitForSeconds(0);
+                }
+            }
+            else
+            {
+                d -= playerScript.armor;
+                for (int i = playerScript.armor; i > 0; i--)
+                {
+                    playerScript.armor--;
+                    RefreshUI();
+                    yield return 0;
+                    yield return new WaitForSeconds(0);
+                }
+                for (float i = d; i > 0; i--)
+                {
+                    playerScript.health--;
+                    RefreshUI();
+                    yield return 0;
+                    yield return new WaitForSeconds(0);
+                }
+            }
+        }
+        else
+        {
+            for (float i = d; i > 0; i--)
+            {
+                playerScript.health--;
+                RefreshUI();
+                yield return 0;
+                yield return new WaitForSeconds(0);
+            }
+        }
+
+        bossScript.stats.charge = false;
+        bossEndedMove = true;
+        ShowActions();
+        RefreshUI();
+    }
+
+    void GuardBoss()
+    {
+        HideActions();
+
+        float armor = bossScript.armor + 50;
+        StartCoroutine(GuardBossWaiter(armor));
+        AddCombatText();
+        combatDialogue[0].text = "Boss has " + armor.ToString() + " armor now.";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+    }
+
+    IEnumerator GuardBossWaiter(float h)
+    {
+        bossEndedMove = false;
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        //Aumento en la cantidad de block del boss
+        for (float i = h; i > 0; i--)
+        {
+            bossScript.armor++;
+            RefreshUI();
+            yield return 0;
+            yield return new WaitForSeconds(0);
+        }
+        yield return new WaitForSecondsRealtime(3);
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+
+        bossEndedMove = true;
+        ShowActions();
+        RefreshUI();
+    }
+
+    void Heal()
+    {
+        HideActions();
+        bossAnimator.SetTrigger("HealAnim");
+
+        float heal = bossScript.stats.vigor * 2.5f;
+        StartCoroutine(HealWaiter(heal));
+        AddCombatText();
+        combatDialogue[0].text = "Boss healed for " + heal.ToString() + " HP";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+    }
+
+    IEnumerator HealWaiter(float h)
+    {
+        bossEndedMove = false;
+        for(float i = h; i > 0; i--)
+        {
+            bossScript.health++;
+            RefreshUI();
+            yield return 0;
+            yield return new WaitForSeconds(0);
+        }
+        ShowPopupText(h, Color.green);
+        yield return new WaitForSecondsRealtime(3);
+
+        bossEndedMove = true;
+        ShowActions();
+        RefreshUI();
+    }
+
+    void HealPlus()
+    {
+        HideActions();
+        bossAnimator.SetTrigger("HealAnim");
+
+        float heal = bossScript.stats.vigor * 3.5f;
+        StartCoroutine(HealPlusWaiter(heal));
+    }
+
+    IEnumerator HealPlusWaiter(float h)
+    {
+        bossEndedMove = false;
+        for (float i = h; i > 0; i--)
+        {
+            bossScript.health++;
+            RefreshUI();
+            yield return 0;
+            yield return new WaitForSeconds(0);
+        }
+        ShowPopupText(h, Color.green);
+        yield return new WaitForSecondsRealtime(3);
+
+        bossEndedMove = true;
+        ShowActions();
+        RefreshUI();
+    }
 
     void RefreshUI()
     {
@@ -717,6 +1310,7 @@ public class FightController : MonoBehaviour {
 
         //Vida del boss
         bossHealthNumber.text = bossScript.health.ToString() + '/' + bossScript.maxHealth.ToString();
+        bossArmorNumber.text = bossScript.armor.ToString();
         bossHealthBar.value = (float)bossScript.health / (float)bossScript.maxHealth;
     }
 
