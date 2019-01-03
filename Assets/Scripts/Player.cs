@@ -19,6 +19,8 @@ public struct State
 
 public class Player : MonoBehaviour {
 
+    public static Player playerScript;
+
     //Estadísticas
     public Stats stats;
 
@@ -29,7 +31,7 @@ public class Player : MonoBehaviour {
     public int maxHealth;
     public int health;
     public int armor;
-    public int coins;
+    public float coins = 700;
     public int maxEnergy;
     public int energy;
     public int moves;
@@ -37,6 +39,8 @@ public class Player : MonoBehaviour {
     public int blockChance;
 
 	void Start () {
+        playerScript = this;
+
         stats.vitality = 5;
         stats.strenght = 5;
         stats.endurance = 5;

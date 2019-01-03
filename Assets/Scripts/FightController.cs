@@ -743,7 +743,6 @@ public class FightController : MonoBehaviour {
         Vector3 particlePos = new Vector3(-9.56f, 1.23f, -0.25f);
         particleAnimator.Play();
         GameObject particle = Instantiate(magicSpell, particlePos, Quaternion.identity);
-        Destroy(particle);
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;

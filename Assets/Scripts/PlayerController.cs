@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class PlayerController : MonoBehaviour {
     public Camera mainCamera;                                           // Camera that follows the player in the lobby
     public bool xMovementInverted;                                      // Bool to on/off inverted movement in x axis

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class SpellsChick : MonoBehaviour
 {
+    LobbyShop lobbyShop;
+
     public string NPCName;                                                                  //Real name of NPC
     [TextArea(3, 10)]
     public string[] NPCSentences;                                                           //Dialogue sentences of NPC
@@ -40,6 +42,8 @@ public class SpellsChick : MonoBehaviour
 
     void Start()
     {
+        lobbyShop = storeWrap.GetComponent<LobbyShop>();
+
         render = GetComponent<Renderer>();                                                  //Guardamos componente Renderer
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();      //Guardamos script PlayerController
         audioSource = GetComponent<AudioSource>();                                          //Guardamos componente AudioSource
@@ -148,11 +152,12 @@ public class SpellsChick : MonoBehaviour
                 dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
                 if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
                 {
-                    storeWrap.SetActive(true);
+                    lobbyShop.OpenStore(); //storeWrap.SetActive(true);
                     dialogueWaiter.SetActive(true);
                     if (Input.GetButtonDown("E"))
                     {
-                        storeWrap.SetActive(false);
+                        lobbyShop.CloseStore();
+                        //storeWrap.SetActive(false);
                         dialogueWaiter.SetActive(false);
                         dialogueText.text = ""; //Reseteamos el texto
                         dialogueTimeLeft = NPCSentencesAudio[1].length; //Preparamos la duración del siguiente audio

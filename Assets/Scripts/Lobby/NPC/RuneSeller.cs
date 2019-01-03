@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class RuneSeller : MonoBehaviour {
+    private LobbyShop lobbyShop;
+
     public string NPCName;                                                                  //Real name of NPC
     [TextArea(3, 10)]
     public string[] NPCSentences;                                                           //Dialogue sentences of NPC
@@ -38,6 +40,8 @@ public class RuneSeller : MonoBehaviour {
     private Text dialogueText;                                                              //Texto a mostrar
 
     void Start () {
+        lobbyShop = storeWrap.GetComponent<LobbyShop>();
+
         render = GetComponent<Renderer>();                                                  //Guardamos componente Renderer
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();      //Guardamos script PlayerController
         audioSource = GetComponent<AudioSource>();                                          //Guardamos componente AudioSource
@@ -100,7 +104,7 @@ public class RuneSeller : MonoBehaviour {
                     dialogueOptionsWrap.SetActive(true);
                     dialogueWaiter.SetActive(true);
 
-                    //Función elección
+                    //Función elección, hover over the buttons.
                     if (Input.GetButtonDown("D") && optionSelected == 0)
                     {
                         exitOptionSelected();
@@ -110,7 +114,7 @@ public class RuneSeller : MonoBehaviour {
                         buyOptionSelected();
                     }
 
-                    if (Input.GetButtonDown("E"))
+                    if (Input.GetButtonDown("E")) //Slects the actual button to exit or to enter the store.
                     {
                         dialogueWaiter.SetActive(false);
                         if (optionSelected == 0)
@@ -145,11 +149,12 @@ public class RuneSeller : MonoBehaviour {
                 dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
                 if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
                 {
-                    storeWrap.SetActive(true);
+                    lobbyShop.OpenStore(); //storeWrap.SetActive(true);
                     dialogueWaiter.SetActive(true);
                     if (Input.GetButtonDown("E"))
                     {
-                        storeWrap.SetActive(false);
+                        lobbyShop.CloseStore();
+                        //storeWrap.SetActive(false);
                         dialogueWaiter.SetActive(false);
                         dialogueText.text = ""; //Reseteamos el texto
                         dialogueTimeLeft = NPCSentencesAudio[1].length; //Preparamos la duración del siguiente audio
@@ -282,7 +287,7 @@ public class RuneSeller : MonoBehaviour {
 
         public void buyOptionSelected()
         {
-            optionSelected = 0; 
+            optionSelected = 0;
             buyButton.image.sprite = buyButtonHover;
             exitButton.image.sprite = exitButtonDefault;
             Debug.Log(optionSelected);

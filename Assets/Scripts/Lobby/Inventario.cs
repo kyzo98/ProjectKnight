@@ -1,41 +1,67 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventario : MonoBehaviour {
 
-    public GameObject Inventory;
-    public int Space; //maximum space of items inside the invenotory
-    public List<ObjetosInventario> items = new List<ObjetosInventario>();
+    public static Inventario inventario;
 
+    public GameObject inventoryHolderPrefab;
+    public GameObject inventory;
+    public Transform grid;
 
-	// Use this for initialization
-	void Start () {
-        Inventory.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private int space = 3;
 
-    void ShowInventory()
+    public bool inventoryActive;
+    public bool inventoryFilled;
+
+    void Start()
     {
-        if(Input.GetKeyDown("i") || Input.GetKeyDown("I"))
+        inventario = this;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown("i"))
         {
-            Inventory.SetActive(!Inventory.activeSelf);
+            inventoryActive = !inventoryActive;
+        }
+
+        if(inventoryActive == true)
+        {
+            OpenInventory();
+            //Debug.Log("inventory active");
+        }
+        else
+        {
+            CloseInventory();
+            //Debug.Log("Inventory unactive");
         }
     }
 
-    public bool Add(ObjetosInventario item)
+    public void OpenInventory()
     {
-        if(items.Count >= Space)
-        {
-            return false;
-        }
+        inventory.SetActive(true);
+    }
 
-        items.Add(item);
+    public void CloseInventory()
+    {
+        inventory.SetActive(false);
+    }
 
-        return true;
+    public void AddItem(OrbItems orbItem)
+    {
+        GameObject holderClone = Instantiate(inventoryHolderPrefab, grid);
+        HolderInventario holdInventarioScript = holderClone.GetComponent<HolderInventario>();
+
+        holdInventarioScript.itemName.text = orbItem.orbName;
+        holdInventarioScript.itemImg.sprite = orbItem.unbuyedOrbImg;
+
+        //for (int i = 0; i < LobbyShop.store.orbItems.Length; i++)
+        //{
+        //    holdInventarioScript.itemName.text = LobbyShop.store.orbItems[i].orbName;
+        //    holdInventarioScript.itemImg.sprite = LobbyShop.store.orbItems[i].unbuyedOrbImg;
+        //}
     }
 }

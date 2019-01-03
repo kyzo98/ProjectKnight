@@ -73,7 +73,11 @@
     <Compile Include="Assets\Scripts\Boss.cs" />
     <Compile Include="Assets\Scripts\CameraRotation.cs" />
     <Compile Include="Assets\Scripts\FightController.cs" />
+    <Compile Include="Assets\Scripts\Lobby\HolderInventario.cs" />
     <Compile Include="Assets\Scripts\Lobby\Inventario.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyShop\BuyButton.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyShop\ItemHolder.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyShop\LobbyShop.cs" />
     <Compile Include="Assets\Scripts\Lobby\NPC\DoorGuy.cs" />
     <Compile Include="Assets\Scripts\Lobby\NPC\DoorGuy_OptionsButtons.cs" />
     <Compile Include="Assets\Scripts\Lobby\NPC\InformationGuy.cs" />
@@ -81,7 +85,7 @@
     <Compile Include="Assets\Scripts\Lobby\NPC\RuneSeller_OptionsButtons.cs" />
     <Compile Include="Assets\Scripts\Lobby\NPC\SpellsChick.cs" />
     <Compile Include="Assets\Scripts\Lobby\NPC\SpellsChick_OptionsButtons.cs" />
-    <Compile Include="Assets\Scripts\Lobby\ObjetosInventario.cs" />
+    <Compile Include="Assets\Scripts\Lobby\OrbItems.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PopupText.cs" />
