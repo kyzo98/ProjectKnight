@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class JumpScene : MonoBehaviour {
-    public string SceneToLoad = "Lobby";
+    public string SceneToLoad = "Menu";
 
     IEnumerator Start()
     {

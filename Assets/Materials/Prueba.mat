@@ -82,7 +82,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Innerfresnelintensity: 0.028
+    - _Innerfresnelintensity: 0.036
     - _Invertmaintexture: 0
     - _Invertsecondarytexture: 0
     - _Maintextureintensity: 1
