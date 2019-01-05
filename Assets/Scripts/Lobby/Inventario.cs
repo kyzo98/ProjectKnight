@@ -7,11 +7,11 @@ public class Inventario : MonoBehaviour {
 
     public static Inventario inventario;
 
-    public GameObject inventoryHolderPrefab;
+    //public GameObject inventoryHolderPrefab;
+    public GameObject spellsHolderPrefab;
     public GameObject inventory;
-    public Transform grid;
-
-    private int space = 3;
+    //public Transform gridOrbs;
+    public Transform gridSpells;
 
     public bool inventoryActive;
     public bool inventoryFilled;
@@ -50,18 +50,24 @@ public class Inventario : MonoBehaviour {
         inventory.SetActive(false);
     }
 
-    public void AddItem(OrbItems orbItem)
+    //public void AddItem(OrbItems orbItem)
+    //{
+    //    GameObject holderClone = Instantiate(inventoryHolderPrefab, gridOrbs);
+    //    ItemHolder holdInventarioScript = holderClone.GetComponent<ItemHolder>();
+
+    //    holdInventarioScript.itemName.text = orbItem.orbName;
+    //    holdInventarioScript.itemImg.sprite = orbItem.unbuyedOrbImg;
+    //    holdInventarioScript.type.text = orbItem.orbType.ToString();
+    //}
+
+    public void AddSpell(SpellItems spellItems)
     {
-        GameObject holderClone = Instantiate(inventoryHolderPrefab, grid);
-        HolderInventario holdInventarioScript = holderClone.GetComponent<HolderInventario>();
+        GameObject holderClone = Instantiate(spellsHolderPrefab, gridSpells);
+        ItemHolder holdInventarioScript = holderClone.GetComponent<ItemHolder>();
 
-        holdInventarioScript.itemName.text = orbItem.orbName;
-        holdInventarioScript.itemImg.sprite = orbItem.unbuyedOrbImg;
-
-        //for (int i = 0; i < LobbyShop.store.orbItems.Length; i++)
-        //{
-        //    holdInventarioScript.itemName.text = LobbyShop.store.orbItems[i].orbName;
-        //    holdInventarioScript.itemImg.sprite = LobbyShop.store.orbItems[i].unbuyedOrbImg;
-        //}
+        holdInventarioScript.itemName.text = spellItems.spellName;
+        holdInventarioScript.itemImg.sprite = spellItems.spellImg;
+        holdInventarioScript.type.text = spellItems.spellType.ToString();
+        holdInventarioScript.itemPrice.text = null;
     }
 }

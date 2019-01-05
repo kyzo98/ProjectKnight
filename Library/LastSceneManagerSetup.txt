@@ -1,16 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-<<<<<<< HEAD
-- path: Assets/Scenes/Fight.unity
-=======
-- path: Assets/Scenes/Menu.unity
->>>>>>> master
-=======
-<<<<<<< Updated upstream
-- path: Assets/Scenes/Menu.unity
-=======
-- path: Assets/Scenes/Fight.unity
->>>>>>> Stashed changes
->>>>>>> master
+- path: Assets/Scenes/Lobby.unity
   isLoaded: 1
   isActive: 1

@@ -12,14 +12,17 @@ public class BuyButton : MonoBehaviour {
 
     public void BuyItem()
     {
-        for (int i = 0; i < LobbyShop.store.orbItems.Length; i++)
+        for (int i = 0; i < SpellsShop.spellShopScript.spellItems.Length; i++)
         {
-            if(LobbyShop.store.orbItems[i].orbPrice <= Player.playerScript.coins && LobbyShop.store.orbItems[i].buyed == false)
+            if(SpellsShop.spellShopScript.spellItems[i].spellPrice <= Player.playerScript.coins && SpellsShop.spellShopScript.spellItems[i].buyed == false)
             {
-                LobbyShop.store.orbItems[i].buyed = true;
-                Player.playerScript.coins -= LobbyShop.store.orbItems[i].orbPrice;
+                SpellsShop.spellShopScript.spellItems[i].buyed = true;
+                Player.playerScript.coins -= SpellsShop.spellShopScript.spellItems[i].spellPrice;
 
-                Inventario.inventario.AddItem(LobbyShop.store.orbItems[i]);
+                Inventario.inventario.AddSpell(SpellsShop.spellShopScript.spellItems[i]);
+                InventoryBattle.inventario.AddSpellToBattle(SpellsShop.spellShopScript.spellItems[i]);
+
+                DontDestroyOnLoad(InventoryBattle.inventario.spellsHolderPrefab);
 
                 return;
             }
