@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 
 public class FightController : MonoBehaviour {
+
+    public static FightController fightController;
+
     enum BuffType { NULL }
     enum DebuffType { NULL }
     struct Buff
@@ -19,7 +22,7 @@ public class FightController : MonoBehaviour {
     }
     //Effects the bosses will make to the player
     public enum Effects { NULL, GRIEF, NUMB, PARALISIS};
-    public Effects actualEffect;
+    public Effects actualEffectPlayer;
 
     private int turn;
     private int nAttack;
@@ -65,9 +68,9 @@ public class FightController : MonoBehaviour {
     //POPUP TEXT UI PLAYER
     public GameObject popupTextPlayer;
     //BOSS ANIMATIONS
-    private Animator bossAnimator;
+    Animator bossAnimator;
     //PARTICLE ANIMATIONS
-    private Animation particleAnimator;
+    public Animation particleAnimator;
     //CAMERAS
     public Camera mainCamera;
     public Camera frontalPlayerCamera;
@@ -77,7 +80,8 @@ public class FightController : MonoBehaviour {
     private bool bossEndedMove = true;
 
     void Start () {
-        actualEffect = Effects.NULL;
+        fightController = this;
+        actualEffectPlayer = Effects.NULL;
 
         turn = 0; //Turno inicial
         playerScript = player.GetComponent<Player>();
@@ -125,20 +129,20 @@ public class FightController : MonoBehaviour {
             {
                 if (bossEndedMove)
                 {
-                    if (actualEffect == Effects.GRIEF)
+                    if (actualEffectPlayer == Effects.GRIEF)
                     {
                         ApplyGrief();
                         if(endedMove == true)
                         {
-                            actualEffect = Effects.NULL;
+                            actualEffectPlayer = Effects.NULL;
                         }
                     }
-                    else if (actualEffect == Effects.NUMB)
+                    else if (actualEffectPlayer == Effects.NUMB)
                     {
                         ApplyNumb();
                         if(endedMove == true)
                         {
-                            actualEffect = Effects.NULL;
+                            actualEffectPlayer = Effects.NULL;
                         }
                     }
                     //Player's turn
@@ -168,7 +172,7 @@ public class FightController : MonoBehaviour {
             {
                 if (endedMove)
                 {
-                    actualEffect = Effects.NULL;
+                    actualEffectPlayer = Effects.NULL;
                     //Boss's turn
 
                     if(bossScript.health >= 700)
@@ -511,7 +515,7 @@ public class FightController : MonoBehaviour {
     }
     
     //UI Info
-    void ShowActions()
+    public void ShowActions()
     {
         actionPanel.SetActive(true);
 
@@ -553,12 +557,12 @@ public class FightController : MonoBehaviour {
         }
     }
 
-    void HideActions()
+    public void HideActions()
     {
         actionPanel.SetActive(false);
     }
 
-    void AddCombatText()
+    public void AddCombatText()
     {
         combatDialogue[6].text = combatDialogue[5].text;
         combatDialogue[5].text = combatDialogue[4].text;
@@ -568,7 +572,7 @@ public class FightController : MonoBehaviour {
         combatDialogue[1].text = combatDialogue[0].text;
     }
 
-    void ShowPopupText(float damage, Color color)
+    public void ShowPopupText(float damage, Color color)
     {
         Vector3 newPosition = new Vector3(9.76f, 5.21f, -2.34f);
         Quaternion newRotation = Quaternion.Euler(0, 90, 0);
@@ -577,7 +581,7 @@ public class FightController : MonoBehaviour {
         popupClone.GetComponent<TextMesh>().text = damage.ToString();
     }
 
-    void ShowPopupTextPlayer(float damage, Color color)
+    public void ShowPopupTextPlayer(float damage, Color color)
     {
         Vector3 newPosition = new Vector3(-10.52f, 2.87f, -0.15f);
         Quaternion newRotation = Quaternion.Euler(0, 280, 0);
@@ -690,7 +694,7 @@ public class FightController : MonoBehaviour {
                 }
             }
         }
-        if(actualEffect == Effects.PARALISIS)
+        if(actualEffectPlayer == Effects.PARALISIS)
         {
             if(Random.value > 0.1)
             {
@@ -858,7 +862,7 @@ public class FightController : MonoBehaviour {
             combatDialogue[0].color = new Color(1, 1, 1, 1);
         }
 
-        if(actualEffect == Effects.PARALISIS)
+        if(actualEffectPlayer == Effects.PARALISIS)
         {
             if(Random.value > 0.4)
             {
@@ -999,7 +1003,7 @@ public class FightController : MonoBehaviour {
             }
         }
 
-        if(actualEffect == Effects.PARALISIS)
+        if(actualEffectPlayer == Effects.PARALISIS)
         {
             if(Random.value > 0.4)
             {
@@ -1184,7 +1188,7 @@ public class FightController : MonoBehaviour {
             }
         }
 
-        if(actualEffect == Effects.PARALISIS)
+        if(actualEffectPlayer == Effects.PARALISIS)
         {
             if(Random.value > 0.4)
             {
@@ -1341,7 +1345,7 @@ public class FightController : MonoBehaviour {
             }
         }
 
-        if(actualEffect == Effects.PARALISIS)
+        if(actualEffectPlayer == Effects.PARALISIS)
         {
             if(Random.value > 0.4)
             {
@@ -1459,6 +1463,124 @@ public class FightController : MonoBehaviour {
         endedMove = true;
         if (playerScript.moves > 0 && playerScript.energy > 2)
             ShowActions();
+        RefreshUI();
+    }
+
+    //Spells
+    public void TerrorSpell()
+    {
+        Debug.Log("Used Terror");
+
+        playerScript.moves--;
+
+        int damage = 100;
+        StartCoroutine(TerrorSpellWaiter(damage));
+        AddCombatText();
+        combatDialogue[0].text = "Player used Terror and dealt" + damage.ToString();
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+    }
+
+    IEnumerator TerrorSpellWaiter(int damage)
+    {
+        endedMove = false;
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        yield return new WaitForSecondsRealtime(3);
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        bossAnimator.SetTrigger("HeadHit");
+        ShowPopupText(damage, Color.red);
+        yield return new WaitForSecondsRealtime(3);
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        for(int i = damage; i > 0; i--)
+        {
+            bossScript.health--;
+            RefreshUI();
+            yield return 0;
+            yield return new WaitForSeconds(0);
+        }
+        endedMove = true;
+        if(playerScript.moves > 0 && playerScript.energy > 2)
+        {
+            ShowActions();
+        }
+        RefreshUI();
+    }
+
+    public void RageSpell()
+    {
+        Debug.Log("Used Rage");
+
+        playerScript.moves--;
+
+        int damage = 200;
+        StartCoroutine(RageSpellWaiter(damage));
+        AddCombatText();
+        combatDialogue[0].text = "Player used Rage and dealt" + damage.ToString();
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+    }
+
+    IEnumerator RageSpellWaiter(int damage)
+    {
+        endedMove = false;
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        yield return new WaitForSecondsRealtime(3);
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        bossAnimator.SetTrigger("HeadHit");
+        ShowPopupText(damage, Color.red);
+        yield return new WaitForSecondsRealtime(3);
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        for (int i = damage; i > 0; i--)
+        {
+            bossScript.health--;
+            RefreshUI();
+            yield return 0;
+            yield return new WaitForSeconds(0);
+        }
+        endedMove = true;
+        if (playerScript.moves > 0 && playerScript.energy > 2)
+        {
+            ShowActions();
+        }
+        RefreshUI();
+    }
+
+    public void GriefSpell()
+    {
+        Debug.Log("Used Grief");
+
+        playerScript.moves--;
+
+        int damage = 50;
+        StartCoroutine(GriefSpellWaiter(damage));
+        AddCombatText();
+        combatDialogue[0].text = "Player used Grief and dealt" + damage.ToString();
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+    }
+
+    IEnumerator GriefSpellWaiter(int damage)
+    {
+        endedMove = false;
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        yield return new WaitForSecondsRealtime(3);
+        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        bossAnimator.SetTrigger("HeadHit");
+        ShowPopupText(damage, Color.red);
+        yield return new WaitForSecondsRealtime(3);
+        frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        for (int i = damage; i > 0; i--)
+        {
+            bossScript.health--;
+            RefreshUI();
+            yield return 0;
+            yield return new WaitForSeconds(0);
+        }
+        endedMove = true;
+        if (playerScript.moves > 0 && playerScript.energy > 2)
+        {
+            ShowActions();
+        }
         RefreshUI();
     }
 
@@ -1661,21 +1783,21 @@ public class FightController : MonoBehaviour {
         int random = Random.Range(1, 100);
         if(random <= 33)
         {
-            actualEffect = Effects.GRIEF;
+            actualEffectPlayer = Effects.GRIEF;
             AddCombatText();
             combatDialogue[0].text = "Griffyndor";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
         }
         else if(random > 33 && random <= 66)
         {
-            actualEffect = Effects.PARALISIS;
+            actualEffectPlayer = Effects.PARALISIS;
             AddCombatText();
             combatDialogue[0].text = "You have been paralized. Sometimes you'll fail";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
         }
         else
         {
-            actualEffect = Effects.NUMB;
+            actualEffectPlayer = Effects.NUMB;
             AddCombatText();
             combatDialogue[0].text = "You're numb";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1740,11 +1862,11 @@ public class FightController : MonoBehaviour {
 
         if(Random.value <= 0.3)
         {
-            actualEffect = Effects.GRIEF;
+            actualEffectPlayer = Effects.GRIEF;
         }
         else
         {
-            actualEffect = Effects.NULL;
+            actualEffectPlayer = Effects.NULL;
         }
 
         bossEndedMove = true;

@@ -20,9 +20,6 @@ public class BuyButton : MonoBehaviour {
                 Player.playerScript.coins -= SpellsShop.spellShopScript.spellItems[i].spellPrice;
 
                 Inventario.inventario.AddSpell(SpellsShop.spellShopScript.spellItems[i]);
-                InventoryBattle.inventario.AddSpellToBattle(SpellsShop.spellShopScript.spellItems[i]);
-
-                DontDestroyOnLoad(InventoryBattle.inventario.spellsHolderPrefab);
 
                 return;
             }

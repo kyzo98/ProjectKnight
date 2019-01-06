@@ -13,6 +13,8 @@ public struct BossStats
 };
 
 public class Boss : MonoBehaviour {
+
+    public static Boss bossScript;
     //Estadísticas
     public BossStats stats;
 

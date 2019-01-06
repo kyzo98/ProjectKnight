@@ -4490,7 +4490,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 9500000, guid: f30da3d9da84e79469c4972742882ec9,
     type: 3}
   m_PrefabInternal: {fileID: 2029726324}
---- !u!114 &809739305
+--- !u!114 &809739304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4503,10 +4503,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellsHolderPrefab: {fileID: 1018351155587178, guid: 13b6f8d2e6f844347a1e147b5a6430d3,
     type: 2}
-  inventory: {fileID: 1732567003}
-  gridSpells: {fileID: 1924764982}
+  inventory: {fileID: 1592833504}
+  gridSpells: {fileID: 1592833503}
   inventoryActive: 0
-  inventoryFilled: 0
 --- !u!4 &828497757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400060, guid: f30da3d9da84e79469c4972742882ec9,
@@ -11552,7 +11551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f220127446b8c478cd0938cfc91159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualEffect: 0
+  actualEffectPlayer: 0
   armorEffect: {fileID: 2104482575}
   healEffect: {fileID: 2118765252}
   magicSpell: {fileID: 1581164043256898, guid: f27b70f24d1b8114983e8ded59d8293e, type: 2}
@@ -11584,9 +11583,13 @@ MonoBehaviour:
   popupText: {fileID: 1033658341422000, guid: df7831d3843371d4d8ebdb316471eca2, type: 2}
   popupTextPlayer: {fileID: 1732553065116328, guid: 109bb99556028f44b8aa49e831012c50,
     type: 2}
+  bossAnimator: {fileID: 0}
+  particleAnimator: {fileID: 0}
   mainCamera: {fileID: 1752930248}
   frontalPlayerCamera: {fileID: 1247873754}
   frontalBossCamera: {fileID: 1624928679}
+  endedMove: 1
+  bossEndedMove: 1
 --- !u!4 &1197719444
 Transform:
   m_ObjectHideFlags: 0
@@ -19087,6 +19090,16 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224459210500555132, guid: d40d1fdc12c73374a8782e67a2503108,
     type: 2}
   m_PrefabInternal: {fileID: 1592833501}
+--- !u!224 &1592833503 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224340084125959978, guid: d40d1fdc12c73374a8782e67a2503108,
+    type: 2}
+  m_PrefabInternal: {fileID: 1592833501}
+--- !u!1 &1592833504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1035706447587380, guid: d40d1fdc12c73374a8782e67a2503108,
+    type: 2}
+  m_PrefabInternal: {fileID: 1592833501}
 --- !u!1 &1595094805
 GameObject:
   m_ObjectHideFlags: 0
@@ -20191,11 +20204,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400102, guid: f30da3d9da84e79469c4972742882ec9,
     type: 3}
   m_PrefabInternal: {fileID: 2029726324}
---- !u!1 &1732567003 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1035706447587380, guid: d40d1fdc12c73374a8782e67a2503108,
-    type: 2}
-  m_PrefabInternal: {fileID: 1592833501}
 --- !u!4 &1740456425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400092, guid: f30da3d9da84e79469c4972742882ec9,
@@ -21076,11 +21084,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!224 &1924764982 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 224340084125959978, guid: d40d1fdc12c73374a8782e67a2503108,
-    type: 2}
-  m_PrefabInternal: {fileID: 1592833501}
 --- !u!1 &1943424590
 GameObject:
   m_ObjectHideFlags: 0

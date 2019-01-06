@@ -19,6 +19,11 @@ public class SpellsShop : MonoBehaviour {
         FillShopSpells();
 	}
 
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     public void FillShopSpells()
     {
         for (int i = 0; i < spellItems.Length; i++)

@@ -6,6 +6,10 @@ public class InventoryBattle : MonoBehaviour {
 
     public static InventoryBattle inventario;
 
+    SpellItems[] spellItems;
+
+    int space = 3;
+
     //public GameObject inventoryHolderPrefab;
     public GameObject spellsHolderPrefab;
     public GameObject inventory;
@@ -13,11 +17,28 @@ public class InventoryBattle : MonoBehaviour {
     public Transform gridSpells;
 
     public bool inventoryActive;
-    public bool inventoryFilled;
 
     void Start()
     {
         inventario = this;
+        for (int i = 0; i < SpellsShop.spellShopScript.spellItems.Length; i++)
+        {
+            if (SpellsShop.spellShopScript.spellItems[i].buyed == true)
+            {
+                GameObject holderClone = Instantiate(spellsHolderPrefab, gridSpells);
+                ItemHolder itemHolder = holderClone.GetComponent<ItemHolder>();
+
+                itemHolder.itemName.text = SpellsShop.spellShopScript.spellItems[i].spellName;
+                itemHolder.itemImg.sprite = SpellsShop.spellShopScript.spellItems[i].spellImg;
+                itemHolder.type.text = SpellsShop.spellShopScript.spellItems[i].spellType.ToString();
+                itemHolder.itemPrice.text = null;
+            }
+        }
+    }
+
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
     }
 
     void Update()
@@ -59,14 +80,28 @@ public class InventoryBattle : MonoBehaviour {
     //    holdInventarioScript.type.text = orbItem.orbType.ToString();
     //}
 
-    public void AddSpellToBattle(SpellItems spellItems)
-    {
-        GameObject holderClone = Instantiate(spellsHolderPrefab, gridSpells);
-        ItemHolder holdInventarioScript = holderClone.GetComponent<ItemHolder>();
+    //GameObject holderClone = Instantiate(spellsHolderPrefab, gridSpells);
+    //ItemHolder holdInventarioScript = holderClone.GetComponent<ItemHolder>();
 
-        holdInventarioScript.itemName.text = spellItems.spellName;
-        holdInventarioScript.itemImg.sprite = spellItems.spellImg;
-        holdInventarioScript.type.text = spellItems.spellType.ToString();
-        holdInventarioScript.itemPrice.text = null;
-    }
+    //holdInventarioScript.itemName.text = spellItems.spellName;
+    //    holdInventarioScript.itemImg.sprite = spellItems.spellImg;
+    //    holdInventarioScript.type.text = spellItems.spellType.ToString();
+    //    holdInventarioScript.itemPrice.text = null;
+
+    //public void AddSpellToBattle(SpellItems spellItems)
+    //{
+    //    for (int i = 0; i < spells.Length; i++)
+    //    {
+    //        if (spells[i].buyed == true)
+    //        {
+    //            GameObject holderClone = Instantiate(spellsHolderPrefab, gridSpells);
+    //            ItemHolder itemHolder = holderClone.GetComponent<ItemHolder>();
+
+    //            itemHolder.itemName.text = spellItems.spellName;
+    //            itemHolder.itemImg.sprite = spellItems.spellImg;
+    //            itemHolder.type.text = spellItems.spellType.ToString();
+    //            itemHolder.itemPrice.text = null;
+    //        }
+    //    }
+    //}
 }

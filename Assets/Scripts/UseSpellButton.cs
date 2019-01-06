@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UseSpellButton : MonoBehaviour {
 
+    private bool used;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -16,32 +18,35 @@ public class UseSpellButton : MonoBehaviour {
 
     public void PressUseButton()
     {
-        if (SpellItems.spellItems.attackType == AttackType.GRIEF)
+        for (int i = 0; i < SpellsShop.spellShopScript.spellItems.Length; i++)
         {
-            UseGrief();
+            if (SpellsShop.spellShopScript.spellItems[i].spellName == "Grief" && SpellsShop.spellShopScript.spellItems[i].buyed == true)
+            {
+                InventoryBattle.inventario.inventoryActive = !InventoryBattle.inventario.inventoryActive;
+                FightController.fightController.GriefSpell();
+
+                SpellsShop.spellShopScript.spellItems[i].buyed = false;
+
+                break;
+            }
+            else if (SpellsShop.spellShopScript.spellItems[i].spellName == "Rage" && SpellsShop.spellShopScript.spellItems[i].buyed == true)
+            {
+                InventoryBattle.inventario.inventoryActive = !InventoryBattle.inventario.inventoryActive;
+                FightController.fightController.RageSpell();
+
+                SpellsShop.spellShopScript.spellItems[i].buyed = false;
+
+                break;
+            }
+            else if (SpellsShop.spellShopScript.spellItems[i].spellName == "Terror" && SpellsShop.spellShopScript.spellItems[i].buyed == true)
+            {
+                InventoryBattle.inventario.inventoryActive = !InventoryBattle.inventario.inventoryActive;
+                FightController.fightController.TerrorSpell();
+
+                SpellsShop.spellShopScript.spellItems[i].buyed = false;
+
+                break;
+            }
         }
-        else if (SpellItems.spellItems.attackType == AttackType.RAGE)
-        {
-            UseRage();
-        }
-        else if (SpellItems.spellItems.attackType == AttackType.TERROR)
-        {
-            UseTerror();
-        }
-    }
-
-    public void UseTerror()
-    {
-
-    }
-
-    public void UseRage()
-    {
-
-    }
-
-    public void UseGrief()
-    {
-
     }
 }
