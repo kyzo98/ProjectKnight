@@ -1,0 +1,14 @@
+# File produced by Open Asset Import Library (http://www.assimp.sf.net)
+# (assimp v3.1.68452469)
+
+newmtl 01___Default
+kd 0.5882 0.5882 0.5882
+ka 0.5882 0.5882 0.5882
+ks 0 0 0
+ke 0 0 0
+d 1
+Ns 40
+illum 2
+map_kd C:\Users\User\Desktop\uws2.jpg
+map_ka C:\Users\User\Desktop\uws2.jpg
+
