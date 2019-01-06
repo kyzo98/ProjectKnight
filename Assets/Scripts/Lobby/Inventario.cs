@@ -69,6 +69,7 @@ public class Inventario : MonoBehaviour {
         holdInventarioScript.itemName.text = spellItems.spellName;
         holdInventarioScript.itemImg.sprite = spellItems.spellImg;
         holdInventarioScript.type.text = spellItems.spellType.ToString();
+        holdInventarioScript.description.text = spellItems.spellDescription;
         holdInventarioScript.itemPrice.text = null;
     }
 }

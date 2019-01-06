@@ -1288,9 +1288,9 @@ public class FightController : MonoBehaviour {
     {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
-        Vector3 particlePos = new Vector3(-9.56f, 1.23f, -0.25f);
+        //Vector3 particlePos = new Vector3(-9.56f, 1.23f, -0.25f);
         //particleAnimator.Play();
-        GameObject particle = Instantiate(magicSpell, particlePos, Quaternion.identity);
+        //GameObject particle = Instantiate(magicSpell, particlePos, Quaternion.identity);
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -1482,6 +1482,7 @@ public class FightController : MonoBehaviour {
         Debug.Log("Used Terror");
 
         playerScript.moves--;
+        playerScript.energy -= 5;
 
         int damage = 100;
         StartCoroutine(TerrorSpellWaiter(damage));
@@ -1521,6 +1522,7 @@ public class FightController : MonoBehaviour {
         Debug.Log("Used Rage");
 
         playerScript.moves--;
+        playerScript.energy -= 5;
 
         int damage = 200;
         StartCoroutine(RageSpellWaiter(damage));
@@ -1560,6 +1562,7 @@ public class FightController : MonoBehaviour {
         Debug.Log("Used Grief");
 
         playerScript.moves--;
+        playerScript.energy -= 5;
 
         int damage = 50;
         StartCoroutine(GriefSpellWaiter(damage));

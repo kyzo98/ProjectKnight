@@ -33,7 +33,7 @@ public class SpellsShop : MonoBehaviour {
 
             holderScript.itemName.text = spellItems[i].spellName;
             holderScript.itemPrice.text = spellItems[i].spellPrice.ToString();
-            holderScript.description = spellItems[i].spellDescription;
+            holderScript.description.text = spellItems[i].spellDescription;
             holderScript.itemImg.sprite = spellItems[i].spellImg;
             holderScript.type.text = spellItems[i].spellType.ToString();
         }

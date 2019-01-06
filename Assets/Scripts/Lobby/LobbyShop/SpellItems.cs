@@ -14,7 +14,7 @@ public class SpellItems {
     public string spellName;
     public SpellType spellType;
     public AttackType attackType;
-    public Text spellDescription;
+    public string spellDescription;
     public Sprite spellImg;
     public float spellPrice;
 

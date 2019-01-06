@@ -2563,7 +2563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91da6892be7d0d44fab7f2aff9d1242c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellsHolderPrefab: {fileID: 1094627288231070, guid: 4fec6d1fafa3bd34db2b68d4b00a4eb7,
+  spellsHolderPrefab: {fileID: 1109296542762348, guid: 59b32451341c2704099cb7b27a518319,
     type: 2}
   inventory: {fileID: 1787564387}
   gridSpells: {fileID: 1565313771}
@@ -15093,21 +15093,21 @@ MonoBehaviour:
   - spellName: Grief
     spellType: 0
     attackType: 2
-    spellDescription: {fileID: 0}
+    spellDescription: Inflicts some damage and puts your enemy in a griefing state.
     spellImg: {fileID: 21300000, guid: 1ba47878450c50f468d56c30b425588b, type: 3}
     spellPrice: 100
     buyed: 0
   - spellName: Rage
     spellType: 0
     attackType: 0
-    spellDescription: {fileID: 0}
+    spellDescription: Inflicts a great amount of damage and can Numb your enemies.
     spellImg: {fileID: 21300000, guid: 40db173322fdd5e4c808a9429d05e795, type: 3}
     spellPrice: 100
     buyed: 0
   - spellName: Terror
     spellType: 0
     attackType: 1
-    spellDescription: {fileID: 0}
+    spellDescription: Inflicts some damage and puts your enemy in a griefing state.
     spellImg: {fileID: 21300000, guid: 149042c26ca19a74b8775493e3fbd1fd, type: 3}
     spellPrice: 100
     buyed: 0
@@ -15491,6 +15491,16 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.y
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 224733857645266614, guid: 7122c774ffd166048a559f7b48462a02,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224743093374952680, guid: 7122c774ffd166048a559f7b48462a02,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7122c774ffd166048a559f7b48462a02, type: 2}

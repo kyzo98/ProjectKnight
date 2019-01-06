@@ -31,6 +31,7 @@ public class InventoryBattle : MonoBehaviour {
                 itemHolder.itemName.text = SpellsShop.spellShopScript.spellItems[i].spellName;
                 itemHolder.itemImg.sprite = SpellsShop.spellShopScript.spellItems[i].spellImg;
                 itemHolder.type.text = SpellsShop.spellShopScript.spellItems[i].spellType.ToString();
+                itemHolder.description.text = SpellsShop.spellShopScript.spellItems[i].spellDescription;
                 itemHolder.itemPrice.text = null;
             }
         }
