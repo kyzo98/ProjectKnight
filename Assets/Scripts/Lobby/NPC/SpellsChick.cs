@@ -86,6 +86,7 @@ public class SpellsChick : MonoBehaviour
                 Debug.Log("No estoy Conversando");
                 break;
             case DialogueState.INIT:
+				playerController.anim.SetFloat("Speed", 0);
                 playerController.enabled = false; //Ya no puedes mover el personaje
                 pressEImage.enabled = false; //Deja de aparecer el boton E
                 dialogueText.text = ""; //Aparece el cuadro de diálogo vacío

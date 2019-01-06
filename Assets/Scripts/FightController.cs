@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class FightController : MonoBehaviour {
@@ -518,8 +519,7 @@ public class FightController : MonoBehaviour {
             else
             {
                 bossScript.health = 0;
-                //Player gana
-                Debug.Log("Player gana");
+                SceneManager.LoadScene("Narrator", LoadSceneMode.Single);
             }
         }
     }
@@ -584,7 +584,7 @@ public class FightController : MonoBehaviour {
 
     public void ShowPopupText(float damage, Color color)
     {
-        Vector3 newPosition = new Vector3(9.76f, 5.21f, -2.34f);
+        Vector3 newPosition = new Vector3(9.76f, 8.21f, -3.5f);
         Quaternion newRotation = Quaternion.Euler(0, 90, 0);
         GameObject popupClone = Instantiate(popupText, newPosition, newRotation);
         popupClone.GetComponent<TextMesh>().color = color;

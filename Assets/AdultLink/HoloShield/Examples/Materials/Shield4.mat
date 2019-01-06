@@ -89,11 +89,11 @@ Material:
     - _Exponent: 1
     - _Extraroughness: 3
     - _GlobalFade: 1
-    - _Globalopacity: 1
+    - _Globalopacity: 0.578
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Innerfresnelintensity: 0.297
+    - _Innerfresnelintensity: 0.177
     - _Invert: 0
     - _Invertmaintexture: 0
     - _Invertsecondarytexture: 1
@@ -131,14 +131,14 @@ Material:
     m_Colors:
     - _Bordercolor: {r: 0, g: 0.70980394, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Edgecolor: {r: 2, g: 0.16470589, b: 0, a: 1}
+    - _Edgecolor: {r: 1.6312165, g: 0, b: 2.670157, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainPanningspeed: {r: -0.05, g: 0.05, b: 0, a: 0}
-    - _Maincolor: {r: 1.7411011, g: 0.90810376, b: 0, a: 1}
+    - _Maincolor: {r: 0.34933987, g: 0, b: 1.7411011, a: 1}
     - _Mainpanningspeed: {r: 0, g: -2, b: 0, a: 0}
     - _Noisespeed: {r: 0, g: 0, b: 0, a: 0}
     - _Panningspeed: {r: 0, g: 0.1, b: 0, a: 0}
-    - _Secondarycolor: {r: 1.7411011, g: 0.15704049, b: 0, a: 1}
+    - _Secondarycolor: {r: 0.01424834, g: 0.005275438, b: 0.37279832, a: 1}
     - _Secondarypanningspeed: {r: 0, g: 5, b: 0, a: 0}
     - _Staticcolor: {r: 0.26470587, g: 0.6957404, b: 1, a: 0.978}
     - _Staticpanningspeed: {r: 0, g: 2, b: 0, a: 0}

@@ -1,0 +1,380 @@
+fileFormatVersion: 2
+guid: 831834946cf621840983a213d5e42835
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Box010
+    100002: Box011
+    100004: Box012
+    100006: g_Plane001_Plane001
+    100008: //RootNode
+    100010: ROCA_REFERENCIA
+    100012: ROCA_REFERENCIA001
+    100014: ROCA_REFERENCIA002
+    100016: ROCA_REFERENCIA003
+    100018: ROCA_REFERENCIA004
+    100020: ROCA_REFERENCIA005
+    100022: ROCA_REFERENCIA006
+    100024: ROCA_REFERENCIA007
+    100026: ROCA_REFERENCIA008
+    100028: Rock002
+    100030: rOQUES
+    100032: Shop002
+    100034: Shop003
+    100036: Shop004
+    100038: Shop1
+    100040: Wall Style 002
+    100042: Wall Style 003
+    100044: Wall Style 004
+    100046: Wall Style 005
+    100048: Wall Style 006
+    100050: Wall Style 007
+    100052: Wall Style 008
+    100054: Wall Style 009
+    100056: Wall Style 010
+    100058: Wall Style 011
+    100060: Wall Style 012
+    100062: Wall Style 013
+    100064: Wall Style 014
+    100066: Wall Style 015
+    100068: Wall Style 016
+    100070: Wall Style 017
+    100072: Wall Style 018
+    100074: Wall Style 019
+    100076: Wall Style 021
+    100078: Wall Style 022
+    100080: Wall Style 023
+    100082: Wall Style 024
+    100084: Wall Style 025
+    100086: Wall Style 026
+    100088: Wall Style 027
+    100090: Wall Style 028
+    100092: Wall Style 029
+    100094: Wall Style 030
+    100096: Wall Style 031
+    100098: Wall Style 032
+    100100: Wall Style 033
+    100102: Wall Style 034
+    100104: Wall Style 035
+    100106: Wall Style 036
+    100108: Wall Style 037
+    100110: Wall Style 038
+    100112: Wall Style 1
+    400000: Box010
+    400002: Box011
+    400004: Box012
+    400006: g_Plane001_Plane001
+    400008: //RootNode
+    400010: ROCA_REFERENCIA
+    400012: ROCA_REFERENCIA001
+    400014: ROCA_REFERENCIA002
+    400016: ROCA_REFERENCIA003
+    400018: ROCA_REFERENCIA004
+    400020: ROCA_REFERENCIA005
+    400022: ROCA_REFERENCIA006
+    400024: ROCA_REFERENCIA007
+    400026: ROCA_REFERENCIA008
+    400028: Rock002
+    400030: rOQUES
+    400032: Shop002
+    400034: Shop003
+    400036: Shop004
+    400038: Shop1
+    400040: Wall Style 002
+    400042: Wall Style 003
+    400044: Wall Style 004
+    400046: Wall Style 005
+    400048: Wall Style 006
+    400050: Wall Style 007
+    400052: Wall Style 008
+    400054: Wall Style 009
+    400056: Wall Style 010
+    400058: Wall Style 011
+    400060: Wall Style 012
+    400062: Wall Style 013
+    400064: Wall Style 014
+    400066: Wall Style 015
+    400068: Wall Style 016
+    400070: Wall Style 017
+    400072: Wall Style 018
+    400074: Wall Style 019
+    400076: Wall Style 021
+    400078: Wall Style 022
+    400080: Wall Style 023
+    400082: Wall Style 024
+    400084: Wall Style 025
+    400086: Wall Style 026
+    400088: Wall Style 027
+    400090: Wall Style 028
+    400092: Wall Style 029
+    400094: Wall Style 030
+    400096: Wall Style 031
+    400098: Wall Style 032
+    400100: Wall Style 033
+    400102: Wall Style 034
+    400104: Wall Style 035
+    400106: Wall Style 036
+    400108: Wall Style 037
+    400110: Wall Style 038
+    400112: Wall Style 1
+    2100000: 02 - Default
+    2100002: 01 - Default
+    2100004: Standardmaterial
+    2100006: Material
+    2100008: wire_115115115
+    2100010: 01___Default
+    2100012: 07 - Default
+    2100014: 'Material #63'
+    2100016: No Name
+    2300000: Box010
+    2300002: Box011
+    2300004: Box012
+    2300006: g_Plane001_Plane001
+    2300008: ROCA_REFERENCIA
+    2300010: ROCA_REFERENCIA001
+    2300012: ROCA_REFERENCIA002
+    2300014: ROCA_REFERENCIA003
+    2300016: ROCA_REFERENCIA004
+    2300018: ROCA_REFERENCIA005
+    2300020: ROCA_REFERENCIA006
+    2300022: ROCA_REFERENCIA007
+    2300024: ROCA_REFERENCIA008
+    2300026: Rock002
+    2300028: rOQUES
+    2300030: Shop002
+    2300032: Shop003
+    2300034: Shop004
+    2300036: Shop1
+    2300038: Wall Style 002
+    2300040: Wall Style 003
+    2300042: Wall Style 004
+    2300044: Wall Style 005
+    2300046: Wall Style 006
+    2300048: Wall Style 007
+    2300050: Wall Style 008
+    2300052: Wall Style 009
+    2300054: Wall Style 010
+    2300056: Wall Style 011
+    2300058: Wall Style 012
+    2300060: Wall Style 013
+    2300062: Wall Style 014
+    2300064: Wall Style 015
+    2300066: Wall Style 016
+    2300068: Wall Style 017
+    2300070: Wall Style 018
+    2300072: Wall Style 019
+    2300074: Wall Style 021
+    2300076: Wall Style 022
+    2300078: Wall Style 023
+    2300080: Wall Style 024
+    2300082: Wall Style 025
+    2300084: Wall Style 026
+    2300086: Wall Style 027
+    2300088: Wall Style 028
+    2300090: Wall Style 029
+    2300092: Wall Style 030
+    2300094: Wall Style 031
+    2300096: Wall Style 032
+    2300098: Wall Style 033
+    2300100: Wall Style 034
+    2300102: Wall Style 035
+    2300104: Wall Style 036
+    2300106: Wall Style 037
+    2300108: Wall Style 038
+    2300110: Wall Style 1
+    3300000: Box010
+    3300002: Box011
+    3300004: Box012
+    3300006: g_Plane001_Plane001
+    3300008: ROCA_REFERENCIA
+    3300010: ROCA_REFERENCIA001
+    3300012: ROCA_REFERENCIA002
+    3300014: ROCA_REFERENCIA003
+    3300016: ROCA_REFERENCIA004
+    3300018: ROCA_REFERENCIA005
+    3300020: ROCA_REFERENCIA006
+    3300022: ROCA_REFERENCIA007
+    3300024: ROCA_REFERENCIA008
+    3300026: Rock002
+    3300028: rOQUES
+    3300030: Shop002
+    3300032: Shop003
+    3300034: Shop004
+    3300036: Shop1
+    3300038: Wall Style 002
+    3300040: Wall Style 003
+    3300042: Wall Style 004
+    3300044: Wall Style 005
+    3300046: Wall Style 006
+    3300048: Wall Style 007
+    3300050: Wall Style 008
+    3300052: Wall Style 009
+    3300054: Wall Style 010
+    3300056: Wall Style 011
+    3300058: Wall Style 012
+    3300060: Wall Style 013
+    3300062: Wall Style 014
+    3300064: Wall Style 015
+    3300066: Wall Style 016
+    3300068: Wall Style 017
+    3300070: Wall Style 018
+    3300072: Wall Style 019
+    3300074: Wall Style 021
+    3300076: Wall Style 022
+    3300078: Wall Style 023
+    3300080: Wall Style 024
+    3300082: Wall Style 025
+    3300084: Wall Style 026
+    3300086: Wall Style 027
+    3300088: Wall Style 028
+    3300090: Wall Style 029
+    3300092: Wall Style 030
+    3300094: Wall Style 031
+    3300096: Wall Style 032
+    3300098: Wall Style 033
+    3300100: Wall Style 034
+    3300102: Wall Style 035
+    3300104: Wall Style 036
+    3300106: Wall Style 037
+    3300108: Wall Style 038
+    3300110: Wall Style 1
+    4300000: Wall Style 1
+    4300002: Wall Style 002
+    4300004: Wall Style 003
+    4300006: Wall Style 004
+    4300008: Wall Style 005
+    4300010: Wall Style 006
+    4300012: Wall Style 007
+    4300014: Wall Style 008
+    4300016: Wall Style 009
+    4300018: Wall Style 010
+    4300020: Wall Style 011
+    4300022: Wall Style 012
+    4300024: Wall Style 013
+    4300026: Wall Style 014
+    4300028: Wall Style 015
+    4300030: Wall Style 016
+    4300032: Wall Style 017
+    4300034: Wall Style 018
+    4300036: Wall Style 019
+    4300038: Wall Style 021
+    4300040: Wall Style 022
+    4300042: Wall Style 023
+    4300044: Wall Style 024
+    4300046: Wall Style 025
+    4300048: Wall Style 026
+    4300050: Wall Style 027
+    4300052: Wall Style 028
+    4300054: Wall Style 029
+    4300056: Wall Style 030
+    4300058: Wall Style 031
+    4300060: Wall Style 032
+    4300062: Wall Style 033
+    4300064: Wall Style 034
+    4300066: Wall Style 035
+    4300068: Wall Style 036
+    4300070: Wall Style 037
+    4300072: ROCA_REFERENCIA
+    4300074: Rock002
+    4300076: ROCA_REFERENCIA001
+    4300078: ROCA_REFERENCIA002
+    4300080: Wall Style 038
+    4300082: ROCA_REFERENCIA003
+    4300084: ROCA_REFERENCIA004
+    4300086: Shop1
+    4300088: Shop002
+    4300090: Shop003
+    4300092: Shop004
+    4300094: ROCA_REFERENCIA005
+    4300096: g_Plane001_Plane001
+    4300098: Box010
+    4300100: Box011
+    4300102: Box012
+    4300104: rOQUES
+    4300106: ROCA_REFERENCIA006
+    4300108: ROCA_REFERENCIA007
+    4300110: ROCA_REFERENCIA008
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.0254
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

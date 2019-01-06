@@ -83,6 +83,7 @@ public class RuneSeller : MonoBehaviour {
                 Debug.Log("No estoy Conversando");
                 break;
             case DialogueState.INIT:
+				playerController.anim.SetFloat("Speed", 0);
                 playerController.enabled = false; //Ya no puedes mover el personaje
                 pressEImage.enabled = false; //Deja de aparecer el boton E
                 dialogueText.text = ""; //Aparece el cuadro de diálogo vacío
@@ -149,12 +150,11 @@ public class RuneSeller : MonoBehaviour {
                 dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
                 if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
                 {
-                    lobbyShop.OpenStore(); //storeWrap.SetActive(true);
+                    storeWrap.SetActive(true);
                     dialogueWaiter.SetActive(true);
                     if (Input.GetButtonDown("E"))
                     {
-                        lobbyShop.CloseStore();
-                        //storeWrap.SetActive(false);
+                        storeWrap.SetActive(false);
                         dialogueWaiter.SetActive(false);
                         dialogueText.text = ""; //Reseteamos el texto
                         dialogueTimeLeft = NPCSentencesAudio[1].length; //Preparamos la duración del siguiente audio
