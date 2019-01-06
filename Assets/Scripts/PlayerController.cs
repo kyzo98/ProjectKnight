@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour {
 
     public Animator anim;                                                      // It saves the animator.
 
+    public GameObject pauseMenu;
+
     void Start () {
         anim = GetComponent<Animator>();                                // Gets the animator from the actual character.
 
@@ -37,6 +39,15 @@ public class PlayerController : MonoBehaviour {
     }
 	
 	void Update () {
+        if (Input.GetKeyDown("escape"))
+        {
+            pauseMenu.SetActive(!pauseMenu.activeSelf);
+            if (Time.timeScale > 0)
+                Time.timeScale = 0;
+            else
+                Time.timeScale = 1;
+        }
+
         float xMove = Input.GetAxis("Horizontal") * X_MOVEMENT;                         // Gets the input of the vertical axis and applies speed 
         float zMove = Input.GetAxis("Vertical") * Z_MOVEMENT;                           // Gets the input of the horizontal axis and applies speed 
 

@@ -33,6 +33,7 @@ public class FightController : MonoBehaviour {
     public GameObject armorEffect;
     public GameObject healEffect;
     public GameObject magicSpell;
+    public GameObject pauseMenu;
 
     //PLAYER
     public GameObject player;
@@ -119,6 +120,15 @@ public class FightController : MonoBehaviour {
 	
 	
 	void Update () {
+        if (Input.GetKeyDown("escape"))
+        {
+            pauseMenu.SetActive(!pauseMenu.activeSelf);
+            if (Time.timeScale > 0)
+                Time.timeScale = 0;
+            else
+                Time.timeScale = 1;
+        }
+
         playerScript = player.GetComponent<Player>();
         bossScript = boss.GetComponent<Boss>();
 

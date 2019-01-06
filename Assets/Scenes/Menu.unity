@@ -1710,7 +1710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a97375865a91bc45814ed630a302c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToLoad: Lobby
+  SceneToLoad: Narrator
 --- !u!328 &992914570
 VideoPlayer:
   m_ObjectHideFlags: 0
