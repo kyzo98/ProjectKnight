@@ -37,6 +37,8 @@ public class Menu : MonoBehaviour {
 
         alpha = 0;
         rawImageFade.color = new Color32(0, 0, 0, alpha);
+
+        StartCoroutine(FadeIn());
     }
 
     public void NewGame()
@@ -80,6 +82,19 @@ public class Menu : MonoBehaviour {
     public void FadeOutAndLoad()
     {
         StartCoroutine(FadeOut());
+    }
+
+    IEnumerator FadeIn()
+    {
+        rawImageFade.enabled = true;
+        for (int i = 0; i < 255 / 2; i++)
+        {
+            alpha -= 2;
+            rawImageFade.color = new Color32(0, 0, 0, alpha);
+
+            yield return 0;
+        }
+        rawImageFade.enabled = false;
     }
 
     IEnumerator FadeOut()
