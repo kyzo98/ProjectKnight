@@ -148,7 +148,7 @@ f16835701e71dd5d6fb1fed4b7aff1d8 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 0eaa6611a2fe3f9bafc8639126b2e1a8 Assembly-CSharp.dll:.animationController
 0fb0aea72d45285e92920b9d00232790 Assembly-CSharp.dll:.Boss
 8d8f7d2b827b1f8fe62aef63cb7f748f Assembly-CSharp.dll:.InventoryBattle
-1c71ae35f893da61b15b188e6de6d9ba Assembly-CSharp.dll:.Menu
+80c38693216a52aebf603dfc35443efa Assembly-CSharp.dll:.Menu
 e701050006abd86ee69ae3db8cc42000 Assembly-CSharp.dll:.UIWorldPosition
 eaf0bcdb10d442a4029d615f41d09957 Unity.TextMeshPro.dll:TMPro.TextContainer
 1687d9f659956efb04fc9e89b183850c Assembly-CSharp.dll:AdultLink.TimeController
@@ -207,3 +207,4 @@ e04611b8715e6833d2bd7010fc6be10b Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 93307bd34e39d73fd24e00ec39c25a91 Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 c00867a04c00de5bea0b016b91ff08b5 Assembly-CSharp.dll:AdultLink.Index
 5e24f99cfacd7f7eb303ee9b78c5a47d Assembly-CSharp.dll:.GlitchEffect
+3b9fe89468712e6ff021bc337ea94ab5 Assembly-CSharp.dll:.AlphaButton

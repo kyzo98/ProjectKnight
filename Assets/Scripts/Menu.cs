@@ -15,6 +15,11 @@ public class Menu : MonoBehaviour {
     public Slider masterVolumeSlider;
     public Slider fxVolumeSlider;
     public Slider musicVolumeSlider;
+    public Dropdown graphicsQualityDropdown;
+    public Dropdown screenMethodDropdown;
+    public Dropdown resolutionDropdown;
+    Resolution[] resolutions;
+
 
     public RawImage rawImageFade;
     byte alpha;
@@ -23,7 +28,7 @@ public class Menu : MonoBehaviour {
     { //Reset narrador
         PlayerPrefs.SetInt("NarrativeScreenOrder", 0);
 
-        //Load settings
+        //Load settings Sound
         masterVolumeSlider.value = PlayerPrefs.GetInt("masterVolumeSlider");
         fxVolumeSlider.value = PlayerPrefs.GetInt("fxVolumeSlider");
         musicVolumeSlider.value = PlayerPrefs.GetInt("musicVolumeSlider");
@@ -31,6 +36,39 @@ public class Menu : MonoBehaviour {
         mixer.SetFloat("masterVolume", masterVolumeSlider.value);
         mixer.SetFloat("fxVolume", fxVolumeSlider.value);
         mixer.SetFloat("musicVolume", musicVolumeSlider.value);
+
+        //Load settings Video
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+
+        List<string> resolutionOptions = new List<string>();
+
+        for(int i = 0; i < resolutions.Length; i++)
+        {
+            string resolutionOption = resolutions[i].width + " x " + resolutions[i].height;
+            resolutionOptions.Add(resolutionOption);
+        }
+
+        resolutionDropdown.AddOptions(resolutionOptions);
+        resolutionDropdown.value = PlayerPrefs.GetInt("resolutionIndex");
+
+        QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("qualityIndex"));
+        graphicsQualityDropdown.value = PlayerPrefs.GetInt("qualityIndex");
+
+        switch (PlayerPrefs.GetInt("screenIndex"))
+        {
+            case 0:
+                Screen.fullScreen = true;
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+            case 1:
+                Screen.fullScreen = false;
+                break;
+            default:
+                break;
+        }
+        screenMethodDropdown.value = PlayerPrefs.GetInt("screenIndex");
+
 
         audioSource = this.GetComponents<AudioSource>();
         Time.timeScale = 0.5f;
@@ -108,5 +146,46 @@ public class Menu : MonoBehaviour {
             yield return 0;
         }
         SceneManager.LoadScene(SceneToLoad, LoadSceneMode.Single);
+    }
+
+    public void SetQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+        PlayerPrefs.SetInt("qualityIndex", qualityIndex);
+    }
+
+    public void SetScreenMode(int screenIndex)
+    {
+        switch (screenIndex)
+        {
+            case 0:
+                Screen.fullScreen = true;
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+            case 1:
+                Screen.fullScreen = false;
+                break;
+            default:
+                break;
+        }
+        PlayerPrefs.SetInt("screenIndex", screenIndex);
+    }
+
+    public void SetScreenResolution(int resolutionIndex)
+    {
+        Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, true);
+        switch (PlayerPrefs.GetInt("screenIndex"))
+        {
+            case 0:
+                Screen.fullScreen = true;
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+            case 1:
+                Screen.fullScreen = false;
+                break;
+            default:
+                break;
+        }
+        PlayerPrefs.SetInt("resolutionIndex", resolutionIndex);
     }
 }
