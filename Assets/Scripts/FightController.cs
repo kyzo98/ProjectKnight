@@ -35,6 +35,12 @@ public class FightController : MonoBehaviour {
     public GameObject healEffect;
     public GameObject magicSpell;
     public GameObject pauseMenu;
+    public GameObject exitGameMenu;
+    public GameObject backMenuMenu;
+    public GameObject optionsMenuMenu;
+    bool gamePaused = false;
+    public GameObject backgroundMusic;
+    AudioSource[] backgroundAudio;
 
     //PLAYER
     public GameObject player;
@@ -82,6 +88,8 @@ public class FightController : MonoBehaviour {
     private bool bossEndedMove = true;
 
     void Start () {
+        backgroundAudio = backgroundMusic.GetComponents<AudioSource>();
+
         fightController = this;
         actualEffectPlayer = Effects.NULL;
 
@@ -123,11 +131,10 @@ public class FightController : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown("escape"))
         {
-            pauseMenu.SetActive(!pauseMenu.activeSelf);
-            if (Time.timeScale > 0)
-                Time.timeScale = 0;
+            if (!gamePaused)
+                PauseGame();
             else
-                Time.timeScale = 1;
+                UnPauseGame();
         }
 
         playerScript = player.GetComponent<Player>();
@@ -1342,16 +1349,13 @@ public class FightController : MonoBehaviour {
             }
             else
             {
-                if(playerScript.moves > 0 && playerScript.energy > 2)
-                {
-                    Debug.Log("Player failed protecting");
-                    playerScript.energy -= 4;
-                    playerScript.moves--;
-                    AddCombatText();
-                    combatDialogue[0].text = "Player failed protecting himself";
-                    combatDialogue[0].color = new Color(1, 1, 1, 1);
-                    ShowActions();
-                }
+                Debug.Log("Player failed protecting");
+                playerScript.energy -= 4;
+                playerScript.moves--;
+                AddCombatText();
+                combatDialogue[0].text = "Player failed protecting himself";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+                ShowActions();
             }
         }
 
@@ -2115,6 +2119,26 @@ public class FightController : MonoBehaviour {
     }
 
 
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        pauseMenu.SetActive(true);
+        backgroundAudio[0].Pause();
+        backgroundAudio[1].Play();
+        gamePaused = true;
+    }
+
+    public void UnPauseGame()
+    {
+        Time.timeScale = 1;
+        backgroundAudio[0].UnPause();
+        exitGameMenu.SetActive(false);
+        backMenuMenu.SetActive(false);
+        optionsMenuMenu.SetActive(false);
+        pauseMenu.SetActive(false);
+        gamePaused = false;
+    }
+
     //Corutina de espera
     //IEnumerator Waiter()
     //{
@@ -2144,7 +2168,7 @@ public class FightController : MonoBehaviour {
     //        yield return new WaitForSeconds(0);
     //    }
     //}
-    
+
     //IEnumerator PlayerHealthBarAnimation(int d, bool isHeal)
     //{
     //    if(!isHeal)
