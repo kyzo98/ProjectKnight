@@ -70,6 +70,7 @@
     <Compile Include="Assets\AdultLink\HoloShield\Examples\Scripts\TimeController.cs" />
     <Compile Include="Assets\AdultLink\HoloShield\Examples\Scripts\ToggleDistortion.cs" />
     <Compile Include="Assets\AdultLink\HoloShield\Examples\Scripts\ToggleNoise.cs" />
+    <Compile Include="Assets\PauseAnimation.cs" />
     <Compile Include="Assets\Scripts\Boss.cs" />
     <Compile Include="Assets\Scripts\CameraRotation.cs" />
     <Compile Include="Assets\Scripts\FightController.cs" />
@@ -97,14 +98,34 @@
     <Compile Include="Assets\Scripts\PopupText.cs" />
     <Compile Include="Assets\Scripts\SecondCameraCinematic.cs" />
     <Compile Include="Assets\Scripts\UseSpellButton.cs" />
+    <Compile Include="Assets\Scripts\Utilities\AlphaButton.cs" />
+    <Compile Include="Assets\Scripts\Utilities\GlitchEffect.cs" />
     <Compile Include="Assets\Scripts\Utilities\JumpScene.cs" />
     <Compile Include="Assets\Scripts\Utilities\MenuVideo.cs" />
     <Compile Include="Assets\Scripts\Utilities\UIWorldPosition.cs" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\AdultLink\HoloShield\HoloShield.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\AdultLink\HoloShield\Examples\Icons\Attribution.md.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\Shaders\Outline.shader" />
+    <None Include="Assets\Shaders\GlitchShader.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\AdultLink\HoloShield\Examples\Textures\Kenney\Particle samples\License.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\AdultLink\HoloShield\Examples\AssetStore\BOXOPHOBIC\Skybox Cubemap Extended\Shaders\Skybox Cubemap Extended.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/Projects/Unity Projects/ProjectKnight/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
