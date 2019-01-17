@@ -1816,7 +1816,7 @@ public class FightController : MonoBehaviour {
         {
             actualEffectPlayer = Effects.GRIEF;
             AddCombatText();
-            combatDialogue[0].text = "Griffyndor";
+            combatDialogue[0].text = "You have been griefed.";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
         }
         else if(random > 33 && random <= 66)

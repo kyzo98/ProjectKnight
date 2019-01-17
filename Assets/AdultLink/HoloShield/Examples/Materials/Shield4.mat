@@ -89,11 +89,11 @@ Material:
     - _Exponent: 1
     - _Extraroughness: 3
     - _GlobalFade: 1
-    - _Globalopacity: 0.282
+    - _Globalopacity: 0.169
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Innerfresnelintensity: 0.177
+    - _Innerfresnelintensity: 0.149
     - _Invert: 0
     - _Invertmaintexture: 0
     - _Invertsecondarytexture: 1
@@ -103,9 +103,9 @@ Material:
     - _Noisescale: 1
     - _Noisesize: 0
     - _OcclusionStrength: 1
-    - _Outerfresnelintensity: 1
+    - _Outerfresnelintensity: 0.483
     - _Parallax: 0.02
-    - _Power: 1.81
+    - _Power: 5
     - _Powerexponent: 1
     - _Pulseamplitude: 0.25
     - _Pulsefrequency: 2.11
