@@ -5,51 +5,73 @@ using UnityEngine;
 
 public class LobbyShop : MonoBehaviour {
 
-    public static LobbyShop store;
-    public GameObject lobbyShop;
-    public GameObject itemHolderPrefab;
-    public Transform grid; //necesitamos esta variable para poder instanciar los holders como hijos del grid.
-    //VARIABLES
-    Player playerScript;
-    public int space = 10;
-
-    public OrbItems[] orbItems;
-    Inventario inventario;
+    public GameObject player;
+    public Inventario inventario;
 
     void Start()
     {
-        store = this;
-        FillShop();
+        inventario = player.GetComponent<Inventario>();
     }
 
-    public void OpenStore()
+    //FUNCTIONS TO BUY SORROWS
+    public void BuyRage()
     {
-        lobbyShop.SetActive(true);
+        inventario.AddRage();
+        //Restar precio de venta a las monedas que tiene el player.
     }
 
-    public void CloseStore()
+    public void BuyTerror()
     {
-        lobbyShop.SetActive(false);
+        inventario.AddTerror();
+        //Restar precio de venta a las monedas que tiene el player.
     }
 
-    public void FillShop()
+    public void BuyGrief()
     {
-        for(int i = 0; i < orbItems.Length; i++)
-        {
-            GameObject instHolder = Instantiate(itemHolderPrefab, grid);
-            ItemHolder holderScript = instHolder.GetComponent<ItemHolder>();
+        inventario.AddGrief();
+        //Restar precio de venta a las monedas que tiene el player.
+    }
 
-            holderScript.itemName.text = orbItems[i].orbName;
-            holderScript.itemPrice.text = orbItems[i].orbPrice.ToString();
+    //FUNCTIONS TO BUY DRIVES
+    public void BuyCourage()
+    {
+        inventario.AddCourage();
+        //Restar precio de venta a las monedas que tiene el player.
+    }
 
-            if(orbItems[i].buyed == true)
-            {
-                holderScript.itemImg.sprite = orbItems[i].buyedOrbImg;
-            }
-            else
-            {
-                holderScript.itemImg.sprite = orbItems[i].unbuyedOrbImg;
-            }
-        }
+    public void BuyFocus()
+    {
+        inventario.AddFocus();
+        //Restar precio de venta a las monedas que tiene el player.
+    }
+
+    public void BuyWill()
+    {
+        inventario.AddWill();
+        //Restar precio de venta a las monedas que tiene el player.
+    }
+
+    public void BuyRemembrance()
+    {
+        inventario.AddRemembrance();
+        //Restar precio de venta a las monedas que tiene el player.
+    }
+
+    public void BuySpiritualHealing()
+    {
+        inventario.AddSpiritualHealing();
+        //Restar precio de venta a las monedas que tiene el player.
+    }
+
+    public void BuyClarity()
+    {
+        inventario.AddClarity();
+        //Restar precio de venta a las monedas que tiene el player.
+    }
+
+    public void BuyGrace()
+    {
+        inventario.AddGrace();
+        //Restar precio de venta a las monedas que tiene el player.
     }
 }

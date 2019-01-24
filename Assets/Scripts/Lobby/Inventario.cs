@@ -4,22 +4,35 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public struct Sorrows {
+    public int rage;
+    public int terror;
+    public int grief;
+};
+
+public struct Drives {
+    public int courage;
+    public int focus;
+    public int will;
+    public int remembrance;
+    public int spiritualHealing;
+    public int clarity;
+    public int grace;
+};
+
 public class Inventario : MonoBehaviour {
 
-    public static Inventario inventario;
+    public Sorrows sorrows;
+    public Drives drives;
 
-    //public GameObject inventoryHolderPrefab;
-    public GameObject spellsHolderPrefab;
     public GameObject inventory;
-    //public Transform gridOrbs;
-    public Transform gridSpells;
 
     public bool inventoryActive;
     public bool inventoryFilled;
 
     void Start()
     {
-        inventario = this;
+
     }
 
     void Update()
@@ -51,25 +64,65 @@ public class Inventario : MonoBehaviour {
         inventory.SetActive(false);
     }
 
-    //public void AddItem(OrbItems orbItem)
-    //{
-    //    GameObject holderClone = Instantiate(inventoryHolderPrefab, gridOrbs);
-    //    ItemHolder holdInventarioScript = holderClone.GetComponent<ItemHolder>();
-
-    //    holdInventarioScript.itemName.text = orbItem.orbName;
-    //    holdInventarioScript.itemImg.sprite = orbItem.unbuyedOrbImg;
-    //    holdInventarioScript.type.text = orbItem.orbType.ToString();
-    //}
-
-    public void AddSpell(SpellItems spellItems)
+    //FUNCTIONS TO ADD SORROWS
+    public void AddRage()
     {
-        GameObject holderClone = Instantiate(spellsHolderPrefab, gridSpells);
-        ItemHolder holdInventarioScript = holderClone.GetComponent<ItemHolder>();
+        sorrows.rage += 1;
+        PlayerPrefs.SetInt("Rage", sorrows.rage);
+    }
 
-        holdInventarioScript.itemName.text = spellItems.spellName;
-        holdInventarioScript.itemImg.sprite = spellItems.spellImg;
-        holdInventarioScript.type.text = spellItems.spellType.ToString();
-        holdInventarioScript.description.text = spellItems.spellDescription;
-        holdInventarioScript.itemPrice.text = null;
+    public void AddTerror()
+    {
+        sorrows.terror += 1;
+        PlayerPrefs.SetInt("Terror", sorrows.terror);
+    }
+
+    public void AddGrief()
+    {
+        sorrows.grief += 1;
+        PlayerPrefs.SetInt("Grief", sorrows.grief);
+    }
+
+    //FUNCTIONS TO ADD DRIVES
+    public void AddCourage()
+    {
+        drives.courage += 1;
+        PlayerPrefs.SetInt("Courage", drives.courage);
+    }
+
+    public void AddFocus()
+    {
+        drives.focus += 1;
+        PlayerPrefs.SetInt("Focus", drives.focus);
+    }
+
+    public void AddWill()
+    {
+        drives.will += 1;
+        PlayerPrefs.SetInt("Will", drives.will);
+    }
+
+    public void AddRemembrance()
+    {
+        drives.remembrance += 1;
+        PlayerPrefs.SetInt("Remembrance", drives.remembrance);
+    }
+
+    public void AddSpiritualHealing()
+    {
+        drives.spiritualHealing += 1;
+        PlayerPrefs.SetInt("SpiritualHealing", drives.spiritualHealing);
+    }
+
+    public void AddClarity()
+    {
+        drives.clarity += 1;
+        PlayerPrefs.SetInt("Clarity", drives.clarity);
+    }
+
+    public void AddGrace()
+    {
+        drives.grace += 1;
+        PlayerPrefs.SetInt("Grace", drives.grace);
     }
 }

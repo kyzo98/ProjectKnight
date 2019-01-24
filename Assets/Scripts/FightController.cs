@@ -63,7 +63,6 @@ public class FightController : MonoBehaviour {
     public Text[] combatDialogue;
     //PLAYER ANIMATIONS
     private Animator playerAnimator;
-
     //BOSS
     public GameObject boss;
     private Boss bossScript;
