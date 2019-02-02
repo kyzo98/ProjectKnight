@@ -13,8 +13,8 @@ public struct Stats
 
 public struct State
 {
-    string name;
-    int turnsLeft;
+    public string name;
+    public int turnsLeft;
 };
 
 public class Player : MonoBehaviour {
