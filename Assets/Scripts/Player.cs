@@ -11,9 +11,12 @@ public struct Stats
     public int vigor;
 };
 
+public enum StateType { NULL, GRIEF, PARALISIS, NUMB};
+
 public struct State
 {
-    public string name;
+    public StateType name;
+    //public string name;
     public int turnsLeft;
 };
 
