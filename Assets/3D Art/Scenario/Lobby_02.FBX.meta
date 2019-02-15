@@ -1,0 +1,439 @@
+fileFormatVersion: 2
+guid: 871aeb1f4fdd96b428d4f5f68e4d768c
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: 4
+    100002: Box001
+    100004: Cage001
+    100006: Cage002
+    100008: Cage003
+    100010: Cage004
+    100012: Cage005
+    100014: Cage006
+    100016: Cage007
+    100018: Cage008
+    100020: Cage009
+    100022: Cage010
+    100024: Cage011
+    100026: Cage012
+    100028: Cage013
+    100030: Cage014
+    100032: Cage015
+    100034: Cage016
+    100036: Cage017
+    100038: Cage018
+    100040: Cage019
+    100042: Cylinder001
+    100044: //RootNode
+    100046: Object001
+    100048: Object002
+    100050: Object003
+    100052: Object004
+    100054: Object005
+    100056: Object006
+    100058: Object007
+    100060: Object008
+    100062: Object009
+    100064: Object010
+    100066: Object011
+    100068: Object012
+    100070: Object013
+    100072: Object014
+    100074: Object015
+    100076: Object016
+    100078: Object017
+    100080: Object018
+    100082: Object019
+    100084: Object020
+    100086: Object021
+    100088: Object022
+    100090: ROCA_REFERENCIA
+    100092: ROCA_REFERENCIA001
+    100094: ROCA_REFERENCIA002
+    100096: ROCA_REFERENCIA003
+    100098: ROCA_REFERENCIA004
+    100100: ROCA_REFERENCIA005
+    100102: ROCA_REFERENCIA006
+    100104: ROCA_REFERENCIA007
+    100106: Rock002
+    100108: Rock003
+    100110: Rock004
+    100112: Rock005
+    100114: Rock006
+    100116: Rock007
+    100118: Rock008
+    100120: Shop002
+    100122: Shop003
+    100124: Shop004
+    100126: Shop1
+    100128: Wall Style 1
+    100130: Walls
+    400000: 4
+    400002: Box001
+    400004: Cage001
+    400006: Cage002
+    400008: Cage003
+    400010: Cage004
+    400012: Cage005
+    400014: Cage006
+    400016: Cage007
+    400018: Cage008
+    400020: Cage009
+    400022: Cage010
+    400024: Cage011
+    400026: Cage012
+    400028: Cage013
+    400030: Cage014
+    400032: Cage015
+    400034: Cage016
+    400036: Cage017
+    400038: Cage018
+    400040: Cage019
+    400042: Cylinder001
+    400044: //RootNode
+    400046: Object001
+    400048: Object002
+    400050: Object003
+    400052: Object004
+    400054: Object005
+    400056: Object006
+    400058: Object007
+    400060: Object008
+    400062: Object009
+    400064: Object010
+    400066: Object011
+    400068: Object012
+    400070: Object013
+    400072: Object014
+    400074: Object015
+    400076: Object016
+    400078: Object017
+    400080: Object018
+    400082: Object019
+    400084: Object020
+    400086: Object021
+    400088: Object022
+    400090: ROCA_REFERENCIA
+    400092: ROCA_REFERENCIA001
+    400094: ROCA_REFERENCIA002
+    400096: ROCA_REFERENCIA003
+    400098: ROCA_REFERENCIA004
+    400100: ROCA_REFERENCIA005
+    400102: ROCA_REFERENCIA006
+    400104: ROCA_REFERENCIA007
+    400106: Rock002
+    400108: Rock003
+    400110: Rock004
+    400112: Rock005
+    400114: Rock006
+    400116: Rock007
+    400118: Rock008
+    400120: Shop002
+    400122: Shop003
+    400124: Shop004
+    400126: Shop1
+    400128: Wall Style 1
+    400130: Walls
+    2100000: 01 - Default
+    2100002: Standardmaterial
+    2100004: Material
+    2100006: wire_115115115
+    2100008: 'Material #108'
+    2100010: 'Material #109'
+    2100012: 'Material #107'
+    2100014: 'Material #106'
+    2100016: 03 - Default
+    2100018: No Name
+    2100020: 'Material #95'
+    2100022: 'Material #94'
+    2100024: 'Material #89'
+    2100026: 'Material #90'
+    2100028: 'Material #88'
+    2100030: 'Material #92'
+    2100032: 'Material #91'
+    2100034: 'Material #102'
+    2100036: 'Material #103'
+    2100038: 'Material #93'
+    2100040: 'Material #97'
+    2100042: 'Material #96'
+    2100044: 'Material #105'
+    2300000: 4
+    2300002: Box001
+    2300004: Cage001
+    2300006: Cage002
+    2300008: Cage003
+    2300010: Cage004
+    2300012: Cage005
+    2300014: Cage006
+    2300016: Cage007
+    2300018: Cage008
+    2300020: Cage009
+    2300022: Cage010
+    2300024: Cage011
+    2300026: Cage012
+    2300028: Cage013
+    2300030: Cage014
+    2300032: Cage015
+    2300034: Cage016
+    2300036: Cage017
+    2300038: Cage018
+    2300040: Cage019
+    2300042: Cylinder001
+    2300044: Object001
+    2300046: Object002
+    2300048: Object003
+    2300050: Object004
+    2300052: Object005
+    2300054: Object006
+    2300056: Object007
+    2300058: Object008
+    2300060: Object009
+    2300062: Object010
+    2300064: Object011
+    2300066: Object012
+    2300068: Object013
+    2300070: Object014
+    2300072: Object015
+    2300074: Object016
+    2300076: Object017
+    2300078: Object018
+    2300080: Object019
+    2300082: Object020
+    2300084: Object021
+    2300086: Object022
+    2300088: ROCA_REFERENCIA
+    2300090: ROCA_REFERENCIA001
+    2300092: ROCA_REFERENCIA002
+    2300094: ROCA_REFERENCIA003
+    2300096: ROCA_REFERENCIA004
+    2300098: ROCA_REFERENCIA005
+    2300100: ROCA_REFERENCIA006
+    2300102: ROCA_REFERENCIA007
+    2300104: Rock002
+    2300106: Rock003
+    2300108: Rock004
+    2300110: Rock005
+    2300112: Rock006
+    2300114: Rock007
+    2300116: Rock008
+    2300118: Shop002
+    2300120: Shop003
+    2300122: Shop004
+    2300124: Shop1
+    2300126: Wall Style 1
+    2300128: Walls
+    3300000: 4
+    3300002: Box001
+    3300004: Cage001
+    3300006: Cage002
+    3300008: Cage003
+    3300010: Cage004
+    3300012: Cage005
+    3300014: Cage006
+    3300016: Cage007
+    3300018: Cage008
+    3300020: Cage009
+    3300022: Cage010
+    3300024: Cage011
+    3300026: Cage012
+    3300028: Cage013
+    3300030: Cage014
+    3300032: Cage015
+    3300034: Cage016
+    3300036: Cage017
+    3300038: Cage018
+    3300040: Cage019
+    3300042: Cylinder001
+    3300044: Object001
+    3300046: Object002
+    3300048: Object003
+    3300050: Object004
+    3300052: Object005
+    3300054: Object006
+    3300056: Object007
+    3300058: Object008
+    3300060: Object009
+    3300062: Object010
+    3300064: Object011
+    3300066: Object012
+    3300068: Object013
+    3300070: Object014
+    3300072: Object015
+    3300074: Object016
+    3300076: Object017
+    3300078: Object018
+    3300080: Object019
+    3300082: Object020
+    3300084: Object021
+    3300086: Object022
+    3300088: ROCA_REFERENCIA
+    3300090: ROCA_REFERENCIA001
+    3300092: ROCA_REFERENCIA002
+    3300094: ROCA_REFERENCIA003
+    3300096: ROCA_REFERENCIA004
+    3300098: ROCA_REFERENCIA005
+    3300100: ROCA_REFERENCIA006
+    3300102: ROCA_REFERENCIA007
+    3300104: Rock002
+    3300106: Rock003
+    3300108: Rock004
+    3300110: Rock005
+    3300112: Rock006
+    3300114: Rock007
+    3300116: Rock008
+    3300118: Shop002
+    3300120: Shop003
+    3300122: Shop004
+    3300124: Shop1
+    3300126: Wall Style 1
+    3300128: Walls
+    4300000: Wall Style 1
+    4300002: ROCA_REFERENCIA
+    4300004: Rock002
+    4300006: ROCA_REFERENCIA001
+    4300008: ROCA_REFERENCIA002
+    4300010: ROCA_REFERENCIA003
+    4300012: ROCA_REFERENCIA004
+    4300014: Shop1
+    4300016: Shop002
+    4300018: Shop003
+    4300020: Shop004
+    4300022: ROCA_REFERENCIA005
+    4300024: Walls
+    4300026: 4
+    4300028: Cylinder001
+    4300030: Cage001
+    4300032: Cage002
+    4300034: Cage003
+    4300036: Cage004
+    4300038: Cage005
+    4300040: Cage006
+    4300042: Cage007
+    4300044: Cage008
+    4300046: Cage009
+    4300048: Cage010
+    4300050: Rock003
+    4300052: Rock004
+    4300054: Rock005
+    4300056: Cage011
+    4300058: Cage012
+    4300060: Rock006
+    4300062: Rock007
+    4300064: Rock008
+    4300066: Box001
+    4300068: ROCA_REFERENCIA006
+    4300070: Cage013
+    4300072: Cage014
+    4300074: Cage015
+    4300076: Cage016
+    4300078: Cage017
+    4300080: Object001
+    4300082: Object002
+    4300084: Object003
+    4300086: Object004
+    4300088: Object005
+    4300090: Object006
+    4300092: Object007
+    4300094: Object008
+    4300096: Object009
+    4300098: Object010
+    4300100: Object011
+    4300102: Object012
+    4300104: Object013
+    4300106: Object014
+    4300108: Object015
+    4300110: Object016
+    4300112: Object017
+    4300114: Object018
+    4300116: Object019
+    4300118: Object020
+    4300120: Object021
+    4300122: Object022
+    4300124: ROCA_REFERENCIA007
+    4300126: Cage018
+    4300128: Cage019
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.0254
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
