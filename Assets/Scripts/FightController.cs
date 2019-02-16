@@ -28,6 +28,8 @@ public class FightController : MonoBehaviour {
     private int nAttack3;
     private int EffectTurnCounter = 0;
     private int griefLifePerTurn = 16;
+    //Velocidad de movimiento del player cada vez que se acerca al boss para atacar
+    float speed = 10.0f;
 
     //GAMEOBJECTS
     public GameObject armorEffect;
@@ -659,15 +661,39 @@ public class FightController : MonoBehaviour {
     {
         HideActions();
 
-        for(int i = 0; i < 3; i++)
+        if (playerScript.states[0].name != StateType.PARALISIS || playerScript.states[1].name != StateType.PARALISIS || playerScript.states[2].name != StateType.PARALISIS)
         {
-            if(playerScript.states[i].name != StateType.PARALISIS)
+            if (usedLightAttack1 == false && usedLightAttack2 == false)
             {
-                if (usedLightAttack1 == false && usedLightAttack2 == false)
-                {
-                    playerScript.energy -= 3;
-                    playerScript.moves--;
+                playerScript.energy -= 3;
+                playerScript.moves--;
 
+                if (Random.Range(0, 20) == 1) //critico
+                {
+                    int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
+                    StartCoroutine(LightAttackWaiter(damage));
+                    AddCombatText();
+                    combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
+                    combatDialogue[0].text = "CRITICAL! Player and dealt " + damage.ToString() + " damge to the Boss";
+                    usedLightAttack1 = true;
+                }
+                else //ataque normal
+                {
+                    int damage = Random.Range(playerScript.stats.strenght * 6 - 3, playerScript.stats.strenght * 6 + 3);
+                    StartCoroutine(LightAttackWaiter(damage));
+                    AddCombatText();
+                    combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
+                    combatDialogue[0].color = new Color(1, 1, 1, 1);
+                    usedLightAttack1 = true;
+                }
+            }
+            else if (usedLightAttack1 == true)
+            {
+                playerScript.energy -= 3;
+                playerScript.moves--;
+
+                if (Random.value > 0.3)
+                {
                     if (Random.Range(0, 20) == 1) //critico
                     {
                         int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
@@ -675,7 +701,7 @@ public class FightController : MonoBehaviour {
                         AddCombatText();
                         combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
                         combatDialogue[0].text = "CRITICAL! Player and dealt " + damage.ToString() + " damge to the Boss";
-                        usedLightAttack1 = true;
+                        usedLightAttack2 = true;
                     }
                     else //ataque normal
                     {
@@ -684,90 +710,63 @@ public class FightController : MonoBehaviour {
                         AddCombatText();
                         combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
                         combatDialogue[0].color = new Color(1, 1, 1, 1);
-                        usedLightAttack1 = true;
-                    }
-                }
-                else if (usedLightAttack1 == true)
-                {
-                    playerScript.energy -= 3;
-                    playerScript.moves--;
-
-                    if (Random.value > 0.3)
-                    {
-                        if (Random.Range(0, 20) == 1) //critico
-                        {
-                            int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
-                            StartCoroutine(LightAttackWaiter(damage));
-                            AddCombatText();
-                            combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
-                            combatDialogue[0].text = "CRITICAL! Player and dealt " + damage.ToString() + " damge to the Boss";
-                            usedLightAttack2 = true;
-                        }
-                        else //ataque normal
-                        {
-                            int damage = Random.Range(playerScript.stats.strenght * 6 - 3, playerScript.stats.strenght * 6 + 3);
-                            StartCoroutine(LightAttackWaiter(damage));
-                            AddCombatText();
-                            combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
-                            combatDialogue[0].color = new Color(1, 1, 1, 1);
-                            usedLightAttack2 = true;
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("Light Attack failed.");
-                        AddCombatText();
-                        combatDialogue[0].text = "Light Attack failed";
-                        combatDialogue[0].color = new Color(1, 1, 1, 1);
                         usedLightAttack2 = true;
-                        if (playerScript.moves > 0 && playerScript.energy > 2)
-                        {
-                            ShowActions();
-                        }
                     }
                 }
-                else if (usedLightAttack2 == true)
+                else
                 {
-                    playerScript.energy -= 3;
-                    playerScript.moves--;
-
-                    if (Random.value > 0.5)
+                    Debug.Log("Light Attack failed.");
+                    AddCombatText();
+                    combatDialogue[0].text = "Light Attack failed";
+                    combatDialogue[0].color = new Color(1, 1, 1, 1);
+                    usedLightAttack2 = true;
+                    if (playerScript.moves > 0 && playerScript.energy > 2)
                     {
-                        if (Random.Range(0, 20) == 1) //critico
-                        {
-                            int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
-                            StartCoroutine(LightAttackWaiter(damage));
-                            AddCombatText();
-                            combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
-                            combatDialogue[0].text = "CRITICAL! Player and dealt " + damage.ToString() + " damge to the Boss";
-                        }
-                        else //ataque normal
-                        {
-                            int damage = Random.Range(playerScript.stats.strenght * 6 - 3, playerScript.stats.strenght * 6 + 3);
-                            StartCoroutine(LightAttackWaiter(damage));
-                            AddCombatText();
-                            combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
-                            combatDialogue[0].color = new Color(1, 1, 1, 1);
-                        }
+                        ShowActions();
                     }
-                    else
+                }
+            }
+            else if (usedLightAttack2 == true)
+            {
+                playerScript.energy -= 3;
+                playerScript.moves--;
+
+                if (Random.value > 0.5)
+                {
+                    if (Random.Range(0, 20) == 1) //critico
                     {
-                        Debug.Log("Light Attack failed.");
+                        int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
+                        StartCoroutine(LightAttackWaiter(damage));
                         AddCombatText();
-                        combatDialogue[0].text = "Light Attack failed";
+                        combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
+                        combatDialogue[0].text = "CRITICAL! Player and dealt " + damage.ToString() + " damge to the Boss";
+                    }
+                    else //ataque normal
+                    {
+                        int damage = Random.Range(playerScript.stats.strenght * 6 - 3, playerScript.stats.strenght * 6 + 3);
+                        StartCoroutine(LightAttackWaiter(damage));
+                        AddCombatText();
+                        combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
                         combatDialogue[0].color = new Color(1, 1, 1, 1);
-                        if (playerScript.moves > 0 && playerScript.energy > 2)
-                        {
-                            ShowActions();
-                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log("Light Attack failed.");
+                    AddCombatText();
+                    combatDialogue[0].text = "Light Attack failed";
+                    combatDialogue[0].color = new Color(1, 1, 1, 1);
+                    if (playerScript.moves > 0 && playerScript.energy > 2)
+                    {
+                        ShowActions();
                     }
                 }
             }
         }
 
-        //Aplicación de parálisis
-        for(int i = 0; i < 3; i++)
-        {
+            //Aplicación de parálisis
+            for (int i = 0; i < 3; i++)
+            {
             if(playerScript.states[i].name == StateType.PARALISIS)
             {
                 if(Random.value > 0.1)
@@ -921,31 +920,28 @@ public class FightController : MonoBehaviour {
         playerScript.energy -= 7;
         playerScript.moves--;
 
-        for(int i = 0; i < 3; i++)
+        if (playerScript.states[0].name != StateType.PARALISIS || playerScript.states[1].name != StateType.PARALISIS || playerScript.states[2].name != StateType.PARALISIS)
         {
-            if(playerScript.states[i].name != StateType.PARALISIS)
+            if (Random.Range(0, 7) == 1) //critico
             {
-                if (Random.Range(0, 7) == 1) //critico
-                {
-                    int damage = Random.Range(playerScript.stats.strenght * 32 - 3, playerScript.stats.strenght * 32 + 3);
-                    StartCoroutine(HeavyAttackWaiter(damage));
-                    AddCombatText();
-                    combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
-                    combatDialogue[0].text = "CRITICAL! Player and dealt " + damage.ToString() + " damge to the Boss";
-                }
-                else //ataque normal
-                {
-                    int damage = Random.Range(playerScript.stats.strenght * 16 - 3, playerScript.stats.strenght * 16 + 3);
-                    StartCoroutine(HeavyAttackWaiter(damage));
-                    AddCombatText();
-                    combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
-                    combatDialogue[0].color = new Color(1, 1, 1, 1);
-                }
+                int damage = Random.Range(playerScript.stats.strenght * 32 - 3, playerScript.stats.strenght * 32 + 3);
+                StartCoroutine(HeavyAttackWaiter(damage));
+                AddCombatText();
+                combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
+                combatDialogue[0].text = "CRITICAL! Player and dealt " + damage.ToString() + " damge to the Boss";
+            }
+            else //ataque normal
+            {
+                int damage = Random.Range(playerScript.stats.strenght * 16 - 3, playerScript.stats.strenght * 16 + 3);
+                StartCoroutine(HeavyAttackWaiter(damage));
+                AddCombatText();
+                combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
             }
         }
 
         //Aplicacion del efecto de paralisis
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             if(playerScript.states[i].name == StateType.PARALISIS)
             {
@@ -1008,15 +1004,29 @@ public class FightController : MonoBehaviour {
     {
         HideActions();
 
-        for (int i = 0; i < 3; i++)
+        if (playerScript.states[0].name != StateType.PARALISIS || playerScript.states[1].name != StateType.PARALISIS || playerScript.states[2].name != StateType.PARALISIS)
         {
-            if (playerScript.states[i].name != StateType.PARALISIS)
+            if (usedBasicHeal1 == false && usedBasicHeal2 == false)
             {
-                if (usedBasicHeal1 == false && usedBasicHeal2 == false)
-                {
-                    playerScript.energy -= 3;
-                    playerScript.moves--;
+                playerScript.energy -= 3;
+                playerScript.moves--;
 
+                int healing = playerScript.stats.vigor * 7;
+                if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
+                StartCoroutine(BasicHealWaiter(healing));
+
+                AddCombatText();
+                combatDialogue[0].text = "Player healed himself for " + healing.ToString() + " HP";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+                usedBasicHeal1 = true;
+            }
+            else if (usedBasicHeal1 == true)
+            {
+                playerScript.energy -= 3;
+                playerScript.moves--;
+
+                if (Random.value > 0.8)
+                {
                     int healing = playerScript.stats.vigor * 7;
                     if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                     StartCoroutine(BasicHealWaiter(healing));
@@ -1024,68 +1034,51 @@ public class FightController : MonoBehaviour {
                     AddCombatText();
                     combatDialogue[0].text = "Player healed himself for " + healing.ToString() + " HP";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
-                    usedBasicHeal1 = true;
+                    usedBasicHeal2 = true;
                 }
-                else if (usedBasicHeal1 == true)
+                else
                 {
-                    playerScript.energy -= 3;
-                    playerScript.moves--;
-
-                    if (Random.value > 0.8)
+                    Debug.Log("Player failed heal");
+                    AddCombatText();
+                    combatDialogue[0].text = "Player failed heal";
+                    combatDialogue[0].color = new Color(1, 1, 1, 1);
+                    usedBasicHeal2 = true;
+                    if (playerScript.moves > 0 && playerScript.energy > 2)
                     {
-                        int healing = playerScript.stats.vigor * 7;
-                        if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
-                        StartCoroutine(BasicHealWaiter(healing));
-
-                        AddCombatText();
-                        combatDialogue[0].text = "Player healed himself for " + healing.ToString() + " HP";
-                        combatDialogue[0].color = new Color(1, 1, 1, 1);
-                        usedBasicHeal2 = true;
-                    }
-                    else
-                    {
-                        Debug.Log("Player failed heal");
-                        AddCombatText();
-                        combatDialogue[0].text = "Player failed heal";
-                        combatDialogue[0].color = new Color(1, 1, 1, 1);
-                        usedBasicHeal2 = true;
-                        if (playerScript.moves > 0 && playerScript.energy > 2)
-                        {
-                            ShowActions();
-                        }
+                        ShowActions();
                     }
                 }
-                else if (usedBasicHeal2 == true)
+            }
+            else if (usedBasicHeal2 == true)
+            {
+                playerScript.energy -= 3;
+                playerScript.moves--;
+
+                if (Random.value > 0.6)
                 {
-                    playerScript.energy -= 3;
-                    playerScript.moves--;
+                    int healing = playerScript.stats.vigor * 7;
+                    if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
+                    StartCoroutine(BasicHealWaiter(healing));
 
-                    if (Random.value > 0.6)
+                    AddCombatText();
+                    combatDialogue[0].text = "Player healed himself for " + healing.ToString() + " HP";
+                    combatDialogue[0].color = new Color(1, 1, 1, 1);
+                }
+                else
+                {
+                    Debug.Log("Player failed heal");
+                    AddCombatText();
+                    combatDialogue[0].text = "Player failed heal";
+                    combatDialogue[0].color = new Color(1, 1, 1, 1);
+                    if (playerScript.moves > 0 && playerScript.energy > 2)
                     {
-                        int healing = playerScript.stats.vigor * 7;
-                        if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
-                        StartCoroutine(BasicHealWaiter(healing));
-
-                        AddCombatText();
-                        combatDialogue[0].text = "Player healed himself for " + healing.ToString() + " HP";
-                        combatDialogue[0].color = new Color(1, 1, 1, 1);
-                    }
-                    else
-                    {
-                        Debug.Log("Player failed heal");
-                        AddCombatText();
-                        combatDialogue[0].text = "Player failed heal";
-                        combatDialogue[0].color = new Color(1, 1, 1, 1);
-                        if (playerScript.moves > 0 && playerScript.energy > 2)
-                        {
-                            ShowActions();
-                        }
+                        ShowActions();
                     }
                 }
             }
         }
 
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             if(playerScript.states[i].name == StateType.PARALISIS)
             {
@@ -1204,77 +1197,74 @@ public class FightController : MonoBehaviour {
     {
         HideActions();
 
-        for (int i = 0; i < 3; i++)
+        if (playerScript.states[0].name != StateType.PARALISIS || playerScript.states[1].name != StateType.PARALISIS || playerScript.states[2].name != StateType.PARALISIS)
         {
-            if (playerScript.states[i].name != StateType.PARALISIS)
+            if (usedBasicSpell1 == false && usedBasicSpell2 == false)
             {
-                if (usedBasicSpell1 == false && usedBasicSpell2 == false)
-                {
-                    playerScript.energy -= 3;
-                    playerScript.moves--;
+                playerScript.energy -= 3;
+                playerScript.moves--;
 
+                int damage = playerScript.stats.power * 4;
+                StartCoroutine(BasicSpellWaiter(damage));
+                AddCombatText();
+                combatDialogue[0].text = "Player dealt " + damage.ToString() + " damage to the Boss";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+                usedBasicSpell1 = true;
+            }
+            else if (usedBasicSpell1 == true)
+            {
+                playerScript.energy -= 3;
+                playerScript.moves--;
+
+                if (Random.value > 0.7)
+                {
                     int damage = playerScript.stats.power * 4;
                     StartCoroutine(BasicSpellWaiter(damage));
                     AddCombatText();
                     combatDialogue[0].text = "Player dealt " + damage.ToString() + " damage to the Boss";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
-                    usedBasicSpell1 = true;
+                    usedBasicSpell2 = true;
                 }
-                else if (usedBasicSpell1 == true)
+                else
                 {
-                    playerScript.energy -= 3;
-                    playerScript.moves--;
-
-                    if (Random.value > 0.7)
+                    if (playerScript.moves > 0 && playerScript.energy > 2)
                     {
-                        int damage = playerScript.stats.power * 4;
-                        StartCoroutine(BasicSpellWaiter(damage));
+                        Debug.Log("Player failed basic spell");
                         AddCombatText();
-                        combatDialogue[0].text = "Player dealt " + damage.ToString() + " damage to the Boss";
+                        combatDialogue[0].text = "Player failed basic spell";
                         combatDialogue[0].color = new Color(1, 1, 1, 1);
+                        if (playerScript.moves > 0 && playerScript.energy > 2)
+                        {
+                            ShowActions();
+                        }
                         usedBasicSpell2 = true;
                     }
-                    else
-                    {
-                        if (playerScript.moves > 0 && playerScript.energy > 2)
-                        {
-                            Debug.Log("Player failed basic spell");
-                            AddCombatText();
-                            combatDialogue[0].text = "Player failed basic spell";
-                            combatDialogue[0].color = new Color(1, 1, 1, 1);
-                            if (playerScript.moves > 0 && playerScript.energy > 2)
-                            {
-                                ShowActions();
-                            }
-                            usedBasicSpell2 = true;
-                        }
-                    }
                 }
-                else if (usedBasicSpell2 == true)
-                {
-                    playerScript.energy -= 3;
-                    playerScript.moves--;
+            }
+            else if (usedBasicSpell2 == true)
+            {
+                playerScript.energy -= 3;
+                playerScript.moves--;
 
-                    if (Random.value > 0.5)
+                if (Random.value > 0.5)
+                {
+                    int damage = playerScript.stats.power * 4;
+                    StartCoroutine(BasicSpellWaiter(damage));
+                    AddCombatText();
+                    combatDialogue[0].text = "Player dealt " + damage.ToString() + " damage to the Boss";
+                    combatDialogue[0].color = new Color(1, 1, 1, 1);
+                }
+                else
+                {
+                    if (playerScript.moves > 0 && playerScript.energy > 2)
                     {
-                        int damage = playerScript.stats.power * 4;
-                        StartCoroutine(BasicSpellWaiter(damage));
+                        Debug.Log("Player failed basic spell");
                         AddCombatText();
-                        combatDialogue[0].text = "Player dealt " + damage.ToString() + " damage to the Boss";
+                        combatDialogue[0].text = "Player failed basic spell";
                         combatDialogue[0].color = new Color(1, 1, 1, 1);
-                    }
-                    else
-                    {
                         if (playerScript.moves > 0 && playerScript.energy > 2)
                         {
-                            Debug.Log("Player failed basic spell");
-                            AddCombatText();
-                            combatDialogue[0].text = "Player failed basic spell";
-                            combatDialogue[0].color = new Color(1, 1, 1, 1);
-                            if (playerScript.moves > 0 && playerScript.energy > 2)
-                            {
-                                ShowActions();
-                            }
+                            ShowActions();
                         }
                     }
                 }
@@ -1282,7 +1272,7 @@ public class FightController : MonoBehaviour {
         }
 
         //Aplicación de Paralisis
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             if(playerScript.states[i].name == StateType.PARALISIS)
             {
@@ -1406,49 +1396,46 @@ public class FightController : MonoBehaviour {
     {
         HideActions();
 
-        for (int i = 0; i < 3; i++)
+        if (playerScript.states[0].name != StateType.PARALISIS || playerScript.states[1].name != StateType.PARALISIS || playerScript.states[2].name != StateType.PARALISIS)
         {
-            if (playerScript.states[i].name != StateType.PARALISIS)
+            if (usedGuard == false)
             {
-                if (usedGuard == false)
-                {
-                    playerScript.energy -= 4;
-                    playerScript.moves--;
+                playerScript.energy -= 4;
+                playerScript.moves--;
 
+                int armored = playerScript.stats.endurance * 3;
+                StartCoroutine(GuardWaiter(armored));
+                AddCombatText();
+                combatDialogue[0].text = "Player covered himself with " + armored.ToString() + " armor";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+                usedGuard = true;
+            }
+            else if (usedGuard == true)
+            {
+                playerScript.energy -= 4;
+                playerScript.moves--;
+
+                if (Random.value > 0.75)
+                {
                     int armored = playerScript.stats.endurance * 3;
                     StartCoroutine(GuardWaiter(armored));
                     AddCombatText();
                     combatDialogue[0].text = "Player covered himself with " + armored.ToString() + " armor";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
-                    usedGuard = true;
                 }
-                else if (usedGuard == true)
+                else
                 {
-                    playerScript.energy -= 4;
-                    playerScript.moves--;
-
-                    if (Random.value > 0.75)
-                    {
-                        int armored = playerScript.stats.endurance * 3;
-                        StartCoroutine(GuardWaiter(armored));
-                        AddCombatText();
-                        combatDialogue[0].text = "Player covered himself with " + armored.ToString() + " armor";
-                        combatDialogue[0].color = new Color(1, 1, 1, 1);
-                    }
-                    else
-                    {
-                        Debug.Log("Player failed protecting");
-                        AddCombatText();
-                        combatDialogue[0].text = "Player failed protecting himself";
-                        combatDialogue[0].color = new Color(1, 1, 1, 1);
-                        ShowActions();
-                    }
+                    Debug.Log("Player failed protecting");
+                    AddCombatText();
+                    combatDialogue[0].text = "Player failed protecting himself";
+                    combatDialogue[0].color = new Color(1, 1, 1, 1);
+                    ShowActions();
                 }
             }
         }
 
         //Aplicacion de paralisis
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             if(playerScript.states[i].name == StateType.PARALISIS)
             {
@@ -1696,7 +1683,11 @@ public class FightController : MonoBehaviour {
         RefreshUI();
     }
 
-
+    public void MoveToEnemy() ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    {
+        float move = speed * Time.deltaTime;
+        player.transform.position = Vector3.MoveTowards(player.transform.position, boss.transform.position, move);
+    }
 
     // Boss Actions
     void Attack()
