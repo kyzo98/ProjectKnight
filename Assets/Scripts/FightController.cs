@@ -45,6 +45,8 @@ public class FightController : MonoBehaviour {
 
     //PLAYER
     public GameObject player;
+    Rigidbody playerRigidbody;
+    Vector3 playerInitPos;
     private Player playerScript;
     private Buff[] playerBuff;
     private Debuff[] playerDebuff;
@@ -83,6 +85,7 @@ public class FightController : MonoBehaviour {
     public Camera mainCamera;
     public Camera frontalPlayerCamera;
     public Camera frontalBossCamera;
+    public Camera heavyAttackCam;
 
     private bool endedMove = true;
     private bool bossEndedMove = true;
@@ -108,6 +111,8 @@ public class FightController : MonoBehaviour {
         playerAnimator = player.GetComponent<Animator>();
         //particleAnimator = magicSpell.GetComponent<Animation>();
 
+        playerInitPos = player.transform.position;
+
         //Buttons
         lightAttackButton.onClick.AddListener(LightAttack);
         heavyAttackButton.onClick.AddListener(HeavyAttack);
@@ -119,6 +124,7 @@ public class FightController : MonoBehaviour {
         mainCamera.enabled = true;
         frontalPlayerCamera.enabled = false;
         frontalBossCamera.enabled = false;
+        heavyAttackCam.enabled = false;
         //Buffs & Debuffs
         playerBuff = new Buff[2];
         playerBuff[0].StateType = BuffStateType.NULL;
@@ -979,8 +985,18 @@ public class FightController : MonoBehaviour {
     {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
+        //yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        Vector3 enemyPosition = new Vector3(boss.transform.position.x, boss.transform.position.y + 1, boss.transform.position.z);
+        while(MoveToPosition(enemyPosition)) { yield return null; } //adapt animations and moving times for the attack.
+        heavyAttackCam.enabled = !heavyAttackCam.enabled;
+        playerAnimator.Play("HeavyAttack");
+        yield return new WaitForSecondsRealtime(3);
+        heavyAttackCam.enabled = !heavyAttackCam;
+        //Make it return to the starting position
+        Vector3 originalPosition = playerInitPos;
+        yield return new WaitForSecondsRealtime(0.5f);
+        while(MoveToPosition(originalPosition)) { yield return null; }
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         //bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(d, Color.red);
@@ -1193,7 +1209,7 @@ public class FightController : MonoBehaviour {
         RefreshUI();
     }
 
-    void BasicSpell()
+    void BasicSpell() //It's the despair one
     {
         HideActions();
 
@@ -1683,10 +1699,10 @@ public class FightController : MonoBehaviour {
         RefreshUI();
     }
 
-    public void MoveToEnemy() ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private bool MoveToPosition(Vector3 enemy)
     {
-        float move = speed * Time.deltaTime;
-        player.transform.position = Vector3.MoveTowards(player.transform.position, boss.transform.position, move);
+        float animSpeed = 10.0f;
+        return enemy != (player.transform.position = Vector3.MoveTowards(player.transform.position, enemy, animSpeed * Time.deltaTime));
     }
 
     // Boss Actions
