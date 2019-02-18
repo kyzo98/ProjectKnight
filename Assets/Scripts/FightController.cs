@@ -40,12 +40,13 @@ public class FightController : MonoBehaviour {
     public GameObject backMenuMenu;
     public GameObject optionsMenuMenu;
     bool gamePaused = false;
+
+    //AUDIO
     public GameObject backgroundMusic;
     AudioSource[] backgroundAudio;
 
     //PLAYER
     public GameObject player;
-    Rigidbody playerRigidbody;
     Vector3 playerInitPos;
     private Player playerScript;
     private Buff[] playerBuff;
@@ -189,7 +190,6 @@ public class FightController : MonoBehaviour {
                         //Debug.Log("Boss Turn");
                         turn++;
                     }
-                    //Restador de turnos a los efectos
                 }
             }
             else
@@ -616,6 +616,11 @@ public class FightController : MonoBehaviour {
         }
     }
 
+    public void HideActions()
+    {
+        actionPanel.SetActive(false);
+    }
+
     public void RestartSuccesBools()
     {
         Debug.Log("Restarted bools");
@@ -626,11 +631,6 @@ public class FightController : MonoBehaviour {
         usedBasicSpell1 = false;
         usedBasicSpell2 = false;
         usedGuard = false;
-    }
-
-    public void HideActions()
-    {
-        actionPanel.SetActive(false);
     }
 
     public void AddCombatText()

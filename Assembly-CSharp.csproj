@@ -173,6 +173,7 @@
     <Compile Include="Assets\Scripts\Boss.cs" />
     <Compile Include="Assets\Scripts\CameraRotation.cs" />
     <Compile Include="Assets\Scripts\FightController.cs" />
+    <Compile Include="Assets\Scripts\FightController2.cs" />
     <Compile Include="Assets\Scripts\Lobby\Inventario.cs" />
     <Compile Include="Assets\Scripts\Lobby\LobbyShop\LobbyShop.cs" />
     <Compile Include="Assets\Scripts\Lobby\LobbyShop\SpellsShop.cs" />
