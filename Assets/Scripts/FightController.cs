@@ -9,6 +9,14 @@ public class FightController : MonoBehaviour {
 
     public static FightController fightController;
 
+    public enum StateType { NULL, GRIEF, PARALISIS, NUMB};
+
+    public struct State
+    {
+        public StateType name;
+        public int turnsLeft;
+    }
+
     enum BuffStateType { NULL }
     enum DebuffStateType { NULL }
     struct Buff
@@ -51,6 +59,7 @@ public class FightController : MonoBehaviour {
     private Player playerScript;
     private Buff[] playerBuff;
     private Debuff[] playerDebuff;
+    public State[] states;
     //UI PLAYER
     public Text actionPointsText;
     public Slider playerHealthBar;
@@ -138,13 +147,13 @@ public class FightController : MonoBehaviour {
         playerDebuff[1].StateType = DebuffStateType.NULL;
         playerDebuff[1].remainingTurns = 0;
 
-        playerScript.states = new State[3];
-        playerScript.states[0].name = StateType.NULL;
-        playerScript.states[0].turnsLeft = 0;
-        playerScript.states[1].name = StateType.NULL;
-        playerScript.states[1].turnsLeft = 0;
-        playerScript.states[2].name = StateType.NULL;
-        playerScript.states[2].turnsLeft = 0;
+        states = new State[3];
+        states[0].name = StateType.NULL;
+        states[0].turnsLeft = 0;
+        states[1].name = StateType.NULL;
+        states[1].turnsLeft = 0;
+        states[2].name = StateType.NULL;
+        states[2].turnsLeft = 0;
 
         ShowActions();
         RefreshUI();
@@ -200,12 +209,12 @@ public class FightController : MonoBehaviour {
                     RestartSuccesBools();
                     for (int i = 0; i < 3; i++)
                     {
-                        if (playerScript.states[i].name == StateType.GRIEF || playerScript.states[i].name == StateType.NUMB || playerScript.states[i].name == StateType.PARALISIS && playerScript.states[i].turnsLeft > 0)
+                        if (states[i].name == StateType.GRIEF || states[i].name == StateType.NUMB || states[i].name == StateType.PARALISIS && states[i].turnsLeft > 0)
                         {
-                            playerScript.states[i].turnsLeft -= 1;
-                            if (playerScript.states[i].turnsLeft == 0)
+                            states[i].turnsLeft -= 1;
+                            if (states[i].turnsLeft == 0)
                             {
-                                playerScript.states[i].name = StateType.NULL;
+                                states[i].name = StateType.NULL;
                             }
                         }
                     }
@@ -213,7 +222,7 @@ public class FightController : MonoBehaviour {
                     //When the player is numb he loses some life.
                     for (int i = 0; i < 3; i++)
                     {
-                        if (playerScript.states[i].name == StateType.GRIEF)
+                        if (states[i].name == StateType.GRIEF)
                         {
                             playerScript.health -= playerScript.maxHealth / griefLifePerTurn;
                             griefLifePerTurn *= 2;
@@ -538,8 +547,8 @@ public class FightController : MonoBehaviour {
 
                     for (int i = 0; i < 3; i++)
                     {
-                        Debug.Log(playerScript.states[i].name);
-                        Debug.Log(playerScript.states[i].turnsLeft);
+                        Debug.Log(states[i].name);
+                        Debug.Log(states[i].turnsLeft);
                     }
 
                     playerScript.moves = 3;
@@ -609,7 +618,7 @@ public class FightController : MonoBehaviour {
 
         for (int i = 0; i < 3; i++)
         {
-            if (playerScript.states[i].name == StateType.NUMB)
+            if (states[i].name == StateType.NUMB)
             {
                 basicHealButton.interactable = false;
             }
@@ -667,7 +676,7 @@ public class FightController : MonoBehaviour {
     {
         HideActions();
 
-        if (playerScript.states[0].name != StateType.PARALISIS || playerScript.states[1].name != StateType.PARALISIS || playerScript.states[2].name != StateType.PARALISIS)
+        if (states[0].name != StateType.PARALISIS || states[1].name != StateType.PARALISIS || states[2].name != StateType.PARALISIS)
         {
             if (usedLightAttack1 == false && usedLightAttack2 == false)
             {
@@ -773,7 +782,7 @@ public class FightController : MonoBehaviour {
             //Aplicación de parálisis
             for (int i = 0; i < 3; i++)
             {
-            if(playerScript.states[i].name == StateType.PARALISIS)
+            if(states[i].name == StateType.PARALISIS)
             {
                 if(Random.value > 0.1)
                 {
@@ -926,7 +935,7 @@ public class FightController : MonoBehaviour {
         playerScript.energy -= 7;
         playerScript.moves--;
 
-        if (playerScript.states[0].name != StateType.PARALISIS || playerScript.states[1].name != StateType.PARALISIS || playerScript.states[2].name != StateType.PARALISIS)
+        if (states[0].name != StateType.PARALISIS || states[1].name != StateType.PARALISIS || states[2].name != StateType.PARALISIS)
         {
             if (Random.Range(0, 7) == 1) //critico
             {
@@ -949,7 +958,7 @@ public class FightController : MonoBehaviour {
         //Aplicacion del efecto de paralisis
         for (int i = 0; i < 3; i++)
         {
-            if(playerScript.states[i].name == StateType.PARALISIS)
+            if(states[i].name == StateType.PARALISIS)
             {
                 if(Random.value > 0.4)
                 {
@@ -996,7 +1005,7 @@ public class FightController : MonoBehaviour {
         //Make it return to the starting position
         Vector3 originalPosition = playerInitPos;
         yield return new WaitForSecondsRealtime(0.5f);
-        while(MoveToPosition(originalPosition)) { yield return null; }
+        while(MoveToPosition(originalPosition)) { yield return null; } //The player moves near the enemy to kick him.
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         //bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(d, Color.red);
@@ -1020,7 +1029,7 @@ public class FightController : MonoBehaviour {
     {
         HideActions();
 
-        if (playerScript.states[0].name != StateType.PARALISIS || playerScript.states[1].name != StateType.PARALISIS || playerScript.states[2].name != StateType.PARALISIS)
+        if (states[0].name != StateType.PARALISIS || states[1].name != StateType.PARALISIS || states[2].name != StateType.PARALISIS)
         {
             if (usedBasicHeal1 == false && usedBasicHeal2 == false)
             {
@@ -1096,7 +1105,7 @@ public class FightController : MonoBehaviour {
 
         for (int i = 0; i < 3; i++)
         {
-            if(playerScript.states[i].name == StateType.PARALISIS)
+            if(states[i].name == StateType.PARALISIS)
             {
                 if(Random.value > 0.4)
                 {
@@ -1213,7 +1222,7 @@ public class FightController : MonoBehaviour {
     {
         HideActions();
 
-        if (playerScript.states[0].name != StateType.PARALISIS || playerScript.states[1].name != StateType.PARALISIS || playerScript.states[2].name != StateType.PARALISIS)
+        if (states[0].name != StateType.PARALISIS || states[1].name != StateType.PARALISIS || states[2].name != StateType.PARALISIS)
         {
             if (usedBasicSpell1 == false && usedBasicSpell2 == false)
             {
@@ -1290,7 +1299,7 @@ public class FightController : MonoBehaviour {
         //Aplicación de Paralisis
         for (int i = 0; i < 3; i++)
         {
-            if(playerScript.states[i].name == StateType.PARALISIS)
+            if(states[i].name == StateType.PARALISIS)
             {
                 if(Random.value > 0.4)
                 {
@@ -1412,7 +1421,7 @@ public class FightController : MonoBehaviour {
     {
         HideActions();
 
-        if (playerScript.states[0].name != StateType.PARALISIS || playerScript.states[1].name != StateType.PARALISIS || playerScript.states[2].name != StateType.PARALISIS)
+        if (states[0].name != StateType.PARALISIS || states[1].name != StateType.PARALISIS || states[2].name != StateType.PARALISIS)
         {
             if (usedGuard == false)
             {
@@ -1453,7 +1462,7 @@ public class FightController : MonoBehaviour {
         //Aplicacion de paralisis
         for (int i = 0; i < 3; i++)
         {
-            if(playerScript.states[i].name == StateType.PARALISIS)
+            if(states[i].name == StateType.PARALISIS)
             {
                 if(Random.value > 0.4)
                 {
@@ -1502,12 +1511,12 @@ public class FightController : MonoBehaviour {
                 }
             }
 
-            else if(playerScript.states[i].name == StateType.GRIEF)
+            else if(states[i].name == StateType.GRIEF)
             {
                 if(Random.value > 0.7)
                 {
-                    playerScript.states[i].name = StateType.NULL;
-                    playerScript.states[i].turnsLeft = 0;
+                    states[i].name = StateType.NULL;
+                    states[i].turnsLeft = 0;
                     AddCombatText();
                     combatDialogue[0].text = "GRIEF Effect disapear.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1921,52 +1930,52 @@ public class FightController : MonoBehaviour {
             AddCombatText();
             combatDialogue[0].text = "Player is griefed.";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
-            if(playerScript.states[0].name == StateType.NULL)
+            if(states[0].name == StateType.NULL)
             {
                 AddCombatText();
                 combatDialogue[0].text = "Grief is now the first element of the array.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
-                playerScript.states[0].name = StateType.GRIEF;
-                playerScript.states[0].turnsLeft = 3;
+                states[0].name = StateType.GRIEF;
+                states[0].turnsLeft = 3;
             }
-            else if(playerScript.states[0].name == StateType.NUMB || playerScript.states[0].name == StateType.PARALISIS)
+            else if(states[0].name == StateType.NUMB || states[0].name == StateType.PARALISIS)
             {
-                if(playerScript.states[1].name == StateType.NULL)
+                if(states[1].name == StateType.NULL)
                 {
-                    playerScript.states[1].name = StateType.GRIEF;
-                    playerScript.states[1].turnsLeft = 3;
+                    states[1].name = StateType.GRIEF;
+                    states[1].turnsLeft = 3;
                 }
-                else if(playerScript.states[1].name == StateType.NUMB || playerScript.states[1].name == StateType.PARALISIS)
+                else if(states[1].name == StateType.NUMB || states[1].name == StateType.PARALISIS)
                 {
-                    if(playerScript.states[2].name == StateType.NULL)
+                    if(states[2].name == StateType.NULL)
                     {
-                        playerScript.states[2].name = StateType.GRIEF;
-                        playerScript.states[2].turnsLeft = 3;
+                        states[2].name = StateType.GRIEF;
+                        states[2].turnsLeft = 3;
                     }
                 }
             }
-            else if (playerScript.states[0].name == StateType.GRIEF)
+            else if (states[0].name == StateType.GRIEF)
             {
-                playerScript.states[0].turnsLeft += 2;
-                if (playerScript.states[0].turnsLeft > 5)
+                states[0].turnsLeft += 2;
+                if (states[0].turnsLeft > 5)
                 {
-                    playerScript.states[0].turnsLeft = 5;
+                    states[0].turnsLeft = 5;
                 }
             }
-            else if (playerScript.states[1].name == StateType.GRIEF)
+            else if (states[1].name == StateType.GRIEF)
             {
-                playerScript.states[1].turnsLeft += 2;
-                if (playerScript.states[1].turnsLeft > 5)
+                states[1].turnsLeft += 2;
+                if (states[1].turnsLeft > 5)
                 {
-                    playerScript.states[1].turnsLeft = 5;
+                    states[1].turnsLeft = 5;
                 }
             }
-            else if (playerScript.states[2].name == StateType.GRIEF)
+            else if (states[2].name == StateType.GRIEF)
             {
-                playerScript.states[2].turnsLeft += 2;
-                if (playerScript.states[2].turnsLeft > 5)
+                states[2].turnsLeft += 2;
+                if (states[2].turnsLeft > 5)
                 {
-                    playerScript.states[2].turnsLeft = 5;
+                    states[2].turnsLeft = 5;
                 }
             }
         }
@@ -1975,52 +1984,52 @@ public class FightController : MonoBehaviour {
             AddCombatText();
             combatDialogue[0].text = "Player is numb.";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
-            if (playerScript.states[0].name == StateType.NULL)
+            if (states[0].name == StateType.NULL)
             {
                 AddCombatText();
                 combatDialogue[0].text = "Numb is now the first element of the array.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
-                playerScript.states[0].name = StateType.NUMB;
-                playerScript.states[0].turnsLeft = 3;
+                states[0].name = StateType.NUMB;
+                states[0].turnsLeft = 3;
             }
-            else if (playerScript.states[0].name == StateType.GRIEF || playerScript.states[0].name == StateType.PARALISIS)
+            else if (states[0].name == StateType.GRIEF || states[0].name == StateType.PARALISIS)
             {
-                if (playerScript.states[1].name == StateType.NULL)
+                if (states[1].name == StateType.NULL)
                 {
-                    playerScript.states[1].name = StateType.NUMB;
-                    playerScript.states[1].turnsLeft = 3;
+                    states[1].name = StateType.NUMB;
+                    states[1].turnsLeft = 3;
                 }
-                else if (playerScript.states[1].name == StateType.GRIEF|| playerScript.states[1].name == StateType.PARALISIS)
+                else if (states[1].name == StateType.GRIEF|| states[1].name == StateType.PARALISIS)
                 {
-                    if (playerScript.states[2].name == StateType.NULL)
+                    if (states[2].name == StateType.NULL)
                     {
-                        playerScript.states[2].name = StateType.NUMB;
-                        playerScript.states[2].turnsLeft = 3;
+                        states[2].name = StateType.NUMB;
+                        states[2].turnsLeft = 3;
                     }
                 }
             }
-            else if(playerScript.states[0].name == StateType.NUMB)
+            else if(states[0].name == StateType.NUMB)
             {
-                playerScript.states[0].turnsLeft += 2;
-                if(playerScript.states[0].turnsLeft > 5)
+                states[0].turnsLeft += 2;
+                if(states[0].turnsLeft > 5)
                 {
-                    playerScript.states[0].turnsLeft = 5;
+                    states[0].turnsLeft = 5;
                 }
             }
-            else if (playerScript.states[1].name == StateType.NUMB)
+            else if (states[1].name == StateType.NUMB)
             {
-                playerScript.states[1].turnsLeft += 2;
-                if (playerScript.states[1].turnsLeft > 5)
+                states[1].turnsLeft += 2;
+                if (states[1].turnsLeft > 5)
                 {
-                    playerScript.states[1].turnsLeft = 5;
+                    states[1].turnsLeft = 5;
                 }
             }
-            else if (playerScript.states[2].name == StateType.NUMB)
+            else if (states[2].name == StateType.NUMB)
             {
-                playerScript.states[2].turnsLeft += 2;
-                if (playerScript.states[2].turnsLeft > 5)
+                states[2].turnsLeft += 2;
+                if (states[2].turnsLeft > 5)
                 {
-                    playerScript.states[2].turnsLeft = 5;
+                    states[2].turnsLeft = 5;
                 }
             }
         }
@@ -2029,52 +2038,52 @@ public class FightController : MonoBehaviour {
             AddCombatText();
             combatDialogue[0].text = "Player is paralized.";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
-            if (playerScript.states[0].name == StateType.NULL)
+            if (states[0].name == StateType.NULL)
             {
                 AddCombatText();
                 combatDialogue[0].text = "Paralisis is now the first element of the array.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
-                playerScript.states[0].name = StateType.PARALISIS;
-                playerScript.states[0].turnsLeft = 3;
+                states[0].name = StateType.PARALISIS;
+                states[0].turnsLeft = 3;
             }
-            else if (playerScript.states[0].name == StateType.NUMB || playerScript.states[0].name == StateType.GRIEF)
+            else if (states[0].name == StateType.NUMB || states[0].name == StateType.GRIEF)
             {
-                if (playerScript.states[1].name == StateType.NULL)
+                if (states[1].name == StateType.NULL)
                 {
-                    playerScript.states[1].name = StateType.PARALISIS;
-                    playerScript.states[1].turnsLeft = 3;
+                    states[1].name = StateType.PARALISIS;
+                    states[1].turnsLeft = 3;
                 }
-                else if (playerScript.states[1].name == StateType.NUMB || playerScript.states[1].name == StateType.GRIEF)
+                else if (states[1].name == StateType.NUMB || states[1].name == StateType.GRIEF)
                 {
-                    if (playerScript.states[2].name == StateType.NULL)
+                    if (states[2].name == StateType.NULL)
                     {
-                        playerScript.states[2].name = StateType.PARALISIS;
-                        playerScript.states[2].turnsLeft = 3;
+                        states[2].name = StateType.PARALISIS;
+                        states[2].turnsLeft = 3;
                     }
                 }
             }
-            else if (playerScript.states[0].name == StateType.PARALISIS)
+            else if (states[0].name == StateType.PARALISIS)
             {
-                playerScript.states[0].turnsLeft += 2;
-                if (playerScript.states[0].turnsLeft > 5)
+                states[0].turnsLeft += 2;
+                if (states[0].turnsLeft > 5)
                 {
-                    playerScript.states[0].turnsLeft = 5;
+                    states[0].turnsLeft = 5;
                 }
             }
-            else if (playerScript.states[1].name == StateType.PARALISIS)
+            else if (states[1].name == StateType.PARALISIS)
             {
-                playerScript.states[1].turnsLeft += 2;
-                if (playerScript.states[1].turnsLeft > 5)
+                states[1].turnsLeft += 2;
+                if (states[1].turnsLeft > 5)
                 {
-                    playerScript.states[1].turnsLeft = 5;
+                    states[1].turnsLeft = 5;
                 }
             }
-            else if (playerScript.states[2].name == StateType.PARALISIS)
+            else if (states[2].name == StateType.PARALISIS)
             {
-                playerScript.states[2].turnsLeft += 2;
-                if (playerScript.states[2].turnsLeft > 5)
+                states[2].turnsLeft += 2;
+                if (states[2].turnsLeft > 5)
                 {
-                    playerScript.states[2].turnsLeft = 5;
+                    states[2].turnsLeft = 5;
                 }
             }
         }

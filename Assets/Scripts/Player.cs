@@ -11,24 +11,12 @@ public struct Stats
     public int vigor;
 };
 
-public enum StateType { NULL, GRIEF, PARALISIS, NUMB};
-
-public struct State
-{
-    public StateType name;
-    //public string name;
-    public int turnsLeft;
-};
-
 public class Player : MonoBehaviour {
 
     public static Player playerScript;
 
     //Estadísticas
     public Stats stats;
-
-    //Estados
-    public State[] states;
 
     //Recursos
     public int maxHealth;

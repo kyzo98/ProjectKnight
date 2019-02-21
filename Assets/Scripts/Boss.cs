@@ -18,9 +18,6 @@ public class Boss : MonoBehaviour {
     //Estadísticas
     public BossStats stats;
 
-    //Estados
-    public State[] states;
-
     //Recursos
     public int maxHealth;
     public int health;
