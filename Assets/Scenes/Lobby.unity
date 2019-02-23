@@ -811,7 +811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &62353791
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11406,22 +11406,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 033a10ce6c10ef2468503729555ec52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCName: 
+  NPCName: Name
   NPCSentences: []
   NPCSentencesAudio: []
   defaultMaterial: {fileID: 0}
   activeMaterial: {fileID: 0}
-  pressEImage: {fileID: 0}
-  dialogue: {fileID: 0}
-  dialogueOptionsWrap: {fileID: 0}
-  dialogueWaiter: {fileID: 0}
+  pressEImage: {fileID: 770063548}
+  dialogue: {fileID: 233341504}
+  dialogueOptionsWrap: {fileID: 568342997}
+  dialogueWaiter: {fileID: 319043767}
   optionSelected: 0
-  yesButton: {fileID: 0}
-  yesButtonDefault: {fileID: 0}
-  yesButtonHover: {fileID: 0}
-  noButton: {fileID: 0}
-  noButtonDefault: {fileID: 0}
-  noButtonHover: {fileID: 0}
+  yesButton: {fileID: 1075416389}
+  yesButtonDefault: {fileID: 21300000, guid: 49ae39039d5bfaa48b6701ee57359eec, type: 3}
+  yesButtonHover: {fileID: 21300000, guid: 6e700f826c50cf74ea2f81abf487b078, type: 3}
+  noButton: {fileID: 57818262}
+  noButtonDefault: {fileID: 21300000, guid: d80c15dd3199f25468ceea22d99c2bc4, type: 3}
+  noButtonHover: {fileID: 21300000, guid: 8f091f5e7fd5ebf48b472bf816742ade, type: 3}
 --- !u!65 &971384265
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11432,8 +11432,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3.1, z: 1}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!65 &971384266
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11444,8 +11444,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0.44, z: 0}
 --- !u!1 &976642096
 GameObject:
   m_ObjectHideFlags: 0
@@ -16118,7 +16118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1503176938
 AudioSource:
   m_ObjectHideFlags: 0

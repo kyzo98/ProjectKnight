@@ -30,6 +30,31 @@ public class FightController : MonoBehaviour {
         public int remainingTurns;
     }
 
+    struct Sorrows
+    {
+        public int rage;
+        public int terror;
+        public int grief;
+    };
+    Sorrows sorrows;
+    public Button sorrowsButton;
+    public Button rageButton;
+    public Button terrorButton;
+    public Button griefButton;
+
+    struct Drives
+    {
+        public int courage;
+        public int focus;
+        public int will;
+        public int remembrance;
+        public int spiritualHealing;
+        public int clarity;
+        public int grace;
+    };
+    Drives drives;
+    public Button drivesButton;
+
     private int turn;
     private int nAttack;
     private int nAttack2;
@@ -118,6 +143,17 @@ public class FightController : MonoBehaviour {
     bool usedGuard;
 
     void Start () {
+        //Sorrows and drives
+        sorrows.rage = PlayerPrefs.GetInt("Rage");
+        sorrows.terror = PlayerPrefs.GetInt("Terror");
+        sorrows.grief = PlayerPrefs.GetInt("Grief");
+        drives.courage = PlayerPrefs.GetInt("Courage");
+        drives.focus = PlayerPrefs.GetInt("Focus");
+        drives.will = PlayerPrefs.GetInt("Will");
+        drives.remembrance = PlayerPrefs.GetInt("Remembrance");
+        drives.spiritualHealing = PlayerPrefs.GetInt("SpiritualHealing");
+        drives.clarity = PlayerPrefs.GetInt("Clarity");
+        drives.grace = PlayerPrefs.GetInt("Grace");
 
         backgroundAudio = backgroundMusic.GetComponents<AudioSource>();
 
@@ -592,6 +628,17 @@ public class FightController : MonoBehaviour {
     {
         actionPanel.SetActive(true);
 
+        //Sorrows and drives
+        if(sorrows.grief + sorrows.rage + sorrows.terror > 0)
+            sorrowsButton.interactable = true;
+        else
+            sorrowsButton.interactable = false;
+
+        if (drives.clarity + drives.courage + drives.focus + drives.grace + drives.remembrance + drives.spiritualHealing + drives.will > 0)
+            drivesButton.interactable = true;
+        else
+            drivesButton.interactable = false;
+
         //Coste 10
         if (playerScript.energy > 9)
             if (playerScript.spiritBlast >= 5) //valor de acumulación de spirit blast
@@ -604,6 +651,23 @@ public class FightController : MonoBehaviour {
         if (playerScript.energy > 6)
             heavyAttackButton.interactable = true;
         else heavyAttackButton.interactable = false;
+
+        //Coste 5
+        if (playerScript.energy > 4)
+        {
+            if (sorrows.rage > 0) rageButton.interactable = true;
+            else rageButton.interactable = false;
+            if (sorrows.terror > 0) terrorButton.interactable = true;
+            else terrorButton.interactable = false;
+            if (sorrows.grief > 0) griefButton.interactable = true;
+            else griefButton.interactable = false;
+        }
+        else
+        {
+            rageButton.interactable = false;
+            terrorButton.interactable = false;
+            griefButton.interactable = false;
+        }
 
         //Coste 4
         if (playerScript.energy > 3)
