@@ -10,6 +10,7 @@ public class RuneSeller : MonoBehaviour {
     [TextArea(3, 10)]
     public string[] NPCSentences;                                                           //Dialogue sentences of NPC
     public AudioClip[] NPCSentencesAudio;                                                   //Audio sentences of NPC
+    private Animator runeSellerAnimator;
 
     public Material defaultMaterial;                                                        //Material predeterminado
     public Material activeMaterial;                                                         //Material cuando esta activo
@@ -46,6 +47,7 @@ public class RuneSeller : MonoBehaviour {
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();      //Guardamos script PlayerController
         audioSource = GetComponent<AudioSource>();                                          //Guardamos componente AudioSource
         dialogueText = dialogue.GetComponent<Text>();                                       //Guardamos componente Text
+        runeSellerAnimator = GetComponent<Animator>();
 
         dialogueText.text = "";                                                             //Inicializamos el texto vacío
         dialogue.SetActive(false);                                                          //Inicializamos el cuadro de dialogo no visible
@@ -95,6 +97,7 @@ public class RuneSeller : MonoBehaviour {
             case DialogueState.WELCOME:
                 if (dialogueTimeLeft == NPCSentencesAudio[0].length)//Inicia la animacion
                 {
+                    runeSellerAnimator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[0];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[0])); //Escribimos el texto
@@ -143,6 +146,7 @@ public class RuneSeller : MonoBehaviour {
             case DialogueState.BUY:
                 if (dialogueTimeLeft == NPCSentencesAudio[2].length)//Inicia la animacion
                 {
+                    runeSellerAnimator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[2];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[2])); //Escribimos el texto
@@ -177,6 +181,7 @@ public class RuneSeller : MonoBehaviour {
             case DialogueState.BYE:
                 if (dialogueTimeLeft == NPCSentencesAudio[1].length)//Inicia la animacion
                 {
+                    runeSellerAnimator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[1];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[1])); //Escribimos el texto
