@@ -30,7 +30,6 @@ public class Player : MonoBehaviour {
     public int blockChance;
 
 	void Start () {
-        Time.timeScale = 1.0f;
         playerScript = this;
 
         stats.vitality = 5;

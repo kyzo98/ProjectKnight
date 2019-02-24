@@ -10,7 +10,6 @@ public class DoorGuy : MonoBehaviour
     [TextArea(3, 10)]
     public string[] NPCSentences;                                                           //Dialogue sentences of NPC
     public AudioClip[] NPCSentencesAudio;                                                   //Audio sentences of NPC
-    private Animator doorGuyAnimator;
 
     public Material defaultMaterial;                                                        //Material predeterminado
     public Material activeMaterial;                                                         //Material cuando esta activo
@@ -18,6 +17,8 @@ public class DoorGuy : MonoBehaviour
     public GameObject dialogue;                                                             //GameObject contenedor del dialogo                                                        
     public GameObject dialogueOptionsWrap;                                                  //GameObject contenedor de las opciones de dialogo
     public GameObject dialogueWaiter;                                                       //GameObject contenedor del dialogueWaiter
+    public GameObject NPCModel;
+    Animator animator;
 
     public int optionSelected;                                                              //Opción selecionada por el jugador
     public Button yesButton;                                                                //Boton de comprar
@@ -46,7 +47,7 @@ public class DoorGuy : MonoBehaviour
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();      //Guardamos script PlayerController
         audioSource = GetComponent<AudioSource>();                                          //Guardamos componente AudioSource
         dialogueText = dialogue.GetComponent<Text>();                                       //Guardamos componente Text
-        doorGuyAnimator = GetComponent<Animator>();
+        animator = NPCModel.GetComponent<Animator>();
 
         dialogueText.text = "";                                                             //Inicializamos el texto vacío
         dialogue.SetActive(false);                                                          //Inicializamos el cuadro de dialogo no visible
@@ -87,7 +88,6 @@ public class DoorGuy : MonoBehaviour
                 break;
             case DialogueState.INIT:
                 playerController.anim.SetFloat("Speed", 0);
-                doorGuyAnimator.Play("Talk"); //El NPC realiza la animación de hablar
                 playerController.enabled = false; //Ya no puedes mover el personaje
                 pressEImage.enabled = false; //Deja de aparecer el boton E
                 dialogueText.text = ""; //Aparece el cuadro de diálogo vacío
@@ -107,13 +107,13 @@ public class DoorGuy : MonoBehaviour
             case DialogueState.WELCOME1:
                 if (dialogueTimeLeft == NPCSentencesAudio[0].length)//Inicia la animacion
                 {
-                    doorGuyAnimator.Play("Talk");
+                    animator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[0];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[0])); //Escribimos el texto
                 }
                 dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
-                if (dialogueTimeLeft <= 0) //Comprobando que haya acabado la frase y que el jugador quiere avanzar
+                if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
                 {
                     
                     dialogueWaiter.SetActive(true);
@@ -145,7 +145,7 @@ public class DoorGuy : MonoBehaviour
             case DialogueState.WELCOME2:
                 if (dialogueTimeLeft == NPCSentencesAudio[1].length)//Inicia la animacion
                 {
-                    doorGuyAnimator.Play("Talk");
+                    animator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[1];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[1])); //Escribimos el texto
@@ -185,7 +185,7 @@ public class DoorGuy : MonoBehaviour
             case DialogueState.WELCOME3:
                 if (dialogueTimeLeft == NPCSentencesAudio[2].length)//Inicia la animacion
                 {
-                    doorGuyAnimator.Play("Talk");
+                    animator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[2];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[2])); //Escribimos el texto
@@ -222,7 +222,7 @@ public class DoorGuy : MonoBehaviour
             case DialogueState.GO_BATTLE:
                 if (dialogueTimeLeft == NPCSentencesAudio[3].length)//Inicia la animacion
                 {
-                    doorGuyAnimator.Play("Talk");
+                    animator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[3];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[3])); //Escribimos el texto
@@ -273,7 +273,7 @@ public class DoorGuy : MonoBehaviour
             case DialogueState.YES:
                 if (dialogueTimeLeft == NPCSentencesAudio[4].length)//Inicia la animacion
                 {
-                    doorGuyAnimator.Play("Talk");
+                    animator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[4];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[4])); //Escribimos el texto
@@ -307,7 +307,7 @@ public class DoorGuy : MonoBehaviour
             case DialogueState.NO:
                 if (dialogueTimeLeft == NPCSentencesAudio[5].length)//Inicia la animacion
                 {
-                    doorGuyAnimator.Play("Talk");
+                    animator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[5];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[5])); //Escribimos el texto

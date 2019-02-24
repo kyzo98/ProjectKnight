@@ -9,13 +9,14 @@ public class InformationGuy : MonoBehaviour
     [TextArea(3, 10)]
     public string[] NPCSentences;                                                           //Dialogue sentences of NPC
     public AudioClip[] NPCSentencesAudio;                                                   //Audio sentences of NPC
-    private Animator infoGuyAnimator;
 
     public Material defaultMaterial;                                                        //Material predeterminado
     public Material activeMaterial;                                                         //Material cuando esta activo
     public RawImage pressEImage;                                                            //Imagen press E
     public GameObject dialogue;                                                             //GameObject contenedor del dialogo
     public GameObject dialogueWaiter;                                                       //GameObject contenedor del dialogueWaiter
+    public GameObject NPCModel;
+    Animator animator;
 
     private Renderer render;                                                                //Render de materiales del NPC
     private PlayerController playerController;                                              //Script de control del Player
@@ -36,7 +37,7 @@ public class InformationGuy : MonoBehaviour
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();      //Guardamos script PlayerController
         audioSource = GetComponent<AudioSource>();                                          //Guardamos componente AudioSource
         dialogueText = dialogue.GetComponent<Text>();                                       //Guardamos componente Text
-        infoGuyAnimator = GetComponent<Animator>();
+        animator = NPCModel.GetComponent<Animator>();
 
         dialogueText.text = "";                                                             //Inicializamos el texto vacío
         dialogue.SetActive(false);                                                          //Inicializamos el cuadro de dialogo no visible
@@ -92,7 +93,7 @@ public class InformationGuy : MonoBehaviour
             case DialogueState.WELCOME:
                 if (dialogueTimeLeft == NPCSentencesAudio[0].length)//Inicia la animacion
                 {
-                    infoGuyAnimator.Play("Talk");
+                    animator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[0];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[0])); //Escribimos el texto
@@ -126,7 +127,7 @@ public class InformationGuy : MonoBehaviour
             case DialogueState.ASK:
                 if (dialogueTimeLeft == NPCSentencesAudio[1].length)//Inicia la animacion
                 {
-                    infoGuyAnimator.Play("Talk");
+                    animator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[1];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[1])); //Escribimos el texto
@@ -160,7 +161,7 @@ public class InformationGuy : MonoBehaviour
             case DialogueState.INFO1:
                 if (dialogueTimeLeft == NPCSentencesAudio[2].length)//Inicia la animacion
                 {
-                    infoGuyAnimator.Play("Talk");
+                    animator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[2];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[2])); //Escribimos el texto
@@ -194,7 +195,7 @@ public class InformationGuy : MonoBehaviour
             case DialogueState.INFO2:
                 if (dialogueTimeLeft == NPCSentencesAudio[3].length)//Inicia la animacion
                 {
-                    infoGuyAnimator.Play("Talk");
+                    animator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[3];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[3])); //Escribimos el texto
@@ -228,7 +229,7 @@ public class InformationGuy : MonoBehaviour
             case DialogueState.BYE1:
                 if (dialogueTimeLeft == NPCSentencesAudio[4].length)//Inicia la animacion
                 {
-                    infoGuyAnimator.Play("Talk");
+                    animator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[4];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[4])); //Escribimos el texto
@@ -262,7 +263,7 @@ public class InformationGuy : MonoBehaviour
             case DialogueState.BYE2:
                 if (dialogueTimeLeft == NPCSentencesAudio[5].length)//Inicia la animacion
                 {
-                    infoGuyAnimator.Play("Talk");
+                    animator.Play("Talk");
                     audioSource.clip = NPCSentencesAudio[5];
                     audioSource.Play(); //Ejecutamos el audio
                     StartCoroutine(TypeText(NPCSentences[5])); //Escribimos el texto

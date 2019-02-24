@@ -30,31 +30,6 @@ public class FightController : MonoBehaviour {
         public int remainingTurns;
     }
 
-    struct Sorrows
-    {
-        public int rage;
-        public int terror;
-        public int grief;
-    };
-    Sorrows sorrows;
-    public Button sorrowsButton;
-    public Button rageButton;
-    public Button terrorButton;
-    public Button griefButton;
-
-    struct Drives
-    {
-        public int courage;
-        public int focus;
-        public int will;
-        public int remembrance;
-        public int spiritualHealing;
-        public int clarity;
-        public int grace;
-    };
-    Drives drives;
-    public Button drivesButton;
-
     private int turn;
     private int nAttack;
     private int nAttack2;
@@ -85,7 +60,6 @@ public class FightController : MonoBehaviour {
     private Buff[] playerBuff;
     private Debuff[] playerDebuff;
     public State[] states;
-
     //UI PLAYER
     public Text actionPointsText;
     public Slider playerHealthBar;
@@ -100,39 +74,31 @@ public class FightController : MonoBehaviour {
     public Button spiritBlastButton;
     public GameObject actionPanel;
     public Text[] combatDialogue;
-
     //PLAYER ANIMATIONS
     private Animator playerAnimator;
-
     //BOSS
     public GameObject boss;
     private Boss bossScript;
-    public Animator bossAnimator;
-
     //UI BOSS
     public Slider bossHealthBar;
     public Text bossHealthNumber;
     public Text bossArmorNumber;
-
     //POPUP TEXT UI BOSS
     public GameObject popupText;
-
     //POPUP TEXT UI PLAYER
     public GameObject popupTextPlayer;
-
+    //BOSS ANIMATIONS
+    //Animator bossAnimator;
+    //PARTICLE ANIMATIONS
+    //public Animation particleAnimator;
     //CAMERAS
     public Camera mainCamera;
     public Camera frontalPlayerCamera;
     public Camera frontalBossCamera;
     public Camera heavyAttackCam;
 
-    //PARTICLES
-    public ParticleSystem particleSystem;
-
-    //BOOLS ABOUT MOVES, TO SEE WHICH ONE ENDED HIS TURN
     private bool endedMove = true;
     private bool bossEndedMove = true;
-
     //Succes rates bools
     bool usedLightAttack1;
     bool usedLightAttack2;
@@ -143,17 +109,6 @@ public class FightController : MonoBehaviour {
     bool usedGuard;
 
     void Start () {
-        //Sorrows and drives
-        sorrows.rage = PlayerPrefs.GetInt("Rage");
-        sorrows.terror = PlayerPrefs.GetInt("Terror");
-        sorrows.grief = PlayerPrefs.GetInt("Grief");
-        drives.courage = PlayerPrefs.GetInt("Courage");
-        drives.focus = PlayerPrefs.GetInt("Focus");
-        drives.will = PlayerPrefs.GetInt("Will");
-        drives.remembrance = PlayerPrefs.GetInt("Remembrance");
-        drives.spiritualHealing = PlayerPrefs.GetInt("SpiritualHealing");
-        drives.clarity = PlayerPrefs.GetInt("Clarity");
-        drives.grace = PlayerPrefs.GetInt("Grace");
 
         backgroundAudio = backgroundMusic.GetComponents<AudioSource>();
 
@@ -162,8 +117,9 @@ public class FightController : MonoBehaviour {
         turn = 0; //Turno inicial
         playerScript = player.GetComponent<Player>();
         bossScript = boss.GetComponent<Boss>();
-        bossAnimator = boss.GetComponent<Animator>();
+        //bossAnimator = boss.GetComponent<Animator>();
         playerAnimator = player.GetComponent<Animator>();
+        //particleAnimator = magicSpell.GetComponent<Animation>();
 
         playerInitPos = player.transform.position;
 
@@ -210,11 +166,6 @@ public class FightController : MonoBehaviour {
                 PauseGame();
             else
                 UnPauseGame();
-        }
-
-        if (Input.GetKeyDown("p"))
-        {
-            SceneManager.LoadScene("Fight2");
         }
 
         playerScript = player.GetComponent<Player>();
@@ -286,7 +237,7 @@ public class FightController : MonoBehaviour {
                         switch (nAttack)
                         {
                             case 1:
-                                Attack(); //Attack();
+                                EffectAttack(); //Attack();
                                 Debug.Log("Boss used effect attack.");
                                 //nAttack++;
                                 break;
@@ -628,17 +579,6 @@ public class FightController : MonoBehaviour {
     {
         actionPanel.SetActive(true);
 
-        //Sorrows and drives
-        if(sorrows.grief + sorrows.rage + sorrows.terror > 0)
-            sorrowsButton.interactable = true;
-        else
-            sorrowsButton.interactable = false;
-
-        if (drives.clarity + drives.courage + drives.focus + drives.grace + drives.remembrance + drives.spiritualHealing + drives.will > 0)
-            drivesButton.interactable = true;
-        else
-            drivesButton.interactable = false;
-
         //Coste 10
         if (playerScript.energy > 9)
             if (playerScript.spiritBlast >= 5) //valor de acumulación de spirit blast
@@ -651,23 +591,6 @@ public class FightController : MonoBehaviour {
         if (playerScript.energy > 6)
             heavyAttackButton.interactable = true;
         else heavyAttackButton.interactable = false;
-
-        //Coste 5
-        if (playerScript.energy > 4)
-        {
-            if (sorrows.rage > 0) rageButton.interactable = true;
-            else rageButton.interactable = false;
-            if (sorrows.terror > 0) terrorButton.interactable = true;
-            else terrorButton.interactable = false;
-            if (sorrows.grief > 0) griefButton.interactable = true;
-            else griefButton.interactable = false;
-        }
-        else
-        {
-            rageButton.interactable = false;
-            terrorButton.interactable = false;
-            griefButton.interactable = false;
-        }
 
         //Coste 4
         if (playerScript.energy > 3)
@@ -731,7 +654,7 @@ public class FightController : MonoBehaviour {
 
     public void ShowPopupText(float damage, Color color)
     {
-        Vector3 newPosition = new Vector3(-1.9f, 4.5f, -0.14f);
+        Vector3 newPosition = new Vector3(9.76f, 8.21f, -3.5f);
         Quaternion newRotation = Quaternion.Euler(0, 90, 0);
         GameObject popupClone = Instantiate(popupText, newPosition, newRotation);
         popupClone.GetComponent<TextMesh>().color = color;
@@ -987,7 +910,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(2); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        bossAnimator.Play("Damage"); //animacion del boss recibiendo daño
+        //bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
@@ -1073,20 +996,21 @@ public class FightController : MonoBehaviour {
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         //yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        Vector3 enemyPosition = new Vector3(-4.23f, 0f, -0.05f);
-        while(MoveToPosition(enemyPosition)) { yield return null; } //adapt animations and moving times for the attack. //The player moves near the enemy to kick him.
+        Vector3 enemyPosition = new Vector3(boss.transform.position.x, boss.transform.position.y + 1, boss.transform.position.z);
+        while(MoveToPosition(enemyPosition)) { yield return null; } //adapt animations and moving times for the attack.
         heavyAttackCam.enabled = !heavyAttackCam.enabled;
         playerAnimator.Play("HeavyAttack");
         yield return new WaitForSecondsRealtime(3);
         heavyAttackCam.enabled = !heavyAttackCam;
+        //Make it return to the starting position
         Vector3 originalPosition = playerInitPos;
         yield return new WaitForSecondsRealtime(0.5f);
-        while(MoveToPosition(originalPosition)) { yield return null; } //Player returns to his original position
+        while(MoveToPosition(originalPosition)) { yield return null; } //The player moves near the enemy to kick him.
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        bossAnimator.Play("Damage"); //Boss animates gettins damage
+        //bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(3);
-        frontalBossCamera.enabled = !frontalBossCamera.enabled; //Changes to normal camera
+        frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
         {
             bossScript.health--;
@@ -1469,15 +1393,16 @@ public class FightController : MonoBehaviour {
     {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
-        Vector3 enemyPosition = boss.transform.position; //posición del enemigo
-        //MoveParticle(enemyPosition);
+        //Vector3 particlePos = new Vector3(-9.56f, 1.23f, -0.25f);
+        //particleAnimator.Play();
+        //GameObject particle = Instantiate(magicSpell, particlePos, Quaternion.identity);
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        bossAnimator.Play("Damage"); //Boss animates when receiving damage
+        //bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(3);
-        frontalBossCamera.enabled = !frontalBossCamera.enabled; //Changes to normal camera
+        frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
         {
             bossScript.health--;
@@ -1644,7 +1569,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        bossAnimator.Play("Damage"); //boss animates when receiving damage
+        //bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
@@ -1684,7 +1609,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        bossAnimator.Play("Damage");
+        //bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(damage, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -1724,7 +1649,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        bossAnimator.Play("Damage");
+        //bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(damage, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -1764,7 +1689,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        bossAnimator.Play("Damage");
+        //bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(damage, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -1789,16 +1714,11 @@ public class FightController : MonoBehaviour {
         return enemy != (player.transform.position = Vector3.MoveTowards(player.transform.position, enemy, animSpeed * Time.deltaTime));
     }
 
-    //private void MoveParticle(Vector3 enemyPosition)
-    //{
-    //    <
-    //}
-
     // Boss Actions
     void Attack()
     {
         HideActions();
-        bossAnimator.Play("Attack");
+        //bossAnimator.SetTrigger("MeleeAnim");
 
         if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
         {
@@ -1821,7 +1741,6 @@ public class FightController : MonoBehaviour {
     {
         bossEndedMove = false;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.Play("Attack");
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
@@ -1885,7 +1804,7 @@ public class FightController : MonoBehaviour {
     void AttackPlus()
     {
         HideActions();
-        bossAnimator.Play("Attack+");
+        //bossAnimator.SetTrigger("MeleeAnim");
 
         if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
         {
@@ -1982,7 +1901,7 @@ public class FightController : MonoBehaviour {
     void EffectAttack()
     {
         HideActions();
-        bossAnimator.Play("EffectAttack");
+        //Animacion del boss acorde a esta accion.
 
         float dmg = bossScript.stats.strenght;
         StartCoroutine(EffectAttackWaiter(dmg));
@@ -2219,7 +2138,6 @@ public class FightController : MonoBehaviour {
     void ChargeAttack()
     {
         HideActions();
-        bossAnimator.Play("Charge");
         StartCoroutine(ChargeWaiter());
         AddCombatText();
         combatDialogue[0].text = "Boss charged his Special Attack.";
@@ -2247,7 +2165,6 @@ public class FightController : MonoBehaviour {
         float dmg = bossScript.stats.strenght * 4;
         if(bossScript.stats.charge == true)
         {
-            bossAnimator.Play("Special");
             StartCoroutine(SpecialAttackWaiter(dmg));
         }
     }
@@ -2315,7 +2232,6 @@ public class FightController : MonoBehaviour {
     void GuardBoss()
     {
         HideActions();
-        bossAnimator.Play("Guard");
 
         float armor = bossScript.armor + 50;
         StartCoroutine(GuardBossWaiter(armor));
@@ -2347,7 +2263,7 @@ public class FightController : MonoBehaviour {
     void Heal()
     {
         HideActions();
-        bossAnimator.Play("Heal");
+        //bossAnimator.SetTrigger("HealAnim");
 
         float heal = bossScript.stats.vigor * 2.5f;
         StartCoroutine(HealWaiter(heal));
@@ -2377,7 +2293,7 @@ public class FightController : MonoBehaviour {
     void HealPlus()
     {
         HideActions();
-        bossAnimator.Play("Heal+");
+        //bossAnimator.SetTrigger("HealAnim");
 
         float heal = bossScript.stats.vigor * 3.5f;
         StartCoroutine(HealPlusWaiter(heal));

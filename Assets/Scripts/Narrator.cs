@@ -41,10 +41,6 @@ public class Narrator : MonoBehaviour {
                 else if(SentenceFinished && SentenceCounter == 5)
                 {
                     NarrativeScreenOrder++;
-                    PlayerPrefs.SetInt("Rage", 0);
-                    PlayerPrefs.SetInt("Terror", 0);
-                    PlayerPrefs.SetInt("Grief", 0);
-
                     PlayerPrefs.SetInt("NarrativeScreenOrder", NarrativeScreenOrder);
                     SceneManager.LoadScene("Lobby", LoadSceneMode.Single);  
                 }
