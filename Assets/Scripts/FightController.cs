@@ -237,7 +237,7 @@ public class FightController : MonoBehaviour {
                         switch (nAttack)
                         {
                             case 1:
-                                EffectAttack(); //Attack();
+                                Attack();
                                 Debug.Log("Boss used effect attack.");
                                 //nAttack++;
                                 break;
