@@ -88,7 +88,7 @@ public class FightController : MonoBehaviour {
     //POPUP TEXT UI PLAYER
     public GameObject popupTextPlayer;
     //BOSS ANIMATIONS
-    //Animator bossAnimator;
+    Animator bossAnimator;
     //PARTICLE ANIMATIONS
     //public Animation particleAnimator;
     //CAMERAS
@@ -117,7 +117,7 @@ public class FightController : MonoBehaviour {
         turn = 0; //Turno inicial
         playerScript = player.GetComponent<Player>();
         bossScript = boss.GetComponent<Boss>();
-        //bossAnimator = boss.GetComponent<Animator>();
+        bossAnimator = boss.GetComponent<Animator>();
         playerAnimator = player.GetComponent<Animator>();
         //particleAnimator = magicSpell.GetComponent<Animation>();
 
@@ -910,7 +910,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(2); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
+        bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
@@ -996,7 +996,7 @@ public class FightController : MonoBehaviour {
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         //yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        Vector3 enemyPosition = new Vector3(boss.transform.position.x, boss.transform.position.y + 1, boss.transform.position.z);
+        Vector3 enemyPosition = new Vector3(6.87f, -0.03f, -4.22f);
         while(MoveToPosition(enemyPosition)) { yield return null; } //adapt animations and moving times for the attack.
         heavyAttackCam.enabled = !heavyAttackCam.enabled;
         playerAnimator.Play("HeavyAttack");
@@ -1007,7 +1007,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(0.5f);
         while(MoveToPosition(originalPosition)) { yield return null; } //The player moves near the enemy to kick him.
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
+        bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
@@ -1399,7 +1399,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
+        bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
@@ -1569,7 +1569,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
+        bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
@@ -1609,7 +1609,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
+        bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(damage, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -1649,7 +1649,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
+        bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(damage, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -1689,7 +1689,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
+        bossAnimator.SetTrigger("HeadHit");
         ShowPopupText(damage, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -1718,7 +1718,7 @@ public class FightController : MonoBehaviour {
     void Attack()
     {
         HideActions();
-        //bossAnimator.SetTrigger("MeleeAnim");
+        bossAnimator.SetTrigger("Attack");
 
         if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
         {
@@ -1804,7 +1804,7 @@ public class FightController : MonoBehaviour {
     void AttackPlus()
     {
         HideActions();
-        //bossAnimator.SetTrigger("MeleeAnim");
+        bossAnimator.SetTrigger("Attack+");
 
         if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
         {
@@ -1901,7 +1901,7 @@ public class FightController : MonoBehaviour {
     void EffectAttack()
     {
         HideActions();
-        //Animacion del boss acorde a esta accion.
+        bossAnimator.Play("EffectAttack");
 
         float dmg = bossScript.stats.strenght;
         StartCoroutine(EffectAttackWaiter(dmg));
@@ -2138,6 +2138,7 @@ public class FightController : MonoBehaviour {
     void ChargeAttack()
     {
         HideActions();
+        bossAnimator.Play("Charge");
         StartCoroutine(ChargeWaiter());
         AddCombatText();
         combatDialogue[0].text = "Boss charged his Special Attack.";
@@ -2162,6 +2163,7 @@ public class FightController : MonoBehaviour {
 
     void SpecialAttack()
     {
+        bossAnimator.Play("Special");
         float dmg = bossScript.stats.strenght * 4;
         if(bossScript.stats.charge == true)
         {
@@ -2232,6 +2234,7 @@ public class FightController : MonoBehaviour {
     void GuardBoss()
     {
         HideActions();
+        bossAnimator.Play("Guard");
 
         float armor = bossScript.armor + 50;
         StartCoroutine(GuardBossWaiter(armor));
@@ -2263,7 +2266,7 @@ public class FightController : MonoBehaviour {
     void Heal()
     {
         HideActions();
-        //bossAnimator.SetTrigger("HealAnim");
+        bossAnimator.SetTrigger("Heal");
 
         float heal = bossScript.stats.vigor * 2.5f;
         StartCoroutine(HealWaiter(heal));
@@ -2293,7 +2296,7 @@ public class FightController : MonoBehaviour {
     void HealPlus()
     {
         HideActions();
-        //bossAnimator.SetTrigger("HealAnim");
+        bossAnimator.SetTrigger("Heal+");
 
         float heal = bossScript.stats.vigor * 3.5f;
         StartCoroutine(HealPlusWaiter(heal));

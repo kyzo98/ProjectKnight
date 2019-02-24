@@ -205,7 +205,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Damage
+  m_Name: HitReaction
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
