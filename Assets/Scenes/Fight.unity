@@ -8455,7 +8455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 250
-  health: 250
+  health: 200
   armor: 0
   coins: 700
   maxEnergy: 10
@@ -33792,6 +33792,29 @@ MonoBehaviour:
   popupTextPlayer: {fileID: 1732553065116328, guid: 109bb99556028f44b8aa49e831012c50,
     type: 2}
   healParticle: {fileID: 793547539}
+  despairParticleHolder: {fileID: 1555037915677438, guid: 459fb7b60a25be149b491dc7db642d9b,
+    type: 2}
+  despairParticleSystem: {fileID: 198418649183478474, guid: 459fb7b60a25be149b491dc7db642d9b,
+    type: 2}
+  terrorParticleHolder: {fileID: 1731304693866826, guid: 9094d0c4474e2da44a9018100d1ed534,
+    type: 2}
+  terrorParticleSystem: {fileID: 198860095151844722, guid: 9094d0c4474e2da44a9018100d1ed534,
+    type: 2}
+  griefParticleHolder: {fileID: 1781022556084922, guid: 8073aa2e7346788448d36f13aaac7a05,
+    type: 2}
+  griefParticleSystem: {fileID: 198818018741201838, guid: 8073aa2e7346788448d36f13aaac7a05,
+    type: 2}
+  rageParticleHolder: {fileID: 1905590382793678, guid: 527856f430b8a6f42836d23dc5e76afa,
+    type: 2}
+  rageParticleSystem: {fileID: 198094109545185048, guid: 527856f430b8a6f42836d23dc5e76afa,
+    type: 2}
+  animaBlastParticleHolder: {fileID: 1770767418067462, guid: f7183603714b38340a15661666c4f1d1,
+    type: 2}
+  animaBlastParticleSystem: {fileID: 198208210049821774, guid: f7183603714b38340a15661666c4f1d1,
+    type: 2}
+  hitParticle: {fileID: 198393041434253688, guid: 26c8ba73d3e55fc4da171e266c0e9420,
+    type: 2}
+  hitHolder: {fileID: 1548686390436196, guid: 26c8ba73d3e55fc4da171e266c0e9420, type: 2}
   mainCamera: {fileID: 1752930248}
   frontalPlayerCamera: {fileID: 1247873754}
   frontalBossCamera: {fileID: 1624928679}
@@ -43682,6 +43705,34 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1708446443}
   m_CullTransparentMesh: 0
+--- !u!1 &1710676090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1710676091}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1710676091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1710676090}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.97, y: 5.066, z: -4.48}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 30
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1710977108
 GameObject:
   m_ObjectHideFlags: 0
