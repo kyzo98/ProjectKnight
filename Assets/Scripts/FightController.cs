@@ -89,8 +89,10 @@ public class FightController : MonoBehaviour {
     public GameObject popupTextPlayer;
     //BOSS ANIMATIONS
     Animator bossAnimator;
-    //PARTICLE ANIMATIONS
-    //public Animation particleAnimator;
+
+    //PARTICLES
+    public ParticleSystem healParticle;
+
     //CAMERAS
     public Camera mainCamera;
     public Camera frontalPlayerCamera;
@@ -119,7 +121,9 @@ public class FightController : MonoBehaviour {
         bossScript = boss.GetComponent<Boss>();
         bossAnimator = boss.GetComponent<Animator>();
         playerAnimator = player.GetComponent<Animator>();
-        //particleAnimator = magicSpell.GetComponent<Animation>();
+
+        //Particles
+        healParticle.Stop();
 
         playerInitPos = player.transform.position;
 
@@ -1199,7 +1203,9 @@ public class FightController : MonoBehaviour {
     {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
-        healEffect.SetActive(true);
+        healParticle.Play();
+        yield return new WaitForSecondsRealtime(2f);
+        healParticle.Stop();
         for (int i = d; i > 0; i--)
         {
             playerScript.health++;
