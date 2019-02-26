@@ -32,26 +32,36 @@ public class Inventario : MonoBehaviour {
 
     void Start()
     {
+        sorrows.rage = PlayerPrefs.GetInt("Rage");
+        sorrows.terror = PlayerPrefs.GetInt("Terror");
+        sorrows.grief = PlayerPrefs.GetInt("Grief");
 
+        drives.courage = PlayerPrefs.GetInt("Courage");
+        drives.focus = PlayerPrefs.GetInt("Focus");
+        drives.will = PlayerPrefs.GetInt("Will");
+        drives.remembrance = PlayerPrefs.GetInt("Remembrance");
+        drives.spiritualHealing = PlayerPrefs.GetInt("SpiritualHealing");
+        drives.clarity = PlayerPrefs.GetInt("Clarity");
+        drives.grace = PlayerPrefs.GetInt("Grace");
     }
 
     void Update()
     {
-        if (Input.GetKeyDown("i"))
-        {
-            inventoryActive = !inventoryActive;
-        }
+        //if (Input.GetKeyDown("i"))
+        //{
+        //    inventoryActive = !inventoryActive;
+        //}
 
-        if(inventoryActive == true)
-        {
-            OpenInventory();
-            //Debug.Log("inventory active");
-        }
-        else
-        {
-            CloseInventory();
-            //Debug.Log("Inventory unactive");
-        }
+        //if(inventoryActive == true)
+        //{
+        //    OpenInventory();
+        //    //Debug.Log("inventory active");
+        //}
+        //else
+        //{
+        //    CloseInventory();
+        //    //Debug.Log("Inventory unactive");
+        //}
     }
 
     public void OpenInventory()

@@ -5,11 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class FightController : MonoBehaviour {
+public class FightController : MonoBehaviour
+{
 
     public static FightController fightController;
 
-    public enum StateType { NULL, GRIEF, PARALISIS, NUMB};
+    public enum StateType { NULL, GRIEF, PARALISIS, NUMB };
 
     public struct State
     {
@@ -29,6 +30,38 @@ public class FightController : MonoBehaviour {
         public DebuffStateType StateType;
         public int remainingTurns;
     }
+
+    public struct Sorrows
+    {
+        public int rage;
+        public int terror;
+        public int grief;
+    };
+    Sorrows sorrows;
+    public Button buttonSorrows;
+    public Button buttonRage;
+    public Button buttonTerror;
+    public Button buttonGrief;
+
+    public struct Drives
+    {
+        public int courage;
+        public int focus;
+        public int will;
+        public int remembrance;
+        public int spiritualHealing;
+        public int clarity;
+        public int grace;
+    };
+    Drives drives;
+    public Button buttonDrives;
+    public Button buttonCourage;
+    public Button buttonFocus;
+    public Button buttonWill;
+    public Button buttonRemembrance;
+    public Button buttonSpiritualHealing;
+    public Button buttonClarity;
+    public Button buttonGrace;
 
     private int turn;
     private int nAttack;
@@ -122,7 +155,19 @@ public class FightController : MonoBehaviour {
     bool usedBasicSpell2;
     bool usedGuard;
 
-    void Start () {
+    void Start()
+    {
+        sorrows.rage = PlayerPrefs.GetInt("Rage");
+        sorrows.terror = PlayerPrefs.GetInt("Terror");
+        sorrows.grief = PlayerPrefs.GetInt("Grief");
+
+        drives.courage = PlayerPrefs.GetInt("Courage");
+        drives.focus = PlayerPrefs.GetInt("Focus");
+        drives.will = PlayerPrefs.GetInt("Will");
+        drives.remembrance = PlayerPrefs.GetInt("Remembrance");
+        drives.spiritualHealing = PlayerPrefs.GetInt("SpiritualHealing");
+        drives.clarity = PlayerPrefs.GetInt("Clarity");
+        drives.grace = PlayerPrefs.GetInt("Grace");
 
         backgroundAudio = backgroundMusic.GetComponents<AudioSource>();
 
@@ -175,8 +220,9 @@ public class FightController : MonoBehaviour {
         ShowActions();
         RefreshUI();
     }
-	
-	void Update () {
+
+    void Update()
+    {
         if (Input.GetKeyDown("escape"))
         {
             if (!gamePaused)
@@ -200,8 +246,8 @@ public class FightController : MonoBehaviour {
                     {
                         playerScript.armor = 0;
                         RefreshUI();
-                    } 
-                    if(playerScript.armor == 0)
+                    }
+                    if (playerScript.armor == 0)
                         armorEffect.SetActive(false);
 
                     if (playerScript.moves > 0 && playerScript.energy > 2) //todo Mayor que dos porque ninguna habilidad cuesta menos de 3 actualmente
@@ -351,7 +397,7 @@ public class FightController : MonoBehaviour {
                                 break;
                         }
                     }
-                    else if(bossScript.health >= 250 && bossScript.health <= 700)
+                    else if (bossScript.health >= 250 && bossScript.health <= 700)
                     {
                         nAttack2++;
                         Debug.Log(nAttack2);
@@ -457,7 +503,7 @@ public class FightController : MonoBehaviour {
                                 break;
                         }
                     }
-                    else if(bossScript.health >= 0 && bossScript.health <= 250)
+                    else if (bossScript.health >= 0 && bossScript.health <= 250)
                     {
                         nAttack3++;
                         Debug.Log(nAttack3);
@@ -590,11 +636,16 @@ public class FightController : MonoBehaviour {
             }
         }
     }
-    
+
     //UI Info
     public void ShowActions()
     {
         actionPanel.SetActive(true);
+
+        if ((drives.clarity + drives.courage + drives.focus + drives.grace + drives.remembrance + drives.spiritualHealing + drives.will) > 0) buttonDrives.interactable = true;
+        else buttonDrives.interactable = false;
+        if ((sorrows.grief + sorrows.rage + sorrows.terror) > 0) buttonSorrows.interactable = true;
+        else buttonSorrows.interactable = false;
 
         //Coste 10
         if (playerScript.energy > 9)
@@ -609,10 +660,55 @@ public class FightController : MonoBehaviour {
             heavyAttackButton.interactable = true;
         else heavyAttackButton.interactable = false;
 
+        //Coste 5
+        if (playerScript.energy > 4)
+        {
+            if (sorrows.grief > 0) buttonGrief.interactable = true;
+            else buttonGrief.interactable = false;
+            if (sorrows.terror > 0) buttonTerror.interactable = true;
+            else buttonTerror.interactable = false;
+            if (sorrows.rage > 0) buttonRage.interactable = true;
+            else buttonRage.interactable = false;
+        }
+        else
+        {
+            buttonGrief.interactable = false;
+            buttonRage.interactable = false;
+            buttonTerror.interactable = false;
+        }
+
         //Coste 4
         if (playerScript.energy > 3)
+        {
             guardButton.interactable = true;
-        else guardButton.interactable = false;
+
+            if (drives.clarity > 0) buttonClarity.interactable = true;
+            else buttonClarity.interactable = false;
+            if (drives.courage > 0) buttonCourage.interactable = true;
+            else buttonCourage.interactable = false;
+            if (drives.focus > 0) buttonFocus.interactable = true;
+            else buttonFocus.interactable = false;
+            if (drives.grace > 0) buttonGrace.interactable = true;
+            else buttonGrace.interactable = false;
+            if (drives.remembrance > 0) buttonRemembrance.interactable = true;
+            else buttonRemembrance.interactable = false;
+            if (drives.spiritualHealing > 0) buttonSpiritualHealing.interactable = true;
+            else buttonSpiritualHealing.interactable = false;
+            if (drives.will > 0) buttonWill.interactable = true;
+            else buttonWill.interactable = false;
+        }
+        else
+        {
+            guardButton.interactable = false;
+
+            buttonClarity.interactable = false;
+            buttonCourage.interactable = false;
+            buttonFocus.interactable = false;
+            buttonGrace.interactable = false;
+            buttonRemembrance.interactable = false;
+            buttonSpiritualHealing.interactable = false;
+            buttonWill.interactable = false;
+        }
 
         //Coste 3
         if (playerScript.energy > 2)
@@ -685,7 +781,7 @@ public class FightController : MonoBehaviour {
         GameObject popupClone = Instantiate(popupTextPlayer, newPosition, newRotation);
         popupClone.GetComponent<TextMesh>().color = color;
         popupClone.GetComponent<TextMesh>().text = damage.ToString();
-        
+
     }
 
     //Character Actions
@@ -796,12 +892,12 @@ public class FightController : MonoBehaviour {
             }
         }
 
-            //Aplicación de parálisis
-            for (int i = 0; i < 3; i++)
+        //Aplicación de parálisis
+        for (int i = 0; i < 3; i++)
+        {
+            if (states[i].name == StateType.PARALISIS)
             {
-            if(states[i].name == StateType.PARALISIS)
-            {
-                if(Random.value > 0.1)
+                if (Random.value > 0.1)
                 {
                     if (usedLightAttack1 == false && usedLightAttack2 == false)
                     {
@@ -911,7 +1007,7 @@ public class FightController : MonoBehaviour {
                     AddCombatText();
                     combatDialogue[0].text = "You can't attack, your player is paralized";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
-                    if(playerScript.moves > 0 && playerScript.energy > 2)
+                    if (playerScript.moves > 0 && playerScript.energy > 2)
                     {
                         ShowActions();
                     }
@@ -975,9 +1071,9 @@ public class FightController : MonoBehaviour {
         //Aplicacion del efecto de paralisis
         for (int i = 0; i < 3; i++)
         {
-            if(states[i].name == StateType.PARALISIS)
+            if (states[i].name == StateType.PARALISIS)
             {
-                if(Random.value > 0.4)
+                if (Random.value > 0.4)
                 {
                     if (Random.Range(0, 7) == 1) //critico
                     {
@@ -1014,7 +1110,8 @@ public class FightController : MonoBehaviour {
         //yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         Vector3 enemyPosition = new Vector3(6.87f, -0.03f, -4.22f);
-        while(MoveToPosition(enemyPosition)) {
+        while (MoveToPosition(enemyPosition))
+        {
             playerAnimator.Play("Run");
             yield return null;
         } //adapt animations and moving times for the attack.
@@ -1025,7 +1122,7 @@ public class FightController : MonoBehaviour {
         //Make it return to the starting position
         Vector3 originalPosition = playerInitPos;
         yield return new WaitForSecondsRealtime(0.5f);
-        while(MoveToPosition(originalPosition)) { yield return null; } //The player moves near the enemy to kick him.
+        while (MoveToPosition(originalPosition)) { yield return null; } //The player moves near the enemy to kick him.
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         bossAnimator.Play("Damage");
         ShowPopupText(d, Color.red);
@@ -1125,9 +1222,9 @@ public class FightController : MonoBehaviour {
 
         for (int i = 0; i < 3; i++)
         {
-            if(states[i].name == StateType.PARALISIS)
+            if (states[i].name == StateType.PARALISIS)
             {
-                if(Random.value > 0.4)
+                if (Random.value > 0.4)
                 {
                     if (usedBasicHeal1 == false && usedBasicHeal2 == false)
                     {
@@ -1206,7 +1303,7 @@ public class FightController : MonoBehaviour {
                     AddCombatText();
                     combatDialogue[0].text = "Failed to heal due to paralisis.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
-                    if(playerScript.moves > 0 && playerScript.energy > 2)
+                    if (playerScript.moves > 0 && playerScript.energy > 2)
                     {
                         ShowActions();
                     }
@@ -1321,9 +1418,9 @@ public class FightController : MonoBehaviour {
         //Aplicación de Paralisis
         for (int i = 0; i < 3; i++)
         {
-            if(states[i].name == StateType.PARALISIS)
+            if (states[i].name == StateType.PARALISIS)
             {
-                if(Random.value > 0.4)
+                if (Random.value > 0.4)
                 {
                     if (usedBasicSpell1 == false && usedBasicSpell2 == false)
                     {
@@ -1505,9 +1602,9 @@ public class FightController : MonoBehaviour {
         //Aplicacion de paralisis
         for (int i = 0; i < 3; i++)
         {
-            if(states[i].name == StateType.PARALISIS)
+            if (states[i].name == StateType.PARALISIS)
             {
-                if(Random.value > 0.4)
+                if (Random.value > 0.4)
                 {
                     if (usedGuard == false)
                     {
@@ -1554,9 +1651,9 @@ public class FightController : MonoBehaviour {
                 }
             }
 
-            else if(states[i].name == StateType.GRIEF)
+            else if (states[i].name == StateType.GRIEF)
             {
-                if(Random.value > 0.7)
+                if (Random.value > 0.7)
                 {
                     states[i].name = StateType.NULL;
                     states[i].turnsLeft = 0;
@@ -1658,7 +1755,7 @@ public class FightController : MonoBehaviour {
         ShowPopupText(damage, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        for(int i = damage; i > 0; i--)
+        for (int i = damage; i > 0; i--)
         {
             bossScript.health--;
             RefreshUI();
@@ -1666,7 +1763,7 @@ public class FightController : MonoBehaviour {
             yield return new WaitForSeconds(0);
         }
         endedMove = true;
-        if(playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 2)
         {
             ShowActions();
         }
@@ -1977,7 +2074,7 @@ public class FightController : MonoBehaviour {
             AddCombatText();
             combatDialogue[0].text = "Player is griefed.";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
-            if(states[0].name == StateType.NULL)
+            if (states[0].name == StateType.NULL)
             {
                 AddCombatText();
                 combatDialogue[0].text = "Grief is now the first element of the array.";
@@ -1985,16 +2082,16 @@ public class FightController : MonoBehaviour {
                 states[0].name = StateType.GRIEF;
                 states[0].turnsLeft = 3;
             }
-            else if(states[0].name == StateType.NUMB || states[0].name == StateType.PARALISIS)
+            else if (states[0].name == StateType.NUMB || states[0].name == StateType.PARALISIS)
             {
-                if(states[1].name == StateType.NULL)
+                if (states[1].name == StateType.NULL)
                 {
                     states[1].name = StateType.GRIEF;
                     states[1].turnsLeft = 3;
                 }
-                else if(states[1].name == StateType.NUMB || states[1].name == StateType.PARALISIS)
+                else if (states[1].name == StateType.NUMB || states[1].name == StateType.PARALISIS)
                 {
-                    if(states[2].name == StateType.NULL)
+                    if (states[2].name == StateType.NULL)
                     {
                         states[2].name = StateType.GRIEF;
                         states[2].turnsLeft = 3;
@@ -2046,7 +2143,7 @@ public class FightController : MonoBehaviour {
                     states[1].name = StateType.NUMB;
                     states[1].turnsLeft = 3;
                 }
-                else if (states[1].name == StateType.GRIEF|| states[1].name == StateType.PARALISIS)
+                else if (states[1].name == StateType.GRIEF || states[1].name == StateType.PARALISIS)
                 {
                     if (states[2].name == StateType.NULL)
                     {
@@ -2055,10 +2152,10 @@ public class FightController : MonoBehaviour {
                     }
                 }
             }
-            else if(states[0].name == StateType.NUMB)
+            else if (states[0].name == StateType.NUMB)
             {
                 states[0].turnsLeft += 2;
-                if(states[0].turnsLeft > 5)
+                if (states[0].turnsLeft > 5)
                 {
                     states[0].turnsLeft = 5;
                 }
@@ -2137,9 +2234,9 @@ public class FightController : MonoBehaviour {
 
         if (playerScript.armor > 0)
         {
-            if(d >= playerScript.armor)
+            if (d >= playerScript.armor)
             {
-                for(float i = d; d > 0; i--)
+                for (float i = d; d > 0; i--)
                 {
                     playerScript.armor--;
                     RefreshUI();
@@ -2150,14 +2247,14 @@ public class FightController : MonoBehaviour {
             else
             {
                 d -= playerScript.armor;
-                for(float i = playerScript.armor; i > 0; i--)
+                for (float i = playerScript.armor; i > 0; i--)
                 {
                     playerScript.armor--;
                     RefreshUI();
                     yield return 0;
                     yield return new WaitForSeconds(0);
                 }
-                for(float i = d; i > 0; i--)
+                for (float i = d; i > 0; i--)
                 {
                     playerScript.health--;
                     RefreshUI();
@@ -2168,7 +2265,7 @@ public class FightController : MonoBehaviour {
         }
         else
         {
-            for(float i = d; i > 0; i--)
+            for (float i = d; i > 0; i--)
             {
                 playerScript.health--;
                 RefreshUI();
@@ -2198,7 +2295,7 @@ public class FightController : MonoBehaviour {
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        if(bossScript.stats.charge == false)
+        if (bossScript.stats.charge == false)
         {
             bossScript.stats.charge = true;
         }
@@ -2212,7 +2309,7 @@ public class FightController : MonoBehaviour {
     {
         bossAnimator.Play("Special");
         float dmg = bossScript.stats.strenght * 4;
-        if(bossScript.stats.charge == true)
+        if (bossScript.stats.charge == true)
         {
             StartCoroutine(SpecialAttackWaiter(dmg));
         }
@@ -2230,7 +2327,7 @@ public class FightController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(2);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
 
-        if(playerScript.armor > 0)
+        if (playerScript.armor > 0)
         {
             if (d <= playerScript.armor)
             {
@@ -2325,7 +2422,7 @@ public class FightController : MonoBehaviour {
     IEnumerator HealWaiter(float h)
     {
         bossEndedMove = false;
-        for(float i = h; i > 0; i--)
+        for (float i = h; i > 0; i--)
         {
             bossScript.health++;
             RefreshUI();
