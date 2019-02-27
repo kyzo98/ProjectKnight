@@ -6,13 +6,58 @@ using UnityEngine.SceneManagement;
 
 public class FightController2 : MonoBehaviour {
 
-    public enum StateType2 { NULL, GRIEF, PARALISIS, NUMB, NEW };
+    public enum StateType2 { NULL, GRIEF, PARALISIS, NUMB };
 
     public struct States
     {
-        public StateType2 EffectName;
-        public int EffectturnsLeft;
+        public StateType2 name2;
+        public int turnsLeft2;
     }
+
+    enum BuffStateType { NULL }
+    enum DebuffStateType { NULL }
+    struct Buff
+    {
+        public BuffStateType StateType;
+        public int remainingTurns;
+    }
+    struct Debuff
+    {
+        public DebuffStateType StateType;
+        public int remainingTurns;
+    }
+
+    public struct Sorrows
+    {
+        public int rage;
+        public int terror;
+        public int grief;
+    };
+    Sorrows sorrows;
+    public Button buttonSorrows;
+    public Button buttonRage;
+    public Button buttonTerror;
+    public Button buttonGrief;
+
+    public struct Drives
+    {
+        public int courage;
+        public int focus;
+        public int will;
+        public int remembrance;
+        public int spiritualHealing;
+        public int clarity;
+        public int grace;
+    };
+    Drives drives;
+    public Button buttonDrives;
+    public Button buttonCourage;
+    public Button buttonFocus;
+    public Button buttonWill;
+    public Button buttonRemembrance;
+    public Button buttonSpiritualHealing;
+    public Button buttonClarity;
+    public Button buttonGrace;
 
     private int turn;
     private int nAttack;
@@ -20,10 +65,12 @@ public class FightController2 : MonoBehaviour {
     private int nAttack3;
     private int EffectTurnCounter = 0;
     private int griefLifePerTurn = 16;
+    //Velocidad de movimiento del player cada vez que se acerca al boss para atacar
+    float speed = 10.0f;
 
     //GAMEOBJECTS
-    public GameObject armorEffect;
-    public GameObject healEffect;
+    //public GameObject armorEffect;
+    //public GameObject healEffect;
     public GameObject magicSpell;
     public GameObject pauseMenu;
     public GameObject exitGameMenu;
@@ -39,8 +86,9 @@ public class FightController2 : MonoBehaviour {
     public GameObject player;
     Vector3 playerInitPos;
     private Player playerScript;
-    private States[] state;
-
+    private Buff[] playerBuff;
+    private Debuff[] playerDebuff;
+    public States[] state;
     //UI PLAYER
     public Text actionPointsText;
     public Slider playerHealthBar;
@@ -55,53 +103,83 @@ public class FightController2 : MonoBehaviour {
     public Button spiritBlastButton;
     public GameObject actionPanel;
     public Text[] combatDialogue;
-    public GameObject popupTextPlayer;
-
     //PLAYER ANIMATIONS
     private Animator playerAnimator;
-
     //BOSS
     public GameObject boss;
     private Boss bossScript;
-
     //UI BOSS
     public Slider bossHealthBar;
     public Text bossHealthNumber;
     public Text bossArmorNumber;
-    public GameObject popupTextBoss;
-
+    //POPUP TEXT UI BOSS
+    public GameObject popupText;
+    //POPUP TEXT UI PLAYER
+    public GameObject popupTextPlayer;
     //BOSS ANIMATIONS
-    private Animator bossAnimator;
+    Animator bossAnimator;
+
+    //PARTICLES
+    public GameObject lightStrikeHolder;
+    public ParticleSystem lightStrikeParticleSystem;
+    public ParticleSystem healParticle;
+    public GameObject despairParticleHolder;
+    public ParticleSystem despairParticleSystem;
+    public GameObject terrorParticleHolder;
+    public ParticleSystem terrorParticleSystem;
+    public GameObject griefParticleHolder;
+    public ParticleSystem griefParticleSystem;
+    public GameObject rageParticleHolder;
+    public ParticleSystem rageParticleSystem;
+    public GameObject animaBlastParticleHolder;
+    public ParticleSystem animaBlastParticleSystem;
+    public ParticleSystem hitParticle;
+    public GameObject hitHolder;
 
     //CAMERAS
     public Camera mainCamera;
     public Camera frontalPlayerCamera;
     public Camera frontalBossCamera;
-    public Camera heavyAttackCamera;
+    public Camera heavyAttackCam;
 
-    //ENDING MOVES
     private bool endedMove = true;
     private bool bossEndedMove = true;
+    //Succes rates bools
+    bool usedLightAttack1;
+    bool usedLightAttack2;
+    bool usedBasicHeal1;
+    bool usedBasicHeal2;
+    bool usedBasicSpell1;
+    bool usedBasicSpell2;
+    bool usedGuard;
 
-    //SUCCES RATES BOOLS
-    private bool usedLightAttack1;
-    private bool usedLightAttack2;
-    private bool usedBasicHeal1;
-    private bool usedBasicHeal2;
-    private bool usedBasicSpell1;
-    private bool usedBasicSpell2;
-    private bool usedGuard;
-    // Use this for initialization
-    void Start () {
-        //backgroundAudio = backgroundMusic.GetComponent<AudioSource>();
+    void Start()
+    {
+        sorrows.rage = PlayerPrefs.GetInt("Rage");
+        sorrows.terror = PlayerPrefs.GetInt("Terror");
+        sorrows.grief = PlayerPrefs.GetInt("Grief");
 
-        turn = 0; //Initial Turn
+        drives.courage = PlayerPrefs.GetInt("Courage");
+        drives.focus = PlayerPrefs.GetInt("Focus");
+        drives.will = PlayerPrefs.GetInt("Will");
+        drives.remembrance = PlayerPrefs.GetInt("Remembrance");
+        drives.spiritualHealing = PlayerPrefs.GetInt("SpiritualHealing");
+        drives.clarity = PlayerPrefs.GetInt("Clarity");
+        drives.grace = PlayerPrefs.GetInt("Grace");
+
+        backgroundAudio = backgroundMusic.GetComponents<AudioSource>();
+
+        turn = 0; //Turno inicial
         playerScript = player.GetComponent<Player>();
         bossScript = boss.GetComponent<Boss>();
-        playerInitPos = player.transform.position;
-        //Animators
+        bossAnimator = boss.GetComponent<Animator>();
         playerAnimator = player.GetComponent<Animator>();
-        bossAnimator = player.GetComponent<Animator>();
+
+        //Particles
+        healParticle.Stop();
+        hitParticle.Stop();
+
+        playerInitPos = player.transform.position;
 
         //Buttons
         lightAttackButton.onClick.AddListener(LightAttack);
@@ -110,28 +188,37 @@ public class FightController2 : MonoBehaviour {
         basicSpellButton.onClick.AddListener(BasicSpell);
         guardButton.onClick.AddListener(Guard);
         spiritBlastButton.onClick.AddListener(SpiritBlast);
-
         //Cameras
         mainCamera.enabled = true;
         frontalPlayerCamera.enabled = false;
         frontalBossCamera.enabled = false;
-        heavyAttackCamera.enabled = false;
+        heavyAttackCam.enabled = false;
+        //Buffs & Debuffs
+        playerBuff = new Buff[2];
+        playerBuff[0].StateType = BuffStateType.NULL;
+        playerBuff[0].remainingTurns = 0;
+        playerBuff[1].StateType = BuffStateType.NULL;
+        playerBuff[1].remainingTurns = 0;
+        playerDebuff = new Debuff[2];
+        playerDebuff[0].StateType = DebuffStateType.NULL;
+        playerDebuff[0].remainingTurns = 0;
+        playerDebuff[1].StateType = DebuffStateType.NULL;
+        playerDebuff[1].remainingTurns = 0;
 
-        //Effect States
         state = new States[3];
-        state[0].EffectName = StateType2.NULL;
-        state[0].EffectturnsLeft = 0;
-        state[1].EffectName = StateType2.NULL;
-        state[1].EffectturnsLeft = 0;
-        state[2].EffectName = StateType2.NULL;
-        state[2].EffectturnsLeft = 0;
+        state[0].name2 = StateType2.NULL;
+        state[0].turnsLeft2 = 0;
+        state[1].name2 = StateType2.NULL;
+        state[1].turnsLeft2 = 0;
+        state[2].name2 = StateType2.NULL;
+        state[2].turnsLeft2 = 0;
 
         ShowActions();
         RefreshUI();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    void Update()
+    {
         if (Input.GetKeyDown("escape"))
         {
             if (!gamePaused)
@@ -157,7 +244,7 @@ public class FightController2 : MonoBehaviour {
                         RefreshUI();
                     }
                     if (playerScript.armor == 0)
-                        armorEffect.SetActive(false);
+                        //armorEffect.SetActive(false); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                     if (playerScript.moves > 0 && playerScript.energy > 2) //todo Mayor que dos porque ninguna habilidad cuesta menos de 3 actualmente
                     {
@@ -181,12 +268,12 @@ public class FightController2 : MonoBehaviour {
                     RestartSuccesBools();
                     for (int i = 0; i < 3; i++)
                     {
-                        if (state[i].EffectName == StateType2.GRIEF || state[i].EffectName == StateType2.NUMB || state[i].EffectName == StateType2.PARALISIS && state[i].EffectturnsLeft > 0)
+                        if (state[i].name2 == StateType2.GRIEF || state[i].name2 == StateType2.NUMB || state[i].name2 == StateType2.PARALISIS && state[i].turnsLeft2 > 0)
                         {
-                            state[i].EffectturnsLeft -= 1;
-                            if (state[i].EffectturnsLeft == 0)
+                            state[i].turnsLeft2 -= 1;
+                            if (state[i].turnsLeft2 == 0)
                             {
-                                state[i].EffectName = StateType2.NULL;
+                                state[i].name2 = StateType2.NULL;
                             }
                         }
                     }
@@ -194,7 +281,7 @@ public class FightController2 : MonoBehaviour {
                     //When the player is numb he loses some life.
                     for (int i = 0; i < 3; i++)
                     {
-                        if (state[i].EffectName == StateType2.GRIEF)
+                        if (state[i].name2 == StateType2.GRIEF)
                         {
                             playerScript.health -= playerScript.maxHealth / griefLifePerTurn;
                             griefLifePerTurn *= 2;
@@ -209,12 +296,12 @@ public class FightController2 : MonoBehaviour {
                         switch (nAttack)
                         {
                             case 1:
-                                EffectAttack(); //Attack();
+                                Attack();
                                 Debug.Log("Boss used effect attack.");
                                 //nAttack++;
                                 break;
                             case 2:
-                                BasicAttack();
+                                Attack();
                                 Debug.Log("Boss used normal attack.");
                                 //nAttack++;
                                 break;
@@ -234,12 +321,12 @@ public class FightController2 : MonoBehaviour {
                                 //nAttack++;
                                 break;
                             case 6:
-                                BasicAttack();
+                                Attack();
                                 Debug.Log("Boss used normal Attack.");
                                 //nAttack++;
                                 break;
                             case 7:
-                                BasicAttack();
+                                Attack();
                                 Debug.Log("Boss used normal attack.");
                                 //nAttack++;
                                 break;
@@ -256,12 +343,12 @@ public class FightController2 : MonoBehaviour {
                                 //nAttack++;
                                 break;
                             case 10:
-                                BasicAttack();
+                                Attack();
                                 Debug.Log("Boss used normal attack.");
                                 //nAttack++;
                                 break;
                             case 11:
-                                BasicAttack();
+                                Attack();
                                 Debug.Log("Boss used normal attack.");
                                 //nAttack++;
                                 break;
@@ -293,7 +380,7 @@ public class FightController2 : MonoBehaviour {
                                 //nAttack++;
                                 break;
                             case 17:
-                                BasicAttack();
+                                Attack();
                                 Debug.Log("Boss used attack.");
                                 //nAttack++;
                                 break;
@@ -347,7 +434,7 @@ public class FightController2 : MonoBehaviour {
                                 //nAttack++;
                                 break;
                             case 7:
-                                BasicAttack();
+                                Attack();
                                 Debug.Log("Boss used normal attack.");
                                 //nAttack++;
                                 break;
@@ -384,7 +471,7 @@ public class FightController2 : MonoBehaviour {
                                 //nAttack++;
                                 break;
                             case 14:
-                                BasicAttack();
+                                Attack();
                                 Debug.Log("Boss used normal attack.");
                                 //nAttack++;
                                 break;
@@ -434,7 +521,7 @@ public class FightController2 : MonoBehaviour {
                                 //nAttack++;
                                 break;
                             case 4:
-                                BasicAttack();
+                                Attack();
                                 Debug.Log("Boss used normal attack.");
                                 //nAttack++;
                                 break;
@@ -461,7 +548,7 @@ public class FightController2 : MonoBehaviour {
                                 //nAttack++;
                                 break;
                             case 9:
-                                BasicAttack();
+                                Attack();
                                 Debug.Log("Boss used attack.");
                                 //nAttack++;
                                 break;
@@ -483,7 +570,7 @@ public class FightController2 : MonoBehaviour {
                                 //nAttack++;
                                 break;
                             case 13:
-                                BasicAttack();
+                                Attack();
                                 Debug.Log("Boss used attack.");
                                 //nAttack++;
                                 break;
@@ -519,8 +606,8 @@ public class FightController2 : MonoBehaviour {
 
                     for (int i = 0; i < 3; i++)
                     {
-                        Debug.Log(state[i].EffectName);
-                        Debug.Log(state[i].EffectturnsLeft);
+                        Debug.Log(state[i].name2);
+                        Debug.Log(state[i].turnsLeft2);
                     }
 
                     playerScript.moves = 3;
@@ -544,11 +631,17 @@ public class FightController2 : MonoBehaviour {
                 SceneManager.LoadScene("Narrator", LoadSceneMode.Single);
             }
         }
-	}
+    }
 
+    //UI Info
     public void ShowActions()
     {
         actionPanel.SetActive(true);
+
+        if ((drives.clarity + drives.courage + drives.focus + drives.grace + drives.remembrance + drives.spiritualHealing + drives.will) > 0) buttonDrives.interactable = true;
+        else buttonDrives.interactable = false;
+        if ((sorrows.grief + sorrows.rage + sorrows.terror) > 0) buttonSorrows.interactable = true;
+        else buttonSorrows.interactable = false;
 
         //Coste 10
         if (playerScript.energy > 9)
@@ -563,10 +656,55 @@ public class FightController2 : MonoBehaviour {
             heavyAttackButton.interactable = true;
         else heavyAttackButton.interactable = false;
 
+        //Coste 5
+        if (playerScript.energy > 4)
+        {
+            if (sorrows.grief > 0) buttonGrief.interactable = true;
+            else buttonGrief.interactable = false;
+            if (sorrows.terror > 0) buttonTerror.interactable = true;
+            else buttonTerror.interactable = false;
+            if (sorrows.rage > 0) buttonRage.interactable = true;
+            else buttonRage.interactable = false;
+        }
+        else
+        {
+            buttonGrief.interactable = false;
+            buttonRage.interactable = false;
+            buttonTerror.interactable = false;
+        }
+
         //Coste 4
         if (playerScript.energy > 3)
+        {
             guardButton.interactable = true;
-        else guardButton.interactable = false;
+
+            if (drives.clarity > 0) buttonClarity.interactable = true;
+            else buttonClarity.interactable = false;
+            if (drives.courage > 0) buttonCourage.interactable = true;
+            else buttonCourage.interactable = false;
+            if (drives.focus > 0) buttonFocus.interactable = true;
+            else buttonFocus.interactable = false;
+            if (drives.grace > 0) buttonGrace.interactable = true;
+            else buttonGrace.interactable = false;
+            if (drives.remembrance > 0) buttonRemembrance.interactable = true;
+            else buttonRemembrance.interactable = false;
+            if (drives.spiritualHealing > 0) buttonSpiritualHealing.interactable = true;
+            else buttonSpiritualHealing.interactable = false;
+            if (drives.will > 0) buttonWill.interactable = true;
+            else buttonWill.interactable = false;
+        }
+        else
+        {
+            guardButton.interactable = false;
+
+            buttonClarity.interactable = false;
+            buttonCourage.interactable = false;
+            buttonFocus.interactable = false;
+            buttonGrace.interactable = false;
+            buttonRemembrance.interactable = false;
+            buttonSpiritualHealing.interactable = false;
+            buttonWill.interactable = false;
+        }
 
         //Coste 3
         if (playerScript.energy > 2)
@@ -589,7 +727,7 @@ public class FightController2 : MonoBehaviour {
 
         for (int i = 0; i < 3; i++)
         {
-            if (state[i].EffectName == StateType2.NUMB)
+            if (state[i].name2 == StateType2.NUMB)
             {
                 basicHealButton.interactable = false;
             }
@@ -603,6 +741,7 @@ public class FightController2 : MonoBehaviour {
 
     public void RestartSuccesBools()
     {
+        Debug.Log("Restarted bools");
         usedLightAttack1 = false;
         usedLightAttack2 = false;
         usedBasicHeal1 = false;
@@ -622,67 +761,39 @@ public class FightController2 : MonoBehaviour {
         combatDialogue[1].text = combatDialogue[0].text;
     }
 
-    public void ShowPopupTextBoss(float damage, Color color)
+    public void ShowPopupText(float damage, Color color)
     {
-        Vector3 newPosition = new Vector3(9.76f, 8.21f, -3.5f);
+        Vector3 newPosition = new Vector3(-2.915f, 5.27f, 1.55f);
         Quaternion newRotation = Quaternion.Euler(0, 90, 0);
-        GameObject popupClone = Instantiate(popupTextBoss, newPosition, newRotation);
+        GameObject popupClone = Instantiate(popupText, newPosition, newRotation);
         popupClone.GetComponent<TextMesh>().color = color;
         popupClone.GetComponent<TextMesh>().text = damage.ToString();
     }
 
     public void ShowPopupTextPlayer(float damage, Color color)
     {
-        Vector3 newPosition = new Vector3(-10.52f, 2.87f, -0.15f);
+        Vector3 newPosition = new Vector3(-9.9f, 1.43f, 1.24f);
         Quaternion newRotation = Quaternion.Euler(0, 280, 0);
         GameObject popupClone = Instantiate(popupTextPlayer, newPosition, newRotation);
         popupClone.GetComponent<TextMesh>().color = color;
         popupClone.GetComponent<TextMesh>().text = damage.ToString();
     }
 
-    public void RefreshUI()
+    public void ShowFailText(Color color)
     {
-        //Player Energy
-        actionPointsText.text = playerScript.energy.ToString();
-        spiritBlastCounter.value = playerScript.spiritBlast;
-
-        //Player life
-        playerHealthNumber.text = playerScript.health.ToString() + '/' + playerScript.maxHealth.ToString();
-        playerArmorNumber.text = playerScript.armor.ToString();
-        playerHealthBar.value = (float)playerScript.health / (float)playerScript.maxHealth;
-
-        //Boss Life
-        bossHealthNumber.text = bossScript.health.ToString() + '/' + bossScript.maxHealth.ToString();
-        bossArmorNumber.text = bossScript.armor.ToString();
-        bossHealthBar.value = (float)bossScript.health / (float)bossScript.maxHealth;
+        Vector3 newPosition = new Vector3(-2.915f, 5.27f, 1.55f);
+        Quaternion newRotation = Quaternion.Euler(0f, 90f, 0f);
+        GameObject failClone = Instantiate(popupText, newPosition, newRotation);
+        failClone.GetComponent<TextMesh>().color = color;
+        failClone.GetComponent<TextMesh>().text = "MISS";
     }
 
-    public void PauseGame()
-    {
-        Time.timeScale = 0;
-        pauseMenu.SetActive(true);
-        backgroundAudio[0].Pause();
-        backgroundAudio[1].Play();
-        gamePaused = true;
-    }
-
-    public void UnPauseGame()
-    {
-        Time.timeScale = 1;
-        backgroundAudio[0].UnPause();
-        exitGameMenu.SetActive(false);
-        backMenuMenu.SetActive(false);
-        optionsMenuMenu.SetActive(false);
-        pauseMenu.SetActive(false);
-        gamePaused = false;
-    }
-
-    //Player Attacks and actions
+    //Character Actions
     void LightAttack()
     {
         HideActions();
 
-        if (state[0].EffectName != StateType2.PARALISIS || state[1].EffectName != StateType2.PARALISIS || state[2].EffectName != StateType2.PARALISIS)
+        if (state[0].name2 != StateType2.PARALISIS || state[1].name2 != StateType2.PARALISIS || state[2].name2 != StateType2.PARALISIS)
         {
             if (usedLightAttack1 == false && usedLightAttack2 == false)
             {
@@ -737,6 +848,7 @@ public class FightController2 : MonoBehaviour {
                 else
                 {
                     Debug.Log("Light Attack failed.");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Light Attack failed";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -774,6 +886,7 @@ public class FightController2 : MonoBehaviour {
                 else
                 {
                     Debug.Log("Light Attack failed.");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Light Attack failed";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -788,7 +901,7 @@ public class FightController2 : MonoBehaviour {
         //Aplicación de parálisis
         for (int i = 0; i < 3; i++)
         {
-            if (state[i].EffectName == StateType2.PARALISIS)
+            if (state[i].name2 == StateType2.PARALISIS)
             {
                 if (Random.value > 0.1)
                 {
@@ -845,6 +958,7 @@ public class FightController2 : MonoBehaviour {
                         else
                         {
                             Debug.Log("Light Attack failed.");
+                            ShowFailText(Color.red);
                             AddCombatText();
                             combatDialogue[0].text = "Light Attack failed";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -882,6 +996,7 @@ public class FightController2 : MonoBehaviour {
                         else
                         {
                             Debug.Log("Light Attack failed.");
+                            ShowFailText(Color.red);
                             AddCombatText();
                             combatDialogue[0].text = "Light Attack failed";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -909,17 +1024,41 @@ public class FightController2 : MonoBehaviour {
         }
     }
 
+    IEnumerator ThrowLightStrike(GameObject particleHolder, ParticleSystem particleSystem, int damage)
+    {
+        float speed = 20.0f;
+        Vector3 initialPos = new Vector3(-9.537f, 0.585f, 1.318f);
+        Vector3 finalPos = new Vector3(-3.329f, 1.931f, 1.346f);
+        float timeToReachTarget = Vector3.Distance(initialPos, finalPos) / speed;
+
+        float time = 0.0f;
+        playerAnimator.Play("LightAttack");
+        yield return new WaitForSecondsRealtime(1.87f);
+        GameObject lightStrikeClone = Instantiate(particleHolder, initialPos, Quaternion.Euler(new Vector3(1.904f, 1.303f, 14.395f)));
+        particleSystem.Play();
+        while (time < 1)
+        {
+            time += Time.deltaTime / timeToReachTarget;
+            lightStrikeClone.transform.position = Vector3.Lerp(initialPos, finalPos, time);
+
+            yield return null;
+        }
+        Destroy(lightStrikeClone);
+        GameObject hitClone = Instantiate(hitHolder, finalPos, Quaternion.identity);
+        hitParticle.Play();
+        bossAnimator.Play("Damage");
+        ShowPopupText(damage, Color.red);
+    }
+
     IEnumerator LightAttackWaiter(int d)
     {
         endedMove = false;
-        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
-        yield return new WaitForSecondsRealtime(2); //Tiempo de espera de la animación
-        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
-        ShowPopupTextBoss(d, Color.red);
-        yield return new WaitForSecondsRealtime(3);
-        frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
+        heavyAttackCam.enabled = !heavyAttackCam.enabled; //Cambio de camara (cámara específica de la animación)
+        StartCoroutine(ThrowLightStrike(lightStrikeHolder, lightStrikeParticleSystem, d));
+        player.transform.rotation = Quaternion.Euler(0f, 170.944f, 0f);
+        yield return new WaitForSecondsRealtime(3f); //Tiempo de espera de la animación
+        player.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+        heavyAttackCam.enabled = !heavyAttackCam.enabled;
         for (int i = d; i > 0; i--)
         {
             bossScript.health--;
@@ -941,7 +1080,7 @@ public class FightController2 : MonoBehaviour {
         playerScript.energy -= 7;
         playerScript.moves--;
 
-        if (state[0].EffectName != StateType2.PARALISIS || state[1].EffectName != StateType2.PARALISIS || state[2].EffectName != StateType2.PARALISIS)
+        if (state[0].name2 != StateType2.PARALISIS || state[1].name2 != StateType2.PARALISIS || state[2].name2 != StateType2.PARALISIS)
         {
             if (Random.Range(0, 7) == 1) //critico
             {
@@ -964,7 +1103,7 @@ public class FightController2 : MonoBehaviour {
         //Aplicacion del efecto de paralisis
         for (int i = 0; i < 3; i++)
         {
-            if (state[i].EffectName == StateType2.PARALISIS)
+            if (state[i].name2 == StateType2.PARALISIS)
             {
                 if (Random.value > 0.4)
                 {
@@ -988,6 +1127,7 @@ public class FightController2 : MonoBehaviour {
                 else
                 {
                     Debug.Log("You failed to use heavy attack, due to paralisis.");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "You failed to use heavy attack, due to paralisis.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1002,19 +1142,23 @@ public class FightController2 : MonoBehaviour {
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         //yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        Vector3 enemyPosition = new Vector3(boss.transform.position.x, boss.transform.position.y + 1, boss.transform.position.z);
-        while (MoveToPosition(enemyPosition)) { yield return null; } //adapt animations and moving times for the attack.
-        heavyAttackCamera.enabled = !heavyAttackCamera.enabled;
+        //Vector3 enemyPosition = new Vector3(6.87f, -0.03f, -4.22f);
+        //while (MoveToPosition(enemyPosition))
+        //{
+        //    playerAnimator.Play("Run");
+        //    yield return null;
+        //} //adapt animations and moving times for the attack.
+        heavyAttackCam.enabled = !heavyAttackCam.enabled;
         playerAnimator.Play("HeavyAttack");
-        yield return new WaitForSecondsRealtime(3);
-        heavyAttackCamera.enabled = !heavyAttackCamera;
+        yield return new WaitForSecondsRealtime(2.3f);
+        heavyAttackCam.enabled = !heavyAttackCam;
         //Make it return to the starting position
         Vector3 originalPosition = playerInitPos;
         yield return new WaitForSecondsRealtime(0.5f);
-        while (MoveToPosition(originalPosition)) { yield return null; }
+        //while (MoveToPosition(originalPosition)) { yield return null; } //The player moves near the enemy to kick him.
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
-        ShowPopupTextBoss(d, Color.red);
+        bossAnimator.Play("Damage");
+        ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
@@ -1035,7 +1179,7 @@ public class FightController2 : MonoBehaviour {
     {
         HideActions();
 
-        if (state[0].EffectName != StateType2.PARALISIS || state[1].EffectName != StateType2.PARALISIS || state[2].EffectName != StateType2.PARALISIS)
+        if (state[0].name2 != StateType2.PARALISIS || state[1].name2 != StateType2.PARALISIS || state[2].name2 != StateType2.PARALISIS)
         {
             if (usedBasicHeal1 == false && usedBasicHeal2 == false)
             {
@@ -1070,6 +1214,7 @@ public class FightController2 : MonoBehaviour {
                 else
                 {
                     Debug.Log("Player failed heal");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Player failed heal";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1098,6 +1243,7 @@ public class FightController2 : MonoBehaviour {
                 else
                 {
                     Debug.Log("Player failed heal");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Player failed heal";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1111,7 +1257,7 @@ public class FightController2 : MonoBehaviour {
 
         for (int i = 0; i < 3; i++)
         {
-            if (state[i].EffectName == StateType2.PARALISIS)
+            if (state[i].name2 == StateType2.PARALISIS)
             {
                 if (Random.value > 0.4)
                 {
@@ -1148,6 +1294,7 @@ public class FightController2 : MonoBehaviour {
                         else
                         {
                             Debug.Log("Player failed heal");
+                            ShowFailText(Color.red);
                             AddCombatText();
                             combatDialogue[0].text = "Player failed heal";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1176,6 +1323,7 @@ public class FightController2 : MonoBehaviour {
                         else
                         {
                             Debug.Log("Player failed heal");
+                            ShowFailText(Color.red);
                             AddCombatText();
                             combatDialogue[0].text = "Player failed heal";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1189,6 +1337,7 @@ public class FightController2 : MonoBehaviour {
                 else
                 {
                     Debug.Log("Failed to heal due to paralisis.");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Failed to heal due to paralisis.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1205,7 +1354,9 @@ public class FightController2 : MonoBehaviour {
     {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
-        healEffect.SetActive(true);
+        healParticle.Play();
+        yield return new WaitForSecondsRealtime(2f);
+        healParticle.Stop();
         for (int i = d; i > 0; i--)
         {
             playerScript.health++;
@@ -1215,7 +1366,6 @@ public class FightController2 : MonoBehaviour {
         }
         ShowPopupTextPlayer(d, Color.green);
         yield return new WaitForSecondsRealtime(2); //Tiempo de espera de la animación
-        healEffect.SetActive(false);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
 
         endedMove = true;
@@ -1224,11 +1374,11 @@ public class FightController2 : MonoBehaviour {
         RefreshUI();
     }
 
-    void BasicSpell()
+    void BasicSpell() //It's the despair one
     {
         HideActions();
 
-        if (state[0].EffectName != StateType2.PARALISIS || state[1].EffectName != StateType2.PARALISIS || state[2].EffectName != StateType2.PARALISIS)
+        if (state[0].name2 != StateType2.PARALISIS || state[1].name2 != StateType2.PARALISIS || state[2].name2 != StateType2.PARALISIS)
         {
             if (usedBasicSpell1 == false && usedBasicSpell2 == false)
             {
@@ -1305,7 +1455,7 @@ public class FightController2 : MonoBehaviour {
         //Aplicación de Paralisis
         for (int i = 0; i < 3; i++)
         {
-            if (state[i].EffectName == StateType2.PARALISIS)
+            if (state[i].name2 == StateType2.PARALISIS)
             {
                 if (Random.value > 0.4)
                 {
@@ -1340,6 +1490,7 @@ public class FightController2 : MonoBehaviour {
                             if (playerScript.moves > 0 && playerScript.energy > 2)
                             {
                                 Debug.Log("Player failed basic spell");
+                                ShowFailText(Color.red);
                                 AddCombatText();
                                 combatDialogue[0].text = "Player failed basic spell";
                                 combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1369,6 +1520,7 @@ public class FightController2 : MonoBehaviour {
                             if (playerScript.moves > 0 && playerScript.energy > 2)
                             {
                                 Debug.Log("Player failed basic spell");
+                                ShowFailText(Color.red);
                                 AddCombatText();
                                 combatDialogue[0].text = "Player failed basic spell";
                                 combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1383,6 +1535,7 @@ public class FightController2 : MonoBehaviour {
                 else
                 {
                     Debug.Log("Failed to use spell due to paralisis");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Failed to use spell due to paralisis.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1395,20 +1548,38 @@ public class FightController2 : MonoBehaviour {
         }
     }
 
+    IEnumerator ThrowProjectile(GameObject particleHolder, ParticleSystem particleSystem, int damage)
+    {
+        float speed = 10.0f;
+        Vector3 initialPos = new Vector3(-7.803f, 0.426f, 0.973f);
+        Vector3 finalPos = new Vector3(-3.329f, 1.931f, 1.346f);
+        GameObject despairClone = Instantiate(particleHolder, initialPos, Quaternion.Euler(new Vector3(1.904f, 1.303f, 14.395f)));
+        float timeToReachTarget = Vector3.Distance(initialPos, finalPos) / speed;
+
+        float time = 0.0f;
+        particleSystem.Play();
+        yield return new WaitForSecondsRealtime(0.9f);
+        while (time < 1)
+        {
+            time += Time.deltaTime / timeToReachTarget;
+            despairClone.transform.position = Vector3.Lerp(initialPos, finalPos, time);
+
+            yield return null;
+        }
+        Destroy(despairClone);
+        GameObject hitClone = Instantiate(hitHolder, finalPos, Quaternion.identity);
+        hitParticle.Play();
+        bossAnimator.Play("Damage");
+        ShowPopupText(damage, Color.red);
+    }
+
     IEnumerator BasicSpellWaiter(int d)
     {
         endedMove = false;
-        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
-        //Vector3 particlePos = new Vector3(-9.56f, 1.23f, -0.25f);
-        //particleAnimator.Play();
-        //GameObject particle = Instantiate(magicSpell, particlePos, Quaternion.identity);
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
-        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
-        ShowPopupTextBoss(d, Color.red);
-        yield return new WaitForSecondsRealtime(3);
-        frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
+        heavyAttackCam.enabled = !heavyAttackCam.enabled; //Cambio de camara (cámara específica de la animación)
+        StartCoroutine(ThrowProjectile(despairParticleHolder, despairParticleSystem, d));
+        yield return new WaitForSecondsRealtime(2f); //Tiempo de espera de la animación
+        heavyAttackCam.enabled = !heavyAttackCam.enabled;
         for (int i = d; i > 0; i--)
         {
             bossScript.health--;
@@ -1427,7 +1598,7 @@ public class FightController2 : MonoBehaviour {
     {
         HideActions();
 
-        if (state[0].EffectName != StateType2.PARALISIS || state[1].EffectName != StateType2.PARALISIS || state[2].EffectName != StateType2.PARALISIS)
+        if (state[0].name2 != StateType2.PARALISIS || state[1].name2 != StateType2.PARALISIS || state[2].name2 != StateType2.PARALISIS)
         {
             if (usedGuard == false)
             {
@@ -1457,6 +1628,7 @@ public class FightController2 : MonoBehaviour {
                 else
                 {
                     Debug.Log("Player failed protecting");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Player failed protecting himself";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1468,7 +1640,7 @@ public class FightController2 : MonoBehaviour {
         //Aplicacion de paralisis
         for (int i = 0; i < 3; i++)
         {
-            if (state[i].EffectName == StateType2.PARALISIS)
+            if (state[i].name2 == StateType2.PARALISIS)
             {
                 if (Random.value > 0.4)
                 {
@@ -1500,6 +1672,7 @@ public class FightController2 : MonoBehaviour {
                         else
                         {
                             Debug.Log("Player failed protecting");
+                            ShowFailText(Color.red);
                             AddCombatText();
                             combatDialogue[0].text = "Player failed protecting himself";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1510,6 +1683,7 @@ public class FightController2 : MonoBehaviour {
                 else
                 {
                     Debug.Log("Failed to protect due to paralisis");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Player failed to prtect due to paralisi.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1517,12 +1691,12 @@ public class FightController2 : MonoBehaviour {
                 }
             }
 
-            else if (state[i].EffectName == StateType2.GRIEF)
+            else if (state[i].name2 == StateType2.GRIEF)
             {
                 if (Random.value > 0.7)
                 {
-                    state[i].EffectName = StateType2.NULL;
-                    state[i].EffectturnsLeft = 0;
+                    state[i].name2 = StateType2.NULL;
+                    state[i].turnsLeft2 = 0;
                     AddCombatText();
                     combatDialogue[0].text = "GRIEF Effect disapear.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1543,7 +1717,7 @@ public class FightController2 : MonoBehaviour {
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        armorEffect.SetActive(true);
+        //armorEffect.SetActive(true); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación        
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
 
@@ -1573,10 +1747,11 @@ public class FightController2 : MonoBehaviour {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
+        StartCoroutine(ThrowProjectile(animaBlastParticleHolder, animaBlastParticleSystem, d));
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
-        ShowPopupTextBoss(d, Color.red);
+        bossAnimator.Play("Damage");
+        ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
@@ -1593,6 +1768,7 @@ public class FightController2 : MonoBehaviour {
         RefreshUI();
     }
 
+    //Spells
     public void TerrorSpell()
     {
         Debug.Log("Used Terror");
@@ -1607,18 +1783,19 @@ public class FightController2 : MonoBehaviour {
         combatDialogue[0].color = new Color(1, 1, 1, 1);
     }
 
-    IEnumerator TerrorSpellWaiter(int d)
+    IEnumerator TerrorSpellWaiter(int damage)
     {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         yield return new WaitForSecondsRealtime(3);
+        StartCoroutine(ThrowProjectile(terrorParticleHolder, terrorParticleSystem, damage));
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
-        ShowPopupTextBoss(d, Color.red);
+        //bossAnimator.Play("Damage");
+        ShowPopupText(damage, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        for (int i = d; i > 0; i--)
+        for (int i = damage; i > 0; i--)
         {
             bossScript.health--;
             RefreshUI();
@@ -1647,18 +1824,19 @@ public class FightController2 : MonoBehaviour {
         combatDialogue[0].color = new Color(1, 1, 1, 1);
     }
 
-    IEnumerator RageSpellWaiter(int d)
+    IEnumerator RageSpellWaiter(int damage)
     {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         yield return new WaitForSecondsRealtime(3);
+        StartCoroutine(ThrowProjectile(rageParticleHolder, rageParticleSystem, damage));
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
-        ShowPopupTextBoss(d, Color.red);
+        bossAnimator.Play("Damage");
+        ShowPopupText(damage, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        for (int i = d; i > 0; i--)
+        for (int i = damage; i > 0; i--)
         {
             bossScript.health--;
             RefreshUI();
@@ -1687,18 +1865,19 @@ public class FightController2 : MonoBehaviour {
         combatDialogue[0].color = new Color(1, 1, 1, 1);
     }
 
-    IEnumerator GriefSpellWaiter(int d)
+    IEnumerator GriefSpellWaiter(int damage)
     {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         yield return new WaitForSecondsRealtime(3);
+        StartCoroutine(ThrowProjectile(griefParticleHolder, griefParticleSystem, damage));
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.SetTrigger("HeadHit");
-        ShowPopupTextBoss(d, Color.red);
+        bossAnimator.Play("Damage");
+        ShowPopupText(damage, Color.red);
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        for (int i = d; i > 0; i--)
+        for (int i = damage; i > 0; i--)
         {
             bossScript.health--;
             RefreshUI();
@@ -1716,14 +1895,14 @@ public class FightController2 : MonoBehaviour {
     private bool MoveToPosition(Vector3 enemy)
     {
         float animSpeed = 10.0f;
-        return enemy != (player.transform.position = Vector3.MoveTowards(playerInitPos, enemy, animSpeed * Time.deltaTime));
+        return enemy != (player.transform.position = Vector3.MoveTowards(player.transform.position, enemy, animSpeed * Time.deltaTime));
     }
 
-    //Boss Attacks and movements
-    public void BasicAttack()
+    // Boss Actions
+    void Attack()
     {
         HideActions();
-        //bossAnimator.SetTrigger("MeleeAnim");
+        bossAnimator.Play("Attack");
 
         if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
         {
@@ -1735,21 +1914,21 @@ public class FightController2 : MonoBehaviour {
         else
         {
             float damage = bossScript.stats.strenght + 10;
-            StartCoroutine(BasicAttackWaiter(damage));
+            StartCoroutine(BasicAtackWaiter(damage));
             AddCombatText();
             combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
         }
     }
 
-    IEnumerator BasicAttackWaiter(float d)
+    IEnumerator BasicAtackWaiter(float d)
     {
         bossEndedMove = false;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        playerAnimator.SetTrigger("HitReaction");
+        playerAnimator.Play("Damage");
         ShowPopupTextPlayer(d, Color.red);
         yield return new WaitForSecondsRealtime(2);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
@@ -1806,10 +1985,10 @@ public class FightController2 : MonoBehaviour {
         RefreshUI();
     }
 
-    public void AttackPlus()
+    void AttackPlus()
     {
         HideActions();
-        //bossAnimator.SetTrigger("MeleeAnim");
+        bossAnimator.SetTrigger("Attack+");
 
         if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
         {
@@ -1835,7 +2014,7 @@ public class FightController2 : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        playerAnimator.SetTrigger("HitReaction");
+        playerAnimator.Play("Damage");
         ShowPopupTextPlayer(d, Color.red);
         yield return new WaitForSecondsRealtime(2);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
@@ -1892,16 +2071,28 @@ public class FightController2 : MonoBehaviour {
         RefreshUI();
     }
 
-    public void EffectAttack()
+    IEnumerator PlayerBlocked()
+    {
+        bossEndedMove = false;
+        playerScript.blockChance = 0;
+        //Animacion de bloqueo con cambios de camara y demas
+        yield return new WaitForSecondsRealtime(2);
+        bossEndedMove = true;
+        ShowActions();
+        RefreshUI();
+    }
+
+    void EffectAttack()
     {
         HideActions();
-        //Animacion del boss acorde a esta accion.
+        bossAnimator.Play("EffectAttack");
 
         float dmg = bossScript.stats.strenght;
         StartCoroutine(EffectAttackWaiter(dmg));
         AddCombatText();
         combatDialogue[0].text = "Boss dealt " + dmg.ToString() + " damage.";
         combatDialogue[0].color = new Color(1, 1, 1, 1);
+        //HideActions();
     }
 
     IEnumerator EffectAttackWaiter(float d)
@@ -1911,7 +2102,7 @@ public class FightController2 : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        playerAnimator.SetTrigger("HitReaction");
+        playerAnimator.Play("Damage");
         ShowPopupTextPlayer(d, Color.red);
         yield return new WaitForSecondsRealtime(2);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
@@ -1923,52 +2114,52 @@ public class FightController2 : MonoBehaviour {
             AddCombatText();
             combatDialogue[0].text = "Player is griefed.";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
-            if (state[0].EffectName == StateType2.NULL)
+            if (state[0].name2 == StateType2.NULL)
             {
                 AddCombatText();
                 combatDialogue[0].text = "Grief is now the first element of the array.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
-                state[0].EffectName = StateType2.GRIEF;
-                state[0].EffectturnsLeft = 3;
+                state[0].name2 = StateType2.GRIEF;
+                state[0].turnsLeft2 = 3;
             }
-            else if (state[0].EffectName == StateType2.NUMB || state[0].EffectName == StateType2.PARALISIS)
+            else if (state[0].name2 == StateType2.NUMB || state[0].name2 == StateType2.PARALISIS)
             {
-                if (state[1].EffectName == StateType2.NULL)
+                if (state[1].name2 == StateType2.NULL)
                 {
-                    state[1].EffectName = StateType2.GRIEF;
-                    state[1].EffectturnsLeft = 3;
+                    state[1].name2 = StateType2.GRIEF;
+                    state[1].turnsLeft2 = 3;
                 }
-                else if (state[1].EffectName == StateType2.NUMB || state[1].EffectName == StateType2.PARALISIS)
+                else if (state[1].name2 == StateType2.NUMB || state[1].name2 == StateType2.PARALISIS)
                 {
-                    if (state[2].EffectName == StateType2.NULL)
+                    if (state[2].name2 == StateType2.NULL)
                     {
-                        state[2].EffectName = StateType2.GRIEF;
-                        state[2].EffectturnsLeft = 3;
+                        state[2].name2 = StateType2.GRIEF;
+                        state[2].turnsLeft2 = 3;
                     }
                 }
             }
-            else if (state[0].EffectName == StateType2.GRIEF)
+            else if (state[0].name2 == StateType2.GRIEF)
             {
-                state[0].EffectturnsLeft += 2;
-                if (state[0].EffectturnsLeft > 5)
+                state[0].turnsLeft2 += 2;
+                if (state[0].turnsLeft2 > 5)
                 {
-                    state[0].EffectturnsLeft = 5;
+                    state[0].turnsLeft2 = 5;
                 }
             }
-            else if (state[1].EffectName == StateType2.GRIEF)
+            else if (state[1].name2 == StateType2.GRIEF)
             {
-                state[1].EffectturnsLeft += 2;
-                if (state[1].EffectturnsLeft > 5)
+                state[1].turnsLeft2 += 2;
+                if (state[1].turnsLeft2 > 5)
                 {
-                    state[1].EffectturnsLeft = 5;
+                    state[1].turnsLeft2 = 5;
                 }
             }
-            else if (state[2].EffectName == StateType2.GRIEF)
+            else if (state[2].name2 == StateType2.GRIEF)
             {
-                state[2].EffectturnsLeft += 2;
-                if (state[2].EffectturnsLeft > 5)
+                state[2].turnsLeft2 += 2;
+                if (state[2].turnsLeft2 > 5)
                 {
-                    state[2].EffectturnsLeft = 5;
+                    state[2].turnsLeft2 = 5;
                 }
             }
         }
@@ -1977,52 +2168,52 @@ public class FightController2 : MonoBehaviour {
             AddCombatText();
             combatDialogue[0].text = "Player is numb.";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
-            if (state[0].EffectName == StateType2.NULL)
+            if (state[0].name2 == StateType2.NULL)
             {
                 AddCombatText();
                 combatDialogue[0].text = "Numb is now the first element of the array.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
-                state[0].EffectName = StateType2.NUMB;
-                state[0].EffectturnsLeft = 3;
+                state[0].name2 = StateType2.NUMB;
+                state[0].turnsLeft2 = 3;
             }
-            else if (state[0].EffectName == StateType2.GRIEF || state[0].EffectName == StateType2.PARALISIS)
+            else if (state[0].name2 == StateType2.GRIEF || state[0].name2 == StateType2.PARALISIS)
             {
-                if (state[1].EffectName == StateType2.NULL)
+                if (state[1].name2 == StateType2.NULL)
                 {
-                    state[1].EffectName = StateType2.NUMB;
-                    state[1].EffectturnsLeft = 3;
+                    state[1].name2 = StateType2.NUMB;
+                    state[1].turnsLeft2 = 3;
                 }
-                else if (state[1].EffectName == StateType2.GRIEF || state[1].EffectName == StateType2.PARALISIS)
+                else if (state[1].name2 == StateType2.GRIEF || state[1].name2 == StateType2.PARALISIS)
                 {
-                    if (state[2].EffectName == StateType2.NULL)
+                    if (state[2].name2 == StateType2.NULL)
                     {
-                        state[2].EffectName = StateType2.NUMB;
-                        state[2].EffectturnsLeft = 3;
+                        state[2].name2 = StateType2.NUMB;
+                        state[2].turnsLeft2 = 3;
                     }
                 }
             }
-            else if (state[0].EffectName == StateType2.NUMB)
+            else if (state[0].name2 == StateType2.NUMB)
             {
-                state[0].EffectturnsLeft += 2;
-                if (state[0].EffectturnsLeft > 5)
+                state[0].turnsLeft2 += 2;
+                if (state[0].turnsLeft2 > 5)
                 {
-                    state[0].EffectturnsLeft = 5;
+                    state[0].turnsLeft2 = 5;
                 }
             }
-            else if (state[1].EffectName == StateType2.NUMB)
+            else if (state[1].name2 == StateType2.NUMB)
             {
-                state[1].EffectturnsLeft += 2;
-                if (state[1].EffectturnsLeft > 5)
+                state[1].turnsLeft2 += 2;
+                if (state[1].turnsLeft2 > 5)
                 {
-                    state[1].EffectturnsLeft = 5;
+                    state[1].turnsLeft2 = 5;
                 }
             }
-            else if (state[2].EffectName == StateType2.NUMB)
+            else if (state[2].name2 == StateType2.NUMB)
             {
-                state[2].EffectturnsLeft += 2;
-                if (state[2].EffectturnsLeft > 5)
+                state[2].turnsLeft2 += 2;
+                if (state[2].turnsLeft2 > 5)
                 {
-                    state[2].EffectturnsLeft = 5;
+                    state[2].turnsLeft2 = 5;
                 }
             }
         }
@@ -2031,52 +2222,52 @@ public class FightController2 : MonoBehaviour {
             AddCombatText();
             combatDialogue[0].text = "Player is paralized.";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
-            if (state[0].EffectName == StateType2.NULL)
+            if (state[0].name2 == StateType2.NULL)
             {
                 AddCombatText();
                 combatDialogue[0].text = "Paralisis is now the first element of the array.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
-                state[0].EffectName = StateType2.PARALISIS;
-                state[0].EffectturnsLeft = 3;
+                state[0].name2 = StateType2.PARALISIS;
+                state[0].turnsLeft2 = 3;
             }
-            else if (state[0].EffectName == StateType2.NUMB || state[0].EffectName == StateType2.GRIEF)
+            else if (state[0].name2 == StateType2.NUMB || state[0].name2 == StateType2.GRIEF)
             {
-                if (state[1].EffectName == StateType2.NULL)
+                if (state[1].name2 == StateType2.NULL)
                 {
-                    state[1].EffectName = StateType2.PARALISIS;
-                    state[1].EffectturnsLeft = 3;
+                    state[1].name2 = StateType2.PARALISIS;
+                    state[1].turnsLeft2 = 3;
                 }
-                else if (state[1].EffectName == StateType2.NUMB || state[1].EffectName == StateType2.GRIEF)
+                else if (state[1].name2 == StateType2.NUMB || state[1].name2 == StateType2.GRIEF)
                 {
-                    if (state[2].EffectName == StateType2.NULL)
+                    if (state[2].name2 == StateType2.NULL)
                     {
-                        state[2].EffectName = StateType2.PARALISIS;
-                        state[2].EffectturnsLeft = 3;
+                        state[2].name2 = StateType2.PARALISIS;
+                        state[2].turnsLeft2 = 3;
                     }
                 }
             }
-            else if (state[0].EffectName == StateType2.PARALISIS)
+            else if (state[0].name2 == StateType2.PARALISIS)
             {
-                state[0].EffectturnsLeft += 2;
-                if (state[0].EffectturnsLeft > 5)
+                state[0].turnsLeft2 += 2;
+                if (state[0].turnsLeft2 > 5)
                 {
-                    state[0].EffectturnsLeft = 5;
+                    state[0].turnsLeft2 = 5;
                 }
             }
-            else if (state[1].EffectName == StateType2.PARALISIS)
+            else if (state[1].name2 == StateType2.PARALISIS)
             {
-                state[1].EffectturnsLeft += 2;
-                if (state[1].EffectturnsLeft > 5)
+                state[1].turnsLeft2 += 2;
+                if (state[1].turnsLeft2 > 5)
                 {
-                    state[1].EffectturnsLeft = 5;
+                    state[1].turnsLeft2 = 5;
                 }
             }
-            else if (state[2].EffectName == StateType2.PARALISIS)
+            else if (state[2].name2 == StateType2.PARALISIS)
             {
-                state[2].EffectturnsLeft += 2;
-                if (state[2].EffectturnsLeft > 5)
+                state[2].turnsLeft2 += 2;
+                if (state[2].turnsLeft2 > 5)
                 {
-                    state[2].EffectturnsLeft = 5;
+                    state[2].turnsLeft2 = 5;
                 }
             }
         }
@@ -2128,9 +2319,10 @@ public class FightController2 : MonoBehaviour {
         RefreshUI();
     }
 
-    public void ChargeAttack()
+    void ChargeAttack()
     {
         HideActions();
+        bossAnimator.Play("Charge");
         StartCoroutine(ChargeWaiter());
         AddCombatText();
         combatDialogue[0].text = "Boss charged his Special Attack.";
@@ -2155,6 +2347,7 @@ public class FightController2 : MonoBehaviour {
 
     void SpecialAttack()
     {
+        bossAnimator.Play("Special");
         float dmg = bossScript.stats.strenght * 4;
         if (bossScript.stats.charge == true)
         {
@@ -2169,7 +2362,7 @@ public class FightController2 : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        playerAnimator.SetTrigger("HitReaction");
+        playerAnimator.Play("HitReaction");
         ShowPopupTextPlayer(d, Color.red);
         yield return new WaitForSecondsRealtime(2);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
@@ -2225,6 +2418,7 @@ public class FightController2 : MonoBehaviour {
     void GuardBoss()
     {
         HideActions();
+        bossAnimator.Play("Guard");
 
         float armor = bossScript.armor + 50;
         StartCoroutine(GuardBossWaiter(armor));
@@ -2256,7 +2450,7 @@ public class FightController2 : MonoBehaviour {
     void Heal()
     {
         HideActions();
-        //bossAnimator.SetTrigger("HealAnim");
+        bossAnimator.Play("Heal");
 
         float heal = bossScript.stats.vigor * 2.5f;
         StartCoroutine(HealWaiter(heal));
@@ -2275,7 +2469,7 @@ public class FightController2 : MonoBehaviour {
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        ShowPopupTextBoss(h, Color.green);
+        ShowPopupText(h, Color.green);
         yield return new WaitForSecondsRealtime(3);
 
         bossEndedMove = true;
@@ -2286,7 +2480,7 @@ public class FightController2 : MonoBehaviour {
     void HealPlus()
     {
         HideActions();
-        //bossAnimator.SetTrigger("HealAnim");
+        bossAnimator.Play("Heal+");
 
         float heal = bossScript.stats.vigor * 3.5f;
         StartCoroutine(HealPlusWaiter(heal));
@@ -2302,7 +2496,7 @@ public class FightController2 : MonoBehaviour {
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        ShowPopupTextBoss(h, Color.green);
+        ShowPopupText(h, Color.green);
         yield return new WaitForSecondsRealtime(3);
 
         bossEndedMove = true;
@@ -2310,14 +2504,41 @@ public class FightController2 : MonoBehaviour {
         RefreshUI();
     }
 
-    IEnumerator PlayerBlocked()
+    void RefreshUI()
     {
-        bossEndedMove = false;
-        playerScript.blockChance = 0;
-        //Animaciones de bloqueo y cambios de cámara
-        yield return new WaitForSecondsRealtime(2);
-        bossEndedMove = true;
-        ShowActions();
-        RefreshUI();
+        //Energia del player
+        actionPointsText.text = playerScript.energy.ToString();
+        spiritBlastCounter.value = playerScript.spiritBlast;
+
+        //Vida del player
+        playerHealthNumber.text = playerScript.health.ToString() + '/' + playerScript.maxHealth.ToString();
+        playerArmorNumber.text = playerScript.armor.ToString();
+        playerHealthBar.value = (float)playerScript.health / (float)playerScript.maxHealth;
+
+        //Vida del boss
+        bossHealthNumber.text = bossScript.health.ToString() + '/' + bossScript.maxHealth.ToString();
+        bossArmorNumber.text = bossScript.armor.ToString();
+        bossHealthBar.value = (float)bossScript.health / (float)bossScript.maxHealth;
+    }
+
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        pauseMenu.SetActive(true);
+        backgroundAudio[0].Pause();
+        backgroundAudio[1].Play();
+        gamePaused = true;
+    }
+
+    public void UnPauseGame()
+    {
+        Time.timeScale = 1;
+        backgroundAudio[0].UnPause();
+        exitGameMenu.SetActive(false);
+        backMenuMenu.SetActive(false);
+        optionsMenuMenu.SetActive(false);
+        pauseMenu.SetActive(false);
+        gamePaused = false;
     }
 }

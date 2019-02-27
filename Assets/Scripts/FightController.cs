@@ -74,8 +74,6 @@ public class FightController : MonoBehaviour
 
     //GAMEOBJECTS
     public GameObject armorEffect;
-    public GameObject healEffect;
-    public GameObject magicSpell;
     public GameObject pauseMenu;
     public GameObject exitGameMenu;
     public GameObject backMenuMenu;
@@ -124,6 +122,8 @@ public class FightController : MonoBehaviour
     Animator bossAnimator;
 
     //PARTICLES
+    public GameObject lightStrikeHolder;
+    public ParticleSystem lightStrikeParticleSystem;
     public ParticleSystem healParticle;
     public GameObject despairParticleHolder;
     public ParticleSystem despairParticleSystem;
@@ -784,6 +784,15 @@ public class FightController : MonoBehaviour
 
     }
 
+    public void ShowFailText(Color color)
+    {
+        Vector3 newPosition = new Vector3(-2.915f, 5.27f, 1.55f);
+        Quaternion newRotation = Quaternion.Euler(0f, 90f, 0f);
+        GameObject failClone = Instantiate(popupText, newPosition, newRotation);
+        failClone.GetComponent<TextMesh>().color = color;
+        failClone.GetComponent<TextMesh>().text = "MISS";
+    }
+
     //Character Actions
     void LightAttack()
     {
@@ -844,6 +853,7 @@ public class FightController : MonoBehaviour
                 else
                 {
                     Debug.Log("Light Attack failed.");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Light Attack failed";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -881,6 +891,7 @@ public class FightController : MonoBehaviour
                 else
                 {
                     Debug.Log("Light Attack failed.");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Light Attack failed";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -952,6 +963,7 @@ public class FightController : MonoBehaviour
                         else
                         {
                             Debug.Log("Light Attack failed.");
+                            ShowFailText(Color.red);
                             AddCombatText();
                             combatDialogue[0].text = "Light Attack failed";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -989,6 +1001,7 @@ public class FightController : MonoBehaviour
                         else
                         {
                             Debug.Log("Light Attack failed.");
+                            ShowFailText(Color.red);
                             AddCombatText();
                             combatDialogue[0].text = "Light Attack failed";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1016,17 +1029,41 @@ public class FightController : MonoBehaviour
         }
     }
 
+    IEnumerator ThrowLightStrike(GameObject particleHolder, ParticleSystem particleSystem, int damage)
+    {
+        float speed = 20.0f;
+        Vector3 initialPos = new Vector3(-9.537f, 0.585f, 1.318f);
+        Vector3 finalPos = new Vector3(-3.329f, 1.931f, 1.346f);
+        float timeToReachTarget = Vector3.Distance(initialPos, finalPos) / speed;
+
+        float time = 0.0f;
+        playerAnimator.Play("LightAttack");
+        yield return new WaitForSecondsRealtime(1.87f);
+        GameObject lightStrikeClone = Instantiate(particleHolder, initialPos, Quaternion.Euler(new Vector3(1.904f, 1.303f, 14.395f)));
+        particleSystem.Play();
+        while (time < 1)
+        {
+            time += Time.deltaTime / timeToReachTarget;
+            lightStrikeClone.transform.position = Vector3.Lerp(initialPos, finalPos, time);
+
+            yield return null;
+        }
+        Destroy(lightStrikeClone);
+        GameObject hitClone = Instantiate(hitHolder, finalPos, Quaternion.identity);
+        hitParticle.Play();
+        bossAnimator.Play("Damage");
+        ShowPopupText(damage, Color.red);
+    }
+
     IEnumerator LightAttackWaiter(int d)
     {
         endedMove = false;
-        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
-        yield return new WaitForSecondsRealtime(2); //Tiempo de espera de la animación
-        frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        bossAnimator.SetTrigger("HeadHit");
-        ShowPopupText(d, Color.red);
-        yield return new WaitForSecondsRealtime(3);
-        frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
+        heavyAttackCam.enabled = !heavyAttackCam.enabled; //Cambio de camara (cámara específica de la animación)
+        StartCoroutine(ThrowLightStrike(lightStrikeHolder, lightStrikeParticleSystem, d));
+        player.transform.rotation = Quaternion.Euler(0f, 170.944f, 0f);
+        yield return new WaitForSecondsRealtime(3f); //Tiempo de espera de la animación
+        player.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+        heavyAttackCam.enabled = !heavyAttackCam.enabled;
         for (int i = d; i > 0; i--)
         {
             bossScript.health--;
@@ -1095,6 +1132,7 @@ public class FightController : MonoBehaviour
                 else
                 {
                     Debug.Log("You failed to use heavy attack, due to paralisis.");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "You failed to use heavy attack, due to paralisis.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1181,6 +1219,7 @@ public class FightController : MonoBehaviour
                 else
                 {
                     Debug.Log("Player failed heal");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Player failed heal";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1209,6 +1248,7 @@ public class FightController : MonoBehaviour
                 else
                 {
                     Debug.Log("Player failed heal");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Player failed heal";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1259,6 +1299,7 @@ public class FightController : MonoBehaviour
                         else
                         {
                             Debug.Log("Player failed heal");
+                            ShowFailText(Color.red);
                             AddCombatText();
                             combatDialogue[0].text = "Player failed heal";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1287,6 +1328,7 @@ public class FightController : MonoBehaviour
                         else
                         {
                             Debug.Log("Player failed heal");
+                            ShowFailText(Color.red);
                             AddCombatText();
                             combatDialogue[0].text = "Player failed heal";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1300,6 +1342,7 @@ public class FightController : MonoBehaviour
                 else
                 {
                     Debug.Log("Failed to heal due to paralisis.");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Failed to heal due to paralisis.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1328,7 +1371,7 @@ public class FightController : MonoBehaviour
         }
         ShowPopupTextPlayer(d, Color.green);
         yield return new WaitForSecondsRealtime(2); //Tiempo de espera de la animación
-        healEffect.SetActive(false);
+        //healEffect.SetActive(false);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
 
         endedMove = true;
@@ -1374,6 +1417,7 @@ public class FightController : MonoBehaviour
                     if (playerScript.moves > 0 && playerScript.energy > 2)
                     {
                         Debug.Log("Player failed basic spell");
+                        ShowFailText(Color.red);
                         AddCombatText();
                         combatDialogue[0].text = "Player failed basic spell";
                         combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1403,6 +1447,7 @@ public class FightController : MonoBehaviour
                     if (playerScript.moves > 0 && playerScript.energy > 2)
                     {
                         Debug.Log("Player failed basic spell");
+                        ShowFailText(Color.red);
                         AddCombatText();
                         combatDialogue[0].text = "Player failed basic spell";
                         combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1453,6 +1498,7 @@ public class FightController : MonoBehaviour
                             if (playerScript.moves > 0 && playerScript.energy > 2)
                             {
                                 Debug.Log("Player failed basic spell");
+                                ShowFailText(Color.red);
                                 AddCombatText();
                                 combatDialogue[0].text = "Player failed basic spell";
                                 combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1482,6 +1528,7 @@ public class FightController : MonoBehaviour
                             if (playerScript.moves > 0 && playerScript.energy > 2)
                             {
                                 Debug.Log("Player failed basic spell");
+                                ShowFailText(Color.red);
                                 AddCombatText();
                                 combatDialogue[0].text = "Player failed basic spell";
                                 combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1496,6 +1543,7 @@ public class FightController : MonoBehaviour
                 else
                 {
                     Debug.Log("Failed to use spell due to paralisis");
+                    ShowFailText(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Failed to use spell due to paralisis.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);

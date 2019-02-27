@@ -8717,7 +8717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 250
-  health: 200
+  health: 250
   armor: 0
   coins: 700
   maxEnergy: 10
@@ -34491,8 +34491,6 @@ MonoBehaviour:
   buttonClarity: {fileID: 669926485}
   buttonGrace: {fileID: 879625201}
   armorEffect: {fileID: 1009204640}
-  healEffect: {fileID: 2118765252}
-  magicSpell: {fileID: 1581164043256898, guid: f27b70f24d1b8114983e8ded59d8293e, type: 2}
   pauseMenu: {fileID: 1374444957}
   exitGameMenu: {fileID: 1733148591}
   backMenuMenu: {fileID: 348834376}
@@ -34525,6 +34523,10 @@ MonoBehaviour:
   bossArmorNumber: {fileID: 1129628887}
   popupText: {fileID: 1033658341422000, guid: df7831d3843371d4d8ebdb316471eca2, type: 2}
   popupTextPlayer: {fileID: 1732553065116328, guid: 109bb99556028f44b8aa49e831012c50,
+    type: 2}
+  lightStrikeHolder: {fileID: 1500403453045870, guid: 28b5ce46be2003742a86430b142a8c06,
+    type: 2}
+  lightStrikeParticleSystem: {fileID: 198799661384003224, guid: 28b5ce46be2003742a86430b142a8c06,
     type: 2}
   healParticle: {fileID: 793547539}
   despairParticleHolder: {fileID: 1555037915677438, guid: 459fb7b60a25be149b491dc7db642d9b,
@@ -41194,7 +41196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1374444958
 MonoBehaviour:
   m_ObjectHideFlags: 0
