@@ -5,11 +5,10 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_Name: Shield1
   m_Shader: {fileID: 4800000, guid: 61054a61bebe19f49a8d9767c1c3212d, type: 3}
-  m_ShaderKeywords: _INVERTMAINTEXTURE_ON _INVERT_ON
+  m_ShaderKeywords: _ENABLEPULSATION_ON _INVERTMAINTEXTURE_ON _INVERT_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -81,20 +80,20 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _Distortionscale: 0.34
-    - _Distortionspeed: 0.85
+    - _Distortionscale: 0.01
+    - _Distortionspeed: 0
     - _DstBlend: 0
     - _EdgeLength: 15
     - _Enabledistortion: 0
     - _Enablenoise: 0
-    - _Enablepulsation: 0
+    - _Enablepulsation: 1
     - _Extraroughness: 0
     - _GlobalFade: 1
     - _Globalopacity: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Innerfresnelintensity: 0
+    - _Innerfresnelintensity: 0.11
     - _Invert: 1
     - _Invertmaintexture: 1
     - _Invertsecondarytexture: 0
@@ -107,9 +106,9 @@ Material:
     - _Outerfresnelintensity: 1
     - _Parallax: 0.02
     - _Power: 1.2
-    - _Pulseamplitude: 0.5
-    - _Pulsefrequency: 5
-    - _Pulseoffset: 0
+    - _Pulseamplitude: 0.003
+    - _Pulsefrequency: 3
+    - _Pulseoffset: 0.001
     - _Pulsephase: 0
     - _Scale: 1.5
     - _Secondarytextureintensity: 0.5
@@ -121,7 +120,7 @@ Material:
     - _TessMax: 25
     - _TessMin: 10
     - _TessPhongStrength: 0.5
-    - _TessValue: 3
+    - _TessValue: 1
     - _Texintensity: 4
     - _UVSec: 0
     - _ZWrite: 1
