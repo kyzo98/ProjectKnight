@@ -124,7 +124,7 @@ public class FightController : MonoBehaviour
     //PARTICLES
     public GameObject lightStrikeHolder;
     public ParticleSystem lightStrikeParticleSystem;
-    public ParticleSystem healParticle;
+    public GameObject healParticle;
     public GameObject despairParticleHolder;
     public ParticleSystem despairParticleSystem;
     public GameObject terrorParticleHolder;
@@ -193,7 +193,7 @@ public class FightController : MonoBehaviour
         playerAnimator = player.GetComponent<Animator>();
 
         //Particles
-        healParticle.Stop();
+        //healParticle.Stop();
         hitParticle.Stop();
 
         playerInitPos = player.transform.position;
@@ -795,7 +795,7 @@ public class FightController : MonoBehaviour
     public void ShowPopupTextPlayer(float damage, Color color)
     {
         Vector3 newPosition = new Vector3(-10.52f, 2.87f, -0.15f);
-        Quaternion newRotation = Quaternion.Euler(0, 280, 0);
+        Quaternion newRotation = Quaternion.Euler(0, 90, 0);
         GameObject popupClone = Instantiate(popupTextPlayer, newPosition, newRotation);
         popupClone.GetComponent<TextMesh>().color = color;
         popupClone.GetComponent<TextMesh>().text = damage.ToString();
@@ -805,6 +805,15 @@ public class FightController : MonoBehaviour
     public void ShowFailText(Color color)
     {
         Vector3 newPosition = new Vector3(9.76f, 8.21f, -3.5f);
+        Quaternion newRotation = Quaternion.Euler(0f, 90f, 0f);
+        GameObject failClone = Instantiate(popupText, newPosition, newRotation);
+        failClone.GetComponent<TextMesh>().color = color;
+        failClone.GetComponent<TextMesh>().text = "MISS";
+    }
+
+    public void ShowFailTextPlayer(Color color)
+    {
+        Vector3 newPosition = new Vector3(-10.52f, 2.87f, -0.15f);
         Quaternion newRotation = Quaternion.Euler(0f, 90f, 0f);
         GameObject failClone = Instantiate(popupText, newPosition, newRotation);
         failClone.GetComponent<TextMesh>().color = color;
@@ -1093,7 +1102,6 @@ public class FightController : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        //ShowPopupText(d);
         endedMove = true;
         if (playerScript.moves > 0 && playerScript.energy > 2)
             ShowActions();
@@ -1183,11 +1191,15 @@ public class FightController : MonoBehaviour
         bossAnimator.Play("Damage");
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(1.6f);
+        player.transform.rotation = Quaternion.Euler(0, -100, 0);
+        playerAnimator.Play("RunBack");
         //heavyAttackCam.enabled = !heavyAttackCam;
         //Make it return to the starting position
         Vector3 originalPosition = playerInitPos;
         yield return new WaitForSecondsRealtime(0.5f);
         while (MoveToPosition(originalPosition)) { yield return null; } //The player moves near the enemy to kick him.
+        playerAnimator.Play("Idle");
+        player.transform.rotation = Quaternion.Euler(0, 81.5f, 0);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
@@ -1243,7 +1255,7 @@ public class FightController : MonoBehaviour
                 else
                 {
                     Debug.Log("Player failed heal");
-                    ShowFailText(Color.red);
+                    ShowFailTextPlayer(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Player failed heal";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1271,8 +1283,7 @@ public class FightController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Player failed heal");
-                    ShowFailText(Color.red);
+                    ShowFailTextPlayer(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Player failed heal";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1323,7 +1334,7 @@ public class FightController : MonoBehaviour
                         else
                         {
                             Debug.Log("Player failed heal");
-                            ShowFailText(Color.red);
+                            ShowFailTextPlayer(Color.red);
                             AddCombatText();
                             combatDialogue[0].text = "Player failed heal";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1352,7 +1363,7 @@ public class FightController : MonoBehaviour
                         else
                         {
                             Debug.Log("Player failed heal");
-                            ShowFailText(Color.red);
+                            ShowFailTextPlayer(Color.red);
                             AddCombatText();
                             combatDialogue[0].text = "Player failed heal";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1366,7 +1377,7 @@ public class FightController : MonoBehaviour
                 else
                 {
                     Debug.Log("Failed to heal due to paralisis.");
-                    ShowFailText(Color.red);
+                    ShowFailTextPlayer(Color.red);
                     AddCombatText();
                     combatDialogue[0].text = "Failed to heal due to paralisis.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
@@ -1383,11 +1394,20 @@ public class FightController : MonoBehaviour
     {
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
-        healParticle.Play();
+        playerAnimator.Play("Heal");
+        healParticle.SetActive(true);
         audioSource.clip = healAudio;
         audioSource.Play();
-        yield return new WaitForSecondsRealtime(2f);
-        healParticle.Stop();
+        yield return new WaitForSecondsRealtime(0.5f);
+        ShowPopupTextPlayer(d, Color.green);
+        yield return new WaitForSecondsRealtime(1);
+        ParticleSystem ps = healParticle.GetComponent<ParticleSystem>();
+        ps.Stop();
+        yield return new WaitForSecondsRealtime(1.5f);
+        healParticle.SetActive(false);
+        if (playerScript.moves > 0 && playerScript.energy > 2)
+            ShowActions();
+        RefreshUI();
         for (int i = d; i > 0; i--)
         {
             playerScript.health++;
@@ -1395,15 +1415,11 @@ public class FightController : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        ShowPopupTextPlayer(d, Color.green);
         yield return new WaitForSecondsRealtime(2); //Tiempo de espera de la animación
         //healEffect.SetActive(false);
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
 
         endedMove = true;
-        if (playerScript.moves > 0 && playerScript.energy > 2)
-            ShowActions();
-        RefreshUI();
     }
 
     void BasicSpell() //It's the despair one
@@ -1429,7 +1445,7 @@ public class FightController : MonoBehaviour
                 playerScript.energy -= 3;
                 playerScript.moves--;
 
-                if (Random.value > 0.7)
+                if (Random.value > 0.3)
                 {
                     int damage = playerScript.stats.power * 4;
                     StartCoroutine(BasicSpellWaiter(damage));
@@ -1615,6 +1631,7 @@ public class FightController : MonoBehaviour
     {
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
+        playerAnimator.Play("Despair");
         yield return new WaitForSecondsRealtime(0.6f); //Tiempo de espera de la animación
         StartCoroutine(ThrowProjectile(despairParticleHolder, despairParticleSystem, d, despairAudio, HitSpellAudio));
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
@@ -1791,7 +1808,7 @@ public class FightController : MonoBehaviour
         StartCoroutine(ThrowProjectile(animaBlastParticleHolder, animaBlastParticleSystem, d, sorrow2Audio, HitSpellAudio));
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        bossAnimator.Play("Damage");
+        //bossAnimator.Play("Damage");
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
@@ -1827,9 +1844,10 @@ public class FightController : MonoBehaviour
 
     IEnumerator TerrorSpellWaiter(int damage)
     {
-        HideActions();
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        playerAnimator.Play("Despair");
+        yield return new WaitForSecondsRealtime(0.5f);
         StartCoroutine(ThrowProjectile(terrorParticleHolder, terrorParticleSystem, damage, sorrow2Audio, HitSpellAudio));
         yield return new WaitForSecondsRealtime(3);
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
@@ -1855,6 +1873,7 @@ public class FightController : MonoBehaviour
 
     public void RageSpell()
     {
+        HideActions();
         Debug.Log("Used Rage");
 
         playerScript.moves--;
@@ -1869,14 +1888,15 @@ public class FightController : MonoBehaviour
 
     IEnumerator RageSpellWaiter(int damage)
     {
-        HideActions();
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        playerAnimator.Play("Despair");
+        yield return new WaitForSecondsRealtime(0.5f);
         StartCoroutine(ThrowProjectile(rageParticleHolder, rageParticleSystem, damage, sorrow1Audio, HitSpellAudio));
         yield return new WaitForSecondsRealtime(3);
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        bossAnimator.Play("Damage");
+        //bossAnimator.Play("Damage");
         ShowPopupText(damage, Color.red);
         //yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -1897,6 +1917,7 @@ public class FightController : MonoBehaviour
 
     public void GriefSpell()
     {
+        HideActions();
         Debug.Log("Used Grief");
 
         playerScript.moves--;
@@ -1913,11 +1934,12 @@ public class FightController : MonoBehaviour
     {
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        playerAnimator.Play("Despair");
+        yield return new WaitForSecondsRealtime(0.5f);
         StartCoroutine(ThrowProjectile(griefParticleHolder, griefParticleSystem, damage, sorrow2Audio, HitSpellAudio));
         yield return new WaitForSecondsRealtime(3);
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        bossAnimator.Play("Damage");
         ShowPopupText(damage, Color.red);
         //yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
