@@ -155,6 +155,19 @@ public class FightController : MonoBehaviour
     bool usedBasicSpell2;
     bool usedGuard;
 
+    //Sounds
+    private AudioSource audioSource;
+    public AudioClip lightStrikeAudio;
+    public AudioClip heavyStrikeAudio;
+    public AudioClip guardAudio;
+    public AudioClip despairAudio;
+    public AudioClip healAudio;
+    public AudioClip sorrow1Audio;
+    public AudioClip sorrow2Audio;
+
+    public AudioClip HitSpellAudio;
+    public AudioClip HitStrikeAudio;
+
     void Start()
     {
         sorrows.rage = PlayerPrefs.GetInt("Rage");
@@ -222,6 +235,8 @@ public class FightController : MonoBehaviour
 
         ShowActions();
         RefreshUI();
+
+        audioSource = this.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -1034,6 +1049,7 @@ public class FightController : MonoBehaviour
 
     IEnumerator ThrowLightStrike(GameObject particleHolder, ParticleSystem particleSystem, int damage)
     {
+       
         float speed = 20.0f;
         Vector3 initialPos = new Vector3(-9.971f, 1.061f, -0.302f);
         Vector3 finalPos = new Vector3(7.97f, 3.53f, -3.9f);
@@ -1044,6 +1060,8 @@ public class FightController : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.87f);
         GameObject lightStrikeClone = Instantiate(particleHolder, initialPos, Quaternion.Euler(new Vector3(1.904f, 1.303f, 14.395f)));
         particleSystem.Play();
+        audioSource.clip = lightStrikeAudio;
+        audioSource.Play();
         while (time < 1)
         {
             time += Time.deltaTime / timeToReachTarget;
@@ -1053,7 +1071,8 @@ public class FightController : MonoBehaviour
         }
         Destroy(lightStrikeClone);
         GameObject hitClone = Instantiate(hitHolder, finalPos, Quaternion.identity);
-        hitParticle.Play();
+        audioSource.clip = HitStrikeAudio;
+        audioSource.Play();
         bossAnimator.Play("Damage");
         ShowPopupText(damage, Color.red);
     }
@@ -1151,23 +1170,25 @@ public class FightController : MonoBehaviour
         //yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         Vector3 enemyPosition = new Vector3(6.87f, -0.03f, -4.22f);
+        playerAnimator.Play("Run");
         while (MoveToPosition(enemyPosition))
         {
-            playerAnimator.Play("Run");
             yield return null;
         } //adapt animations and moving times for the attack.
         //heavyAttackCam.enabled = !heavyAttackCam.enabled;
         playerAnimator.Play("HeavyAttack");
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(0.7f);
+        audioSource.clip = heavyStrikeAudio;
+        audioSource.Play();
+        bossAnimator.Play("Damage");
+        ShowPopupText(d, Color.red);
+        yield return new WaitForSecondsRealtime(1.6f);
         //heavyAttackCam.enabled = !heavyAttackCam;
         //Make it return to the starting position
         Vector3 originalPosition = playerInitPos;
         yield return new WaitForSecondsRealtime(0.5f);
         while (MoveToPosition(originalPosition)) { yield return null; } //The player moves near the enemy to kick him.
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        bossAnimator.Play("Damage");
-        ShowPopupText(d, Color.red);
-        yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
         {
@@ -1363,6 +1384,8 @@ public class FightController : MonoBehaviour
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         healParticle.Play();
+        audioSource.clip = healAudio;
+        audioSource.Play();
         yield return new WaitForSecondsRealtime(2f);
         healParticle.Stop();
         for (int i = d; i > 0; i--)
@@ -1559,7 +1582,7 @@ public class FightController : MonoBehaviour
         }
     }
 
-    IEnumerator ThrowProjectile(GameObject particleHolder, ParticleSystem particleSystem, int damage)
+    IEnumerator ThrowProjectile(GameObject particleHolder, ParticleSystem particleSystem, int damage, AudioClip auxClip, AudioClip auxClipHit)
     {
         float speed = 20.0f;
         Vector3 initialPos = new Vector3(-6.4f, 0.508f, -0.31f);
@@ -1569,6 +1592,8 @@ public class FightController : MonoBehaviour
 
         float time = 0.0f;
         particleSystem.Play();
+        audioSource.clip = auxClip;
+        audioSource.Play();
         yield return new WaitForSecondsRealtime(0.9f);
         while (time < 1)
         {
@@ -1580,6 +1605,8 @@ public class FightController : MonoBehaviour
         Destroy(despairClone);
         GameObject hitClone = Instantiate(hitHolder, finalPos, Quaternion.identity);
         hitParticle.Play();
+        audioSource.clip = auxClipHit;
+        audioSource.Play();
         bossAnimator.Play("Damage");
         ShowPopupText(damage, Color.red);
     }
@@ -1589,7 +1616,7 @@ public class FightController : MonoBehaviour
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         yield return new WaitForSecondsRealtime(0.6f); //Tiempo de espera de la animación
-        StartCoroutine(ThrowProjectile(despairParticleHolder, despairParticleSystem, d));
+        StartCoroutine(ThrowProjectile(despairParticleHolder, despairParticleSystem, d, despairAudio, HitSpellAudio));
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
         yield return new WaitForSecondsRealtime(3);
@@ -1718,9 +1745,14 @@ public class FightController : MonoBehaviour
 
     IEnumerator GuardWaiter(int d)
     {
+        audioSource.clip = guardAudio;
+        audioSource.Play();
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         playerScript.blockChance += 5;
+        if (playerScript.moves > 0 && playerScript.energy > 2)
+            ShowActions();
+        RefreshUI();
         for (int i = d; i > 0; i--)
         {
             playerScript.armor++;
@@ -1733,9 +1765,7 @@ public class FightController : MonoBehaviour
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
 
         endedMove = true;
-        if (playerScript.moves > 0 && playerScript.energy > 2)
-            ShowActions();
-        RefreshUI();
+       
     }
 
     void SpiritBlast()
@@ -1758,7 +1788,7 @@ public class FightController : MonoBehaviour
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
-        StartCoroutine(ThrowProjectile(animaBlastParticleHolder, animaBlastParticleSystem, d));
+        StartCoroutine(ThrowProjectile(animaBlastParticleHolder, animaBlastParticleSystem, d, sorrow2Audio, HitSpellAudio));
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
         bossAnimator.Play("Damage");
@@ -1800,7 +1830,7 @@ public class FightController : MonoBehaviour
         HideActions();
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        StartCoroutine(ThrowProjectile(terrorParticleHolder, terrorParticleSystem, damage));
+        StartCoroutine(ThrowProjectile(terrorParticleHolder, terrorParticleSystem, damage, sorrow2Audio, HitSpellAudio));
         yield return new WaitForSecondsRealtime(3);
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -1842,7 +1872,7 @@ public class FightController : MonoBehaviour
         HideActions();
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        StartCoroutine(ThrowProjectile(rageParticleHolder, rageParticleSystem, damage));
+        StartCoroutine(ThrowProjectile(rageParticleHolder, rageParticleSystem, damage, sorrow1Audio, HitSpellAudio));
         yield return new WaitForSecondsRealtime(3);
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -1883,7 +1913,7 @@ public class FightController : MonoBehaviour
     {
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        StartCoroutine(ThrowProjectile(griefParticleHolder, griefParticleSystem, damage));
+        StartCoroutine(ThrowProjectile(griefParticleHolder, griefParticleSystem, damage, sorrow2Audio, HitSpellAudio));
         yield return new WaitForSecondsRealtime(3);
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
