@@ -968,21 +968,21 @@ MonoBehaviour:
     type: 2}
   despairParticleSystem: {fileID: 198418649183478474, guid: 459fb7b60a25be149b491dc7db642d9b,
     type: 2}
-  terrorParticleHolder: {fileID: 1731304693866826, guid: 9094d0c4474e2da44a9018100d1ed534,
+  terrorParticleHolder: {fileID: 1320162429791550, guid: 09b29f5ab3d4a524cac7b8409f737614,
     type: 2}
-  terrorParticleSystem: {fileID: 198860095151844722, guid: 9094d0c4474e2da44a9018100d1ed534,
+  terrorParticleSystem: {fileID: 198281901943496904, guid: 09b29f5ab3d4a524cac7b8409f737614,
     type: 2}
-  griefParticleHolder: {fileID: 1781022556084922, guid: 8073aa2e7346788448d36f13aaac7a05,
+  griefParticleHolder: {fileID: 1354187542264910, guid: 628fb18907d68e843845bd71dd80cfc5,
     type: 2}
-  griefParticleSystem: {fileID: 198818018741201838, guid: 8073aa2e7346788448d36f13aaac7a05,
+  griefParticleSystem: {fileID: 198372902987422394, guid: 628fb18907d68e843845bd71dd80cfc5,
     type: 2}
-  rageParticleHolder: {fileID: 1905590382793678, guid: 527856f430b8a6f42836d23dc5e76afa,
+  rageParticleHolder: {fileID: 1197492559349702, guid: 3cdd041b22458be4da6f0b736d90cd3a,
     type: 2}
-  rageParticleSystem: {fileID: 198094109545185048, guid: 527856f430b8a6f42836d23dc5e76afa,
+  rageParticleSystem: {fileID: 198275529191203086, guid: 3cdd041b22458be4da6f0b736d90cd3a,
     type: 2}
-  animaBlastParticleHolder: {fileID: 1770767418067462, guid: f7183603714b38340a15661666c4f1d1,
+  animaBlastParticleHolder: {fileID: 1676927666841766, guid: 2be20c36fc8d88f45b5b3243da6e56cd,
     type: 2}
-  animaBlastParticleSystem: {fileID: 198208210049821774, guid: f7183603714b38340a15661666c4f1d1,
+  animaBlastParticleSystem: {fileID: 198692414583936012, guid: 2be20c36fc8d88f45b5b3243da6e56cd,
     type: 2}
   hitParticle: {fileID: 198393041434253688, guid: 26c8ba73d3e55fc4da171e266c0e9420,
     type: 2}

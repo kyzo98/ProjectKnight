@@ -272,12 +272,12 @@ Prefab:
     - target: {fileID: 65788079868282236, guid: c85f4f044a61de444a9d135f1db27882,
         type: 2}
       propertyPath: m_Size.x
-      value: 1.7288022
+      value: 2.549317
       objectReference: {fileID: 0}
     - target: {fileID: 65788079868282236, guid: c85f4f044a61de444a9d135f1db27882,
         type: 2}
       propertyPath: m_Center.x
-      value: -0.12144399
+      value: -0.5317013
       objectReference: {fileID: 0}
     - target: {fileID: 65788079868282236, guid: c85f4f044a61de444a9d135f1db27882,
         type: 2}
@@ -288,6 +288,36 @@ Prefab:
         type: 2}
       propertyPath: m_Center.z
       value: 0.044021726
+      objectReference: {fileID: 0}
+    - target: {fileID: 65788079868282236, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 2.2203588
+      objectReference: {fileID: 0}
+    - target: {fileID: 65788079868282236, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 0.6101794
+      objectReference: {fileID: 0}
+    - target: {fileID: 65597522929237842, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 3.6906981
+      objectReference: {fileID: 0}
+    - target: {fileID: 65597522929237842, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: m_Center.x
+      value: -0.34534907
+      objectReference: {fileID: 0}
+    - target: {fileID: 65597522929237842, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 2.4902163
+      objectReference: {fileID: 0}
+    - target: {fileID: 65597522929237842, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 0.7451081
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c85f4f044a61de444a9d135f1db27882, type: 2}
@@ -12723,7 +12753,13 @@ MonoBehaviour:
   - Do you wish to continue to your battle?
   - "Okay, I\u2019ll see you next time. "
   - "Okay, i\u2019ll be here if you decide to leave."
-  NPCSentencesAudio: []
+  NPCSentencesAudio:
+  - {fileID: 8300000, guid: c4ccc465bf34fcb45a8388bae880e379, type: 3}
+  - {fileID: 8300000, guid: b93394ecaa3b334488f1f355c190d01b, type: 3}
+  - {fileID: 8300000, guid: 186438cb10a1ec24982a863d5a10c499, type: 3}
+  - {fileID: 8300000, guid: e2288406978cd9842ab7b9e5da0269e4, type: 3}
+  - {fileID: 8300000, guid: 974fe143686e78843bfb46e4a057acd9, type: 3}
+  - {fileID: 8300000, guid: 45f5027a6aba42e49893a19f9483a2a8, type: 3}
   defaultMaterial: {fileID: 2100000, guid: 3496c3f6dc6d6f74f9bfcbe546e93910, type: 2}
   activeMaterial: {fileID: 2100000, guid: 6d0e268b165f5c34695db3d20fe69d64, type: 2}
   pressEImage: {fileID: 770063548}

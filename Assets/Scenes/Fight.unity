@@ -29758,25 +29758,25 @@ MonoBehaviour:
   lightStrikeParticleSystem: {fileID: 198799661384003224, guid: 28b5ce46be2003742a86430b142a8c06,
     type: 2}
   healParticle: {fileID: 793547539}
-  despairParticleHolder: {fileID: 1555037915677438, guid: 459fb7b60a25be149b491dc7db642d9b,
+  despairParticleHolder: {fileID: 1739560290982874, guid: 41338e981afb0084080dfce64c57520b,
     type: 2}
-  despairParticleSystem: {fileID: 198418649183478474, guid: 459fb7b60a25be149b491dc7db642d9b,
+  despairParticleSystem: {fileID: 198678006022951094, guid: 41338e981afb0084080dfce64c57520b,
     type: 2}
-  terrorParticleHolder: {fileID: 1731304693866826, guid: 9094d0c4474e2da44a9018100d1ed534,
+  terrorParticleHolder: {fileID: 1971387357825392, guid: ba392da453481c74abadc86e457ba204,
     type: 2}
-  terrorParticleSystem: {fileID: 198860095151844722, guid: 9094d0c4474e2da44a9018100d1ed534,
+  terrorParticleSystem: {fileID: 198534159702946398, guid: ba392da453481c74abadc86e457ba204,
     type: 2}
-  griefParticleHolder: {fileID: 1781022556084922, guid: 8073aa2e7346788448d36f13aaac7a05,
+  griefParticleHolder: {fileID: 1011006375041982, guid: 47a5beff50daee34dafdeaf3d677e11b,
     type: 2}
-  griefParticleSystem: {fileID: 198818018741201838, guid: 8073aa2e7346788448d36f13aaac7a05,
+  griefParticleSystem: {fileID: 198316762243296068, guid: 47a5beff50daee34dafdeaf3d677e11b,
     type: 2}
-  rageParticleHolder: {fileID: 1905590382793678, guid: 527856f430b8a6f42836d23dc5e76afa,
+  rageParticleHolder: {fileID: 1530347195760558, guid: 73906eefe0541f243863c359c5d889e7,
     type: 2}
-  rageParticleSystem: {fileID: 198094109545185048, guid: 527856f430b8a6f42836d23dc5e76afa,
+  rageParticleSystem: {fileID: 198158545212630148, guid: 73906eefe0541f243863c359c5d889e7,
     type: 2}
-  animaBlastParticleHolder: {fileID: 1770767418067462, guid: f7183603714b38340a15661666c4f1d1,
+  animaBlastParticleHolder: {fileID: 1646449874867886, guid: 3efa382d6f415cc4b99e33ef06c85061,
     type: 2}
-  animaBlastParticleSystem: {fileID: 198208210049821774, guid: f7183603714b38340a15661666c4f1d1,
+  animaBlastParticleSystem: {fileID: 198531828142734222, guid: 3efa382d6f415cc4b99e33ef06c85061,
     type: 2}
   hitParticle: {fileID: 198393041434253688, guid: 26c8ba73d3e55fc4da171e266c0e9420,
     type: 2}

@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class FightController2 : MonoBehaviour {
+public class FightController2 : MonoBehaviour
+{
 
     public enum StateType2 { NULL, GRIEF, PARALISIS, NUMB };
 
@@ -246,18 +247,18 @@ public class FightController2 : MonoBehaviour {
                     if (playerScript.armor == 0)
                         //armorEffect.SetActive(false); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                    if (playerScript.moves > 0 && playerScript.energy > 2) //todo Mayor que dos porque ninguna habilidad cuesta menos de 3 actualmente
-                    {
-                        //ShowActions();                    
-                    }
-                    else
-                    {
-                        HideActions();
-                        playerScript.spiritBlast += playerScript.energy;
-                        //Debug.Log(playerScript.spiritBlast);
-                        //Debug.Log("Boss Turn");
-                        turn++;
-                    }
+                        if (playerScript.moves > 0 && playerScript.energy > 2) //todo Mayor que dos porque ninguna habilidad cuesta menos de 3 actualmente
+                        {
+                            //ShowActions();                    
+                        }
+                        else
+                        {
+                            HideActions();
+                            playerScript.spiritBlast += playerScript.energy;
+                            //Debug.Log(playerScript.spiritBlast);
+                            //Debug.Log("Boss Turn");
+                            turn++;
+                        }
                 }
             }
             else
@@ -1550,7 +1551,7 @@ public class FightController2 : MonoBehaviour {
 
     IEnumerator ThrowProjectile(GameObject particleHolder, ParticleSystem particleSystem, int damage)
     {
-        float speed = 10.0f;
+        float speed = 20.0f;
         Vector3 initialPos = new Vector3(-7.803f, 0.426f, 0.973f);
         Vector3 finalPos = new Vector3(-3.329f, 1.931f, 1.346f);
         GameObject despairClone = Instantiate(particleHolder, initialPos, Quaternion.Euler(new Vector3(1.904f, 1.303f, 14.395f)));
@@ -1785,15 +1786,16 @@ public class FightController2 : MonoBehaviour {
 
     IEnumerator TerrorSpellWaiter(int damage)
     {
+        HideActions();
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        yield return new WaitForSecondsRealtime(3);
         StartCoroutine(ThrowProjectile(terrorParticleHolder, terrorParticleSystem, damage));
+        yield return new WaitForSecondsRealtime(3);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         //bossAnimator.Play("Damage");
         ShowPopupText(damage, Color.red);
-        yield return new WaitForSecondsRealtime(3);
+        //yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         for (int i = damage; i > 0; i--)
         {
@@ -1826,15 +1828,16 @@ public class FightController2 : MonoBehaviour {
 
     IEnumerator RageSpellWaiter(int damage)
     {
+        HideActions();
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        yield return new WaitForSecondsRealtime(3);
         StartCoroutine(ThrowProjectile(rageParticleHolder, rageParticleSystem, damage));
+        yield return new WaitForSecondsRealtime(3);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         bossAnimator.Play("Damage");
         ShowPopupText(damage, Color.red);
-        yield return new WaitForSecondsRealtime(3);
+        //yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         for (int i = damage; i > 0; i--)
         {
@@ -1869,13 +1872,13 @@ public class FightController2 : MonoBehaviour {
     {
         endedMove = false;
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        yield return new WaitForSecondsRealtime(3);
         StartCoroutine(ThrowProjectile(griefParticleHolder, griefParticleSystem, damage));
+        yield return new WaitForSecondsRealtime(3);
         frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         bossAnimator.Play("Damage");
         ShowPopupText(damage, Color.red);
-        yield return new WaitForSecondsRealtime(3);
+        //yield return new WaitForSecondsRealtime(3);
         frontalBossCamera.enabled = !frontalBossCamera.enabled;
         for (int i = damage; i > 0; i--)
         {
