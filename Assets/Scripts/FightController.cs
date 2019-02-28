@@ -248,6 +248,10 @@ public class FightController : MonoBehaviour
             else
                 UnPauseGame();
         }
+        if (Input.GetKeyDown("p"))
+        {
+            SceneManager.LoadScene("Fight2");
+        }
 
         playerScript = player.GetComponent<Player>();
         bossScript = boss.GetComponent<Boss>();
