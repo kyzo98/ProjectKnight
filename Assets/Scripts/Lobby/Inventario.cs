@@ -20,10 +20,25 @@ public struct Drives {
     public int grace;
 };
 
+public struct Orbs
+{
+    public int vitalityOrb;
+    public int strenghtOrb;
+    public int enduranceOrb;
+    public int powerOrb;
+    public int vigorOrb;
+};
+
 public class Inventario : MonoBehaviour {
 
+    //PLAYER
+    public GameObject player;
+    private Player playerScript;
+
+    //ACCES TO SORROWS, DRIVES AND ORBS STRUCTS
     public Sorrows sorrows;
     public Drives drives;
+    public Orbs orbs;
 
     public GameObject inventory;
 
@@ -32,10 +47,15 @@ public class Inventario : MonoBehaviour {
 
     void Start()
     {
+        //GETTING ACCESS TO PLAYER SCRIPT
+        playerScript = player.GetComponent<Player>();
+
+        //SORROWS INITIALIZATION AND SAVE
         sorrows.rage = PlayerPrefs.GetInt("Rage");
         sorrows.terror = PlayerPrefs.GetInt("Terror");
         sorrows.grief = PlayerPrefs.GetInt("Grief");
 
+        //DRIVES INITIALIZATION AND SAVE
         drives.courage = PlayerPrefs.GetInt("Courage");
         drives.focus = PlayerPrefs.GetInt("Focus");
         drives.will = PlayerPrefs.GetInt("Will");
@@ -43,6 +63,13 @@ public class Inventario : MonoBehaviour {
         drives.spiritualHealing = PlayerPrefs.GetInt("SpiritualHealing");
         drives.clarity = PlayerPrefs.GetInt("Clarity");
         drives.grace = PlayerPrefs.GetInt("Grace");
+
+        //ORBS INITIALIZATION AND SAVE
+        orbs.vitalityOrb = PlayerPrefs.GetInt("VITALITY_ORB");
+        orbs.strenghtOrb = PlayerPrefs.GetInt("STRENGHT_ORB");
+        orbs.enduranceOrb = PlayerPrefs.GetInt("ENDURANCE_ORB");
+        orbs.powerOrb = PlayerPrefs.GetInt("POWER_ORB");
+        orbs.vigorOrb = PlayerPrefs.GetInt("VIGOR_ORB");
     }
 
     void Update()
@@ -134,5 +161,56 @@ public class Inventario : MonoBehaviour {
     {
         drives.grace += 1;
         PlayerPrefs.SetInt("Grace", drives.grace);
+    }
+
+    //FUNCTIONS FOR ORBS
+    public void AddVitality()
+    {
+        if(orbs.vitalityOrb > 0)
+        {
+            orbs.vitalityOrb -= 1;
+            PlayerPrefs.SetInt("VITALITY_ORB", orbs.vitalityOrb);
+            playerScript.stats.vitality += 1;
+        }
+    }
+
+    public void AddStrenght()
+    {
+        if(orbs.strenghtOrb > 0)
+        {
+            orbs.strenghtOrb -= 1;
+            PlayerPrefs.SetInt("STRENGHT_ORB", orbs.strenghtOrb);
+            playerScript.stats.strenght += 1;
+        }
+    }
+
+    public void AddEndurance()
+    {
+        if(orbs.strenghtOrb > 0)
+        {
+            orbs.enduranceOrb -= 1;
+            PlayerPrefs.SetInt("ENDURANCE_ORB", orbs.enduranceOrb);
+            playerScript.stats.endurance += 1;
+        }
+    }
+
+    public void AddPower()
+    {
+        if(orbs.powerOrb > 0)
+        {
+            orbs.powerOrb -= 1;
+            PlayerPrefs.SetInt("POWER_ORB", orbs.powerOrb);
+            playerScript.stats.power += 1;
+        }
+    }
+
+    public void AddVigor()
+    {
+        if(orbs.vigorOrb > 0)
+        {
+            orbs.vigorOrb -= 1;
+            PlayerPrefs.SetInt("VIGOR_ORB", orbs.vigorOrb);
+            playerScript.stats.vigor += 1;
+        }
     }
 }

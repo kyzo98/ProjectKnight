@@ -137,6 +137,9 @@ public class FightController2 : MonoBehaviour
     public ParticleSystem animaBlastParticleSystem;
     public ParticleSystem hitParticle;
     public GameObject hitHolder;
+    public GameObject courageParticle;
+    public GameObject focusParticle;
+    public GameObject willParticle;
 
     //Sounds
     private AudioSource audioSource;
@@ -224,6 +227,7 @@ public class FightController2 : MonoBehaviour
         playerDebuff[1].StateType = DebuffStateType.NULL;
         playerDebuff[1].remainingTurns = 0;
 
+        //INITIALIZATING STATES
         state = new States[3];
         state[0].name2 = StateType2.NULL;
         state[0].turnsLeft2 = 0;
@@ -828,9 +832,9 @@ public class FightController2 : MonoBehaviour
                 playerScript.energy -= 3;
                 playerScript.moves--;
 
-                if (Random.Range(0, 20) == 1) //critico
+                if (Random.value <= 0.05) //critico
                 {
-                    int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
+                    int damage = Random.Range(((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 30) / 100) - 3), ((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 30) / 100) + 3));
                     StartCoroutine(LightAttackWaiter(damage));
                     AddCombatText();
                     combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
@@ -839,7 +843,7 @@ public class FightController2 : MonoBehaviour
                 }
                 else //ataque normal
                 {
-                    int damage = Random.Range(playerScript.stats.strenght * 6 - 3, playerScript.stats.strenght * 6 + 3);
+                    int damage = Random.Range((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 30) / 100) - 3), (((playerScript.stats.strenght * playerScript.strenghtMultiplier * 30) / 100) + 3));
                     StartCoroutine(LightAttackWaiter(damage));
                     AddCombatText();
                     combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
@@ -854,9 +858,9 @@ public class FightController2 : MonoBehaviour
 
                 if (Random.value > 0.3)
                 {
-                    if (Random.Range(0, 20) == 1) //critico
+                    if (Random.value <= 0.05) //critico
                     {
-                        int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
+                        int damage = Random.Range(((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 30) / 100) - 3), ((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 30) / 100) + 3));
                         StartCoroutine(LightAttackWaiter(damage));
                         AddCombatText();
                         combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
@@ -865,7 +869,7 @@ public class FightController2 : MonoBehaviour
                     }
                     else //ataque normal
                     {
-                        int damage = Random.Range(playerScript.stats.strenght * 6 - 3, playerScript.stats.strenght * 6 + 3);
+                        int damage = Random.Range((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 30) / 100) - 3), (((playerScript.stats.strenght * playerScript.strenghtMultiplier * 30) / 100) + 3));
                         StartCoroutine(LightAttackWaiter(damage));
                         AddCombatText();
                         combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
@@ -894,9 +898,9 @@ public class FightController2 : MonoBehaviour
 
                 if (Random.value > 0.5)
                 {
-                    if (Random.Range(0, 20) == 1) //critico
+                    if (Random.value <= 0.05) //critico
                     {
-                        int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
+                        int damage = Random.Range(((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 30) / 100) - 3), ((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 30) / 100) + 3));
                         StartCoroutine(LightAttackWaiter(damage));
                         AddCombatText();
                         combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
@@ -904,7 +908,7 @@ public class FightController2 : MonoBehaviour
                     }
                     else //ataque normal
                     {
-                        int damage = Random.Range(playerScript.stats.strenght * 6 - 3, playerScript.stats.strenght * 6 + 3);
+                        int damage = Random.Range((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 30) / 100) - 3), (((playerScript.stats.strenght * playerScript.strenghtMultiplier * 30) / 100) + 3));
                         StartCoroutine(LightAttackWaiter(damage));
                         AddCombatText();
                         combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
@@ -938,9 +942,9 @@ public class FightController2 : MonoBehaviour
                         playerScript.energy -= 3;
                         playerScript.moves--;
 
-                        if (Random.Range(0, 20) == 1) //critico
+                        if (Random.value <= 0.05) //critico
                         {
-                            int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
+                            int damage = Random.Range(((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 30) / 100) - 3), ((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 30) / 100) + 3));
                             StartCoroutine(LightAttackWaiter(damage));
                             AddCombatText();
                             combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
@@ -949,7 +953,7 @@ public class FightController2 : MonoBehaviour
                         }
                         else //ataque normal
                         {
-                            int damage = Random.Range(playerScript.stats.strenght * 6 - 3, playerScript.stats.strenght * 6 + 3);
+                            int damage = Random.Range((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 30) / 100) - 3), (((playerScript.stats.strenght * playerScript.strenghtMultiplier * 30) / 100) + 3));
                             StartCoroutine(LightAttackWaiter(damage));
                             AddCombatText();
                             combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
@@ -964,9 +968,9 @@ public class FightController2 : MonoBehaviour
 
                         if (Random.value > 0.3)
                         {
-                            if (Random.Range(0, 20) == 1) //critico
+                            if (Random.value <= 0.05) //critico
                             {
-                                int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
+                                int damage = Random.Range(((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 30) / 100) - 3), ((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 30) / 100) + 3));
                                 StartCoroutine(LightAttackWaiter(damage));
                                 AddCombatText();
                                 combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
@@ -975,7 +979,7 @@ public class FightController2 : MonoBehaviour
                             }
                             else //ataque normal
                             {
-                                int damage = Random.Range(playerScript.stats.strenght * 6 - 3, playerScript.stats.strenght * 6 + 3);
+                                int damage = Random.Range((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 30) / 100) - 3), (((playerScript.stats.strenght * playerScript.strenghtMultiplier * 30) / 100) + 3));
                                 StartCoroutine(LightAttackWaiter(damage));
                                 AddCombatText();
                                 combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
@@ -1004,9 +1008,9 @@ public class FightController2 : MonoBehaviour
 
                         if (Random.value > 0.5)
                         {
-                            if (Random.Range(0, 20) == 1) //critico
+                            if (Random.value <= 0.05)//critico
                             {
-                                int damage = Random.Range(playerScript.stats.strenght * 12 - 3, playerScript.stats.strenght * 12 + 3);
+                                int damage = Random.Range(((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 30) / 100) - 3), ((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 30) / 100) + 3));
                                 StartCoroutine(LightAttackWaiter(damage));
                                 AddCombatText();
                                 combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
@@ -1014,7 +1018,7 @@ public class FightController2 : MonoBehaviour
                             }
                             else //ataque normal
                             {
-                                int damage = Random.Range(playerScript.stats.strenght * 6 - 3, playerScript.stats.strenght * 6 + 3);
+                                int damage = Random.Range((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 30) / 100) - 3), (((playerScript.stats.strenght * playerScript.strenghtMultiplier * 30) / 100) + 3));
                                 StartCoroutine(LightAttackWaiter(damage));
                                 AddCombatText();
                                 combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
@@ -1113,9 +1117,9 @@ public class FightController2 : MonoBehaviour
 
         if (state[0].name2 != StateType2.PARALISIS || state[1].name2 != StateType2.PARALISIS || state[2].name2 != StateType2.PARALISIS)
         {
-            if (Random.Range(0, 7) == 1) //critico
+            if (Random.value <= 0.15) //critico
             {
-                int damage = Random.Range(playerScript.stats.strenght * 32 - 3, playerScript.stats.strenght * 32 + 3);
+                int damage = Random.Range(((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 80) / 100) - 3), ((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 80) / 100) + 3));
                 StartCoroutine(HeavyAttackWaiter(damage));
                 AddCombatText();
                 combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
@@ -1123,7 +1127,7 @@ public class FightController2 : MonoBehaviour
             }
             else //ataque normal
             {
-                int damage = Random.Range(playerScript.stats.strenght * 16 - 3, playerScript.stats.strenght * 16 + 3);
+                int damage = Random.Range((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 80) / 100) - 3), (((playerScript.stats.strenght * playerScript.strenghtMultiplier * 80) / 100) + 3));
                 StartCoroutine(HeavyAttackWaiter(damage));
                 AddCombatText();
                 combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
@@ -1138,9 +1142,9 @@ public class FightController2 : MonoBehaviour
             {
                 if (Random.value > 0.4)
                 {
-                    if (Random.Range(0, 7) == 1) //critico
+                    if (Random.value <= 0.15) //critico
                     {
-                        int damage = Random.Range(playerScript.stats.strenght * 32 - 3, playerScript.stats.strenght * 32 + 3);
+                        int damage = Random.Range(((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 80) / 100) - 3), ((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 2) * 80) / 100) + 3));
                         StartCoroutine(HeavyAttackWaiter(damage));
                         AddCombatText();
                         combatDialogue[0].color = new Color(1, 0.086f, 0.258f, 1);
@@ -1148,7 +1152,7 @@ public class FightController2 : MonoBehaviour
                     }
                     else //ataque normal
                     {
-                        int damage = Random.Range(playerScript.stats.strenght * 16 - 3, playerScript.stats.strenght * 16 + 3);
+                        int damage = Random.Range((((playerScript.stats.strenght * playerScript.strenghtMultiplier * 80) / 100) - 3), (((playerScript.stats.strenght * playerScript.strenghtMultiplier * 80) / 100) + 3));
                         StartCoroutine(HeavyAttackWaiter(damage));
                         AddCombatText();
                         combatDialogue[0].text = "Player dealt " + damage.ToString() + " damge to the Boss";
@@ -1223,7 +1227,7 @@ public class FightController2 : MonoBehaviour
                 playerScript.energy -= 3;
                 playerScript.moves--;
 
-                int healing = playerScript.stats.vigor * 7;
+                int healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
                 if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                 StartCoroutine(BasicHealWaiter(healing));
 
@@ -1239,7 +1243,7 @@ public class FightController2 : MonoBehaviour
 
                 if (Random.value > 0.8)
                 {
-                    int healing = playerScript.stats.vigor * 7;
+                    int healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
                     if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                     StartCoroutine(BasicHealWaiter(healing));
 
@@ -1269,7 +1273,7 @@ public class FightController2 : MonoBehaviour
 
                 if (Random.value > 0.6)
                 {
-                    int healing = playerScript.stats.vigor * 7;
+                    int healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
                     if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                     StartCoroutine(BasicHealWaiter(healing));
 
@@ -1303,7 +1307,7 @@ public class FightController2 : MonoBehaviour
                         playerScript.energy -= 3;
                         playerScript.moves--;
 
-                        int healing = playerScript.stats.vigor * 7;
+                        int healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
                         if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                         StartCoroutine(BasicHealWaiter(healing));
 
@@ -1319,7 +1323,7 @@ public class FightController2 : MonoBehaviour
 
                         if (Random.value > 0.8)
                         {
-                            int healing = playerScript.stats.vigor * 7;
+                            int healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
                             if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                             StartCoroutine(BasicHealWaiter(healing));
 
@@ -1349,7 +1353,7 @@ public class FightController2 : MonoBehaviour
 
                         if (Random.value > 0.6)
                         {
-                            int healing = playerScript.stats.vigor * 7;
+                            int healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
                             if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                             StartCoroutine(BasicHealWaiter(healing));
 
@@ -1430,7 +1434,7 @@ public class FightController2 : MonoBehaviour
                 playerScript.energy -= 3;
                 playerScript.moves--;
 
-                int damage = playerScript.stats.power * 4;
+                int damage = (((playerScript.stats.power * playerScript.powerMultiplier) * 20) / 100);
                 StartCoroutine(BasicSpellWaiter(damage));
                 AddCombatText();
                 combatDialogue[0].text = "Player dealt " + damage.ToString() + " damage to the Boss";
@@ -1444,7 +1448,7 @@ public class FightController2 : MonoBehaviour
 
                 if (Random.value > 0.7)
                 {
-                    int damage = playerScript.stats.power * 4;
+                    int damage = (((playerScript.stats.power * playerScript.powerMultiplier) * 20) / 100);
                     StartCoroutine(BasicSpellWaiter(damage));
                     AddCombatText();
                     combatDialogue[0].text = "Player dealt " + damage.ToString() + " damage to the Boss";
@@ -1474,7 +1478,7 @@ public class FightController2 : MonoBehaviour
 
                 if (Random.value > 0.5)
                 {
-                    int damage = playerScript.stats.power * 4;
+                    int damage = (((playerScript.stats.power * playerScript.powerMultiplier) * 20) / 100);
                     StartCoroutine(BasicSpellWaiter(damage));
                     AddCombatText();
                     combatDialogue[0].text = "Player dealt " + damage.ToString() + " damage to the Boss";
@@ -1509,7 +1513,7 @@ public class FightController2 : MonoBehaviour
                         playerScript.energy -= 3;
                         playerScript.moves--;
 
-                        int damage = playerScript.stats.power * 4;
+                        int damage = (((playerScript.stats.power * playerScript.powerMultiplier) * 20) / 100);
                         StartCoroutine(BasicSpellWaiter(damage));
                         AddCombatText();
                         combatDialogue[0].text = "Player dealt " + damage.ToString() + " damage to the Boss";
@@ -1523,7 +1527,7 @@ public class FightController2 : MonoBehaviour
 
                         if (Random.value > 0.7)
                         {
-                            int damage = playerScript.stats.power * 4;
+                            int damage = (((playerScript.stats.power * playerScript.powerMultiplier) * 20) / 100);
                             StartCoroutine(BasicSpellWaiter(damage));
                             AddCombatText();
                             combatDialogue[0].text = "Player dealt " + damage.ToString() + " damage to the Boss";
@@ -1554,7 +1558,7 @@ public class FightController2 : MonoBehaviour
 
                         if (Random.value > 0.5)
                         {
-                            int damage = playerScript.stats.power * 4;
+                            int damage = (((playerScript.stats.power * playerScript.powerMultiplier) * 20) / 100);
                             StartCoroutine(BasicSpellWaiter(damage));
                             AddCombatText();
                             combatDialogue[0].text = "Player dealt " + damage.ToString() + " damage to the Boss";
@@ -1830,7 +1834,7 @@ public class FightController2 : MonoBehaviour
         playerScript.moves--;
         playerScript.energy -= 5;
 
-        int damage = 100;
+        int damage = playerScript.stats.power * playerScript.powerMultiplier;
         StartCoroutine(TerrorSpellWaiter(damage));
         AddCombatText();
         combatDialogue[0].text = "Player used Terror and dealt" + damage.ToString();
@@ -1873,7 +1877,7 @@ public class FightController2 : MonoBehaviour
         playerScript.moves--;
         playerScript.energy -= 5;
 
-        int damage = 200;
+        int damage = (playerScript.stats.power * playerScript.powerMultiplier) * 2;
         StartCoroutine(RageSpellWaiter(damage));
         AddCombatText();
         combatDialogue[0].text = "Player used Rage and dealt" + damage.ToString();
@@ -1917,7 +1921,7 @@ public class FightController2 : MonoBehaviour
         playerScript.moves--;
         playerScript.energy -= 5;
 
-        int damage = 50;
+        int damage = (playerScript.stats.power * playerScript.powerMultiplier) / 2;
         StartCoroutine(GriefSpellWaiter(damage));
         AddCombatText();
         combatDialogue[0].text = "Player used Grief and dealt" + damage.ToString();
@@ -1949,6 +1953,151 @@ public class FightController2 : MonoBehaviour
             ShowActions();
         }
         RefreshUI();
+    }
+
+    //DRIVES courage, focus, will
+    public void CourageDrive()
+    {
+        HideActions();
+
+        playerScript.moves--;
+        playerScript.energy -= 4;
+
+        if(state[0].name2 == StateType2.PARALISIS)
+        {
+            state[0].name2 = StateType2.NULL;
+            state[0].turnsLeft2 = 0;
+        }
+        else if(state[1].name2 == StateType2.PARALISIS)
+        {
+            state[1].name2 = StateType2.NULL;
+            state[1].turnsLeft2 = 0;
+        }
+        else if(state[2].name2 == StateType2.PARALISIS)
+        {
+            state[2].name2 = StateType2.NULL;
+            state[2].turnsLeft2 = 0;
+        }
+        StartCoroutine(CourageDriveWaiter());
+    }
+
+    IEnumerator CourageDriveWaiter()
+    {
+        endedMove = false;
+        playerAnimator.Play("Heal");
+        courageParticle.SetActive(true);
+        //audio source clip
+        //audio source play
+        yield return new WaitForSecondsRealtime(0.5f);
+        //popup text = curado de paralisis
+        yield return new WaitForSecondsRealtime(1f);
+        ParticleSystem ps = courageParticle.GetComponent<ParticleSystem>();
+        ps.Stop();
+        yield return new WaitForSecondsRealtime(1.5f);
+        courageParticle.SetActive(false);
+        if(playerScript.moves > 0 && playerScript.energy > 2)
+        {
+            ShowActions();
+        }
+        RefreshUI();
+
+        endedMove = true;
+    }
+
+    public void FocusDrive()
+    {
+        HideActions();
+
+        playerScript.moves--;
+        playerScript.energy -= 4;
+
+        if(state[0].name2 == StateType2.NUMB)
+        {
+            state[0].name2 = StateType2.NULL;
+            state[0].turnsLeft2 = 0;
+        }
+        else if(state[1].name2 == StateType2.NUMB)
+        {
+            state[1].name2 = StateType2.NULL;
+            state[1].turnsLeft2 = 0;
+        }
+        else if(state[2].name2 == StateType2.NUMB)
+        {
+            state[2].name2 = StateType2.NULL;
+            state[2].turnsLeft2 = 0;
+        }
+        StartCoroutine(FocusDriveWaiter());
+    }
+
+    IEnumerator FocusDriveWaiter()
+    {
+        endedMove = false;
+        playerAnimator.Play("Heal");
+        focusParticle.SetActive(true);
+        //audio source clip
+        //audio source play
+        yield return new WaitForSecondsRealtime(0.5f);
+        //popup text = curado de paralisis
+        yield return new WaitForSecondsRealtime(1f);
+        ParticleSystem ps = focusParticle.GetComponent<ParticleSystem>();
+        ps.Stop();
+        yield return new WaitForSecondsRealtime(1.5f);
+        focusParticle.SetActive(false);
+        if (playerScript.moves > 0 && playerScript.energy > 2)
+        {
+            ShowActions();
+        }
+        RefreshUI();
+
+        endedMove = true;
+    }
+
+    public void WillDrive()
+    {
+        HideActions();
+
+        playerScript.moves--;
+        playerScript.energy -= 4;
+
+        if (state[0].name2 == StateType2.GRIEF)
+        {
+            state[0].name2 = StateType2.NULL;
+            state[0].turnsLeft2 = 0;
+        }
+        else if (state[1].name2 == StateType2.GRIEF)
+        {
+            state[1].name2 = StateType2.NULL;
+            state[1].turnsLeft2 = 0;
+        }
+        else if (state[2].name2 == StateType2.GRIEF)
+        {
+            state[2].name2 = StateType2.NULL;
+            state[2].turnsLeft2 = 0;
+        }
+        StartCoroutine(WillDriveWaiter());
+    }
+
+    IEnumerator WillDriveWaiter()
+    {
+        endedMove = false;
+        playerAnimator.Play("Heal");
+        willParticle.SetActive(true);
+        //audio source clip
+        //audio source play
+        yield return new WaitForSecondsRealtime(0.5f);
+        //popup text = curado de paralisis
+        yield return new WaitForSecondsRealtime(1f);
+        ParticleSystem ps = willParticle.GetComponent<ParticleSystem>();
+        ps.Stop();
+        yield return new WaitForSecondsRealtime(1.5f);
+        willParticle.SetActive(false);
+        if (playerScript.moves > 0 && playerScript.energy > 2)
+        {
+            ShowActions();
+        }
+        RefreshUI();
+
+        endedMove = true;
     }
 
     private bool MoveToPosition(Vector3 enemy)

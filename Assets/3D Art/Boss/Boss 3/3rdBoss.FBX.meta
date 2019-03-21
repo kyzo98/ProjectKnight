@@ -1,0 +1,197 @@
+fileFormatVersion: 2
+guid: feaa87cfd0cb4d34f86b3268f0cd3aa5
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Ankle_L
+    100004: Ankle_R
+    100006: Ball_L
+    100008: Ball_R
+    100010: Character_SpiritDemon
+    100012: Character_SpiritDemon_Glow
+    100014: Clavicle_L
+    100016: Clavicle_R
+    100018: Elbow_L
+    100020: Elbow_R
+    100022: Eyebrows
+    100024: Eyes
+    100026: Finger_01
+    100028: Finger_01 1
+    100030: Finger_02
+    100032: Finger_02 1
+    100034: Finger_03
+    100036: Finger_03 1
+    100038: Finger_04
+    100040: Finger_04 1
+    100042: Hand_L
+    100044: Hand_R
+    100046: Head
+    100048: Hips
+    100050: IndexFinger_01
+    100052: IndexFinger_01 1
+    100054: IndexFinger_02
+    100056: IndexFinger_02 1
+    100058: IndexFinger_03
+    100060: IndexFinger_03 1
+    100062: IndexFinger_04
+    100064: IndexFinger_04 1
+    100066: LowerLeg_L
+    100068: LowerLeg_R
+    100070: Neck
+    100072: Shoulder_L
+    100074: Shoulder_R
+    100076: Spine_01
+    100078: Spine_02
+    100080: Spine_03
+    100082: Thumb_01
+    100084: Thumb_01 1
+    100086: Thumb_02
+    100088: Thumb_02 1
+    100090: Thumb_03
+    100092: Thumb_03 1
+    100094: Toes_L
+    100096: Toes_R
+    100098: UpperLeg_L
+    100100: UpperLeg_R
+    400000: //RootNode
+    400002: Ankle_L
+    400004: Ankle_R
+    400006: Ball_L
+    400008: Ball_R
+    400010: Character_SpiritDemon
+    400012: Character_SpiritDemon_Glow
+    400014: Clavicle_L
+    400016: Clavicle_R
+    400018: Elbow_L
+    400020: Elbow_R
+    400022: Eyebrows
+    400024: Eyes
+    400026: Finger_01
+    400028: Finger_01 1
+    400030: Finger_02
+    400032: Finger_02 1
+    400034: Finger_03
+    400036: Finger_03 1
+    400038: Finger_04
+    400040: Finger_04 1
+    400042: Hand_L
+    400044: Hand_R
+    400046: Head
+    400048: Hips
+    400050: IndexFinger_01
+    400052: IndexFinger_01 1
+    400054: IndexFinger_02
+    400056: IndexFinger_02 1
+    400058: IndexFinger_03
+    400060: IndexFinger_03 1
+    400062: IndexFinger_04
+    400064: IndexFinger_04 1
+    400066: LowerLeg_L
+    400068: LowerLeg_R
+    400070: Neck
+    400072: Shoulder_L
+    400074: Shoulder_R
+    400076: Spine_01
+    400078: Spine_02
+    400080: Spine_03
+    400082: Thumb_01
+    400084: Thumb_01 1
+    400086: Thumb_02
+    400088: Thumb_02 1
+    400090: Thumb_03
+    400092: Thumb_03 1
+    400094: Toes_L
+    400096: Toes_R
+    400098: UpperLeg_L
+    400100: UpperLeg_R
+    2100000: _Ghost
+    2100002: lambert12
+    4300000: Character_SpiritDemon_Glow
+    4300002: Character_SpiritDemon
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Character_SpiritDemon
+    13700002: Character_SpiritDemon_Glow
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -29,9 +29,17 @@ public class Player : MonoBehaviour {
     public int spiritBlast;
     public int blockChance;
 
+    //BASE STATS MULTIPLIER
+    public int vitalityMultiplier = 50;
+    public float enduranceMultiplier = 12.5f;
+    public int strenghtMultiplier = 20;
+    public int vigorMultiplier = 7;
+    public int powerMultiplier = 20;
+
 	void Start () {
         playerScript = this;
 
+        //BASE STATS
         stats.vitality = 5;
         stats.strenght = 5;
         stats.endurance = 5;
@@ -39,6 +47,10 @@ public class Player : MonoBehaviour {
         stats.vigor = 5;
         blockChance = 0;
 
+        //STATS
+        maxHealth = stats.vitality * vitalityMultiplier;
+        health = maxHealth;
+        //armor = stats.endurance * enduranceMultiplier;
     }
 	
 	void Update () {
