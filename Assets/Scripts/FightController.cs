@@ -31,6 +31,16 @@ public class FightController : MonoBehaviour
         public int remainingTurns;
     }
 
+    public struct Orbs
+    {
+        public int vitality;
+        public int strenght;
+        public int endurance;
+        public int power;
+        public int vigor;
+    };
+    Orbs orbs;
+
     public struct Sorrows
     {
         public int rage;
@@ -83,6 +93,9 @@ public class FightController : MonoBehaviour
     //AUDIO
     public GameObject backgroundMusic;
     AudioSource[] backgroundAudio;
+
+    //INVENTARIO
+    public Inventario inventario;
 
     //PLAYER
     public GameObject player;
@@ -173,10 +186,19 @@ public class FightController : MonoBehaviour
 
     void Start()
     {
+        //GETTING QUANTITY OF ORBS
+        orbs.vitality = PlayerPrefs.GetInt("VITALITY_ORB");
+        orbs.strenght = PlayerPrefs.GetInt("STRENGHT_ORB");
+        orbs.endurance = PlayerPrefs.GetInt("ENDURANCE_ORB");
+        orbs.power = PlayerPrefs.GetInt("POWER_ORB");
+        orbs.vigor = PlayerPrefs.GetInt("VIGOR_ORB");
+
+        //GETTING QUANTITY OF SORROWS
         sorrows.rage = PlayerPrefs.GetInt("Rage");
         sorrows.terror = PlayerPrefs.GetInt("Terror");
         sorrows.grief = PlayerPrefs.GetInt("Grief");
 
+        //GETTING QUANTITY OF DRIVES
         drives.courage = PlayerPrefs.GetInt("Courage");
         drives.focus = PlayerPrefs.GetInt("Focus");
         drives.will = PlayerPrefs.GetInt("Will");
