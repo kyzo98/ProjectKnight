@@ -166,11 +166,11 @@ public class Inventario : MonoBehaviour {
     //FUNCTIONS FOR ORBS
     public void AddVitality()
     {
-        if(orbs.vitalityOrb > 0)
+        if (orbs.vitalityOrb > 0)
         {
+            orbs.strenghtOrb -= 1;
             orbs.vitalityOrb -= 1;
             PlayerPrefs.SetInt("VITALITY_ORB", orbs.vitalityOrb);
-            playerScript.stats.vitality += 1;
         }
     }
 

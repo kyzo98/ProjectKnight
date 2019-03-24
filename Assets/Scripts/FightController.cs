@@ -670,7 +670,7 @@ public class FightController : MonoBehaviour
         else
         {
             HideActions();
-            if (bossScript.health > 0)
+            if (bossScript.health > 0) //WHAT IF YOU LOSE THE BATTLE
             {
                 playerScript.health = 0;
                 //Boss gana
@@ -679,7 +679,18 @@ public class FightController : MonoBehaviour
             else
             {
                 bossScript.health = 0;
-                SceneManager.LoadScene("Narrator", LoadSceneMode.Single);
+                playerScript.coins += 500;
+                orbs.vitality += 4;
+                PlayerPrefs.SetInt("VITALITY_ORB", orbs.vitality);
+                orbs.strenght += 4;
+                PlayerPrefs.SetInt("STRENGHT_ORB", orbs.strenght);
+                orbs.endurance += 4;
+                PlayerPrefs.SetInt("ENDURANCE_ORB", orbs.endurance);
+                orbs.power += 4;
+                PlayerPrefs.SetInt("POWER_ORB", orbs.power);
+                orbs.vigor += 4;
+                PlayerPrefs.SetInt("VIGOR_ORB", orbs.vigor);
+                SceneManager.LoadScene("Narrator", LoadSceneMode.Single); //WHAT IF YOU WIN THE BATTLE
             }
         }
     }

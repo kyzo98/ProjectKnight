@@ -50,7 +50,6 @@ public class Player : MonoBehaviour {
         //STATS
         maxHealth = stats.vitality * vitalityMultiplier;
         health = maxHealth;
-        //armor = stats.endurance * enduranceMultiplier;
     }
 	
 	void Update () {

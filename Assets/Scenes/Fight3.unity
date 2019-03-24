@@ -1670,18 +1670,29 @@ MonoBehaviour:
   lightStrikeParticleSystem: {fileID: 198799661384003224, guid: 28b5ce46be2003742a86430b142a8c06,
     type: 2}
   healParticle: {fileID: 0}
-  despairParticleHolder: {fileID: 0}
-  despairParticleSystem: {fileID: 0}
-  terrorParticleHolder: {fileID: 0}
-  terrorParticleSystem: {fileID: 0}
-  griefParticleHolder: {fileID: 0}
-  griefParticleSystem: {fileID: 0}
-  rageParticleHolder: {fileID: 0}
-  rageParticleSystem: {fileID: 0}
-  animaBlastParticleHolder: {fileID: 0}
-  animaBlastParticleSystem: {fileID: 0}
-  hitParticle: {fileID: 0}
-  hitHolder: {fileID: 0}
+  despairParticleHolder: {fileID: 1260411173836288, guid: 1c1063a644cd5ed448653d08e7588609,
+    type: 2}
+  despairParticleSystem: {fileID: 198057286198718404, guid: 1c1063a644cd5ed448653d08e7588609,
+    type: 2}
+  terrorParticleHolder: {fileID: 1659268033395148, guid: ceca24f26e065754bb536fab13d90b95,
+    type: 2}
+  terrorParticleSystem: {fileID: 198423484298851080, guid: ceca24f26e065754bb536fab13d90b95,
+    type: 2}
+  griefParticleHolder: {fileID: 1376333047765678, guid: 85c71e0f543619e43b758770b2e4d510,
+    type: 2}
+  griefParticleSystem: {fileID: 198717514201504282, guid: 85c71e0f543619e43b758770b2e4d510,
+    type: 2}
+  rageParticleHolder: {fileID: 1235570721847856, guid: 6bbc40ab941c6534a8429989c0346e2e,
+    type: 2}
+  rageParticleSystem: {fileID: 198806664604200968, guid: 6bbc40ab941c6534a8429989c0346e2e,
+    type: 2}
+  animaBlastParticleHolder: {fileID: 1629973143939666, guid: c063bba9105636547925d2ce50e50ecb,
+    type: 2}
+  animaBlastParticleSystem: {fileID: 198830001997155942, guid: c063bba9105636547925d2ce50e50ecb,
+    type: 2}
+  hitParticle: {fileID: 198393041434253688, guid: 26c8ba73d3e55fc4da171e266c0e9420,
+    type: 2}
+  hitHolder: {fileID: 1548686390436196, guid: 26c8ba73d3e55fc4da171e266c0e9420, type: 2}
   courageParticle: {fileID: 0}
   focusParticle: {fileID: 0}
   willParticle: {fileID: 0}
@@ -2301,7 +2312,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b9ad041f039501a47a4c5087e4b3c894, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -24829,6 +24840,11 @@ MonoBehaviour:
   moves: 3
   spiritBlast: 0
   blockChance: 0
+  vitalityMultiplier: 50
+  enduranceMultiplier: 12.5
+  strenghtMultiplier: 20
+  vigorMultiplier: 7
+  powerMultiplier: 20
 --- !u!136 &1477626798
 CapsuleCollider:
   m_ObjectHideFlags: 0
