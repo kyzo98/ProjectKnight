@@ -1958,6 +1958,56 @@ public class FightController3 : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
         StartCoroutine(ThrowProjectile(rageParticleHolder, rageParticleSystem, damage, sorrow1Audio, HitSpellAudio));
         yield return new WaitForSecondsRealtime(3);
+
+        AddCombatText();
+        combatDialogue[0].text = "The enemy is now paralized.";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        if (bossStates3[0].name3 == StateType3.NULL)
+        {
+            bossStates3[0].name3 = StateType3.NUMB;
+            bossStates3[0].turnsLeft3 = 3;
+        }
+        else if (bossStates3[0].name3 == StateType3.PARALISIS || bossStates3[0].name3 == StateType3.GRIEF)
+        {
+            if (bossStates3[1].name3 == StateType3.NULL)
+            {
+                bossStates3[1].name3 = StateType3.NUMB;
+                bossStates3[1].turnsLeft3 = 3;
+            }
+            else if (bossStates3[1].name3 == StateType3.GRIEF || bossStates3[1].name3 == StateType3.PARALISIS)
+            {
+                if (bossStates3[2].name3 == StateType3.NULL)
+                {
+                    bossStates3[2].name3 = StateType3.NUMB;
+                    bossStates3[2].turnsLeft3 = 3;
+                }
+            }
+        }
+        else if (bossStates3[0].name3 == StateType3.NUMB)
+        {
+            bossStates3[0].turnsLeft3 += 2;
+            if (bossStates3[0].turnsLeft3 > 5)
+            {
+                bossStates3[0].turnsLeft3 = 5;
+            }
+        }
+        else if (bossStates3[1].name3 == StateType3.NUMB)
+        {
+            bossStates3[1].turnsLeft3 += 2;
+            if (bossStates3[1].turnsLeft3 > 5)
+            {
+                bossStates3[1].turnsLeft3 = 5;
+            }
+        }
+        else if (bossStates3[2].name3 == StateType3.NUMB)
+        {
+            bossStates3[2].turnsLeft3 += 2;
+            if (bossStates3[1].turnsLeft3 > 5)
+            {
+                bossStates3[1].turnsLeft3 = 5;
+            }
+        }
+
         for (int i = damage; i > 0; i--)
         {
             bossScript.health--;
@@ -1995,6 +2045,56 @@ public class FightController3 : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
         StartCoroutine(ThrowProjectile(griefParticleHolder, griefParticleSystem, damage, sorrow2Audio, HitSpellAudio));
         yield return new WaitForSecondsRealtime(3);
+
+        AddCombatText();
+        combatDialogue[0].text = "The enemy is now paralized.";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        if (bossStates3[0].name3 == StateType3.NULL)
+        {
+            bossStates3[0].name3 = StateType3.GRIEF;
+            bossStates3[0].turnsLeft3 = 3;
+        }
+        else if (bossStates3[0].name3 == StateType3.PARALISIS || bossStates3[0].name3 == StateType3.NUMB)
+        {
+            if (bossStates3[1].name3 == StateType3.NULL)
+            {
+                bossStates3[1].name3 = StateType3.GRIEF;
+                bossStates3[1].turnsLeft3 = 3;
+            }
+            else if (bossStates3[1].name3 == StateType3.NUMB || bossStates3[1].name3 == StateType3.PARALISIS)
+            {
+                if (bossStates3[2].name3 == StateType3.NULL)
+                {
+                    bossStates3[2].name3 = StateType3.GRIEF;
+                    bossStates3[2].turnsLeft3 = 3;
+                }
+            }
+        }
+        else if (bossStates3[0].name3 == StateType3.GRIEF)
+        {
+            bossStates3[0].turnsLeft3 += 2;
+            if (bossStates3[0].turnsLeft3 > 5)
+            {
+                bossStates3[0].turnsLeft3 = 5;
+            }
+        }
+        else if (bossStates3[1].name3 == StateType3.GRIEF)
+        {
+            bossStates3[1].turnsLeft3 += 2;
+            if (bossStates3[1].turnsLeft3 > 5)
+            {
+                bossStates3[1].turnsLeft3 = 5;
+            }
+        }
+        else if (bossStates3[2].name3 == StateType3.GRIEF)
+        {
+            bossStates3[2].turnsLeft3 += 2;
+            if (bossStates3[1].turnsLeft3 > 5)
+            {
+                bossStates3[1].turnsLeft3 = 5;
+            }
+        }
+
         for (int i = damage; i > 0; i--)
         {
             bossScript.health--;

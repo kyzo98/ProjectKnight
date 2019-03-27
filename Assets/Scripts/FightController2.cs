@@ -1977,6 +1977,56 @@ public class FightController2 : MonoBehaviour
         //bossAnimator.Play("Damage");
         //yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
+
+        AddCombatText();
+        combatDialogue[0].text = "The enemy is now paralized.";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        if (bossStates2[0].name2 == StateType2.NULL)
+        {
+            bossStates2[0].name2 = StateType2.NUMB;
+            bossStates2[0].turnsLeft2 = 3;
+        }
+        else if (bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[0].name2 == StateType2.GRIEF)
+        {
+            if (bossStates2[1].name2 == StateType2.NULL)
+            {
+                bossStates2[1].name2 = StateType2.NUMB;
+                bossStates2[1].turnsLeft2 = 3;
+            }
+            else if (bossStates2[1].name2 == StateType2.GRIEF || bossStates2[1].name2 == StateType2.PARALISIS)
+            {
+                if (bossStates2[2].name2 == StateType2.NULL)
+                {
+                    bossStates2[2].name2 = StateType2.NUMB;
+                    bossStates2[2].turnsLeft2 = 3;
+                }
+            }
+        }
+        else if (bossStates2[0].name2 == StateType2.NUMB)
+        {
+            bossStates2[0].turnsLeft2 += 2;
+            if (bossStates2[0].turnsLeft2 > 5)
+            {
+                bossStates2[0].turnsLeft2 = 5;
+            }
+        }
+        else if (bossStates2[1].name2 == StateType2.NUMB)
+        {
+            bossStates2[1].turnsLeft2 += 2;
+            if (bossStates2[1].turnsLeft2 > 5)
+            {
+                bossStates2[1].turnsLeft2 = 5;
+            }
+        }
+        else if (bossStates2[2].name2 == StateType2.NUMB)
+        {
+            bossStates2[2].turnsLeft2 += 2;
+            if (bossStates2[1].turnsLeft2 > 5)
+            {
+                bossStates2[1].turnsLeft2 = 5;
+            }
+        }
+
         for (int i = damage; i > 0; i--)
         {
             bossScript.health--;
@@ -2019,6 +2069,56 @@ public class FightController2 : MonoBehaviour
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
         //yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
+
+        AddCombatText();
+        combatDialogue[0].text = "The enemy is now paralized.";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        if (bossStates2[0].name2 == StateType2.NULL)
+        {
+            bossStates2[0].name2 = StateType2.GRIEF;
+            bossStates2[0].turnsLeft2 = 3;
+        }
+        else if (bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[0].name2 == StateType2.NUMB)
+        {
+            if (bossStates2[1].name2 == StateType2.NULL)
+            {
+                bossStates2[1].name2 = StateType2.GRIEF;
+                bossStates2[1].turnsLeft2 = 3;
+            }
+            else if (bossStates2[1].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.PARALISIS)
+            {
+                if (bossStates2[2].name2 == StateType2.NULL)
+                {
+                    bossStates2[2].name2 = StateType2.GRIEF;
+                    bossStates2[2].turnsLeft2 = 3;
+                }
+            }
+        }
+        else if (bossStates2[0].name2 == StateType2.GRIEF)
+        {
+            bossStates2[0].turnsLeft2 += 2;
+            if (bossStates2[0].turnsLeft2 > 5)
+            {
+                bossStates2[0].turnsLeft2 = 5;
+            }
+        }
+        else if (bossStates2[1].name2 == StateType2.GRIEF)
+        {
+            bossStates2[1].turnsLeft2 += 2;
+            if (bossStates2[1].turnsLeft2 > 5)
+            {
+                bossStates2[1].turnsLeft2 = 5;
+            }
+        }
+        else if (bossStates2[2].name2 == StateType2.GRIEF)
+        {
+            bossStates2[2].turnsLeft2 += 2;
+            if (bossStates2[1].turnsLeft2 > 5)
+            {
+                bossStates2[1].turnsLeft2 = 5;
+            }
+        }
+
         for (int i = damage; i > 0; i--)
         {
             bossScript.health--;

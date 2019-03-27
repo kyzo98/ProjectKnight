@@ -2002,6 +2002,56 @@ public class FightController : MonoBehaviour
         ShowPopupText(damage, Color.red);
         //yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
+
+        AddCombatText();
+        combatDialogue[0].text = "The enemy is now paralized.";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        if(bossStates[0].name == StateType.NULL)
+        {
+            bossStates[0].name = StateType.NUMB;
+            bossStates[0].turnsLeft = 3;
+        }
+        else if(bossStates[0].name == StateType.PARALISIS || bossStates[0].name == StateType.GRIEF)
+        {
+            if(bossStates[1].name == StateType.NULL)
+            {
+                bossStates[1].name = StateType.NUMB;
+                bossStates[1].turnsLeft = 3;
+            }
+            else if(bossStates[1].name == StateType.GRIEF || bossStates[1].name == StateType.PARALISIS)
+            {
+                if(bossStates[2].name == StateType.NULL)
+                {
+                    bossStates[2].name = StateType.NUMB;
+                    bossStates[2].turnsLeft = 3;
+                }
+            }
+        }
+        else if(bossStates[0].name == StateType.NUMB)
+        {
+            bossStates[0].turnsLeft += 2;
+            if(bossStates[0].turnsLeft > 5)
+            {
+                bossStates[0].turnsLeft = 5;
+            }
+        }
+        else if(bossStates[1].name == StateType.NUMB)
+        {
+            bossStates[1].turnsLeft += 2;
+            if(bossStates[1].turnsLeft > 5)
+            {
+                bossStates[1].turnsLeft = 5;
+            }
+        }
+        else if(bossStates[2].name == StateType.NUMB)
+        {
+            bossStates[2].turnsLeft += 2;
+            if(bossStates[1].turnsLeft > 5)
+            {
+                bossStates[1].turnsLeft = 5;
+            }
+        }
+
         for (int i = damage; i > 0; i--)
         {
             bossScript.health--;
@@ -2045,6 +2095,56 @@ public class FightController : MonoBehaviour
         ShowPopupText(damage, Color.red);
         //yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
+
+        AddCombatText();
+        combatDialogue[0].text = "The enemy is now paralized.";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        if (bossStates[0].name == StateType.NULL)
+        {
+            bossStates[0].name = StateType.GRIEF;
+            bossStates[0].turnsLeft = 3;
+        }
+        else if (bossStates[0].name == StateType.PARALISIS || bossStates[0].name == StateType.NUMB)
+        {
+            if (bossStates[1].name == StateType.NULL)
+            {
+                bossStates[1].name = StateType.GRIEF;
+                bossStates[1].turnsLeft = 3;
+            }
+            else if (bossStates[1].name == StateType.NUMB || bossStates[1].name == StateType.PARALISIS)
+            {
+                if (bossStates[2].name == StateType.NULL)
+                {
+                    bossStates[2].name = StateType.GRIEF;
+                    bossStates[2].turnsLeft = 3;
+                }
+            }
+        }
+        else if (bossStates[0].name == StateType.GRIEF)
+        {
+            bossStates[0].turnsLeft += 2;
+            if (bossStates[0].turnsLeft > 5)
+            {
+                bossStates[0].turnsLeft = 5;
+            }
+        }
+        else if (bossStates[1].name == StateType.GRIEF)
+        {
+            bossStates[1].turnsLeft += 2;
+            if (bossStates[1].turnsLeft > 5)
+            {
+                bossStates[1].turnsLeft = 5;
+            }
+        }
+        else if (bossStates[2].name == StateType.GRIEF)
+        {
+            bossStates[2].turnsLeft += 2;
+            if (bossStates[1].turnsLeft > 5)
+            {
+                bossStates[1].turnsLeft = 5;
+            }
+        }
+
         for (int i = damage; i > 0; i--)
         {
             bossScript.health--;
