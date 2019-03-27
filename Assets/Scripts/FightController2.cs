@@ -120,6 +120,7 @@ public class FightController2 : MonoBehaviour
     //BOSS
     public GameObject boss;
     private Boss bossScript;
+    public States[] bossStates2;
     //UI BOSS
     public Slider bossHealthBar;
     public Text bossHealthNumber;
@@ -246,7 +247,7 @@ public class FightController2 : MonoBehaviour
         playerDebuff[1].StateType = DebuffStateType.NULL;
         playerDebuff[1].remainingTurns = 0;
 
-        //INITIALIZATING STATES
+        //INITIALIZATING PLAYER STATES 
         state = new States[3];
         state[0].name2 = StateType2.NULL;
         state[0].turnsLeft2 = 0;
@@ -254,6 +255,15 @@ public class FightController2 : MonoBehaviour
         state[1].turnsLeft2 = 0;
         state[2].name2 = StateType2.NULL;
         state[2].turnsLeft2 = 0;
+
+        //INITIALIZING BOSS STATES
+        bossStates2 = new States[3];
+        bossStates2[0].name2 = StateType2.NULL;
+        bossStates2[0].turnsLeft2 = 0;
+        bossStates2[1].name2 = StateType2.NULL;
+        bossStates2[1].turnsLeft2 = 0;
+        bossStates2[2].name2 = StateType2.NULL;
+        bossStates2[2].turnsLeft2 = 0;
 
         ShowActions();
         RefreshUI();
@@ -1873,6 +1883,56 @@ public class FightController2 : MonoBehaviour
         //bossAnimator.Play("Damage");
         //yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
+
+        AddCombatText();
+        combatDialogue[0].text = "The enemy is now paralized.";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        if (bossStates2[0].name2 == StateType2.NULL)
+        {
+            bossStates2[0].name2 = StateType2.PARALISIS;
+            bossStates2[0].turnsLeft2 = 3;
+        }
+        else if (bossStates2[0].name2 == StateType2.NUMB || bossStates2[0].name2 == StateType2.GRIEF)
+        {
+            if (bossStates2[1].name2 == StateType2.NULL)
+            {
+                bossStates2[1].name2 = StateType2.PARALISIS;
+                bossStates2[1].turnsLeft2 = 3;
+            }
+            else if (bossStates2[1].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.GRIEF)
+            {
+                if (bossStates2[2].name2 == StateType2.NULL)
+                {
+                    bossStates2[2].name2 = StateType2.PARALISIS;
+                    bossStates2[2].turnsLeft2 = 3;
+                }
+            }
+        }
+        else if (bossStates2[0].name2 == StateType2.PARALISIS)
+        {
+            bossStates2[0].turnsLeft2 += 2;
+            if (bossStates2[0].turnsLeft2 > 5)
+            {
+                bossStates2[0].turnsLeft2 = 5;
+            }
+        }
+        else if (bossStates2[1].name2 == StateType2.PARALISIS)
+        {
+            bossStates2[1].turnsLeft2 += 2;
+            if (bossStates2[1].turnsLeft2 > 5)
+            {
+                bossStates2[1].turnsLeft2 = 5;
+            }
+        }
+        else if (bossStates2[2].name2 == StateType2.PARALISIS)
+        {
+            bossStates2[2].turnsLeft2 += 2;
+            if (bossStates2[2].turnsLeft2 > 5)
+            {
+                bossStates2[2].turnsLeft2 = 5;
+            }
+        }
+
         for (int i = damage; i > 0; i--)
         {
             bossScript.health--;

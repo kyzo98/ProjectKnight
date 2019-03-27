@@ -123,6 +123,7 @@ public class FightController : MonoBehaviour
     //BOSS
     public GameObject boss;
     private Boss bossScript;
+    public State[] bossStates;
     //UI BOSS
     public Slider bossHealthBar;
     public Text bossHealthNumber;
@@ -250,6 +251,7 @@ public class FightController : MonoBehaviour
         playerDebuff[1].StateType = DebuffStateType.NULL;
         playerDebuff[1].remainingTurns = 0;
 
+        //Player States
         states = new State[3];
         states[0].name = StateType.NULL;
         states[0].turnsLeft = 0;
@@ -257,6 +259,15 @@ public class FightController : MonoBehaviour
         states[1].turnsLeft = 0;
         states[2].name = StateType.NULL;
         states[2].turnsLeft = 0;
+
+        //Boss States
+        bossStates = new State[3];
+        bossStates[0].name = StateType.NULL;
+        bossStates[0].turnsLeft = 0;
+        bossStates[1].name = StateType.NULL;
+        bossStates[1].turnsLeft = 0;
+        bossStates[2].name = StateType.NULL;
+        bossStates[2].turnsLeft = 0;
 
         ShowActions();
         RefreshUI();
@@ -335,6 +346,7 @@ public class FightController : MonoBehaviour
                         if (states[i].name == StateType.GRIEF)
                         {
                             playerScript.health -= playerScript.maxHealth / griefLifePerTurn;
+                            RefreshUI();
                             griefLifePerTurn *= 2;
                         }
                     }
@@ -1866,7 +1878,7 @@ public class FightController : MonoBehaviour
         RefreshUI();
     }
 
-    //Spells
+    //SORROWS - Estos producen un efecto en el boss
     public void TerrorSpell()
     {
         HideActions();
@@ -1896,6 +1908,56 @@ public class FightController : MonoBehaviour
         ShowPopupText(damage, Color.red);
         //yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
+
+        AddCombatText();
+        combatDialogue[0].text = "The enemy is now paralized.";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        if(bossStates[0].name == StateType.NULL)
+        {
+            bossStates[0].name = StateType.PARALISIS;
+            bossStates[0].turnsLeft = 3;
+        }
+        else if(bossStates[0].name == StateType.NUMB || bossStates[0].name == StateType.GRIEF)
+        {
+            if(bossStates[1].name == StateType.NULL)
+            {
+                bossStates[1].name = StateType.PARALISIS;
+                bossStates[1].turnsLeft = 3;
+            }
+            else if (bossStates[1].name == StateType.NUMB || bossStates[1].name == StateType.GRIEF)
+            {
+                if(bossStates[2].name == StateType.NULL)
+                {
+                    bossStates[2].name = StateType.PARALISIS;
+                    bossStates[2].turnsLeft = 3;
+                }
+            }
+        }
+        else if(bossStates[0].name == StateType.PARALISIS)
+        {
+            bossStates[0].turnsLeft += 2;
+            if(bossStates[0].turnsLeft > 5)
+            {
+                bossStates[0].turnsLeft = 5;
+            }
+        }
+        else if(bossStates[1].name == StateType.PARALISIS)
+        {
+            bossStates[1].turnsLeft += 2;
+            if(bossStates[1].turnsLeft > 5)
+            {
+                bossStates[1].turnsLeft = 5;
+            }
+        }
+        else if(bossStates[2].name == StateType.PARALISIS)
+        {
+            bossStates[2].turnsLeft += 2;
+            if(bossStates[2].turnsLeft > 5)
+            {
+                bossStates[2].turnsLeft = 5;
+            }
+        }
+
         for (int i = damage; i > 0; i--)
         {
             bossScript.health--;
