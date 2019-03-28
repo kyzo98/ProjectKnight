@@ -318,31 +318,78 @@ public class FightController2 : MonoBehaviour
                 {
                     Debug.Log("player ended move");
                     RestartSuccesBools();
-                    for (int i = 0; i < 3; i++)
+                    //DECREASE TURNS LEFT OF THE PLAYER STATES
+                    if (state[0].name2 == StateType2.GRIEF || state[0].name2 == StateType2.NUMB || state[0].name2 == StateType2.PARALISIS && state[0].turnsLeft2 > 0)
                     {
-                        if (state[i].name2 == StateType2.GRIEF || state[i].name2 == StateType2.NUMB || state[i].name2 == StateType2.PARALISIS && state[i].turnsLeft2 > 0)
+                        state[0].turnsLeft2 -= 1;
+                        if (state[0].turnsLeft2 == 0)
                         {
-                            state[i].turnsLeft2 -= 1;
-                            if (state[i].turnsLeft2 == 0)
-                            {
-                                state[i].name2 = StateType2.NULL;
-                            }
+                            state[0].name2 = StateType2.NULL;
                         }
                     }
 
-                    //When the player is numb he loses some life.
-                    for (int i = 0; i < 3; i++)
+                    if (state[1].name2 == StateType2.GRIEF || state[1].name2 == StateType2.NUMB || state[1].name2 == StateType2.PARALISIS && state[1].turnsLeft2 > 0)
                     {
-                        if (state[i].name2 == StateType2.GRIEF)
+                        state[1].turnsLeft2 -= 1;
+                        if (state[1].turnsLeft2 == 0)
                         {
-                            playerScript.health -= playerScript.maxHealth / griefLifePerTurn;
-                            griefLifePerTurn *= 2;
+                            state[1].name2 = StateType2.NULL;
                         }
+                    }
+
+                    if (state[2].name2 == StateType2.GRIEF || state[2].name2 == StateType2.NUMB || state[2].name2 == StateType2.PARALISIS && state[2].turnsLeft2 > 0)
+                    {
+                        state[2].turnsLeft2 -= 1;
+                        if (state[2].turnsLeft2 == 0)
+                        {
+                            state[2].name2 = StateType2.NULL;
+                        }
+                    }
+
+                    //DECREASE TURNS LEFT OF THE BOSS STATES
+                    if (bossStates2[0].name2 == StateType2.GRIEF || bossStates2[0].name2 == StateType2.NUMB || bossStates2[0].name2 == StateType2.PARALISIS && bossStates2[0].turnsLeft2 > 0)
+                    {
+                        bossStates2[0].turnsLeft2 -= 1;
+                        if (bossStates2[0].turnsLeft2 == 0)
+                        {
+                            bossStates2[0].name2 = StateType2.NULL;
+                        }
+                    }
+                    if (bossStates2[1].name2 == StateType2.GRIEF || bossStates2[1].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.PARALISIS && bossStates2[1].turnsLeft2 > 0)
+                    {
+                        bossStates2[1].turnsLeft2 -= 1;
+                        if (bossStates2[1].turnsLeft2 == 0)
+                        {
+                            bossStates2[1].name2 = StateType2.NULL;
+                        }
+                    }
+                    if (bossStates2[2].name2 == StateType2.GRIEF || bossStates2[2].name2 == StateType2.NUMB || bossStates2[2].name2 == StateType2.PARALISIS && bossStates2[2].turnsLeft2 > 0)
+                    {
+                        bossStates2[2].turnsLeft2 -= 1;
+                        if (bossStates2[2].turnsLeft2 == 0)
+                        {
+                            bossStates2[2].name2 = StateType2.NULL;
+                        }
+                    }
+
+                    //When the player is grief he loses some life.
+                    if (state[0].name2 == StateType2.GRIEF || state[1].name2 == StateType2.GRIEF || state[2].name2 == StateType2.GRIEF)
+                    {
+                        playerScript.health -= playerScript.maxHealth / griefLifePerTurn;
+                        RefreshUI();
+                        griefLifePerTurn *= 2;
                     }
                     //Boss's turn
 
                     if (bossScript.health >= 700)
                     {
+                        //When the boss is grief he losses some life
+                        if (bossStates2[0].name2 == StateType2.GRIEF || bossStates2[1].name2 == StateType2.GRIEF || bossStates2[2].name2 == StateType2.GRIEF)
+                        {
+                            bossScript.health -= bossScript.maxHealth / griefLifePerTurn;
+                            RefreshUI();
+                            griefLifePerTurn *= 2;
+                        }
                         nAttack++;
                         Debug.Log(nAttack);
                         switch (nAttack)
@@ -447,6 +494,13 @@ public class FightController2 : MonoBehaviour
                     }
                     else if (bossScript.health >= 250 && bossScript.health <= 700)
                     {
+                        //When the boss is grief he losses some life
+                        if (bossStates2[0].name2 == StateType2.GRIEF || bossStates2[1].name2 == StateType2.GRIEF || bossStates2[2].name2 == StateType2.GRIEF)
+                        {
+                            bossScript.health -= bossScript.maxHealth / griefLifePerTurn;
+                            RefreshUI();
+                            griefLifePerTurn *= 2;
+                        }
                         nAttack2++;
                         Debug.Log(nAttack2);
                         switch (nAttack2)
@@ -553,6 +607,13 @@ public class FightController2 : MonoBehaviour
                     }
                     else if (bossScript.health >= 0 && bossScript.health <= 250)
                     {
+                        //When the boss is grief he losses some life
+                        if (bossStates2[0].name2 == StateType2.GRIEF || bossStates2[1].name2 == StateType2.GRIEF || bossStates2[2].name2 == StateType2.GRIEF)
+                        {
+                            bossScript.health -= bossScript.maxHealth / griefLifePerTurn;
+                            RefreshUI();
+                            griefLifePerTurn *= 2;
+                        }
                         nAttack3++;
                         Debug.Log(nAttack3);
                         switch (nAttack3)
@@ -1884,54 +1945,58 @@ public class FightController2 : MonoBehaviour
         //yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
 
-        AddCombatText();
-        combatDialogue[0].text = "The enemy is now paralized.";
-        combatDialogue[0].color = new Color(1, 1, 1, 1);
-        if (bossStates2[0].name2 == StateType2.NULL)
+        if(Random.value > 0.4)
         {
-            bossStates2[0].name2 = StateType2.PARALISIS;
-            bossStates2[0].turnsLeft2 = 3;
-        }
-        else if (bossStates2[0].name2 == StateType2.NUMB || bossStates2[0].name2 == StateType2.GRIEF)
-        {
-            if (bossStates2[1].name2 == StateType2.NULL)
+            AddCombatText();
+            combatDialogue[0].text = "The enemy is now paralized.";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+            if (bossStates2[0].name2 == StateType2.NULL)
             {
-                bossStates2[1].name2 = StateType2.PARALISIS;
-                bossStates2[1].turnsLeft2 = 3;
+                bossStates2[0].name2 = StateType2.PARALISIS;
+                bossStates2[0].turnsLeft2 = 3;
             }
-            else if (bossStates2[1].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.GRIEF)
+            else if (bossStates2[0].name2 == StateType2.NUMB || bossStates2[0].name2 == StateType2.GRIEF)
             {
-                if (bossStates2[2].name2 == StateType2.NULL)
+                if (bossStates2[1].name2 == StateType2.NULL)
                 {
-                    bossStates2[2].name2 = StateType2.PARALISIS;
-                    bossStates2[2].turnsLeft2 = 3;
+                    bossStates2[1].name2 = StateType2.PARALISIS;
+                    bossStates2[1].turnsLeft2 = 3;
+                }
+                else if (bossStates2[1].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.GRIEF)
+                {
+                    if (bossStates2[2].name2 == StateType2.NULL)
+                    {
+                        bossStates2[2].name2 = StateType2.PARALISIS;
+                        bossStates2[2].turnsLeft2 = 3;
+                    }
+                }
+            }
+            else if (bossStates2[0].name2 == StateType2.PARALISIS)
+            {
+                bossStates2[0].turnsLeft2 += 2;
+                if (bossStates2[0].turnsLeft2 > 5)
+                {
+                    bossStates2[0].turnsLeft2 = 5;
+                }
+            }
+            else if (bossStates2[1].name2 == StateType2.PARALISIS)
+            {
+                bossStates2[1].turnsLeft2 += 2;
+                if (bossStates2[1].turnsLeft2 > 5)
+                {
+                    bossStates2[1].turnsLeft2 = 5;
+                }
+            }
+            else if (bossStates2[2].name2 == StateType2.PARALISIS)
+            {
+                bossStates2[2].turnsLeft2 += 2;
+                if (bossStates2[2].turnsLeft2 > 5)
+                {
+                    bossStates2[2].turnsLeft2 = 5;
                 }
             }
         }
-        else if (bossStates2[0].name2 == StateType2.PARALISIS)
-        {
-            bossStates2[0].turnsLeft2 += 2;
-            if (bossStates2[0].turnsLeft2 > 5)
-            {
-                bossStates2[0].turnsLeft2 = 5;
-            }
-        }
-        else if (bossStates2[1].name2 == StateType2.PARALISIS)
-        {
-            bossStates2[1].turnsLeft2 += 2;
-            if (bossStates2[1].turnsLeft2 > 5)
-            {
-                bossStates2[1].turnsLeft2 = 5;
-            }
-        }
-        else if (bossStates2[2].name2 == StateType2.PARALISIS)
-        {
-            bossStates2[2].turnsLeft2 += 2;
-            if (bossStates2[2].turnsLeft2 > 5)
-            {
-                bossStates2[2].turnsLeft2 = 5;
-            }
-        }
+        
 
         for (int i = damage; i > 0; i--)
         {
@@ -1978,52 +2043,55 @@ public class FightController2 : MonoBehaviour
         //yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
 
-        AddCombatText();
-        combatDialogue[0].text = "The enemy is now paralized.";
-        combatDialogue[0].color = new Color(1, 1, 1, 1);
-        if (bossStates2[0].name2 == StateType2.NULL)
+        if(Random.value > 0.4)
         {
-            bossStates2[0].name2 = StateType2.NUMB;
-            bossStates2[0].turnsLeft2 = 3;
-        }
-        else if (bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[0].name2 == StateType2.GRIEF)
-        {
-            if (bossStates2[1].name2 == StateType2.NULL)
+            AddCombatText();
+            combatDialogue[0].text = "The enemy is now paralized.";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+            if (bossStates2[0].name2 == StateType2.NULL)
             {
-                bossStates2[1].name2 = StateType2.NUMB;
-                bossStates2[1].turnsLeft2 = 3;
+                bossStates2[0].name2 = StateType2.NUMB;
+                bossStates2[0].turnsLeft2 = 3;
             }
-            else if (bossStates2[1].name2 == StateType2.GRIEF || bossStates2[1].name2 == StateType2.PARALISIS)
+            else if (bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[0].name2 == StateType2.GRIEF)
             {
-                if (bossStates2[2].name2 == StateType2.NULL)
+                if (bossStates2[1].name2 == StateType2.NULL)
                 {
-                    bossStates2[2].name2 = StateType2.NUMB;
-                    bossStates2[2].turnsLeft2 = 3;
+                    bossStates2[1].name2 = StateType2.NUMB;
+                    bossStates2[1].turnsLeft2 = 3;
+                }
+                else if (bossStates2[1].name2 == StateType2.GRIEF || bossStates2[1].name2 == StateType2.PARALISIS)
+                {
+                    if (bossStates2[2].name2 == StateType2.NULL)
+                    {
+                        bossStates2[2].name2 = StateType2.NUMB;
+                        bossStates2[2].turnsLeft2 = 3;
+                    }
                 }
             }
-        }
-        else if (bossStates2[0].name2 == StateType2.NUMB)
-        {
-            bossStates2[0].turnsLeft2 += 2;
-            if (bossStates2[0].turnsLeft2 > 5)
+            else if (bossStates2[0].name2 == StateType2.NUMB)
             {
-                bossStates2[0].turnsLeft2 = 5;
+                bossStates2[0].turnsLeft2 += 2;
+                if (bossStates2[0].turnsLeft2 > 5)
+                {
+                    bossStates2[0].turnsLeft2 = 5;
+                }
             }
-        }
-        else if (bossStates2[1].name2 == StateType2.NUMB)
-        {
-            bossStates2[1].turnsLeft2 += 2;
-            if (bossStates2[1].turnsLeft2 > 5)
+            else if (bossStates2[1].name2 == StateType2.NUMB)
             {
-                bossStates2[1].turnsLeft2 = 5;
+                bossStates2[1].turnsLeft2 += 2;
+                if (bossStates2[1].turnsLeft2 > 5)
+                {
+                    bossStates2[1].turnsLeft2 = 5;
+                }
             }
-        }
-        else if (bossStates2[2].name2 == StateType2.NUMB)
-        {
-            bossStates2[2].turnsLeft2 += 2;
-            if (bossStates2[1].turnsLeft2 > 5)
+            else if (bossStates2[2].name2 == StateType2.NUMB)
             {
-                bossStates2[1].turnsLeft2 = 5;
+                bossStates2[2].turnsLeft2 += 2;
+                if (bossStates2[1].turnsLeft2 > 5)
+                {
+                    bossStates2[1].turnsLeft2 = 5;
+                }
             }
         }
 
@@ -2070,54 +2138,58 @@ public class FightController2 : MonoBehaviour
         //yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
 
-        AddCombatText();
-        combatDialogue[0].text = "The enemy is now paralized.";
-        combatDialogue[0].color = new Color(1, 1, 1, 1);
-        if (bossStates2[0].name2 == StateType2.NULL)
+        if(Random.value > 0.4)
         {
-            bossStates2[0].name2 = StateType2.GRIEF;
-            bossStates2[0].turnsLeft2 = 3;
-        }
-        else if (bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[0].name2 == StateType2.NUMB)
-        {
-            if (bossStates2[1].name2 == StateType2.NULL)
+            AddCombatText();
+            combatDialogue[0].text = "The enemy is now paralized.";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+            if (bossStates2[0].name2 == StateType2.NULL)
             {
-                bossStates2[1].name2 = StateType2.GRIEF;
-                bossStates2[1].turnsLeft2 = 3;
+                bossStates2[0].name2 = StateType2.GRIEF;
+                bossStates2[0].turnsLeft2 = 3;
             }
-            else if (bossStates2[1].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.PARALISIS)
+            else if (bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[0].name2 == StateType2.NUMB)
             {
-                if (bossStates2[2].name2 == StateType2.NULL)
+                if (bossStates2[1].name2 == StateType2.NULL)
                 {
-                    bossStates2[2].name2 = StateType2.GRIEF;
-                    bossStates2[2].turnsLeft2 = 3;
+                    bossStates2[1].name2 = StateType2.GRIEF;
+                    bossStates2[1].turnsLeft2 = 3;
+                }
+                else if (bossStates2[1].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.PARALISIS)
+                {
+                    if (bossStates2[2].name2 == StateType2.NULL)
+                    {
+                        bossStates2[2].name2 = StateType2.GRIEF;
+                        bossStates2[2].turnsLeft2 = 3;
+                    }
+                }
+            }
+            else if (bossStates2[0].name2 == StateType2.GRIEF)
+            {
+                bossStates2[0].turnsLeft2 += 2;
+                if (bossStates2[0].turnsLeft2 > 5)
+                {
+                    bossStates2[0].turnsLeft2 = 5;
+                }
+            }
+            else if (bossStates2[1].name2 == StateType2.GRIEF)
+            {
+                bossStates2[1].turnsLeft2 += 2;
+                if (bossStates2[1].turnsLeft2 > 5)
+                {
+                    bossStates2[1].turnsLeft2 = 5;
+                }
+            }
+            else if (bossStates2[2].name2 == StateType2.GRIEF)
+            {
+                bossStates2[2].turnsLeft2 += 2;
+                if (bossStates2[1].turnsLeft2 > 5)
+                {
+                    bossStates2[1].turnsLeft2 = 5;
                 }
             }
         }
-        else if (bossStates2[0].name2 == StateType2.GRIEF)
-        {
-            bossStates2[0].turnsLeft2 += 2;
-            if (bossStates2[0].turnsLeft2 > 5)
-            {
-                bossStates2[0].turnsLeft2 = 5;
-            }
-        }
-        else if (bossStates2[1].name2 == StateType2.GRIEF)
-        {
-            bossStates2[1].turnsLeft2 += 2;
-            if (bossStates2[1].turnsLeft2 > 5)
-            {
-                bossStates2[1].turnsLeft2 = 5;
-            }
-        }
-        else if (bossStates2[2].name2 == StateType2.GRIEF)
-        {
-            bossStates2[2].turnsLeft2 += 2;
-            if (bossStates2[1].turnsLeft2 > 5)
-            {
-                bossStates2[1].turnsLeft2 = 5;
-            }
-        }
+        
 
         for (int i = damage; i > 0; i--)
         {
@@ -2289,22 +2361,52 @@ public class FightController2 : MonoBehaviour
     void Attack()
     {
         HideActions();
-        bossAnimator.Play("Attack");
-
-        if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
+        if(bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[1].name2 == StateType2.PARALISIS || bossStates2[2].name2 == StateType2.PARALISIS)
         {
-            AddCombatText();
-            combatDialogue[0].text = "Attack Blocked";
-            combatDialogue[0].color = new Color(1, 1, 1, 1);
-            StartCoroutine(PlayerBlocked());
+            if(Random.value > 0.4)
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Boss failed basic attack due to paralisis.";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
+            else
+            {
+                bossAnimator.Play("Attack");
+                if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
+                {
+                    AddCombatText();
+                    combatDialogue[0].text = "Attack Blocked";
+                    combatDialogue[0].color = new Color(1, 1, 1, 1);
+                    StartCoroutine(PlayerBlocked());
+                }
+                else
+                {
+                    float damage = bossScript.stats.strenght + 10;
+                    StartCoroutine(BasicAtackWaiter(damage));
+                    AddCombatText();
+                    combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
+                    combatDialogue[0].color = new Color(1, 1, 1, 1);
+                }
+            }
         }
         else
         {
-            float damage = bossScript.stats.strenght + 10;
-            StartCoroutine(BasicAtackWaiter(damage));
-            AddCombatText();
-            combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
-            combatDialogue[0].color = new Color(1, 1, 1, 1);
+            bossAnimator.Play("Attack");
+            if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Attack Blocked";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+                StartCoroutine(PlayerBlocked());
+            }
+            else
+            {
+                float damage = bossScript.stats.strenght + 10;
+                StartCoroutine(BasicAtackWaiter(damage));
+                AddCombatText();
+                combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
         }
     }
 
@@ -2375,23 +2477,54 @@ public class FightController2 : MonoBehaviour
     void AttackPlus()
     {
         HideActions();
-        bossAnimator.SetTrigger("Attack+");
-
-        if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
+        if (bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[1].name2 == StateType2.PARALISIS || bossStates2[2].name2 == StateType2.PARALISIS)
         {
-            AddCombatText();
-            combatDialogue[0].text = "Attack Blocked";
-            combatDialogue[0].color = new Color(1, 1, 1, 1);
-            StartCoroutine(PlayerBlocked());
+            if (Random.value > 0.25)
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Boss failed basic attack+ to paralisis.";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
+            else
+            {
+                bossAnimator.SetTrigger("Attack+");
+                if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
+                {
+                    AddCombatText();
+                    combatDialogue[0].text = "Attack Blocked";
+                    combatDialogue[0].color = new Color(1, 1, 1, 1);
+                    StartCoroutine(PlayerBlocked());
+                }
+                else
+                {
+                    float damage = bossScript.stats.strenght + 25;
+                    StartCoroutine(AttackPlusWaiter(damage));
+                    AddCombatText();
+                    combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
+                    combatDialogue[0].color = new Color(1, 1, 1, 1);
+                }
+            }
         }
         else
         {
-            float damage = bossScript.stats.strenght + 25;
-            StartCoroutine(AttackPlusWaiter(damage));
-            AddCombatText();
-            combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
-            combatDialogue[0].color = new Color(1, 1, 1, 1);
+            bossAnimator.SetTrigger("Attack+");
+            if (playerScript.blockChance >= Random.Range(0, 99))//Blocked attack
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Attack Blocked";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+                StartCoroutine(PlayerBlocked());
+            }
+            else
+            {
+                float damage = bossScript.stats.strenght + 25;
+                StartCoroutine(AttackPlusWaiter(damage));
+                AddCombatText();
+                combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
         }
+
     }
 
     IEnumerator AttackPlusWaiter(float d)
@@ -2472,14 +2605,33 @@ public class FightController2 : MonoBehaviour
     void EffectAttack()
     {
         HideActions();
-        bossAnimator.Play("EffectAttack");
-
-        float dmg = bossScript.stats.strenght;
-        StartCoroutine(EffectAttackWaiter(dmg));
-        AddCombatText();
-        combatDialogue[0].text = "Boss dealt " + dmg.ToString() + " damage.";
-        combatDialogue[0].color = new Color(1, 1, 1, 1);
-        //HideActions();
+        if (bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[1].name2 == StateType2.PARALISIS || bossStates2[2].name2 == StateType2.PARALISIS)
+        {
+            if (Random.value > 0.25)
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Boss failed effect attack to paralisis.";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
+            else
+            {
+                bossAnimator.Play("EffectAttack");
+                float dmg = bossScript.stats.strenght;
+                StartCoroutine(EffectAttackWaiter(dmg));
+                AddCombatText();
+                combatDialogue[0].text = "Boss dealt " + dmg.ToString() + " damage.";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
+        }
+        else
+        {
+            bossAnimator.Play("EffectAttack");
+            float dmg = bossScript.stats.strenght;
+            StartCoroutine(EffectAttackWaiter(dmg));
+            AddCombatText();
+            combatDialogue[0].text = "Boss dealt " + dmg.ToString() + " damage.";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+        }
     }
 
     IEnumerator EffectAttackWaiter(float d)
@@ -2734,12 +2886,35 @@ public class FightController2 : MonoBehaviour
 
     void SpecialAttack()
     {
-        bossAnimator.Play("Special");
-        float dmg = bossScript.stats.strenght * 4;
-        if (bossScript.stats.charge == true)
+        HideActions();
+        if (bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[1].name2 == StateType2.PARALISIS || bossStates2[2].name2 == StateType2.PARALISIS)
         {
-            StartCoroutine(SpecialAttackWaiter(dmg));
+            if (Random.value > 0.25)
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Boss failed special attack to paralisis.";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
+            else
+            {
+                bossAnimator.Play("Special");
+                float dmg = bossScript.stats.strenght * 4;
+                if (bossScript.stats.charge == true)
+                {
+                    StartCoroutine(SpecialAttackWaiter(dmg));
+                }
+            }
         }
+        else
+        {
+            bossAnimator.Play("Special");
+            float dmg = bossScript.stats.strenght * 4;
+            if (bossScript.stats.charge == true)
+            {
+                StartCoroutine(SpecialAttackWaiter(dmg));
+            }
+        }
+
     }
 
     IEnumerator SpecialAttackWaiter(float d)
@@ -2805,13 +2980,33 @@ public class FightController2 : MonoBehaviour
     void GuardBoss()
     {
         HideActions();
-        bossAnimator.Play("Guard");
-
-        float armor = bossScript.armor + 50;
-        StartCoroutine(GuardBossWaiter(armor));
-        AddCombatText();
-        combatDialogue[0].text = "Boss has " + armor.ToString() + " armor now.";
-        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        if (bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[1].name2 == StateType2.PARALISIS || bossStates2[2].name2 == StateType2.PARALISIS)
+        {
+            if (Random.value > 0.25)
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Boss failed guard to paralisis.";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
+            else
+            {
+                bossAnimator.Play("Guard");
+                float armor = bossScript.armor + 50;
+                StartCoroutine(GuardBossWaiter(armor));
+                AddCombatText();
+                combatDialogue[0].text = "Boss has " + armor.ToString() + " armor now.";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
+        }
+        else
+        {
+            bossAnimator.Play("Guard");
+            float armor = bossScript.armor + 50;
+            StartCoroutine(GuardBossWaiter(armor));
+            AddCombatText();
+            combatDialogue[0].text = "Boss has " + armor.ToString() + " armor now.";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+        }
     }
 
     IEnumerator GuardBossWaiter(float h)
@@ -2837,13 +3032,45 @@ public class FightController2 : MonoBehaviour
     void Heal()
     {
         HideActions();
-        bossAnimator.Play("Heal");
-
-        float heal = bossScript.stats.vigor * 2.5f;
-        StartCoroutine(HealWaiter(heal));
-        AddCombatText();
-        combatDialogue[0].text = "Boss healed for " + heal.ToString() + " HP";
-        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        if (bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[1].name2 == StateType2.PARALISIS || bossStates2[2].name2 == StateType2.PARALISIS)
+        {
+            if (Random.value > 0.25)
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Boss failed heal to paralisis.";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
+            else if (bossStates2[0].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.NUMB || bossStates2[2].name2 == StateType2.NUMB)
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Boss failed heal because he is numb";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
+            else
+            {
+                bossAnimator.Play("Heal");
+                float heal = bossScript.stats.vigor * 2.5f;
+                StartCoroutine(HealWaiter(heal));
+                AddCombatText();
+                combatDialogue[0].text = "Boss healed for " + heal.ToString() + " HP";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
+        }
+        else if (bossStates2[0].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.NUMB || bossStates2[2].name2 == StateType2.NUMB)
+        {
+            AddCombatText();
+            combatDialogue[0].text = "Boss failed heal because he is numb";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+        }
+        else
+        {
+            bossAnimator.Play("Heal");
+            float heal = bossScript.stats.vigor * 2.5f;
+            StartCoroutine(HealWaiter(heal));
+            AddCombatText();
+            combatDialogue[0].text = "Boss healed for " + heal.ToString() + " HP";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+        }
     }
 
     IEnumerator HealWaiter(float h)
@@ -2867,10 +3094,39 @@ public class FightController2 : MonoBehaviour
     void HealPlus()
     {
         HideActions();
-        bossAnimator.Play("Heal+");
-
-        float heal = bossScript.stats.vigor * 3.5f;
-        StartCoroutine(HealPlusWaiter(heal));
+        if (bossStates2[0].name2 == StateType2.PARALISIS || bossStates2[1].name2 == StateType2.PARALISIS || bossStates2[2].name2 == StateType2.PARALISIS)
+        {
+            if (Random.value > 0.25)
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Boss failed heal+ to paralisis.";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
+            else if (bossStates2[0].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.NUMB || bossStates2[2].name2 == StateType2.NUMB)
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Boss failed heal+ because he is numb";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+            }
+            else
+            {
+                bossAnimator.Play("Heal+");
+                float heal = bossScript.stats.vigor * 3.5f;
+                StartCoroutine(HealPlusWaiter(heal));
+            }
+        }
+        else if (bossStates2[0].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.NUMB || bossStates2[2].name2 == StateType2.NUMB)
+        {
+            AddCombatText();
+            combatDialogue[0].text = "Boss failed heal+ because he is numb";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+        }
+        else
+        {
+            bossAnimator.Play("Heal+");
+            float heal = bossScript.stats.vigor * 3.5f;
+            StartCoroutine(HealPlusWaiter(heal));
+        }
     }
 
     IEnumerator HealPlusWaiter(float h)
