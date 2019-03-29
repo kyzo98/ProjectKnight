@@ -78,7 +78,7 @@ public class FightController : MonoBehaviour
     private int nAttack2;
     private int nAttack3;
     private int EffectTurnCounter = 0;
-    private int griefLifePerTurn = 16;
+    private float griefLifeDivider = 1;
     //Velocidad de movimiento del player cada vez que se acerca al boss para atacar
     float speed = 10.0f;
 
@@ -299,6 +299,16 @@ public class FightController : MonoBehaviour
             {
                 if (bossEndedMove)
                 {
+                    //When the player is grief he loses some life.
+                    if (states[0].name == StateType.GRIEF || states[1].name == StateType.GRIEF || states[2].name == StateType.GRIEF)
+                    {
+                        float damage = playerScript.maxHealth * (griefLifeDivider / 16);
+                        AddCombatText();
+                        combatDialogue[0].text = "Player lost " + damage.ToString() + "due to Grief";
+                        combatDialogue[0].color = new Color(1, 1, 1, 1);
+                        StartCoroutine(GriefLifePlayer(damage));
+                        griefLifeDivider += 1;
+                    }
                     //Player's turn
                     if (playerScript.moves == 3 && playerScript.armor > 0)//si tenia armadura equipada se retira ya que solo dura 1 turno
                     {
@@ -334,6 +344,10 @@ public class FightController : MonoBehaviour
                         states[0].turnsLeft -= 1;
                         if (states[0].turnsLeft == 0)
                         {
+                            if (states[2].name == StateType.GRIEF)
+                            {
+                                griefLifeDivider = 1;
+                            }
                             states[0].name = StateType.NULL;
                         }
                     }
@@ -343,6 +357,10 @@ public class FightController : MonoBehaviour
                         states[1].turnsLeft -= 1;
                         if (states[1].turnsLeft == 0)
                         {
+                            if (states[2].name == StateType.GRIEF)
+                            {
+                                griefLifeDivider = 1;
+                            }
                             states[1].name = StateType.NULL;
                         }
                     }
@@ -352,6 +370,10 @@ public class FightController : MonoBehaviour
                         states[2].turnsLeft -= 1;
                         if (states[2].turnsLeft == 0)
                         {
+                            if (states[2].name == StateType.GRIEF)
+                            {
+                                griefLifeDivider = 1;
+                            }
                             states[2].name = StateType.NULL;
                         }
                     }
@@ -362,6 +384,10 @@ public class FightController : MonoBehaviour
                         bossStates[0].turnsLeft -= 1;
                         if (bossStates[0].turnsLeft == 0)
                         {
+                            if (bossStates[2].name == StateType.GRIEF)
+                            {
+                                griefLifeDivider = 1;
+                            }
                             bossStates[0].name = StateType.NULL;
                         }
                     }
@@ -371,6 +397,10 @@ public class FightController : MonoBehaviour
                         bossStates[1].turnsLeft -= 1;
                         if (bossStates[1].turnsLeft == 0)
                         {
+                            if (bossStates[2].name == StateType.GRIEF)
+                            {
+                                griefLifeDivider = 1;
+                            }
                             bossStates[1].name = StateType.NULL;
                         }
                     }
@@ -380,17 +410,14 @@ public class FightController : MonoBehaviour
                         bossStates[2].turnsLeft -= 1;
                         if (bossStates[2].turnsLeft == 0)
                         {
+                            if (bossStates[2].name == StateType.GRIEF)
+                            {
+                                griefLifeDivider = 1;
+                            }
                             bossStates[2].name = StateType.NULL;
                         }
                     }
 
-                    //When the player is grief he loses some life.
-                    if (states[0].name == StateType.GRIEF || states[1].name == StateType.GRIEF || states[2].name == StateType.GRIEF)
-                    {
-                        playerScript.health -= playerScript.maxHealth / griefLifePerTurn;
-                        RefreshUI();
-                        griefLifePerTurn *= 2;
-                    }
                     //Boss's turn
 
                     if (bossScript.health >= 700)
@@ -398,15 +425,12 @@ public class FightController : MonoBehaviour
                         //When the boss is numb he losses some life
                         if (bossStates[0].name == StateType.GRIEF || bossStates[1].name == StateType.GRIEF || bossStates[2].name == StateType.GRIEF)
                         {
-                            if (bossStates[0].name == StateType.GRIEF || bossStates[1].name == StateType.GRIEF || bossStates[2].name == StateType.GRIEF)
-                            {
-                                bossScript.health -= bossScript.maxHealth / griefLifePerTurn;
-                                RefreshUI();
-                                griefLifePerTurn *= 2;
-                            }
-                            bossScript.health -= bossScript.maxHealth / griefLifePerTurn;
-                            RefreshUI();
-                            griefLifePerTurn *= 2;
+                            float damage = bossScript.maxHealth * (griefLifeDivider / 16);
+                            AddCombatText();
+                            combatDialogue[0].text = "Boss lost " + damage.ToString() + " due to Grief";
+                            combatDialogue[0].color = new Color(1, 1, 1, 1);
+                            StartCoroutine(GriefLifeBoss(damage));
+                            griefLifeDivider += 1;
                         }
                         nAttack++;
                         Debug.Log(nAttack);
@@ -515,9 +539,12 @@ public class FightController : MonoBehaviour
                         //When the boss is numb he losses some life
                         if (bossStates[0].name == StateType.GRIEF || bossStates[1].name == StateType.GRIEF || bossStates[2].name == StateType.GRIEF)
                         {
-                            bossScript.health -= bossScript.maxHealth / griefLifePerTurn;
-                            RefreshUI();
-                            griefLifePerTurn *= 2;
+                            float damage = bossScript.maxHealth * (griefLifeDivider / 16);
+                            AddCombatText();
+                            combatDialogue[0].text = "Boss lost " + damage.ToString() + " due to Grief";
+                            combatDialogue[0].color = new Color(1, 1, 1, 1);
+                            StartCoroutine(GriefLifeBoss(damage));
+                            griefLifeDivider += 1;
                         }
                         nAttack2++;
                         Debug.Log(nAttack2);
@@ -626,6 +653,15 @@ public class FightController : MonoBehaviour
                     else if (bossScript.health >= 0 && bossScript.health <= 250)
                     {
                         //When the boss is numb he losses some life
+                        if (bossStates[0].name == StateType.GRIEF || bossStates[1].name == StateType.GRIEF || bossStates[2].name == StateType.GRIEF)
+                        {
+                            float damage = bossScript.maxHealth * (griefLifeDivider / 16);
+                            AddCombatText();
+                            combatDialogue[0].text = "Boss lost " + damage.ToString() + " due to Grief";
+                            combatDialogue[0].color = new Color(1, 1, 1, 1);
+                            StartCoroutine(GriefLifeBoss(damage));
+                            griefLifeDivider += 2;
+                        }
                         nAttack3++;
                         Debug.Log(nAttack3);
                         switch (nAttack3)
@@ -1341,7 +1377,7 @@ public class FightController : MonoBehaviour
                 playerScript.energy -= 3;
                 playerScript.moves--;
 
-                int healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
+                float healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
                 if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                 StartCoroutine(BasicHealWaiter(healing));
 
@@ -1357,7 +1393,7 @@ public class FightController : MonoBehaviour
 
                 if (Random.value > 0.8)
                 {
-                    int healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
+                    float healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
                     if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                     StartCoroutine(BasicHealWaiter(healing));
 
@@ -1387,7 +1423,7 @@ public class FightController : MonoBehaviour
 
                 if (Random.value > 0.6)
                 {
-                    int healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
+                    float healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
                     if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                     StartCoroutine(BasicHealWaiter(healing));
 
@@ -1420,7 +1456,7 @@ public class FightController : MonoBehaviour
                         playerScript.energy -= 3;
                         playerScript.moves--;
 
-                        int healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
+                        float healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
                         if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                         StartCoroutine(BasicHealWaiter(healing));
 
@@ -1436,7 +1472,7 @@ public class FightController : MonoBehaviour
 
                         if (Random.value > 0.8)
                         {
-                            int healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
+                            float healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
                             if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                             StartCoroutine(BasicHealWaiter(healing));
 
@@ -1466,7 +1502,7 @@ public class FightController : MonoBehaviour
 
                         if (Random.value > 0.6)
                         {
-                            int healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
+                            float healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
                             if (playerScript.health + healing > playerScript.maxHealth) healing -= playerScript.health + healing - playerScript.maxHealth; //exceso de curación
                             StartCoroutine(BasicHealWaiter(healing));
 
@@ -1504,7 +1540,7 @@ public class FightController : MonoBehaviour
         }
     }
 
-    IEnumerator BasicHealWaiter(int d)
+    IEnumerator BasicHealWaiter(float d)
     {
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
@@ -1522,7 +1558,7 @@ public class FightController : MonoBehaviour
         if (playerScript.moves > 0 && playerScript.energy > 2)
             ShowActions();
         RefreshUI();
-        for (int i = d; i > 0; i--)
+        for (float i = d; i > 0; i--)
         {
             playerScript.health++;
             RefreshUI();
@@ -2164,7 +2200,7 @@ public class FightController : MonoBehaviour
         //yield return new WaitForSecondsRealtime(3);
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
 
-        if(Random.value > 0.4)
+        if(Random.value > 0.20)
         {
             AddCombatText();
             combatDialogue[0].text = "The enemy is now griefed.";
@@ -3230,49 +3266,34 @@ public class FightController : MonoBehaviour
         gamePaused = false;
     }
 
-    //Corutina de espera
-    //IEnumerator Waiter()
-    //{
-    //    frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-    //    yield return new WaitForSecondsRealtime(3);
-    //    bossAnimator.ResetTrigger("HealAnimation");
-    //    bossAnimator.ResetTrigger("");
-    //    bossAnimator.ResetTrigger("");
-    //    bossAnimator.SetTrigger("");
-    //    frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-    //    ShowActions();
-    //    RefreshUI();
-    //}
+    IEnumerator GriefLifePlayer(float damage)
+    {
+        bossEndedMove = false;
+        playerAnimator.Play("HitReaction");
+        for(int i = 0; i < damage; i++)
+        {
+            playerScript.health--;
+            RefreshUI();
+            yield return 0;
+            yield return new WaitForSeconds(2);
+        }
+        yield return new WaitForSecondsRealtime(2);
+    }
 
-    //IEnumerator BossHealthBarAnimation(int d, bool isHeal)
-    //{
-    //    if (!isHeal)
-    //        yield return new WaitForSecondsRealtime(3);
-    //    for (int i = d; i > 0; i--)
-    //    {
-    //        if(isHeal)
-    //            bossScript.health++;
-    //        else
-    //            bossScript.health--;
-    //        RefreshUI();
-    //        yield return 0;
-    //        yield return new WaitForSeconds(0);
-    //    }
-    //}
-
-    //IEnumerator PlayerHealthBarAnimation(int d, bool isHeal)
-    //{
-    //    if(!isHeal)
-    //        yield return new WaitForSecondsRealtime(3);
-    //    for (int i = d; i > 0; i--)
-    //    {
-    //        if (isHeal)
-    //            playerScript.health++;
-    //        else
-    //            playerScript.health--;
-    //        RefreshUI();
-    //        yield return 0;
-    //        yield return new WaitForSeconds(0);
-    //    }
-    //}
+    IEnumerator GriefLifeBoss(float damage)
+    {
+        AddCombatText();
+        combatDialogue[0].text = "Started coroutine";
+        combatDialogue[0].color = new Color(1, 1, 1, 1);
+        bossEndedMove = false;
+        bossAnimator.Play("Damage");
+        for(int i = 0; i < damage; i++)
+        {
+            bossScript.health--;
+            RefreshUI();
+            yield return 0;
+            yield return new WaitForSeconds(0);
+        }
+        yield return new WaitForSecondsRealtime(2);
+    }
 }

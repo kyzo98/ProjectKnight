@@ -19,8 +19,8 @@ public class Player : MonoBehaviour {
     public Stats stats;
 
     //Recursos
-    public int maxHealth;
-    public int health;
+    public float maxHealth;
+    public float health;
     public int armor;
     public float coins = 700;
     public int maxEnergy;

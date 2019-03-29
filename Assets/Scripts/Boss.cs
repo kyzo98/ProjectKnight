@@ -19,8 +19,8 @@ public class Boss : MonoBehaviour {
     public BossStats stats;
 
     //Recursos
-    public int maxHealth;
-    public int health;
+    public float maxHealth;
+    public float health;
     public int armor;
 
     // Use this for initialization
