@@ -417,10 +417,36 @@ MonoBehaviour:
   - "You did it\u2026"
   - "Just remember you are not alone and everyone is worthy, \nyou just need to treat
     yourself more kindly "
-  - "The more each of us can accept that we are human and, like all humans, \nwe struggle,
-    the more self-compassion and strength we can cultivate "
   - "But\u2026 Beware\u2026 "
   - "The battle isn\u2019t over. "
+  IntroBoss2:
+  - "Life can sometimes be overwhelming, can\u2019t it?\r\n"
+  - "Do you fear losing what makes you unique?\r\n"
+  - "Do you feel trapped?\r\n"
+  - "Don\u2019t suffocate...\r\n"
+  OutroBoss2:
+  - "Try to create a life that allows you to be free\r\n\n"
+  - "Express yourself freely and openly\u2026\r\n"
+  - "...and freedom won\u2019t be hard to come by\u2026\r\n"
+  - "Just carry on\u2026\r\n"
+  IntroBoss3:
+  - "Does failing terrify you?\r\n"
+  - "Does it paralyze you?\r\n"
+  - "Go ahead\u2026\r\n"
+  - "Face it head on...\r\n"
+  OutroBoss3:
+  - "Whenever you fail, just search what you can learn from it\u2026\r\n"
+  - "If you don\u2019t try something because you\u2019re afraid, \r\n"
+  - "you will never know if you can succeed...\r\n"
+  - "Failures stop us only if we let them\r\n"
+  IntroBoss4:
+  - "It is scary out there\u2026\r\n"
+  - "And it is scary in here\u2026\r\n"
+  - "don\u2019t give up now\u2026\r\n"
+  OutroBoss4:
+  - "You made it\u2026\r\n"
+  - "I hope you\u2019re finally at peace\r\n"
+  - "Take care of yourself...\r\n"
   Narrative: {fileID: 379880588}
 --- !u!4 &879968730
 Transform:

@@ -11,7 +11,22 @@ public class Narrator : MonoBehaviour {
     public string[] IntroBoss1;
     [TextArea(3, 10)]
     public string[] OutroBoss1;
-    
+    [TextArea(3, 10)]
+    public string[] IntroBoss2;
+    [TextArea(3, 10)]
+    public string[] OutroBoss2;
+    [TextArea(3, 10)]
+    public string[] IntroBoss3;
+    [TextArea(3, 10)]
+    public string[] OutroBoss3;
+    [TextArea(3, 10)]
+    public string[] IntroBoss4;
+    [TextArea(3, 10)]
+    public string[] OutroBoss4;
+
+
+
+
     public Text Narrative;
     int NarrativeScreenOrder; 
     byte alpha;
@@ -34,7 +49,7 @@ public class Narrator : MonoBehaviour {
         jumpScene = Input.GetKeyDown(KeyCode.Space);
         switch (NarrativeScreenOrder)
         {
-            case 0:
+            case 0:                                                                            //Intro to game narrative, 4 texts
                 if (SentenceFinished && SentenceCounter < 5)
                 {
                     StartCoroutine(ShowSentence(IntroGame[SentenceCounter], 4));
@@ -48,7 +63,7 @@ public class Narrator : MonoBehaviour {
                 }
                 break;
             case 1:
-                if (SentenceFinished && SentenceCounter < 5)
+                if (SentenceFinished && SentenceCounter < 5)                                       //Intro to Fight 1, 4 texts
                 {
                     StartCoroutine(ShowSentence(IntroBoss1[SentenceCounter], 4));
                     SentenceCounter++;
@@ -60,31 +75,97 @@ public class Narrator : MonoBehaviour {
                     SceneManager.LoadScene("Fight", LoadSceneMode.Single);
                 }
                 break;
-            case 2:
+            case 2:                                                                               //Outro to Fight 1, 4 texts
                 if (SentenceFinished && SentenceCounter < 5)
                 {
-                    StartCoroutine(ShowSentence(OutroBoss1[SentenceCounter], 5));
+                    StartCoroutine(ShowSentence(OutroBoss1[SentenceCounter], 4));
                     SentenceCounter++;
                 }
                 else if ((SentenceFinished && SentenceCounter == 5) || jumpScene)
                 {
                     NarrativeScreenOrder++;
                     PlayerPrefs.SetInt("NarrativeScreenOrder", 0);  // Resetj
-                    SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+                    SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
                 }
 
                 break;
-            case 3:
+            case 3:                                                                              //Intro to Fight 2, 4 texts
+                if (SentenceFinished && SentenceCounter < 5)
+                {
+                    StartCoroutine(ShowSentence(IntroBoss2[SentenceCounter], 4));
+                    SentenceCounter++;
+                }
+                else if ((SentenceFinished && SentenceCounter == 5) || jumpScene)
+                {
+                    NarrativeScreenOrder++;
+                    PlayerPrefs.SetInt("NarrativeScreenOrder", NarrativeScreenOrder);
+                    SceneManager.LoadScene("Fight2", LoadSceneMode.Single);
+                }
                 break;
-            case 4:
+            case 4:                                                                            //Outro  Fight 2, 4 texts
+                if (SentenceFinished && SentenceCounter < 5)
+                {
+                    StartCoroutine(ShowSentence(OutroBoss2[SentenceCounter], 4));
+                    SentenceCounter++;
+                }
+                else if ((SentenceFinished && SentenceCounter == 5) || jumpScene)
+                {
+                    NarrativeScreenOrder++;
+                    PlayerPrefs.SetInt("NarrativeScreenOrder", 0);  // Resetj
+                    SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+                }
                 break;
-            case 5:
+            case 5:                                                                       //Intro to Fight 3, 4 texts
+                if (SentenceFinished && SentenceCounter < 5)
+                {
+                    StartCoroutine(ShowSentence(IntroBoss3[SentenceCounter], 4));
+                    SentenceCounter++;
+                }
+                else if ((SentenceFinished && SentenceCounter == 5) || jumpScene)
+                {
+                    NarrativeScreenOrder++;
+                    PlayerPrefs.SetInt("NarrativeScreenOrder", NarrativeScreenOrder);
+                    SceneManager.LoadScene("Fight3", LoadSceneMode.Single);
+                }
                 break;
-            case 6:
+            case 6:                                                                        //Outro Fight 3, 3 texts
+                if (SentenceFinished && SentenceCounter < 5)
+                {
+                    StartCoroutine(ShowSentence(OutroBoss3[SentenceCounter], 3));
+                    SentenceCounter++;
+                }
+                else if ((SentenceFinished && SentenceCounter == 5) || jumpScene)
+                {
+                    NarrativeScreenOrder++;
+                    PlayerPrefs.SetInt("NarrativeScreenOrder", 0);  // Resetj
+                    SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+                }
                 break;
-            case 7:
+            case 7:                                                                        //Intro to Fight 4, 3 texts
+                if (SentenceFinished && SentenceCounter < 5)
+                {
+                    StartCoroutine(ShowSentence(IntroBoss4[SentenceCounter], 3));
+                    SentenceCounter++;
+                }
+                else if ((SentenceFinished && SentenceCounter == 5) || jumpScene)
+                {
+                    NarrativeScreenOrder++;
+                    PlayerPrefs.SetInt("NarrativeScreenOrder", NarrativeScreenOrder);
+                    SceneManager.LoadScene("Fight4", LoadSceneMode.Single);
+                }
                 break;
-            case 8:
+            case 8:                                                                    //Outro Fight 4, 3 texts
+                if (SentenceFinished && SentenceCounter < 5)
+                {
+                    StartCoroutine(ShowSentence(OutroBoss4[SentenceCounter], 3));
+                    SentenceCounter++;
+                }
+                else if ((SentenceFinished && SentenceCounter == 5) || jumpScene)
+                {
+                    NarrativeScreenOrder++;
+                    PlayerPrefs.SetInt("NarrativeScreenOrder", 0);  // Resetj
+                    SceneManager.LoadScene("EndScene", LoadSceneMode.Single);
+                }
                 break;
             case 9:
                 break;
