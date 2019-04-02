@@ -140,7 +140,7 @@ ModelImporter:
     2100000: LiamMat
     4300000: LiamMesh
     7400000: Take 001
-    7400002: mixamo.com
+    7400002: Liam_Ilde
     9500000: //RootNode
     13700000: LiamMesh
   externalObjects: {}
@@ -172,7 +172,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: Liam_Ilde
       takeName: mixamo.com
       firstFrame: 0
       lastFrame: 110

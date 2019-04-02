@@ -155,11 +155,14 @@ public class FightController : MonoBehaviour
     public GameObject focusParticle;
     public GameObject willParticle;
 
-    //CAMERAS
+    //CAMERAS PARA LAS CINEMATICAS SON TODAS DEL CINEMACHINE; LA VCAM1 ES LA CAMARA POR DEFECTO
+    public GameObject CM_vcam1;
+    public GameObject CM_vcam2;
+
+    //PARTICULAS CINEMATICA INICIAL
     public Camera mainCamera;
-    //public Camera frontalPlayerCamera;
-    //public Camera frontalBossCamera;
-    //public Camera heavyAttackCam;
+    public GameObject teleportAura;
+    public GameObject teleportOrb;
 
     private bool endedMove = true;
     private bool bossEndedMove = true;
@@ -187,6 +190,8 @@ public class FightController : MonoBehaviour
 
     void Start()
     {
+        HideActions();
+
         //GETTING QUANTITY OF ORBS
         orbs.vitality = PlayerPrefs.GetInt("VITALITY_ORB");
         orbs.strenght = PlayerPrefs.GetInt("STRENGHT_ORB");
@@ -269,10 +274,21 @@ public class FightController : MonoBehaviour
         bossStates[2].name = StateType.NULL;
         bossStates[2].turnsLeft = 0;
 
-        ShowActions();
         RefreshUI();
 
         audioSource = this.GetComponent<AudioSource>();
+
+        //CONTROL DE LA CINEMATICA INICIAL
+        CM_vcam1.SetActive(true);
+        CM_vcam2.SetActive(false);
+        player.SetActive(false);
+        teleportAura.SetActive(false);
+        teleportOrb.SetActive(false);
+
+        StartCoroutine(AuraWaiterCinem());
+        StartCoroutine(OrbWaiterCinem());
+        StartCoroutine(PlayerWaiterCinem());
+        StartCoroutine(BossWaiterCinem());
     }
 
     void Update()
@@ -3295,5 +3311,41 @@ public class FightController : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         yield return new WaitForSecondsRealtime(2);
+    }
+
+    //CORUTINAS PARA CONTROLAR LAS CINEMATICAS
+    IEnumerator AuraWaiterCinem()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        teleportAura.SetActive(true);
+        yield return new WaitForSecondsRealtime(8.3f);
+        teleportAura.SetActive(false);
+    }
+
+    IEnumerator OrbWaiterCinem()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        teleportOrb.SetActive(true);
+        yield return new WaitForSecondsRealtime(8.5f);
+        teleportOrb.SetActive(false);
+    }
+
+    IEnumerator PlayerWaiterCinem()
+    {
+        yield return new WaitForSecondsRealtime(7);
+        player.SetActive(true);
+    }
+
+    IEnumerator BossWaiterCinem()
+    {
+        yield return new WaitForSecondsRealtime(10f);
+        CM_vcam1.SetActive(false);
+        CM_vcam2.SetActive(true);
+        yield return new WaitForSecondsRealtime(2);
+        bossAnimator.SetTrigger("Roar");
+        yield return new WaitForSecondsRealtime(2.5f);
+        CM_vcam1.SetActive(true);
+        CM_vcam2.SetActive(false);
+        ShowActions();
     }
 }
