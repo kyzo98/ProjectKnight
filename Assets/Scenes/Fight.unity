@@ -22856,7 +22856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 250
-  health: 200
+  health: 250
   armor: 0
   coins: 700
   maxEnergy: 10

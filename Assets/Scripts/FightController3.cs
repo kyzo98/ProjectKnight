@@ -79,10 +79,7 @@ public class FightController3 : MonoBehaviour
     float speed = 10.0f;
 
     //GAMEOBJECTS
-    //public GameObject armorEffect;
-    //public GameObject healEffect;
     public GameObject armorEffect;
-    public GameObject magicSpell;
     public GameObject pauseMenu;
     public GameObject exitGameMenu;
     public GameObject backMenuMenu;
