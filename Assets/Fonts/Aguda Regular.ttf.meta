@@ -1,23 +1,25 @@
 fileFormatVersion: 2
 guid: 074cd5bacb6865a448d4a304f848f01d
-timeCreated: 1538839484
-licenseType: Free
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
-  fontSize: 16
-  forceTextureCase: -2
+  fontSize: 160
+  forceTextureCase: -1
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
   fontName: Aguda
   fontNames:
   - Aguda
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0b915c6241ec41a48a142e531bfcec6d, type: 3}
+  - {fileID: 12800000, guid: 546304f773e9088408b74f26673d8f19, type: 3}
+  - {fileID: 12800000, guid: bf04796f1d6637f438a10ae6eeb1edef, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 

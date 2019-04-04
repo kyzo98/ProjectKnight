@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour {
     public Animator anim;                                                      // It saves the animator.
 
     public GameObject pauseMenu;
+    public GameObject characterMenu;
+    public GameObject inventoryMenu;
+    public GameObject menusMenu;
 
     void Start () {
         anim = GetComponent<Animator>();                                // Gets the animator from the actual character.
@@ -46,6 +49,53 @@ public class PlayerController : MonoBehaviour {
                 Time.timeScale = 0;
             else
                 Time.timeScale = 1;
+        }
+
+        if (Input.GetKeyDown("c"))
+        {
+            if (!menusMenu.activeSelf)
+            {
+                inventoryMenu.SetActive(false);
+                menusMenu.SetActive(true);
+                characterMenu.SetActive(true);
+            }
+            else
+            {
+                if (characterMenu.activeSelf)
+                {
+                    inventoryMenu.SetActive(false);
+                    menusMenu.SetActive(false);
+                    characterMenu.SetActive(false);
+                }
+                else
+                {
+                    inventoryMenu.SetActive(false);
+                    characterMenu.SetActive(true);
+                }
+            }
+        }
+        if (Input.GetKeyDown("i"))
+        {
+            if (!menusMenu.activeSelf)
+            {
+                characterMenu.SetActive(false);
+                menusMenu.SetActive(true);
+                inventoryMenu.SetActive(true);
+            }
+            else
+            {
+                if (inventoryMenu.activeSelf)
+                {
+                    characterMenu.SetActive(false);
+                    menusMenu.SetActive(false);
+                    inventoryMenu.SetActive(false);
+                }
+                else
+                {
+                    characterMenu.SetActive(false);
+                    inventoryMenu.SetActive(true);
+                }
+            }
         }
 
         float xMove = Input.GetAxis("Horizontal") * X_MOVEMENT;                         // Gets the input of the vertical axis and applies speed 

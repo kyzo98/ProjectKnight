@@ -8,6 +8,7 @@ ModelImporter:
     400000: Cylinder001
     400002: //RootNode
     2100000: wire_086086086
+    2100002: Cylinder001Mat
     2300000: Cylinder001
     3300000: Cylinder001
     4300000: Cylinder001
@@ -25,7 +26,8 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'Hips' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
