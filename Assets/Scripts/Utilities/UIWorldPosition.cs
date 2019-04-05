@@ -9,7 +9,7 @@ public class UIWorldPosition : MonoBehaviour {
     private Vector3 realPosition;                                               // Variable that saves the real position in the world where the UI element will be displayed
 
     void Start() {
-        realPosition = target.position + new Vector3(0, 1.1f, 0);               // Calculates the real position
+        realPosition = target.position + new Vector3(0, 1.9f, 0);               // Calculates the real position
     }
 
     void Update() {
