@@ -1949,6 +1949,7 @@ public class FightController : MonoBehaviour
         audioSource.clip = guardAudio;
         audioSource.Play();
         endedMove = false;
+        playerAnimator.Play("Guard");
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         playerScript.blockChance += 5;
         if (playerScript.moves > 0 && playerScript.energy > 2)

@@ -21,13 +21,13 @@ public class PlayerController : MonoBehaviour {
     public GameObject menusMenu;
 
     void Start () {
-        anim = GetComponent<Animator>();                                // Gets the animator from the actual character.
+        anim = this.GetComponent<Animator>();                                // Gets the animator from the actual character.
 
-        transform.position = new Vector3(0, 0.48f, 0);                      // Positions in which the character will be spawned
-        transform.eulerAngles = new Vector3(0, 90, 0);                   // Orientation of character spawn
+        transform.position = new Vector3(4.89f, 0.002f, 4.56f);                      // Positions in which the character will be spawned
+        transform.eulerAngles = new Vector3(0, 0, 0);                   // Orientation of character spawn
           
         mainCameraTransform = mainCamera.GetComponent<Transform>();     // Gets the main camera transform information
-        mainCameraTransform.position    = new Vector3(-5, 3, 0);        // Position where the camera is set at start
+        mainCameraTransform.position    = new Vector3(-0.43f, 3f, 4.64f);        // Position where the camera is set at start
         mainCameraTransform.eulerAngles = new Vector3(30, 90, 0);       // Orientation of camera spawn
 
         offset = mainCamera.transform.position - transform.position;    // Measures the distance between the character and the camera
