@@ -48,7 +48,7 @@ public class Inventario : MonoBehaviour {
     void Start()
     {
         //GETTING ACCESS TO PLAYER SCRIPT
-        playerScript = player.GetComponent<Player>();
+        this.GetComponent<Player>();
 
         //SORROWS INITIALIZATION AND SAVE
         sorrows.rage = PlayerPrefs.GetInt("Rage");

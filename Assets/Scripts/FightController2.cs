@@ -151,6 +151,7 @@ public class FightController2 : MonoBehaviour
     public GameObject courageParticle;
     public GameObject focusParticle;
     public GameObject willParticle;
+    public GameObject graceParticle;
 
     //Sounds
     private AudioSource audioSource;
@@ -181,6 +182,16 @@ public class FightController2 : MonoBehaviour
     bool usedBasicSpell1;
     bool usedBasicSpell2;
     bool usedGuard;
+
+    //Cooldowns Sorrows
+    bool griefCooldown;
+    bool rageCooldown;
+    bool terrorCooldown;
+    //Cooldowns Drives
+    bool graceCooldown;
+    bool willCooldown;
+    bool focusCooldown;
+    bool courageCooldown;
 
     void Start()
     {
@@ -796,11 +807,11 @@ public class FightController2 : MonoBehaviour
         //Coste 5
         if (playerScript.energy > 4)
         {
-            if (sorrows.grief > 0) buttonGrief.interactable = true;
+            if (sorrows.grief > 0 && griefCooldown == false) buttonGrief.interactable = true;
             else buttonGrief.interactable = false;
-            if (sorrows.terror > 0) buttonTerror.interactable = true;
+            if (sorrows.terror > 0 && terrorCooldown == false) buttonTerror.interactable = true;
             else buttonTerror.interactable = false;
-            if (sorrows.rage > 0) buttonRage.interactable = true;
+            if (sorrows.rage > 0 && rageCooldown == false) buttonRage.interactable = true;
             else buttonRage.interactable = false;
         }
         else
@@ -817,17 +828,17 @@ public class FightController2 : MonoBehaviour
 
             if (drives.clarity > 0) buttonClarity.interactable = true;
             else buttonClarity.interactable = false;
-            if (drives.courage > 0) buttonCourage.interactable = true;
+            if (drives.courage > 0 && courageCooldown == false) buttonCourage.interactable = true;
             else buttonCourage.interactable = false;
-            if (drives.focus > 0) buttonFocus.interactable = true;
+            if (drives.focus > 0 && focusCooldown == false) buttonFocus.interactable = true;
             else buttonFocus.interactable = false;
-            if (drives.grace > 0) buttonGrace.interactable = true;
+            if (drives.grace > 0 && graceCooldown == false) buttonGrace.interactable = true;
             else buttonGrace.interactable = false;
             if (drives.remembrance > 0) buttonRemembrance.interactable = true;
             else buttonRemembrance.interactable = false;
             if (drives.spiritualHealing > 0) buttonSpiritualHealing.interactable = true;
             else buttonSpiritualHealing.interactable = false;
-            if (drives.will > 0) buttonWill.interactable = true;
+            if (drives.will > 0 && willCooldown == false) buttonWill.interactable = true;
             else buttonWill.interactable = false;
         }
         else
@@ -886,6 +897,13 @@ public class FightController2 : MonoBehaviour
         usedBasicSpell1 = false;
         usedBasicSpell2 = false;
         usedGuard = false;
+        griefCooldown = false;
+        rageCooldown = false;
+        terrorCooldown = false;
+        graceCooldown = false;
+        willCooldown = false;
+        focusCooldown = false;
+        courageCooldown = false;
     }
 
     public void AddCombatText()
@@ -1945,14 +1963,18 @@ public class FightController2 : MonoBehaviour
         HideActions();
         Debug.Log("Used Terror");
 
-        playerScript.moves--;
-        playerScript.energy -= 5;
+        if(terrorCooldown == false)
+        {
+            playerScript.moves--;
+            playerScript.energy -= 5;
 
-        int damage = playerScript.stats.power * playerScript.powerMultiplier;
-        StartCoroutine(TerrorSpellWaiter(damage));
-        AddCombatText();
-        combatDialogue[0].text = "Player used Terror and dealt" + damage.ToString();
-        combatDialogue[0].color = new Color(1, 1, 1, 1);
+            int damage = playerScript.stats.power * playerScript.powerMultiplier;
+            StartCoroutine(TerrorSpellWaiter(damage));
+            AddCombatText();
+            combatDialogue[0].text = "Player used Terror and dealt" + damage.ToString();
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+            terrorCooldown = true;
+        }
     }
 
     IEnumerator TerrorSpellWaiter(int damage)
@@ -2042,14 +2064,18 @@ public class FightController2 : MonoBehaviour
         HideActions();
         Debug.Log("Used Rage");
 
-        playerScript.moves--;
-        playerScript.energy -= 5;
+        if(rageCooldown == false)
+        {
+            playerScript.moves--;
+            playerScript.energy -= 5;
 
-        int damage = (playerScript.stats.power * playerScript.powerMultiplier) * 2;
-        StartCoroutine(RageSpellWaiter(damage));
-        AddCombatText();
-        combatDialogue[0].text = "Player used Rage and dealt" + damage.ToString();
-        combatDialogue[0].color = new Color(1, 1, 1, 1);
+            int damage = (playerScript.stats.power * playerScript.powerMultiplier) * 2;
+            StartCoroutine(RageSpellWaiter(damage));
+            AddCombatText();
+            combatDialogue[0].text = "Player used Rage and dealt" + damage.ToString();
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+            rageCooldown = true;
+        }
     }
 
     IEnumerator RageSpellWaiter(int damage)
@@ -2139,14 +2165,18 @@ public class FightController2 : MonoBehaviour
         HideActions();
         Debug.Log("Used Grief");
 
-        playerScript.moves--;
-        playerScript.energy -= 5;
+        if(griefCooldown == false)
+        {
+            playerScript.moves--;
+            playerScript.energy -= 5;
 
-        int damage = (playerScript.stats.power * playerScript.powerMultiplier) / 2;
-        StartCoroutine(GriefSpellWaiter(damage));
-        AddCombatText();
-        combatDialogue[0].text = "Player used Grief and dealt" + damage.ToString();
-        combatDialogue[0].color = new Color(1, 1, 1, 1);
+            int damage = (playerScript.stats.power * playerScript.powerMultiplier) / 2;
+            StartCoroutine(GriefSpellWaiter(damage));
+            AddCombatText();
+            combatDialogue[0].text = "Player used Grief and dealt" + damage.ToString();
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+            griefCooldown = true;
+        }
     }
 
     IEnumerator GriefSpellWaiter(int damage)
@@ -2235,25 +2265,29 @@ public class FightController2 : MonoBehaviour
     {
         HideActions();
 
-        playerScript.moves--;
-        playerScript.energy -= 4;
+        if(courageCooldown == false)
+        {
+            playerScript.moves--;
+            playerScript.energy -= 4;
 
-        if(state[0].name2 == StateType2.PARALISIS)
-        {
-            state[0].name2 = StateType2.NULL;
-            state[0].turnsLeft2 = 0;
+            if (state[0].name2 == StateType2.PARALISIS)
+            {
+                state[0].name2 = StateType2.NULL;
+                state[0].turnsLeft2 = 0;
+            }
+            else if (state[1].name2 == StateType2.PARALISIS)
+            {
+                state[1].name2 = StateType2.NULL;
+                state[1].turnsLeft2 = 0;
+            }
+            else if (state[2].name2 == StateType2.PARALISIS)
+            {
+                state[2].name2 = StateType2.NULL;
+                state[2].turnsLeft2 = 0;
+            }
+            StartCoroutine(CourageDriveWaiter());
+            courageCooldown = true;
         }
-        else if(state[1].name2 == StateType2.PARALISIS)
-        {
-            state[1].name2 = StateType2.NULL;
-            state[1].turnsLeft2 = 0;
-        }
-        else if(state[2].name2 == StateType2.PARALISIS)
-        {
-            state[2].name2 = StateType2.NULL;
-            state[2].turnsLeft2 = 0;
-        }
-        StartCoroutine(CourageDriveWaiter());
     }
 
     IEnumerator CourageDriveWaiter()
@@ -2283,25 +2317,29 @@ public class FightController2 : MonoBehaviour
     {
         HideActions();
 
-        playerScript.moves--;
-        playerScript.energy -= 4;
+        if(focusCooldown == false)
+        {
+            playerScript.moves--;
+            playerScript.energy -= 4;
 
-        if(state[0].name2 == StateType2.NUMB)
-        {
-            state[0].name2 = StateType2.NULL;
-            state[0].turnsLeft2 = 0;
+            if (state[0].name2 == StateType2.NUMB)
+            {
+                state[0].name2 = StateType2.NULL;
+                state[0].turnsLeft2 = 0;
+            }
+            else if (state[1].name2 == StateType2.NUMB)
+            {
+                state[1].name2 = StateType2.NULL;
+                state[1].turnsLeft2 = 0;
+            }
+            else if (state[2].name2 == StateType2.NUMB)
+            {
+                state[2].name2 = StateType2.NULL;
+                state[2].turnsLeft2 = 0;
+            }
+            StartCoroutine(FocusDriveWaiter());
+            focusCooldown = true;
         }
-        else if(state[1].name2 == StateType2.NUMB)
-        {
-            state[1].name2 = StateType2.NULL;
-            state[1].turnsLeft2 = 0;
-        }
-        else if(state[2].name2 == StateType2.NUMB)
-        {
-            state[2].name2 = StateType2.NULL;
-            state[2].turnsLeft2 = 0;
-        }
-        StartCoroutine(FocusDriveWaiter());
     }
 
     IEnumerator FocusDriveWaiter()
@@ -2331,25 +2369,29 @@ public class FightController2 : MonoBehaviour
     {
         HideActions();
 
-        playerScript.moves--;
-        playerScript.energy -= 4;
+        if(willCooldown == false)
+        {
+            playerScript.moves--;
+            playerScript.energy -= 4;
 
-        if (state[0].name2 == StateType2.GRIEF)
-        {
-            state[0].name2 = StateType2.NULL;
-            state[0].turnsLeft2 = 0;
+            if (state[0].name2 == StateType2.GRIEF)
+            {
+                state[0].name2 = StateType2.NULL;
+                state[0].turnsLeft2 = 0;
+            }
+            else if (state[1].name2 == StateType2.GRIEF)
+            {
+                state[1].name2 = StateType2.NULL;
+                state[1].turnsLeft2 = 0;
+            }
+            else if (state[2].name2 == StateType2.GRIEF)
+            {
+                state[2].name2 = StateType2.NULL;
+                state[2].turnsLeft2 = 0;
+            }
+            StartCoroutine(WillDriveWaiter());
+            willCooldown = true;
         }
-        else if (state[1].name2 == StateType2.GRIEF)
-        {
-            state[1].name2 = StateType2.NULL;
-            state[1].turnsLeft2 = 0;
-        }
-        else if (state[2].name2 == StateType2.GRIEF)
-        {
-            state[2].name2 = StateType2.NULL;
-            state[2].turnsLeft2 = 0;
-        }
-        StartCoroutine(WillDriveWaiter());
     }
 
     IEnumerator WillDriveWaiter()
@@ -2371,6 +2413,122 @@ public class FightController2 : MonoBehaviour
             ShowActions();
         }
         RefreshUI();
+
+        endedMove = true;
+    }
+
+    public void GraceDrive()
+    {
+        HideActions();
+        if(graceCooldown == false)
+        {
+            playerScript.moves--;
+            playerScript.energy -= 4;
+
+            float healing = 3;
+            StartCoroutine(GraceDriveWaiter(healing));
+
+            AddCombatText();
+            combatDialogue[0].text = "Player healed himself for " + healing.ToString() + " HP";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+            graceCooldown = true;
+        }
+    }
+
+    IEnumerator GraceDriveWaiter(float healing)
+    {
+        endedMove = false;
+        playerAnimator.Play("Heal");
+        graceParticle.SetActive(true);
+        //audioSource.clip;
+        //audioSource.Play();
+
+        //Posibility of healing a state
+        if (Random.value > 0.05)
+        {
+            int randomPercentage = Random.Range(0, 100);
+            if (randomPercentage <= 33)
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Player healed Grief state";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+                if (state[0].name2 == StateType2.GRIEF)
+                {
+                    state[0].name2 = StateType2.NULL;
+                    state[0].turnsLeft2 = 0;
+                }
+                else if (state[1].name2 == StateType2.GRIEF)
+                {
+                    state[1].name2 = StateType2.NULL;
+                    state[1].turnsLeft2 = 0;
+                }
+                else if (state[2].name2 == StateType2.GRIEF)
+                {
+                    state[2].name2 = StateType2.NULL;
+                    state[2].turnsLeft2 = 0;
+                }
+            }
+            else if (randomPercentage >= 33 && randomPercentage <= 66)
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Player healed Numb state";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+                if (state[0].name2 == StateType2.NUMB)
+                {
+                    state[0].name2 = StateType2.NULL;
+                    state[0].turnsLeft2 = 0;
+                }
+                else if (state[1].name2 == StateType2.NUMB)
+                {
+                    state[1].name2 = StateType2.NULL;
+                    state[1].turnsLeft2 = 0;
+                }
+                else if (state[2].name2 == StateType2.NUMB)
+                {
+                    state[2].name2 = StateType2.NULL;
+                    state[2].turnsLeft2 = 0;
+                }
+            }
+            else
+            {
+                AddCombatText();
+                combatDialogue[0].text = "Player healed Paralisis state";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+                if (state[0].name2 == StateType2.PARALISIS)
+                {
+                    state[0].name2 = StateType2.NULL;
+                    state[0].turnsLeft2 = 0;
+                }
+                else if (state[1].name2 == StateType2.PARALISIS)
+                {
+                    state[1].name2 = StateType2.NULL;
+                    state[1].turnsLeft2 = 0;
+                }
+                else if (state[2].name2 == StateType2.PARALISIS)
+                {
+                    state[2].name2 = StateType2.NULL;
+                    state[2].turnsLeft2 = 0;
+                }
+            }
+        }
+
+        yield return new WaitForSecondsRealtime(0.5f);
+        ShowPopupTextPlayer(healing, Color.green);
+        yield return new WaitForSecondsRealtime(1.5f);
+        graceParticle.SetActive(false);
+        if (playerScript.moves > 0 && playerScript.energy > 2)
+        {
+            ShowActions();
+        }
+        RefreshUI();
+        for (float i = healing; i > 0; i--)
+        {
+            playerScript.health++;
+            RefreshUI();
+            yield return 0;
+            yield return new WaitForSeconds(0);
+        }
+        yield return new WaitForSecondsRealtime(2);
 
         endedMove = true;
     }
