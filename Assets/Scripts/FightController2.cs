@@ -2664,7 +2664,7 @@ public class FightController2 : MonoBehaviour
             if (Random.value > 0.25)
             {
                 AddCombatText();
-                combatDialogue[0].text = "Boss failed basic attack+ to paralisis.";
+                combatDialogue[0].text = "Boss failed basic attack+ due to paralisis.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
             }
             else
