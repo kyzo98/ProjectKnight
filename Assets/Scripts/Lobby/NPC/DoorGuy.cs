@@ -41,8 +41,13 @@ public class DoorGuy : MonoBehaviour
     private float dialogueTimeLeft;                                                         //Tiempo que duran las cadenas de dialogo
     private Text dialogueText;                                                              //Texto a mostrar
 
+    private bool defeatedBoss1;
+    private int fightSceneOrder;
+
     void Start()
     {
+        fightSceneOrder = PlayerPrefs.GetInt("FIGHT_ORDER");
+
         render = GetComponent<Renderer>();                                                  //Guardamos componente Renderer
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();      //Guardamos script PlayerController
         audioSource = GetComponent<AudioSource>();                                          //Guardamos componente AudioSource
@@ -288,7 +293,29 @@ public class DoorGuy : MonoBehaviour
                         dialogueText.text = ""; //Reseteamos el texto
                         endCorutines = false;
                         dialogueState = DialogueState.END;
-                        SceneManager.LoadScene("Fight", LoadSceneMode.Single);
+                        switch (fightSceneOrder)
+                        {
+                            case 0:
+                                SceneManager.LoadScene("Fight", LoadSceneMode.Single);
+                                fightSceneOrder++;
+                                PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
+                                break;
+                            case 1:
+                                SceneManager.LoadScene("Fight2", LoadSceneMode.Single);
+                                fightSceneOrder++;
+                                PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
+                                break;
+                            case 3:
+                                SceneManager.LoadScene("Fight3", LoadSceneMode.Single);
+                                fightSceneOrder++;
+                                PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
+                                break;
+                            case 4:
+                                SceneManager.LoadScene("Fight4", LoadSceneMode.Single);
+                                fightSceneOrder++;
+                                PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
+                                break;
+                        }
                     }
                 }
                 else

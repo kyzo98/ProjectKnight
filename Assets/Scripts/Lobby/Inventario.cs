@@ -22,11 +22,7 @@ public struct Drives {
 
 public struct Orbs
 {
-    public int vitalityOrb;
-    public int strenghtOrb;
-    public int enduranceOrb;
-    public int powerOrb;
-    public int vigorOrb;
+    public int quantity;
 };
 
 public class Inventario : MonoBehaviour {
@@ -65,11 +61,7 @@ public class Inventario : MonoBehaviour {
         drives.grace = PlayerPrefs.GetInt("Grace");
 
         //ORBS INITIALIZATION AND SAVE
-        orbs.vitalityOrb = PlayerPrefs.GetInt("VITALITY_ORB");
-        orbs.strenghtOrb = PlayerPrefs.GetInt("STRENGHT_ORB");
-        orbs.enduranceOrb = PlayerPrefs.GetInt("ENDURANCE_ORB");
-        orbs.powerOrb = PlayerPrefs.GetInt("POWER_ORB");
-        orbs.vigorOrb = PlayerPrefs.GetInt("VIGOR_ORB");
+        orbs.quantity = PlayerPrefs.GetInt("ORBS");
     }
 
     void Update()
@@ -166,50 +158,50 @@ public class Inventario : MonoBehaviour {
     //FUNCTIONS FOR ORBS
     public void AddVitality()
     {
-        if (orbs.vitalityOrb > 0)
+        if (orbs.quantity > 0)
         {
-            orbs.strenghtOrb -= 1;
-            orbs.vitalityOrb -= 1;
-            PlayerPrefs.SetInt("VITALITY_ORB", orbs.vitalityOrb);
+            orbs.quantity -= 1;
+            PlayerPrefs.SetInt("ORBS", orbs.quantity);
+            playerScript.stats.vitality += 1;
         }
     }
 
     public void AddStrenght()
     {
-        if(orbs.strenghtOrb > 0)
+        if(orbs.quantity > 0)
         {
-            orbs.strenghtOrb -= 1;
-            PlayerPrefs.SetInt("STRENGHT_ORB", orbs.strenghtOrb);
+            orbs.quantity -= 1;
+            PlayerPrefs.SetInt("ORBS", orbs.quantity);
             playerScript.stats.strenght += 1;
         }
     }
 
     public void AddEndurance()
     {
-        if(orbs.strenghtOrb > 0)
+        if(orbs.quantity > 0)
         {
-            orbs.enduranceOrb -= 1;
-            PlayerPrefs.SetInt("ENDURANCE_ORB", orbs.enduranceOrb);
+            orbs.quantity -= 1;
+            PlayerPrefs.SetInt("ORBS", orbs.quantity);
             playerScript.stats.endurance += 1;
         }
     }
 
     public void AddPower()
     {
-        if(orbs.powerOrb > 0)
+        if(orbs.quantity > 0)
         {
-            orbs.powerOrb -= 1;
-            PlayerPrefs.SetInt("POWER_ORB", orbs.powerOrb);
+            orbs.quantity -= 1;
+            PlayerPrefs.SetInt("ORBS", orbs.quantity);
             playerScript.stats.power += 1;
         }
     }
 
     public void AddVigor()
     {
-        if(orbs.vigorOrb > 0)
+        if(orbs.quantity > 0)
         {
-            orbs.vigorOrb -= 1;
-            PlayerPrefs.SetInt("VIGOR_ORB", orbs.vigorOrb);
+            orbs.quantity -= 1;
+            PlayerPrefs.SetInt("ORBS", orbs.quantity);
             playerScript.stats.vigor += 1;
         }
     }

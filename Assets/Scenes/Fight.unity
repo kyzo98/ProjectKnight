@@ -17749,7 +17749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1000
-  health: 1000
+  health: 10
   armor: 0
 --- !u!136 &304552945
 CapsuleCollider:
@@ -42102,6 +42102,10 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 74a9010f0131f2b4797bea18af47bf78, type: 2}
+    - target: {fileID: 100066, guid: 378adb04f8454874fbe2e41a0e55ce4f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 378adb04f8454874fbe2e41a0e55ce4f, type: 3}
   m_IsPrefabAsset: 0

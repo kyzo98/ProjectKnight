@@ -29,11 +29,7 @@ public class FightController3 : MonoBehaviour
     }
     public struct Orbs
     {
-        public int vitality;
-        public int strenght;
-        public int endurance;
-        public int power;
-        public int vigor;
+        public int quantity;
     }
     Orbs orbs;
 
@@ -115,7 +111,7 @@ public class FightController3 : MonoBehaviour
     private Animator playerAnimator;
     //BOSS
     public GameObject boss;
-    private Boss bossScript;
+    private Boss3 bossScript;
     public States3[] bossStates3;
     //UI BOSS
     public Slider bossHealthBar;
@@ -193,11 +189,7 @@ public class FightController3 : MonoBehaviour
     void Start()
     {
         //GETTING QUANTITY OF ORBS
-        orbs.vitality = PlayerPrefs.GetInt("VITALITY_ORB");
-        orbs.strenght = PlayerPrefs.GetInt("STRENGHT_ORB");
-        orbs.endurance = PlayerPrefs.GetInt("ENDURANCE_ORB");
-        orbs.power = PlayerPrefs.GetInt("POWER_ORB");
-        orbs.vigor = PlayerPrefs.GetInt("VIGOR_ORB");
+        orbs.quantity = PlayerPrefs.GetInt("ORBS");
 
         //GETTING QUANTITY OF SORROWS
         sorrows.rage = PlayerPrefs.GetInt("Rage");
@@ -218,7 +210,7 @@ public class FightController3 : MonoBehaviour
 
         turn = 0; //Turno inicial
         playerScript = player.GetComponent<Player>();
-        bossScript = boss.GetComponent<Boss>();
+        bossScript = boss.GetComponent<Boss3>();
         bossAnimator = boss.GetComponent<Animator>();
         playerAnimator = player.GetComponent<Animator>();
 
@@ -283,7 +275,7 @@ public class FightController3 : MonoBehaviour
         }
 
         playerScript = player.GetComponent<Player>();
-        bossScript = boss.GetComponent<Boss>();
+        bossScript = boss.GetComponent<Boss3>();
 
         //Repartidor de turnos
         if (bossScript.health > 0 && playerScript.health > 0)
@@ -783,6 +775,9 @@ public class FightController3 : MonoBehaviour
             else
             {
                 bossScript.health = 0;
+                playerScript.coins += 20;
+                orbs.quantity += 20;
+                PlayerPrefs.SetInt("ORBS", orbs.quantity);
                 SceneManager.LoadScene("Narrator", LoadSceneMode.Single);
             }
         }

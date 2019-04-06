@@ -33,11 +33,7 @@ public class FightController : MonoBehaviour
 
     public struct Orbs
     {
-        public int vitality;
-        public int strenght;
-        public int endurance;
-        public int power;
-        public int vigor;
+        public int quantity;
     };
     Orbs orbs;
 
@@ -204,11 +200,7 @@ public class FightController : MonoBehaviour
         HideActions();
 
         //GETTING QUANTITY OF ORBS
-        orbs.vitality = PlayerPrefs.GetInt("VITALITY_ORB");
-        orbs.strenght = PlayerPrefs.GetInt("STRENGHT_ORB");
-        orbs.endurance = PlayerPrefs.GetInt("ENDURANCE_ORB");
-        orbs.power = PlayerPrefs.GetInt("POWER_ORB");
-        orbs.vigor = PlayerPrefs.GetInt("VIGOR_ORB");
+        orbs.quantity = PlayerPrefs.GetInt("ORBS");
 
         //GETTING QUANTITY OF SORROWS
         sorrows.rage = PlayerPrefs.GetInt("Rage");
@@ -817,16 +809,8 @@ public class FightController : MonoBehaviour
             {
                 bossScript.health = 0;
                 playerScript.coins += 500;
-                orbs.vitality += 4;
-                PlayerPrefs.SetInt("VITALITY_ORB", orbs.vitality);
-                orbs.strenght += 4;
-                PlayerPrefs.SetInt("STRENGHT_ORB", orbs.strenght);
-                orbs.endurance += 4;
-                PlayerPrefs.SetInt("ENDURANCE_ORB", orbs.endurance);
-                orbs.power += 4;
-                PlayerPrefs.SetInt("POWER_ORB", orbs.power);
-                orbs.vigor += 4;
-                PlayerPrefs.SetInt("VIGOR_ORB", orbs.vigor);
+                orbs.quantity += 20;
+                PlayerPrefs.SetInt("ORBS", orbs.quantity);
                 SceneManager.LoadScene("Narrator", LoadSceneMode.Single); //WHAT IF YOU WIN THE BATTLE
             }
         }
