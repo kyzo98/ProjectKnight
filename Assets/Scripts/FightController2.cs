@@ -189,8 +189,18 @@ public class FightController2 : MonoBehaviour
     bool focusCooldown;
     bool courageCooldown;
 
+    //CAMARAS CINEMATICA INICIAL
+    public GameObject CM_vcam1;
+    public GameObject CM_vcam2;
+
+    //PARTICULAS CINEMATICA INICIAL
+    public GameObject teleportAura;
+    public GameObject teleportOrb;
+
     void Start()
     {
+        HideActions();
+
         //GETTING QUANTITY OF ORBS
         orbs.quantity = PlayerPrefs.GetInt("ORBS");
 
@@ -268,8 +278,18 @@ public class FightController2 : MonoBehaviour
         bossStates2[2].name2 = StateType2.NULL;
         bossStates2[2].turnsLeft2 = 0;
 
-        ShowActions();
         RefreshUI();
+
+        CM_vcam1.SetActive(true);
+        CM_vcam2.SetActive(false);
+        player.SetActive(false);
+        teleportAura.SetActive(false);
+        teleportAura.SetActive(false);
+
+        StartCoroutine(AuraWaiterCinem());
+        StartCoroutine(OrbWaiterCinem());
+        StartCoroutine(PlayerWaiterCinem());
+        StartCoroutine(BossWaiterCinem());
     }
 
     void Update()
@@ -3391,5 +3411,41 @@ public class FightController2 : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         yield return new WaitForSecondsRealtime(2);
+    }
+
+    //Corutinas encargadas de controlar las cinemáticas
+    IEnumerator AuraWaiterCinem()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        teleportAura.SetActive(true);
+        yield return new WaitForSecondsRealtime(8.3f);
+        teleportAura.SetActive(false);
+    }
+
+    IEnumerator OrbWaiterCinem()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        teleportOrb.SetActive(true);
+        yield return new WaitForSecondsRealtime(8.5f);
+        teleportOrb.SetActive(false);
+    }
+
+    IEnumerator PlayerWaiterCinem()
+    {
+        yield return new WaitForSecondsRealtime(7);
+        player.SetActive(true);
+    }
+
+    IEnumerator BossWaiterCinem()
+    {
+        yield return new WaitForSecondsRealtime(10f);
+        CM_vcam1.SetActive(false);
+        CM_vcam2.SetActive(true);
+        yield return new WaitForSecondsRealtime(2);
+        bossAnimator.SetTrigger("Cinem");
+        yield return new WaitForSecondsRealtime(2.5f);
+        CM_vcam1.SetActive(true);
+        CM_vcam2.SetActive(false);
+        ShowActions();
     }
 }
