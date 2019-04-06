@@ -21,15 +21,27 @@ public class Boss2 : MonoBehaviour {
     public float health;
     public int armor;
 
+    //BOSS BASE STATS MULTIPLIERS
+    public float vitalityMultiplier = 50;
+    public float strenghtMultiplier = 20;
+    public float enduranceMultiplier = 12.5f;
+    public float powerMultiplier = 20;
+    public float vigorMultiplier = 7;
+
     // Use this for initialization
     void Start()
     {
+        //BASE STATS
         stats.vitality = 20;
         stats.strenght = 15;
         stats.endurance = 20;
         stats.power = 20;
         stats.vigor = 20;
         stats.charge = false;
+
+        //STATS
+        maxHealth = stats.vitality * vitalityMultiplier;
+        health = maxHealth;
     }
 
     // Update is called once per frame

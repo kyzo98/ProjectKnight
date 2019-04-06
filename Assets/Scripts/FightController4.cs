@@ -1825,7 +1825,7 @@ public class FightController4 : MonoBehaviour {
                 playerScript.energy -= 4;
                 playerScript.moves--;
 
-                int armored = playerScript.stats.endurance * 3;
+                float armored = playerScript.stats.endurance * playerScript.enduranceMultiplier;
                 StartCoroutine(GuardWaiter(armored));
                 AddCombatText();
                 combatDialogue[0].text = "Player covered himself with " + armored.ToString() + " armor";
@@ -1839,7 +1839,7 @@ public class FightController4 : MonoBehaviour {
 
                 if (Random.value > 0.75)
                 {
-                    int armored = playerScript.stats.endurance * 3;
+                    float armored = playerScript.stats.endurance * playerScript.enduranceMultiplier;
                     StartCoroutine(GuardWaiter(armored));
                     AddCombatText();
                     combatDialogue[0].text = "Player covered himself with " + armored.ToString() + " armor";
@@ -1868,7 +1868,7 @@ public class FightController4 : MonoBehaviour {
                         playerScript.energy -= 4;
                         playerScript.moves--;
 
-                        int armored = playerScript.stats.endurance * 3;
+                        float armored = playerScript.stats.endurance * playerScript.enduranceMultiplier;
                         StartCoroutine(GuardWaiter(armored));
                         AddCombatText();
                         combatDialogue[0].text = "Player covered himself with " + armored.ToString() + " armor";
@@ -1882,7 +1882,7 @@ public class FightController4 : MonoBehaviour {
 
                         if (Random.value > 0.75)
                         {
-                            int armored = playerScript.stats.endurance * 3;
+                            float armored = playerScript.stats.endurance * playerScript.enduranceMultiplier;
                             StartCoroutine(GuardWaiter(armored));
                             AddCombatText();
                             combatDialogue[0].text = "Player covered himself with " + armored.ToString() + " armor";
@@ -1922,7 +1922,7 @@ public class FightController4 : MonoBehaviour {
         }
     }
 
-    IEnumerator GuardWaiter(int d)
+    IEnumerator GuardWaiter(float d)
     {
         audioSource.clip = guardAudio;
         audioSource.Play();
@@ -1933,7 +1933,7 @@ public class FightController4 : MonoBehaviour {
         if (playerScript.moves > 0 && playerScript.energy > 2)
             ShowActions();
         RefreshUI();
-        for (int i = d; i > 0; i--)
+        for (float i = d; i > 0; i--)
         {
             playerScript.armor++;
             RefreshUI();
@@ -2616,7 +2616,7 @@ public class FightController4 : MonoBehaviour {
                 }
                 else
                 {
-                    float damage = bossScript.stats.strenght + 10;
+                    float damage = Random.Range(((((bossScript.stats.strenght * bossScript.strenghtMultiplier * 2) * 30) / 100) - 3), ((((bossScript.stats.strenght * bossScript.strenghtMultiplier * 2) * 30) / 100) + 3));
                     StartCoroutine(BasicAtackWaiter(damage));
                     AddCombatText();
                     combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
@@ -2635,7 +2635,7 @@ public class FightController4 : MonoBehaviour {
             }
             else
             {
-                float damage = bossScript.stats.strenght + 10;
+                float damage = Random.Range(((((bossScript.stats.strenght * bossScript.strenghtMultiplier * 2) * 30) / 100) - 3), ((((bossScript.stats.strenght * bossScript.strenghtMultiplier * 2) * 30) / 100) + 3));
                 StartCoroutine(BasicAtackWaiter(damage));
                 AddCombatText();
                 combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
@@ -2732,7 +2732,7 @@ public class FightController4 : MonoBehaviour {
                 }
                 else
                 {
-                    float damage = bossScript.stats.strenght + 25;
+                    float damage = Random.Range(((((bossScript.stats.strenght * bossScript.strenghtMultiplier * 2) * 80) / 100) - 3), ((((bossScript.stats.strenght * bossScript.strenghtMultiplier * 2) * 80) / 100) + 3));
                     StartCoroutine(AttackPlusWaiter(damage));
                     AddCombatText();
                     combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
@@ -2751,7 +2751,7 @@ public class FightController4 : MonoBehaviour {
             }
             else
             {
-                float damage = bossScript.stats.strenght + 25;
+                float damage = Random.Range(((((bossScript.stats.strenght * bossScript.strenghtMultiplier * 2) * 80) / 100) - 3), ((((bossScript.stats.strenght * bossScript.strenghtMultiplier * 2) * 80) / 100) + 3));
                 StartCoroutine(AttackPlusWaiter(damage));
                 AddCombatText();
                 combatDialogue[0].text = "Boss dealt " + damage.ToString() + " damage to you";
@@ -2850,7 +2850,7 @@ public class FightController4 : MonoBehaviour {
             }
             else
             {
-                float dmg = bossScript.stats.strenght;
+                float dmg = (((bossScript.stats.power * bossScript.powerMultiplier) * 20) / 100);
                 StartCoroutine(EffectAttackWaiter(dmg));
                 AddCombatText();
                 combatDialogue[0].text = "Boss dealt " + dmg.ToString() + " damage.";
@@ -2859,7 +2859,7 @@ public class FightController4 : MonoBehaviour {
         }
         else
         {
-            float dmg = bossScript.stats.strenght;
+            float dmg = (((bossScript.stats.power * bossScript.powerMultiplier) * 20) / 100);
             StartCoroutine(EffectAttackWaiter(dmg));
             AddCombatText();
             combatDialogue[0].text = "Boss dealt " + dmg.ToString() + " damage.";
@@ -3132,7 +3132,7 @@ public class FightController4 : MonoBehaviour {
             {
                 HideActions();
                 bossAnimator.Play("Special");
-                float dmg = bossScript.stats.strenght * 4;
+                float dmg = bossScript.stats.power * bossScript.powerMultiplier;
                 if (bossScript.stats.charge == true)
                 {
                     StartCoroutine(SpecialAttackWaiter(dmg));
@@ -3143,7 +3143,7 @@ public class FightController4 : MonoBehaviour {
         {
             HideActions();
             bossAnimator.Play("Special");
-            float dmg = bossScript.stats.strenght * 4;
+            float dmg = bossScript.stats.power * bossScript.powerMultiplier;
             if (bossScript.stats.charge == true)
             {
                 StartCoroutine(SpecialAttackWaiter(dmg));
@@ -3225,7 +3225,7 @@ public class FightController4 : MonoBehaviour {
             else
             {
                 bossAnimator.Play("Guard");
-                float armor = bossScript.armor + 50;
+                float armor = bossScript.stats.endurance * bossScript.enduranceMultiplier;
                 StartCoroutine(GuardBossWaiter(armor));
                 AddCombatText();
                 combatDialogue[0].text = "Boss has " + armor.ToString() + " armor now.";
@@ -3235,7 +3235,7 @@ public class FightController4 : MonoBehaviour {
         else
         {
             bossAnimator.Play("Guard");
-            float armor = bossScript.armor + 50;
+            float armor = bossScript.stats.endurance * bossScript.enduranceMultiplier;
             StartCoroutine(GuardBossWaiter(armor));
             AddCombatText();
             combatDialogue[0].text = "Boss has " + armor.ToString() + " armor now.";
@@ -3283,7 +3283,7 @@ public class FightController4 : MonoBehaviour {
             else
             {
                 bossAnimator.Play("Heal");
-                float heal = bossScript.stats.vigor * 2.5f;
+                float heal = bossScript.stats.vigor * bossScript.vigorMultiplier;
                 StartCoroutine(HealWaiter(heal));
                 AddCombatText();
                 combatDialogue[0].text = "Boss healed for " + heal.ToString() + " HP";
@@ -3299,7 +3299,7 @@ public class FightController4 : MonoBehaviour {
         else
         {
             bossAnimator.Play("Heal");
-            float heal = bossScript.stats.vigor * 2.5f;
+            float heal = bossScript.stats.vigor * bossScript.vigorMultiplier;
             StartCoroutine(HealWaiter(heal));
             AddCombatText();
             combatDialogue[0].text = "Boss healed for " + heal.ToString() + " HP";
@@ -3345,7 +3345,7 @@ public class FightController4 : MonoBehaviour {
             else
             {
                 bossAnimator.Play("Heal+");
-                float heal = bossScript.stats.vigor * 3.5f;
+                float heal = (bossScript.stats.vigor * bossScript.vigorMultiplier) * 2;
                 StartCoroutine(HealPlusWaiter(heal));
             }
         }
@@ -3358,7 +3358,7 @@ public class FightController4 : MonoBehaviour {
         else
         {
             bossAnimator.Play("Heal+");
-            float heal = bossScript.stats.vigor * 3.5f;
+            float heal = (bossScript.stats.vigor * bossScript.vigorMultiplier) * 2;
             StartCoroutine(HealPlusWaiter(heal));
         }
     }

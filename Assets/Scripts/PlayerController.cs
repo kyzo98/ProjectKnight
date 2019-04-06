@@ -101,11 +101,11 @@ public class PlayerController : MonoBehaviour {
         float xMove = Input.GetAxis("Horizontal") * X_MOVEMENT;                         // Gets the input of the vertical axis and applies speed 
         float zMove = Input.GetAxis("Vertical") * Z_MOVEMENT;                           // Gets the input of the horizontal axis and applies speed 
 
-        if(xMove > 0 || xMove < 0 || zMove > 0 || zMove < 0)            // Sets a an animation parameter based on how the player is moving
+        if (xMove > 0 || xMove < 0 || zMove > 0 || zMove < 0)            // Sets a an animation parameter based on how the player is moving
         {
-            anim.SetFloat("Speed", 1);                        
+            anim.SetFloat("Speed", 1);
         }
-        else if(xMove == 0 || zMove == 0)
+        else if (xMove == 0 || zMove == 0)
         {
             anim.SetFloat("Speed", 0);
         }
