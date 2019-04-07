@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1332390610531948
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +44,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1634087592105726
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 1634087592105726}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: -0.07}
-  m_LocalScale: {x: 0.13954, y: 0.13954, z: 0.13954}
+  m_LocalScale: {x: 0.31713256, y: 0.31713256, z: 0.31713256}
   m_Children: []
   m_Father: {fileID: 4504378637057074}
   m_RootOrder: 0
@@ -99,8 +99,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1255378964737376}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -12.067662, y: 0.31332, z: -0.18463501}
-  m_LocalScale: {x: 0.8451248, y: 0.84512526, z: 0.84512526}
+  m_LocalPosition: {x: -11.91, y: 0.705, z: 1.054}
+  m_LocalScale: {x: 0.21912394, y: 0.21912408, z: 0.21912408}
   m_Children:
   - {fileID: 4246222636594296}
   - {fileID: 4882083721198054}
@@ -116,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 1332390610531948}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.34000003}
-  m_LocalScale: {x: 0.16067, y: 0.16067, z: 0.16067}
+  m_LocalScale: {x: 0.0091521805, y: 0.0091521805, z: 0.0091521805}
   m_Children: []
   m_Father: {fileID: 4504378637057074}
   m_RootOrder: 2
@@ -203,7 +203,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -4793,7 +4793,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -9383,7 +9383,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
