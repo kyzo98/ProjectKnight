@@ -144,6 +144,10 @@ public class FightController3 : MonoBehaviour
     public GameObject focusParticle;
     public GameObject willParticle;
     public GameObject graceParticle;
+    //STATE EFFECTS PARTICLES
+    public ParticleSystem paralizeEffect;
+    public ParticleSystem numbEffect;
+    public ParticleSystem griefEffect;
 
     //Sounds
     private AudioSource audioSource;
@@ -291,6 +295,7 @@ public class FightController3 : MonoBehaviour
                         AddCombatText();
                         combatDialogue[0].text = "Boss lost " + damage.ToString() + " due to Grief";
                         combatDialogue[0].color = new Color(1, 1, 1, 1);
+                        StartCoroutine(StateEffectFeedback(griefEffect));
                         StartCoroutine(GriefLifePlayer(damage));
                         griefLifeDivider += 1;
                     }
@@ -424,7 +429,7 @@ public class FightController3 : MonoBehaviour
                         {
                             case 1:
                                 Attack();
-                                Debug.Log("Boss used effect attack.");
+                                Debug.Log("Boss used normal attack.");
                                 //nAttack++;
                                 break;
                             case 2:
@@ -878,6 +883,7 @@ public class FightController3 : MonoBehaviour
         {
             if (state[i].name3 == StateType3.NUMB)
             {
+                StartCoroutine(StateEffectFeedback(numbEffect));
                 basicHealButton.interactable = false;
             }
         }
@@ -1179,6 +1185,7 @@ public class FightController3 : MonoBehaviour
                     AddCombatText();
                     combatDialogue[0].text = "You can't attack, your player is paralized";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
+                    StartCoroutine(StateEffectFeedback(paralizeEffect));
                     if (playerScript.moves > 0 && playerScript.energy > 2)
                     {
                         ShowActions();
@@ -1298,6 +1305,7 @@ public class FightController3 : MonoBehaviour
                     AddCombatText();
                     combatDialogue[0].text = "You failed to use heavy attack, due to paralisis.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
+                    StartCoroutine(StateEffectFeedback(paralizeEffect));
                 }
             }
         }
@@ -1514,6 +1522,7 @@ public class FightController3 : MonoBehaviour
                     AddCombatText();
                     combatDialogue[0].text = "Failed to heal due to paralisis.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
+                    StartCoroutine(StateEffectFeedback(paralizeEffect));
                     if (playerScript.moves > 0 && playerScript.energy > 2)
                     {
                         ShowActions();
@@ -1874,6 +1883,7 @@ public class FightController3 : MonoBehaviour
                     AddCombatText();
                     combatDialogue[0].text = "Player failed to prtect due to paralisi.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
+                    StartCoroutine(StateEffectFeedback(paralizeEffect));
                     ShowActions();
                 }
             }
@@ -2820,11 +2830,9 @@ public class FightController3 : MonoBehaviour
             AddCombatText();
             combatDialogue[0].text = "Player is griefed.";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
+            StartCoroutine(StateEffectFeedback(griefEffect));
             if (state[0].name3 == StateType3.NULL)
             {
-                AddCombatText();
-                combatDialogue[0].text = "Grief is now the first element of the array.";
-                combatDialogue[0].color = new Color(1, 1, 1, 1);
                 state[0].name3 = StateType3.GRIEF;
                 state[0].turnsLeft3 = 3;
             }
@@ -2874,11 +2882,9 @@ public class FightController3 : MonoBehaviour
             AddCombatText();
             combatDialogue[0].text = "Player is numb.";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
+            StartCoroutine(StateEffectFeedback(numbEffect));
             if (state[0].name3 == StateType3.NULL)
             {
-                AddCombatText();
-                combatDialogue[0].text = "Numb is now the first element of the array.";
-                combatDialogue[0].color = new Color(1, 1, 1, 1);
                 state[0].name3 = StateType3.NUMB;
                 state[0].turnsLeft3 = 3;
             }
@@ -2928,11 +2934,9 @@ public class FightController3 : MonoBehaviour
             AddCombatText();
             combatDialogue[0].text = "Player is paralized.";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
+            StartCoroutine(StateEffectFeedback(paralizeEffect));
             if (state[0].name3 == StateType3.NULL)
             {
-                AddCombatText();
-                combatDialogue[0].text = "Paralisis is now the first element of the array.";
-                combatDialogue[0].color = new Color(1, 1, 1, 1);
                 state[0].name3 = StateType3.PARALISIS;
                 state[0].turnsLeft3 = 3;
             }
@@ -3372,5 +3376,13 @@ public class FightController3 : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         yield return new WaitForSecondsRealtime(2);
+    }
+
+    IEnumerator StateEffectFeedback(ParticleSystem particle)
+    {
+        Instantiate(particle);
+        particle.Play();
+        yield return new WaitForSecondsRealtime(1);
+        particle.Stop();
     }
 }
