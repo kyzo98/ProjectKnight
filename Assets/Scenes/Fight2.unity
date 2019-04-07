@@ -1099,6 +1099,9 @@ MonoBehaviour:
   focusParticle: {fileID: 749776835}
   willParticle: {fileID: 240847485}
   graceParticle: {fileID: 0}
+  paralizeEffect: {fileID: 0}
+  numbEffect: {fileID: 0}
+  griefEffect: {fileID: 0}
   lightStrikeAudio: {fileID: 8300000, guid: 3bd0aab7b1671064c8485a48172c7d50, type: 3}
   heavyStrikeAudio: {fileID: 8300000, guid: 2b5f0218b8209504fbc5f0e81627adab, type: 3}
   guardAudio: {fileID: 8300000, guid: d003eb87a50c5294e8bedeb07a3a6bf0, type: 3}
@@ -81953,6 +81956,10 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 3d7f64aeab25e594eadbee1a03522857, type: 2}
+    - target: {fileID: 13700000, guid: d6f713a5f1da7f5459e3482081beaf53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 671944447ff8ac646a26c28b17b2ff05, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6f713a5f1da7f5459e3482081beaf53, type: 3}
   m_IsPrefabAsset: 0

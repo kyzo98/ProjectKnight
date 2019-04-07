@@ -301,7 +301,7 @@ public class DoorGuy : MonoBehaviour
                                 PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
                                 break;
                             case 1:
-                                SceneManager.LoadScene("Fight2", LoadSceneMode.Single);
+                                SceneManager.LoadScene("Fight4", LoadSceneMode.Single);
                                 fightSceneOrder++;
                                 PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
                                 break;
@@ -311,7 +311,7 @@ public class DoorGuy : MonoBehaviour
                                 PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
                                 break;
                             case 4:
-                                SceneManager.LoadScene("Fight4", LoadSceneMode.Single);
+                                SceneManager.LoadScene("Fight2", LoadSceneMode.Single);
                                 fightSceneOrder++;
                                 PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
                                 break;
