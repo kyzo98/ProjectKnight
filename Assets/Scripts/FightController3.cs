@@ -149,6 +149,15 @@ public class FightController3 : MonoBehaviour
     public ParticleSystem numbEffect;
     public ParticleSystem griefEffect;
 
+    //BOSS PARTICLE SYSTEMS
+    public GameObject specialParticlesHolder;
+    public ParticleSystem specialParticles;
+    public GameObject chargeParticlesHolder;
+    public ParticleSystem chargeParticles;
+    public GameObject guardParticlesHolder;
+    public ParticleSystem guardParticles;
+    public GameObject healParticlesBoss;
+
     //Sounds
     private AudioSource audioSource;
     public AudioClip lightStrikeAudio;
@@ -3032,8 +3041,6 @@ public class FightController3 : MonoBehaviour
     void ChargeAttack()
     {
         HideActions();
-
-        bossAnimator.Play("Charge");
         StartCoroutine(ChargeWaiter());
         AddCombatText();
         combatDialogue[0].text = "Boss charged his Special Attack.";
@@ -3043,6 +3050,12 @@ public class FightController3 : MonoBehaviour
     IEnumerator ChargeWaiter()
     {
         bossEndedMove = false;
+        bossAnimator.Play("Charge");
+        GameObject particle = Instantiate(chargeParticlesHolder);
+        chargeParticles.Play();
+        yield return new WaitForSecondsRealtime(3);
+        chargeParticles.Stop();
+        Destroy(particle);
         yield return new WaitForSecondsRealtime(3);
         if (bossScript.stats.charge == false)
         {
@@ -3067,7 +3080,6 @@ public class FightController3 : MonoBehaviour
             }
             else
             {
-                bossAnimator.Play("Special");
                 float dmg = bossScript.stats.power * bossScript.powerMultiplier;
                 if (bossScript.stats.charge == true)
                 {
@@ -3077,7 +3089,6 @@ public class FightController3 : MonoBehaviour
         }
         else
         {
-            bossAnimator.Play("Special");
             float dmg = bossScript.stats.power * bossScript.powerMultiplier;
             if (bossScript.stats.charge == true)
             {
@@ -3089,10 +3100,15 @@ public class FightController3 : MonoBehaviour
     IEnumerator SpecialAttackWaiter(float d)
     {
         bossEndedMove = false;
-        yield return new WaitForSecondsRealtime(3);
+        bossAnimator.Play("Special");
+        GameObject particle = Instantiate(specialParticlesHolder);
+        specialParticles.Play();
+        yield return new WaitForSecondsRealtime(1);
         playerAnimator.Play("HitReaction");
         ShowPopupTextPlayer(d, Color.red);
-        yield return new WaitForSecondsRealtime(2);
+        yield return new WaitForSecondsRealtime(4);
+        specialParticles.Stop();
+        Destroy(particle);
 
         if (playerScript.armor > 0)
         {
@@ -3155,7 +3171,6 @@ public class FightController3 : MonoBehaviour
             }
             else
             {
-                bossAnimator.Play("Guard");
                 float armor = bossScript.stats.endurance * bossScript.enduranceMultiplier;
                 StartCoroutine(GuardBossWaiter(armor));
                 AddCombatText();
@@ -3165,7 +3180,6 @@ public class FightController3 : MonoBehaviour
         }
         else
         {
-            bossAnimator.Play("Guard");
             float armor = bossScript.stats.endurance * bossScript.enduranceMultiplier;
             StartCoroutine(GuardBossWaiter(armor));
             AddCombatText();
@@ -3177,7 +3191,9 @@ public class FightController3 : MonoBehaviour
     IEnumerator GuardBossWaiter(float h)
     {
         bossEndedMove = false;
-        //Aumento en la cantidad de block del boss
+        bossAnimator.Play("Guard");
+        GameObject particles = Instantiate(guardParticlesHolder);
+        guardParticles.Play();
         for (float i = h; i > 0; i--)
         {
             bossScript.armor++;
@@ -3185,7 +3201,9 @@ public class FightController3 : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(2);
+        guardParticles.Stop();
+        Destroy(particles);
 
         bossEndedMove = true;
         ShowActions();
@@ -3211,7 +3229,6 @@ public class FightController3 : MonoBehaviour
             }
             else
             {
-                bossAnimator.Play("Heal");
                 float heal = bossScript.stats.vigor * bossScript.vigorMultiplier;
                 StartCoroutine(HealWaiter(heal));
                 AddCombatText();
@@ -3227,7 +3244,6 @@ public class FightController3 : MonoBehaviour
         }
         else
         {
-            bossAnimator.Play("Heal");
             float heal = bossScript.stats.vigor * bossScript.vigorMultiplier;
             StartCoroutine(HealWaiter(heal));
             AddCombatText();
@@ -3239,6 +3255,9 @@ public class FightController3 : MonoBehaviour
     IEnumerator HealWaiter(float h)
     {
         bossEndedMove = false;
+        bossAnimator.Play("Heal");
+        healParticlesBoss.SetActive(true);
+        ShowPopupText(h, Color.green);
         for (float i = h; i > 0; i--)
         {
             bossScript.health++;
@@ -3246,8 +3265,8 @@ public class FightController3 : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        ShowPopupText(h, Color.green);
-        yield return new WaitForSecondsRealtime(3);
+        healParticlesBoss.SetActive(false);
+        yield return new WaitForSecondsRealtime(1);
 
         bossEndedMove = true;
         ShowActions();
@@ -3273,7 +3292,6 @@ public class FightController3 : MonoBehaviour
             }
             else
             {
-                bossAnimator.Play("Heal+");
                 float heal = (bossScript.stats.vigor * bossScript.vigorMultiplier) * 2;
                 StartCoroutine(HealPlusWaiter(heal));
             }
@@ -3286,7 +3304,6 @@ public class FightController3 : MonoBehaviour
         }
         else
         {
-            bossAnimator.Play("Heal+");
             float heal = (bossScript.stats.vigor * bossScript.vigorMultiplier) * 2;
             StartCoroutine(HealPlusWaiter(heal));
         }
@@ -3295,6 +3312,8 @@ public class FightController3 : MonoBehaviour
     IEnumerator HealPlusWaiter(float h)
     {
         bossEndedMove = false;
+        bossAnimator.Play("Heal+");
+        healParticlesBoss.SetActive(true);
         for (float i = h; i > 0; i--)
         {
             bossScript.health++;
@@ -3302,8 +3321,8 @@ public class FightController3 : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        ShowPopupText(h, Color.green);
-        yield return new WaitForSecondsRealtime(3);
+        healParticlesBoss.SetActive(false);
+        yield return new WaitForSecondsRealtime(1);
 
         bossEndedMove = true;
         ShowActions();

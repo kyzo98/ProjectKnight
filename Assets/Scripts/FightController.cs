@@ -131,7 +131,7 @@ public class FightController : MonoBehaviour
     //BOSS ANIMATIONS
     Animator bossAnimator;
 
-    //PARTICLES
+    //PARTICLES PLAYER
     public GameObject lightStrikeHolder;
     public ParticleSystem lightStrikeParticleSystem;
     public GameObject healParticle;
@@ -155,6 +155,15 @@ public class FightController : MonoBehaviour
     public ParticleSystem paralizeEffect;
     public ParticleSystem numbEffect;
     public ParticleSystem griefEffect;
+
+    //BOSS PARTICLE SYSTEMS
+    public GameObject specialParticlesHolder;
+    public ParticleSystem specialParticles;
+    public GameObject chargeParticlesHolder;
+    public ParticleSystem chargeParticles;
+    public GameObject guardParticlesHolder;
+    public ParticleSystem guardParticles;
+    public GameObject healParticlesBoss;
 
     //CAMERAS PARA LAS CINEMATICAS SON TODAS DEL CINEMACHINE; LA VCAM1 ES LA CAMARA POR DEFECTO
     public GameObject CM_vcam1;
@@ -461,13 +470,13 @@ public class FightController : MonoBehaviour
                         switch (nAttack)
                         {
                             case 1:
-                                EffectAttack();
-                                Debug.Log("Boss used effect attack.");
+                                Heal();
+                                Debug.Log("Boss used charge attack.");
                                 //nAttack++;
                                 break;
                             case 2:
-                                Attack();
-                                Debug.Log("Boss used normal attack.");
+                                SpecialAttack();
+                                Debug.Log("Boss used special attack.");
                                 //nAttack++;
                                 break;
                             case 3:
@@ -1259,6 +1268,8 @@ public class FightController : MonoBehaviour
         audioSource.Play();
         bossAnimator.Play("Damage");
         ShowPopupText(damage, Color.red);
+        yield return new WaitForSecondsRealtime(1);
+        Destroy(hitClone);
     }
 
     IEnumerator LightAttackWaiter(int d)
@@ -2612,6 +2623,7 @@ public class FightController : MonoBehaviour
     // BOSS ACTIONS
     void Attack()
     {
+        StartCoroutine(BossWaitToAttack());
         HideActions();
         bossAnimator.Play("Attack");
 
@@ -2728,6 +2740,7 @@ public class FightController : MonoBehaviour
 
     void AttackPlus()
     {
+        StartCoroutine(BossWaitToAttack());
         HideActions();
         bossAnimator.SetTrigger("Attack+");
 
@@ -2855,6 +2868,7 @@ public class FightController : MonoBehaviour
 
     void EffectAttack()
     {
+        StartCoroutine(BossWaitToAttack());
         HideActions();
         bossAnimator.Play("EffectAttack");
 
@@ -3106,8 +3120,8 @@ public class FightController : MonoBehaviour
 
     void ChargeAttack()
     {
+        StartCoroutine(BossWaitToAttack());
         HideActions();
-        bossAnimator.Play("Charge");
         StartCoroutine(ChargeWaiter());
         AddCombatText();
         combatDialogue[0].text = "Boss charged his Special Attack.";
@@ -3117,9 +3131,12 @@ public class FightController : MonoBehaviour
     IEnumerator ChargeWaiter()
     {
         bossEndedMove = false;
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        bossAnimator.Play("Charge");
+        GameObject particle = Instantiate(chargeParticlesHolder);
+        chargeParticles.Play();
         yield return new WaitForSecondsRealtime(3);
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        chargeParticles.Stop();
+        Destroy(particle);
         if (bossScript.stats.charge == false)
         {
             bossScript.stats.charge = true;
@@ -3132,7 +3149,8 @@ public class FightController : MonoBehaviour
 
     void SpecialAttack()
     {
-        if(bossStates[0].name == StateType.PARALISIS || bossStates[1].name == StateType.PARALISIS || bossStates[2].name == StateType.PARALISIS)
+        StartCoroutine(BossWaitToAttack());
+        if (bossStates[0].name == StateType.PARALISIS || bossStates[1].name == StateType.PARALISIS || bossStates[2].name == StateType.PARALISIS)
         {
             if(Random.value > 0.25)
             {
@@ -3143,8 +3161,11 @@ public class FightController : MonoBehaviour
             else
             {
                 HideActions();
-                bossAnimator.Play("Special");
-                float dmg = bossScript.stats.power * bossScript.powerMultiplier;
+                AddCombatText();
+                combatDialogue[0].text = "Boss used special attack";
+                combatDialogue[0].color = new Color(1, 1, 1, 1);
+                //float dmg = bossScript.stats.power * bossScript.powerMultiplier;
+                float dmg = 4;
                 if (bossScript.stats.charge == true)
                 {
                     StartCoroutine(SpecialAttackWaiter(dmg));
@@ -3154,8 +3175,11 @@ public class FightController : MonoBehaviour
         else
         {
             HideActions();
-            bossAnimator.Play("Special");
-            float dmg = bossScript.stats.power * bossScript.powerMultiplier;
+            AddCombatText();
+            combatDialogue[0].text = "Boss used special attack";
+            combatDialogue[0].color = new Color(1, 1, 1, 1);
+            //float dmg = bossScript.stats.power * bossScript.powerMultiplier;
+            float dmg = 4;
             if (bossScript.stats.charge == true)
             {
                 StartCoroutine(SpecialAttackWaiter(dmg));
@@ -3166,14 +3190,15 @@ public class FightController : MonoBehaviour
     IEnumerator SpecialAttackWaiter(float d)
     {
         bossEndedMove = false;
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        yield return new WaitForSecondsRealtime(3);
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        bossAnimator.Play("Special");
+        GameObject particle = Instantiate(specialParticlesHolder);
+        specialParticles.Play();
+        yield return new WaitForSecondsRealtime(1);
         playerAnimator.Play("HitReaction");
         ShowPopupTextPlayer(d, Color.red);
-        yield return new WaitForSecondsRealtime(2);
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        yield return new WaitForSecondsRealtime(4);
+        specialParticles.Stop();
+        Destroy(particle);
 
         if (playerScript.armor > 0)
         {
@@ -3225,6 +3250,7 @@ public class FightController : MonoBehaviour
 
     void GuardBoss()
     {
+        StartCoroutine(BossWaitToAttack());
         HideActions();
         if(bossStates[0].name == StateType.PARALISIS || bossStates[1].name == StateType.PARALISIS || bossStates[1].name == StateType.PARALISIS)
         {
@@ -3236,7 +3262,6 @@ public class FightController : MonoBehaviour
             }
             else
             {
-                bossAnimator.Play("Guard");
                 float armor = bossScript.stats.endurance * bossScript.enduranceMultiplier;
                 StartCoroutine(GuardBossWaiter(armor));
                 AddCombatText();
@@ -3246,7 +3271,6 @@ public class FightController : MonoBehaviour
         }
         else
         {
-            bossAnimator.Play("Guard");
             float armor = bossScript.stats.endurance * bossScript.enduranceMultiplier;
             StartCoroutine(GuardBossWaiter(armor));
             AddCombatText();
@@ -3258,8 +3282,9 @@ public class FightController : MonoBehaviour
     IEnumerator GuardBossWaiter(float h)
     {
         bossEndedMove = false;
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //Aumento en la cantidad de block del boss
+        bossAnimator.Play("Guard");
+        GameObject particles = Instantiate(guardParticlesHolder);
+        guardParticles.Play();
         for (float i = h; i > 0; i--)
         {
             bossScript.armor++;
@@ -3267,8 +3292,9 @@ public class FightController : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        yield return new WaitForSecondsRealtime(3);
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        yield return new WaitForSecondsRealtime(2);
+        guardParticles.Stop();
+        Destroy(particles);
 
         bossEndedMove = true;
         ShowActions();
@@ -3277,6 +3303,7 @@ public class FightController : MonoBehaviour
 
     void Heal()
     {
+        StartCoroutine(BossWaitToAttack());
         HideActions();
         if(bossStates[0].name == StateType.PARALISIS || bossStates[0].name == StateType.PARALISIS || bossStates[0].name == StateType.PARALISIS)
         {
@@ -3294,7 +3321,6 @@ public class FightController : MonoBehaviour
             }
             else
             {
-                bossAnimator.Play("Heal");
                 float heal = bossScript.stats.vigor * bossScript.vigorMultiplier;
                 StartCoroutine(HealWaiter(heal));
                 AddCombatText();
@@ -3310,7 +3336,6 @@ public class FightController : MonoBehaviour
         }
         else
         {
-            bossAnimator.Play("Heal");
             float heal = bossScript.stats.vigor * bossScript.vigorMultiplier;
             StartCoroutine(HealWaiter(heal));
             AddCombatText();
@@ -3322,6 +3347,9 @@ public class FightController : MonoBehaviour
     IEnumerator HealWaiter(float h)
     {
         bossEndedMove = false;
+        bossAnimator.Play("Heal");
+        healParticlesBoss.SetActive(true);
+        ShowPopupText(h, Color.green);
         for (float i = h; i > 0; i--)
         {
             bossScript.health++;
@@ -3329,8 +3357,8 @@ public class FightController : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        ShowPopupText(h, Color.green);
-        yield return new WaitForSecondsRealtime(3);
+        healParticlesBoss.SetActive(false);
+        yield return new WaitForSecondsRealtime(1);
 
         bossEndedMove = true;
         ShowActions();
@@ -3339,6 +3367,7 @@ public class FightController : MonoBehaviour
 
     void HealPlus()
     {
+        StartCoroutine(BossWaitToAttack());
         HideActions();
         if(bossStates[0].name == StateType.PARALISIS || bossStates[1].name == StateType.PARALISIS || bossStates[2].name == StateType.PARALISIS)
         {
@@ -3356,7 +3385,7 @@ public class FightController : MonoBehaviour
             }
             else
             {
-                bossAnimator.Play("Heal+");
+                
                 float heal = (bossScript.stats.vigor * bossScript.vigorMultiplier) * 2;
                 StartCoroutine(HealPlusWaiter(heal));
             }
@@ -3378,6 +3407,9 @@ public class FightController : MonoBehaviour
     IEnumerator HealPlusWaiter(float h)
     {
         bossEndedMove = false;
+        bossAnimator.Play("Heal+");
+        healParticlesBoss.SetActive(true);
+        ShowPopupText(h, Color.green);
         for (float i = h; i > 0; i--)
         {
             bossScript.health++;
@@ -3385,8 +3417,8 @@ public class FightController : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        ShowPopupText(h, Color.green);
-        yield return new WaitForSecondsRealtime(3);
+        healParticlesBoss.SetActive(false);
+        yield return new WaitForSecondsRealtime(1f);
 
         bossEndedMove = true;
         ShowActions();
@@ -3505,5 +3537,10 @@ public class FightController : MonoBehaviour
         particle.Play();
         yield return new WaitForSecondsRealtime(1);
         particle.Stop();
+    }
+
+    IEnumerator BossWaitToAttack()
+    {
+        yield return new WaitForSecondsRealtime(10);
     }
 }
