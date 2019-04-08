@@ -37,9 +37,9 @@ public class Narrator : MonoBehaviour {
 	void Start () {
         NarrativeScreenOrder = PlayerPrefs.GetInt("NarrativeScreenOrder");
         Time.timeScale = 1;
-        alpha = 0; 
+        alpha = 0;
         Narrative.color = new Color32(255, 255, 255, alpha);
-        SentenceFinished = true;    
+        SentenceFinished = true;
         SentenceCounter = 0;
         jumpScene = false;
     }

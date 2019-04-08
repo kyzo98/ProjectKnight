@@ -33,11 +33,11 @@ public class Boss3 : MonoBehaviour
     void Start()
     {
         //BASE STATS
-        stats.vitality = 20;
-        stats.strenght = 15;
-        stats.endurance = 20;
-        stats.power = 20;
-        stats.vigor = 20;
+        stats.vitality = 60;
+        stats.strenght = 9;
+        stats.endurance = 9;
+        stats.power = 14;
+        stats.vigor = 12;
         stats.charge = false;
 
         //STATS

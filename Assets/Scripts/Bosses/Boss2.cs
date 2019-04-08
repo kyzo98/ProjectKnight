@@ -32,11 +32,11 @@ public class Boss2 : MonoBehaviour {
     void Start()
     {
         //BASE STATS
-        stats.vitality = 20;
-        stats.strenght = 15;
-        stats.endurance = 20;
-        stats.power = 20;
-        stats.vigor = 20;
+        stats.vitality = 80;
+        stats.strenght = 12;
+        stats.endurance = 13;
+        stats.power = 15;
+        stats.vigor = 15;
         stats.charge = false;
 
         //STATS

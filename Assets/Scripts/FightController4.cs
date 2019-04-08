@@ -199,6 +199,22 @@ public class FightController4 : MonoBehaviour {
     public AudioClip healAudio;
     public AudioClip sorrow1Audio;
     public AudioClip sorrow2Audio;
+    //DrivesAudio
+    public AudioClip graceAudio;
+    public AudioClip willAudio;
+    public AudioClip focusAudio;
+    public AudioClip courageAudio;
+    //BossSounds
+    public AudioClip attackplusAudio;
+    public AudioClip chargeAudio;
+    public AudioClip effectAttackAudio;
+    public AudioClip specialAttackAudio;
+    public AudioClip bossHealAudio;
+    public AudioClip receiveDamageAudio;
+    public AudioClip deathAudio;
+    //CinematicSounds
+    public AudioClip introAudio;
+    public AudioClip teleportAudio;
 
     public AudioClip HitSpellAudio;
     public AudioClip HitStrikeAudio;
@@ -961,7 +977,7 @@ public class FightController4 : MonoBehaviour {
 
     public void ShowPopupText(float damage, Color color)
     {
-        Vector3 newPosition = new Vector3(9.76f, 8.21f, -3.5f);
+        Vector3 newPosition = new Vector3(3.91f, 4.89f, -5.43f);
         Quaternion newRotation = Quaternion.Euler(0, 90, 0);
         GameObject popupClone = Instantiate(popupText, newPosition, newRotation);
         popupClone.GetComponent<TextMesh>().color = color;
@@ -970,8 +986,8 @@ public class FightController4 : MonoBehaviour {
 
     public void ShowPopupTextPlayer(float damage, Color color)
     {
-        Vector3 newPosition = new Vector3(-10.52f, 2.87f, -0.15f);
-        Quaternion newRotation = Quaternion.Euler(0, 90, 0);
+        Vector3 newPosition = new Vector3(-7.13f, 1.98f, -6.83f);
+        Quaternion newRotation = Quaternion.Euler(0, -90, 0);
         GameObject popupClone = Instantiate(popupTextPlayer, newPosition, newRotation);
         popupClone.GetComponent<TextMesh>().color = color;
         popupClone.GetComponent<TextMesh>().text = damage.ToString();
@@ -980,7 +996,7 @@ public class FightController4 : MonoBehaviour {
 
     public void ShowFailText(Color color)
     {
-        Vector3 newPosition = new Vector3(9.76f, 8.21f, -3.5f);
+        Vector3 newPosition = new Vector3(3.91f, 4.89f, -5.43f);
         Quaternion newRotation = Quaternion.Euler(0f, 90f, 0f);
         GameObject failClone = Instantiate(popupText, newPosition, newRotation);
         failClone.GetComponent<TextMesh>().color = color;
@@ -989,8 +1005,8 @@ public class FightController4 : MonoBehaviour {
 
     public void ShowFailTextPlayer(Color color)
     {
-        Vector3 newPosition = new Vector3(-10.52f, 2.87f, -0.15f);
-        Quaternion newRotation = Quaternion.Euler(0f, 90f, 0f);
+        Vector3 newPosition = new Vector3(-7.13f, 1.98f, -6.83f);
+        Quaternion newRotation = Quaternion.Euler(0f, -90f, 0f);
         GameObject failClone = Instantiate(popupText, newPosition, newRotation);
         failClone.GetComponent<TextMesh>().color = color;
         failClone.GetComponent<TextMesh>().text = "MISS";
@@ -1237,8 +1253,8 @@ public class FightController4 : MonoBehaviour {
     {
 
         float speed = 20.0f;
-        Vector3 initialPos = new Vector3(-9.971f, 1.061f, -0.302f);
-        Vector3 finalPos = new Vector3(7.97f, 3.53f, -3.9f);
+        Vector3 initialPos = new Vector3(-6.207f, 0.49f, -6.569f);
+        Vector3 finalPos = new Vector3(0.43f, 2.16f, -5.85f);
         float timeToReachTarget = Vector3.Distance(initialPos, finalPos) / speed;
 
         float time = 0.0f;
@@ -1257,7 +1273,7 @@ public class FightController4 : MonoBehaviour {
         }
         Destroy(lightStrikeClone);
         GameObject hitClone = Instantiate(hitHolder, finalPos, Quaternion.identity);
-        audioSource.clip = HitStrikeAudio;
+        audioSource.clip = receiveDamageAudio;
         audioSource.Play();
         bossAnimator.Play("Damage");
         ShowPopupText(damage, Color.red);
@@ -1759,11 +1775,11 @@ public class FightController4 : MonoBehaviour {
         }
     }
 
-    IEnumerator ThrowProjectile(GameObject particleHolder, ParticleSystem particleSystem, int damage, AudioClip auxClip, AudioClip auxClipHit)
+    IEnumerator ThrowProjectile(GameObject particleHolder, ParticleSystem particleSystem, int damage, AudioClip auxClip)
     {
         float speed = 20.0f;
-        Vector3 initialPos = new Vector3(-6.4f, 0.508f, -0.31f);
-        Vector3 finalPos = new Vector3(7.97f, 3.53f, -3.38f);
+        Vector3 initialPos = new Vector3(-6.024f, 0.178f, -6.852f);
+        Vector3 finalPos = new Vector3(1.27f, 1.89f, -5.8f);
         GameObject despairClone = Instantiate(particleHolder, initialPos, Quaternion.identity);
         float timeToReachTarget = Vector3.Distance(initialPos, finalPos) / speed;
 
@@ -1782,7 +1798,7 @@ public class FightController4 : MonoBehaviour {
         Destroy(despairClone);
         GameObject hitClone = Instantiate(hitHolder, finalPos, Quaternion.identity);
         hitParticle.Play();
-        audioSource.clip = auxClipHit;
+        audioSource.clip = receiveDamageAudio;
         audioSource.Play();
         bossAnimator.Play("Damage");
         ShowPopupText(damage, Color.red);
@@ -1794,7 +1810,7 @@ public class FightController4 : MonoBehaviour {
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         playerAnimator.Play("Despair");
         yield return new WaitForSecondsRealtime(0.6f); //Tiempo de espera de la animación
-        StartCoroutine(ThrowProjectile(despairParticleHolder, despairParticleSystem, d, despairAudio, HitSpellAudio));
+        StartCoroutine(ThrowProjectile(despairParticleHolder, despairParticleSystem, d, despairAudio));
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
         yield return new WaitForSecondsRealtime(3);
@@ -1968,7 +1984,7 @@ public class FightController4 : MonoBehaviour {
         endedMove = false;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
-        StartCoroutine(ThrowProjectile(animaBlastParticleHolder, animaBlastParticleSystem, d, sorrow2Audio, HitSpellAudio));
+        StartCoroutine(ThrowProjectile(animaBlastParticleHolder, animaBlastParticleSystem, d, sorrow2Audio));
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
         //bossAnimator.Play("Damage");
@@ -2015,7 +2031,7 @@ public class FightController4 : MonoBehaviour {
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         playerAnimator.Play("Despair");
         yield return new WaitForSecondsRealtime(0.5f);
-        StartCoroutine(ThrowProjectile(terrorParticleHolder, terrorParticleSystem, damage, sorrow2Audio, HitSpellAudio));
+        StartCoroutine(ThrowProjectile(terrorParticleHolder, terrorParticleSystem, damage, sorrow2Audio));
         yield return new WaitForSecondsRealtime(3);
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -2116,7 +2132,7 @@ public class FightController4 : MonoBehaviour {
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         playerAnimator.Play("Despair");
         yield return new WaitForSecondsRealtime(0.5f);
-        StartCoroutine(ThrowProjectile(rageParticleHolder, rageParticleSystem, damage, sorrow1Audio, HitSpellAudio));
+        StartCoroutine(ThrowProjectile(rageParticleHolder, rageParticleSystem, damage, sorrow1Audio));
         yield return new WaitForSecondsRealtime(3);
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -2217,7 +2233,7 @@ public class FightController4 : MonoBehaviour {
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         playerAnimator.Play("Despair");
         yield return new WaitForSecondsRealtime(0.5f);
-        StartCoroutine(ThrowProjectile(griefParticleHolder, griefParticleSystem, damage, sorrow2Audio, HitSpellAudio));
+        StartCoroutine(ThrowProjectile(griefParticleHolder, griefParticleSystem, damage, sorrow2Audio));
         yield return new WaitForSecondsRealtime(3);
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
@@ -2345,8 +2361,8 @@ public class FightController4 : MonoBehaviour {
         endedMove = false;
         playerAnimator.Play("Heal");
         courageParticle.SetActive(true);
-        //audio source clip
-        //audio source play
+        audioSource.clip = courageAudio;
+        audioSource.Play();
         yield return new WaitForSecondsRealtime(0.5f);
         //popup text = curado de paralisis
         yield return new WaitForSecondsRealtime(1f);
@@ -2397,8 +2413,8 @@ public class FightController4 : MonoBehaviour {
         endedMove = false;
         playerAnimator.Play("Heal");
         focusParticle.SetActive(true);
-        //audio source clip
-        //audio source play
+        audioSource.clip = focusAudio;
+        audioSource.Play();
         yield return new WaitForSecondsRealtime(0.5f);
         //popup text = curado de paralisis
         yield return new WaitForSecondsRealtime(1f);
@@ -2449,8 +2465,8 @@ public class FightController4 : MonoBehaviour {
         endedMove = false;
         playerAnimator.Play("Heal");
         willParticle.SetActive(true);
-        //audio source clip
-        //audio source play
+        audioSource.clip = willAudio;
+        audioSource.Play();
         yield return new WaitForSecondsRealtime(0.5f);
         //popup text = curado de paralisis
         yield return new WaitForSecondsRealtime(1f);
@@ -2490,8 +2506,8 @@ public class FightController4 : MonoBehaviour {
         endedMove = false;
         playerAnimator.Play("Heal");
         //graceParticle.SetActive(true);
-        //audioSource.clip;
-        //audioSource.Play();
+        audioSource.clip = graceAudio;
+        audioSource.Play();
 
         //Posibility of healing a state
         if (Random.value > 0.05)
@@ -2595,7 +2611,6 @@ public class FightController4 : MonoBehaviour {
     void Attack()
     {
         HideActions();
-        bossAnimator.Play("Attack");
 
         if (bossstates4[0].name4 == StateType4.PARALISIS || bossstates4[1].name4 == StateType4.PARALISIS || bossstates4[2].name4 == StateType4.PARALISIS)
         {
@@ -2647,15 +2662,17 @@ public class FightController4 : MonoBehaviour {
 
     IEnumerator BasicAtackWaiter(float d)
     {
+        yield return new WaitForSecondsRealtime(1.8f);
         bossEndedMove = false;
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        bossAnimator.Play("Attack");
+        audioSource.clip = attackplusAudio;
+        audioSource.Play();
+        yield return new WaitForSecondsRealtime(0.8f);
         playerAnimator.Play("HitReaction");
+        audioSource.clip = HitStrikeAudio;
+        audioSource.Play();
         ShowPopupTextPlayer(d, Color.red);
         yield return new WaitForSecondsRealtime(2);
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
 
         if (playerScript.blockChance >= Random.Range(0, 99))
         {
@@ -2712,7 +2729,6 @@ public class FightController4 : MonoBehaviour {
     void AttackPlus()
     {
         HideActions();
-        bossAnimator.SetTrigger("Attack+");
 
         if (bossstates4[0].name4 == StateType4.PARALISIS || bossstates4[0].name4 == StateType4.PARALISIS || bossstates4[0].name4 == StateType4.PARALISIS)
         {
@@ -2764,12 +2780,15 @@ public class FightController4 : MonoBehaviour {
 
     IEnumerator AttackPlusWaiter(float d)
     {
+        yield return new WaitForSecondsRealtime(1.8f);
         bossEndedMove = false;
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
+        bossAnimator.SetTrigger("Attack+");
+        audioSource.clip = attackplusAudio;
+        audioSource.Play();
+        yield return new WaitForSecondsRealtime(0.8f);
         playerAnimator.Play("HitReaction");
+        audioSource.clip = HitStrikeAudio;
+        audioSource.Play();
         ShowPopupTextPlayer(d, Color.red);
         yield return new WaitForSecondsRealtime(2);
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
@@ -2840,7 +2859,6 @@ public class FightController4 : MonoBehaviour {
     void EffectAttack()
     {
         HideActions();
-        bossAnimator.Play("EffectAttack");
 
         if (bossstates4[0].name4 == StateType4.PARALISIS || bossstates4[1].name4 == StateType4.PARALISIS || bossstates4[0].name4 == StateType4.PARALISIS)
         {
@@ -2873,15 +2891,17 @@ public class FightController4 : MonoBehaviour {
 
     IEnumerator EffectAttackWaiter(float d)
     {
+        yield return new WaitForSecondsRealtime(1.8f);
         bossEndedMove = false;
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
+        bossAnimator.Play("EffectAttack");
+        audioSource.clip = effectAttackAudio;
+        audioSource.Play();
         yield return new WaitForSecondsRealtime(3);
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         playerAnimator.Play("HitReaction");
+        audioSource.clip = HitStrikeAudio;
+        audioSource.Play();
         ShowPopupTextPlayer(d, Color.red);
         yield return new WaitForSecondsRealtime(2);
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
 
         int randomPercentage = Random.Range(0, 100);
 
@@ -3100,8 +3120,11 @@ public class FightController4 : MonoBehaviour {
 
     IEnumerator ChargeWaiter()
     {
+        yield return new WaitForSecondsRealtime(1.8f);
         bossEndedMove = false;
         bossAnimator.Play("Charge");
+        audioSource.clip = chargeAudio;
+        audioSource.Play();
         GameObject particle = Instantiate(chargeParticlesHolder);
         chargeParticles.Play();
         yield return new WaitForSecondsRealtime(3);
@@ -3152,12 +3175,17 @@ public class FightController4 : MonoBehaviour {
 
     IEnumerator SpecialAttackWaiter(float d)
     {
+        yield return new WaitForSecondsRealtime(1.8f);
         bossEndedMove = false;
         bossAnimator.Play("Special");
+        audioSource.clip = specialAttackAudio;
+        audioSource.Play();
         GameObject particle = Instantiate(specialParticlesHolder);
         specialParticles.Play();
         yield return new WaitForSecondsRealtime(1);
         playerAnimator.Play("HitReaction");
+        audioSource.clip = HitStrikeAudio;
+        audioSource.Play();
         ShowPopupTextPlayer(d, Color.red);
         yield return new WaitForSecondsRealtime(4);
         specialParticles.Stop();
@@ -3244,8 +3272,11 @@ public class FightController4 : MonoBehaviour {
 
     IEnumerator GuardBossWaiter(float h)
     {
+        yield return new WaitForSecondsRealtime(1.8f);
         bossEndedMove = false;
         bossAnimator.Play("Guard");
+        audioSource.clip = guardAudio;
+        audioSource.Play();
         GameObject particles = Instantiate(guardParticlesHolder);
         guardParticles.Play();
         for (float i = h; i > 0; i--)
@@ -3311,8 +3342,11 @@ public class FightController4 : MonoBehaviour {
 
     IEnumerator HealWaiter(float h)
     {
+        yield return new WaitForSecondsRealtime(1.8f);
         bossEndedMove = false;
         bossAnimator.Play("Heal");
+        audioSource.clip = bossHealAudio;
+        audioSource.Play();
         healParticlesBoss.SetActive(true);
         ShowPopupText(h, Color.green);
         for (float i = h; i > 0; i--)
@@ -3371,8 +3405,11 @@ public class FightController4 : MonoBehaviour {
 
     IEnumerator HealPlusWaiter(float h)
     {
+        yield return new WaitForSecondsRealtime(1.8f);
         bossEndedMove = false;
         bossAnimator.Play("Heal+");
+        audioSource.clip = bossHealAudio;
+        audioSource.Play();
         healParticlesBoss.SetActive(true);
         ShowPopupText(h, Color.green);
         for (float i = h; i > 0; i--)
@@ -3472,6 +3509,8 @@ public class FightController4 : MonoBehaviour {
     {
         yield return new WaitForSecondsRealtime(2);
         teleportOrb.SetActive(true);
+        audioSource.clip = teleportAudio;
+        audioSource.Play();
         yield return new WaitForSecondsRealtime(8.5f);
         teleportOrb.SetActive(false);
     }
@@ -3488,8 +3527,10 @@ public class FightController4 : MonoBehaviour {
         CM_vcam1.SetActive(false);
         CM_vcam2.SetActive(true);
         yield return new WaitForSecondsRealtime(2);
-        bossAnimator.SetTrigger("Roar");
-        yield return new WaitForSecondsRealtime(2.5f);
+        bossAnimator.SetTrigger("Cinematic");
+        audioSource.clip = introAudio;
+        audioSource.Play();
+        yield return new WaitForSecondsRealtime(7f);
         CM_vcam1.SetActive(true);
         CM_vcam2.SetActive(false);
         ShowActions();

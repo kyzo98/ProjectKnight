@@ -42,11 +42,22 @@ public class DoorGuy : MonoBehaviour
     private Text dialogueText;                                                              //Texto a mostrar
 
     private bool defeatedBoss1;
+    private bool defeatedBoss2;
+    private bool defeatedBoss3;
+    private bool defeatedBoss4;
     private int fightSceneOrder;
 
     void Start()
     {
-        fightSceneOrder = PlayerPrefs.GetInt("FIGHT_ORDER");
+        if(defeatedBoss1 == false)
+        {
+            fightSceneOrder = 0;
+            PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
+        }
+        else
+        {
+            fightSceneOrder = PlayerPrefs.GetInt("FIGHT_ORDER");
+        }
 
         render = GetComponent<Renderer>();                                                  //Guardamos componente Renderer
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();      //Guardamos script PlayerController
@@ -296,9 +307,13 @@ public class DoorGuy : MonoBehaviour
                         switch (fightSceneOrder)
                         {
                             case 0:
-                                SceneManager.LoadScene("Fight", LoadSceneMode.Single);
-                                fightSceneOrder++;
-                                PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
+                                if(defeatedBoss1 == false)
+                                {
+                                    SceneManager.LoadScene("Fight", LoadSceneMode.Single);
+                                    fightSceneOrder++;
+                                    PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
+                                    defeatedBoss1 = true;
+                                }
                                 break;
                             case 1:
                                 SceneManager.LoadScene("Fight4", LoadSceneMode.Single);

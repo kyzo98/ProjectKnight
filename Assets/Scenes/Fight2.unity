@@ -1099,6 +1099,8 @@ MonoBehaviour:
   focusParticle: {fileID: 749776835}
   willParticle: {fileID: 240847485}
   graceParticle: {fileID: 0}
+  heavyAttackHolder: {fileID: 0}
+  heavyAttackParticle: {fileID: 0}
   paralizeEffect: {fileID: 0}
   numbEffect: {fileID: 0}
   griefEffect: {fileID: 0}
@@ -1122,6 +1124,19 @@ MonoBehaviour:
   healAudio: {fileID: 8300000, guid: c93293b345eb82b46aeeb13f2630d55e, type: 3}
   sorrow1Audio: {fileID: 8300000, guid: f62b051d525cf8144b7f484f4f175ae6, type: 3}
   sorrow2Audio: {fileID: 8300000, guid: f62b051d525cf8144b7f484f4f175ae6, type: 3}
+  graceAudio: {fileID: 8300000, guid: 0e47e519d8ea96c46914904b1729973f, type: 3}
+  willAudio: {fileID: 8300000, guid: fcfabb13826a58c4fa372e9f85c8316b, type: 3}
+  focusAudio: {fileID: 8300000, guid: 1c28d13030092454ba1102f1d600e961, type: 3}
+  courageAudio: {fileID: 8300000, guid: 7cba90336a5c653468b1ff25e404e6c6, type: 3}
+  attackplusAudio: {fileID: 8300000, guid: 176d2ff7a5753924e873af860c6950a9, type: 3}
+  chargeAudio: {fileID: 8300000, guid: 4478a1c2c3d3b55479788109873ae479, type: 3}
+  effectAttackAudio: {fileID: 8300000, guid: 74db939507876fa499abb9d6caf2621b, type: 3}
+  specialAttackAudio: {fileID: 8300000, guid: 05a9d15d060b60541bc13743d8b9a8f0, type: 3}
+  bossHealAudio: {fileID: 8300000, guid: 0b4caacdcfbf63f4192b712b1fff559f, type: 3}
+  receiveDamageAudio: {fileID: 8300000, guid: 52ea4046d81369e459a3163c96984b88, type: 3}
+  deathAudio: {fileID: 8300000, guid: 868f4ab8ea39fff4ebf7486b2ba7977a, type: 3}
+  introAudio: {fileID: 8300000, guid: 6d2c56105dd2c444290a776b2752b0a1, type: 3}
+  teleportAudio: {fileID: 8300000, guid: 9087226bc8f68c749bc961d9e937c92e, type: 3}
   HitSpellAudio: {fileID: 8300000, guid: ab0e7fe5ef66faf48a1ed4767fd04f7b, type: 3}
   HitStrikeAudio: {fileID: 8300000, guid: b831b3f92117e1d45b91867dc3fca6fd, type: 3}
   mainCamera: {fileID: 1244554456}
@@ -61123,7 +61138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &1709414694
 AudioSource:
   m_ObjectHideFlags: 0
