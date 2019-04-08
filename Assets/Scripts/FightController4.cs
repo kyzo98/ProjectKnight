@@ -833,6 +833,7 @@ public class FightController4 : MonoBehaviour {
                 bossScript.health = 0;
                 playerScript.coins += 500;
                 orbs.quantity += 20;
+                PlayerPrefs.SetInt("COINS", playerScript.coins);
                 PlayerPrefs.SetInt("ORBS", orbs.quantity);
                 SceneManager.LoadScene("Narrator", LoadSceneMode.Single); //WHAT IF YOU WIN THE BATTLE
             }

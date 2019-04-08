@@ -22,7 +22,7 @@ public class Player : MonoBehaviour {
     public float maxHealth;
     public float health;
     public int armor;
-    public float coins = 700;
+    public int coins;
     public int maxEnergy;
     public int energy;
     public int moves;
@@ -37,6 +37,7 @@ public class Player : MonoBehaviour {
     public int powerMultiplier = 20;
 
 	void Start () {
+        coins = PlayerPrefs.GetInt("COINS");
         playerScript = this;
 
         //BASE STATS

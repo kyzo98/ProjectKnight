@@ -304,33 +304,31 @@ public class DoorGuy : MonoBehaviour
                         dialogueText.text = ""; //Reseteamos el texto
                         endCorutines = false;
                         dialogueState = DialogueState.END;
-                        switch (fightSceneOrder)
-                        {
-                            case 0:
-                                if(defeatedBoss1 == false)
-                                {
-                                    SceneManager.LoadScene("Fight", LoadSceneMode.Single);
-                                    fightSceneOrder++;
-                                    PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
-                                    defeatedBoss1 = true;
-                                }
-                                break;
-                            case 1:
-                                SceneManager.LoadScene("Fight4", LoadSceneMode.Single);
-                                fightSceneOrder++;
-                                PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
-                                break;
-                            case 3:
-                                SceneManager.LoadScene("Fight3", LoadSceneMode.Single);
-                                fightSceneOrder++;
-                                PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
-                                break;
-                            case 4:
-                                SceneManager.LoadScene("Fight2", LoadSceneMode.Single);
-                                fightSceneOrder++;
-                                PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
-                                break;
-                        }
+                        SceneManager.LoadScene("Narrator", LoadSceneMode.Single);
+                        //switch (fightSceneOrder)
+                        //{
+                        //    case 0:
+                        //        SceneManager.LoadScene("Fight", LoadSceneMode.Single);
+                        //        fightSceneOrder++;
+                        //        PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
+                        //        defeatedBoss1 = true;
+                        //        break;
+                        //    case 1:
+                        //        SceneManager.LoadScene("Fight4", LoadSceneMode.Single);
+                        //        fightSceneOrder++;
+                        //        PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
+                        //        break;
+                        //    case 3:
+                        //        SceneManager.LoadScene("Fight3", LoadSceneMode.Single);
+                        //        fightSceneOrder++;
+                        //        PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
+                        //        break;
+                        //    case 4:
+                        //        SceneManager.LoadScene("Fight2", LoadSceneMode.Single);
+                        //        fightSceneOrder++;
+                        //        PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
+                        //        break;
+                        //}
                     }
                 }
                 else

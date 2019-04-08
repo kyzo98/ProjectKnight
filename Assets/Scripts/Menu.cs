@@ -27,6 +27,17 @@ public class Menu : MonoBehaviour {
     private void Start()
     { //Reset narrador
         PlayerPrefs.SetInt("NarrativeScreenOrder", 0);
+        PlayerPrefs.SetInt("FIGHT_ORDER", 0);
+        PlayerPrefs.SetInt("COINS", 0);
+        PlayerPrefs.SetInt("ORBS", 0);
+        PlayerPrefs.SetInt("FIGHT_ORDER", 0);
+        PlayerPrefs.SetInt("Rage", 0);
+        PlayerPrefs.SetInt("Terror", 0);
+        PlayerPrefs.SetInt("Grief", 0);
+        PlayerPrefs.SetInt("Courage", 0);
+        PlayerPrefs.SetInt("Focus", 0);
+        PlayerPrefs.SetInt("Will", 0);
+        PlayerPrefs.SetInt("Grace", 0);
 
         //Load settings Sound
         masterVolumeSlider.value = PlayerPrefs.GetInt("masterVolumeSlider");
