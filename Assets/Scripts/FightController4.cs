@@ -143,7 +143,7 @@ public class FightController4 : MonoBehaviour {
     public GameObject courageParticle;
     public GameObject focusParticle;
     public GameObject willParticle;
-    //public GameObject graceParticle;
+    public GameObject graceParticle;
     //public GameObject heavyAttackHolder;
     //public ParticleSystem heavyAttackParticle;
     //STATE PARTICLE EFFECTS
