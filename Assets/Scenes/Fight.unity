@@ -58464,6 +58464,10 @@ MonoBehaviour:
   focusParticle: {fileID: 1509037197}
   willParticle: {fileID: 1510402308}
   graceParticle: {fileID: 1121435470}
+  heavyAttackHolder: {fileID: 1678035962396342, guid: c949700166034dc4fb4a65f1bd5a1dba,
+    type: 2}
+  heavyAttackParticle: {fileID: 198184807100714174, guid: 89ddae82d4a8a8149ae5acdab2356d1f,
+    type: 2}
   paralizeEffect: {fileID: 198799121228056064, guid: 216a6b0ec485c6842ad23d4e06ed062c,
     type: 2}
   numbEffect: {fileID: 198425347705530054, guid: a9c007bddd2e0f142bc12aa5fa3225df,

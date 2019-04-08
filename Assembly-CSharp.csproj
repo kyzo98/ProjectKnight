@@ -262,6 +262,7 @@
     <Compile Include="Assets\Scripts\Lobby\NPC\RuneSeller_OptionsButtons.cs" />
     <Compile Include="Assets\Scripts\Lobby\NPC\SpellsChick.cs" />
     <Compile Include="Assets\Scripts\Lobby\NPC\SpellsChick_OptionsButtons.cs" />
+    <Compile Include="Assets\Scripts\Lobby\UI_Inventario.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Narrator.cs" />
     <Compile Include="Assets\Scripts\PauseMenu.cs" />

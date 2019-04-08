@@ -1815,9 +1815,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  inventory: {fileID: 0}
   inventoryActive: 0
   inventoryFilled: 0
+  vitalitySlider: {fileID: 0}
+  powerSlider: {fileID: 0}
+  strenghtSlider: {fileID: 0}
+  enduranceSlider: {fileID: 0}
+  vigorSlider: {fileID: 0}
+  sumVitalityButton: {fileID: 0}
+  sumPowerButton: {fileID: 0}
+  sumStrenghtButton: {fileID: 0}
+  sumEnduranceButton: {fileID: 0}
+  sumVigorButton: {fileID: 0}
+  orbsQuantityUIText: {fileID: 0}
+  rageQuantity: {fileID: 0}
+  terrorQuantity: {fileID: 0}
+  griefQuantity: {fileID: 0}
+  courageQuantity: {fileID: 0}
+  focusQuantity: {fileID: 0}
+  willQuantity: {fileID: 0}
+  moneyQuantity: {fileID: 0}
 --- !u!1 &59263876
 GameObject:
   m_ObjectHideFlags: 0
@@ -18936,7 +18953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &816321512
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26372,9 +26389,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  inventory: {fileID: 0}
   inventoryActive: 0
   inventoryFilled: 0
+  vitalitySlider: {fileID: 1640104637}
+  powerSlider: {fileID: 382177841}
+  strenghtSlider: {fileID: 1775455058}
+  enduranceSlider: {fileID: 1224674084}
+  vigorSlider: {fileID: 332824719}
+  sumVitalityButton: {fileID: 401454103}
+  sumPowerButton: {fileID: 2009030258}
+  sumStrenghtButton: {fileID: 1626327676}
+  sumEnduranceButton: {fileID: 55095492}
+  sumVigorButton: {fileID: 571129831}
+  orbsQuantityUIText: {fileID: 2007704439}
+  rageQuantity: {fileID: 646362432}
+  terrorQuantity: {fileID: 1812690665}
+  griefQuantity: {fileID: 299673018}
+  courageQuantity: {fileID: 1404449414}
+  focusQuantity: {fileID: 1752199417}
+  willQuantity: {fileID: 1789894909}
+  moneyQuantity: {fileID: 250935285}
 --- !u!114 &1276252849
 MonoBehaviour:
   m_ObjectHideFlags: 0

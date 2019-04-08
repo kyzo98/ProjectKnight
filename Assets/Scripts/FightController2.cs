@@ -148,6 +148,8 @@ public class FightController2 : MonoBehaviour
     public GameObject focusParticle;
     public GameObject willParticle;
     public GameObject graceParticle;
+    public GameObject heavyAttackHolder;
+    public ParticleSystem heavyAttackParticle;
     //STATES PARTICLES
     public ParticleSystem paralizeEffect;
     public ParticleSystem numbEffect;
@@ -459,7 +461,7 @@ public class FightController2 : MonoBehaviour
                         switch (nAttack)
                         {
                             case 1:
-                                Attack();
+                                Guard();
                                 Debug.Log("Boss used effect attack.");
                                 //nAttack++;
                                 break;
@@ -1343,16 +1345,6 @@ public class FightController2 : MonoBehaviour
     IEnumerator HeavyAttackWaiter(int d)
     {
         endedMove = false;
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
-        //yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        Vector3 enemyPosition = new Vector3(-3.409f, -0.309f, 1.289f);
-        playerAnimator.Play("Run");
-        while (MoveToPosition(enemyPosition))
-        {
-            yield return null;
-        } //adapt animations and moving times for the attack.
-        //heavyAttackCam.enabled = !heavyAttackCam.enabled;
         playerAnimator.Play("HeavyAttack");
         yield return new WaitForSecondsRealtime(0.7f);
         audioSource.clip = heavyStrikeAudio;
@@ -1360,17 +1352,7 @@ public class FightController2 : MonoBehaviour
         bossAnimator.Play("Damage");
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(1.6f);
-        player.transform.rotation = Quaternion.Euler(0, -100, 0);
-        playerAnimator.Play("RunBack");
-        //heavyAttackCam.enabled = !heavyAttackCam;
-        //Make it return to the starting position
-        Vector3 originalPosition = playerInitPos;
-        yield return new WaitForSecondsRealtime(0.5f);
-        while (MoveToPosition(originalPosition)) { yield return null; } //The player moves near the enemy to kick him.
-        playerAnimator.Play("Idle");
         player.transform.rotation = Quaternion.Euler(0, 81.5f, 0);
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
         {
             bossScript.health--;
@@ -1378,7 +1360,6 @@ public class FightController2 : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        //ShowPopupText(d);
         endedMove = true;
         if (playerScript.moves > 0 && playerScript.energy > 2)
             ShowActions();
@@ -2590,6 +2571,7 @@ public class FightController2 : MonoBehaviour
                 AddCombatText();
                 combatDialogue[0].text = "Boss failed basic attack due to paralisis.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
+                ShowActions();
             }
             else
             {
@@ -2706,6 +2688,7 @@ public class FightController2 : MonoBehaviour
                 AddCombatText();
                 combatDialogue[0].text = "Boss failed basic attack+ due to paralisis.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
+                ShowActions();
             }
             else
             {
@@ -2834,6 +2817,7 @@ public class FightController2 : MonoBehaviour
                 AddCombatText();
                 combatDialogue[0].text = "Boss failed effect attack to paralisis.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
+                ShowActions();
             }
             else
             {
@@ -3113,6 +3097,7 @@ public class FightController2 : MonoBehaviour
                 AddCombatText();
                 combatDialogue[0].text = "Boss failed special attack to paralisis.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
+                ShowActions();
             }
             else
             {
@@ -3205,6 +3190,7 @@ public class FightController2 : MonoBehaviour
                 AddCombatText();
                 combatDialogue[0].text = "Boss failed guard to paralisis.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
+                ShowActions();
             }
             else
             {
@@ -3257,12 +3243,14 @@ public class FightController2 : MonoBehaviour
                 AddCombatText();
                 combatDialogue[0].text = "Boss failed heal to paralisis.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
+                ShowActions();
             }
             else if (bossStates2[0].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.NUMB || bossStates2[2].name2 == StateType2.NUMB)
             {
                 AddCombatText();
                 combatDialogue[0].text = "Boss failed heal because he is numb";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
+                ShowActions();
             }
             else
             {
@@ -3278,6 +3266,7 @@ public class FightController2 : MonoBehaviour
             AddCombatText();
             combatDialogue[0].text = "Boss failed heal because he is numb";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
+            ShowActions();
         }
         else
         {
@@ -3320,12 +3309,14 @@ public class FightController2 : MonoBehaviour
                 AddCombatText();
                 combatDialogue[0].text = "Boss failed heal+ to paralisis.";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
+                ShowActions();
             }
             else if (bossStates2[0].name2 == StateType2.NUMB || bossStates2[1].name2 == StateType2.NUMB || bossStates2[2].name2 == StateType2.NUMB)
             {
                 AddCombatText();
                 combatDialogue[0].text = "Boss failed heal+ because he is numb";
                 combatDialogue[0].color = new Color(1, 1, 1, 1);
+                ShowActions();
             }
             else
             {
@@ -3338,6 +3329,7 @@ public class FightController2 : MonoBehaviour
             AddCombatText();
             combatDialogue[0].text = "Boss failed heal+ because he is numb";
             combatDialogue[0].color = new Color(1, 1, 1, 1);
+            ShowActions();
         }
         else
         {
