@@ -332,6 +332,10 @@ public class FightController2 : MonoBehaviour
             else
                 UnPauseGame();
         }
+        if (Input.GetKeyDown("l"))
+        {
+            SceneManager.LoadScene("Lobby");
+        }
 
         playerScript = player.GetComponent<Player>();
         bossScript = boss.GetComponent<Boss2>();
@@ -477,12 +481,12 @@ public class FightController2 : MonoBehaviour
                         switch (nAttack)
                         {
                             case 1:
-                                Heal();
+                                ChargeAttack();
                                 Debug.Log("Boss used effect attack.");
                                 //nAttack++;
                                 break;
                             case 2:
-                                Attack();
+                                SpecialAttack();
                                 Debug.Log("Boss used normal attack.");
                                 //nAttack++;
                                 break;
@@ -827,7 +831,7 @@ public class FightController2 : MonoBehaviour
                 orbs.quantity += 20;
                 PlayerPrefs.SetInt("COINS", playerScript.coins);
                 PlayerPrefs.SetInt("ORBS", orbs.quantity);
-                SceneManager.LoadScene("Narrator", LoadSceneMode.Single); //WHAT IF YOU WIN THE BATTLE
+                StartCoroutine(DeadAnimation());
             }
         }
     }
@@ -2623,7 +2627,7 @@ public class FightController2 : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.8f); //Tiempo de espera de la animación
         //frontalBossCamera.enabled = !frontalBossCamera.enabled;
         //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        playerAnimator.Play("Damage");
+        playerAnimator.Play("HitReaction");
         audioSource.clip = HitStrikeAudio;
         audioSource.Play();
         ShowPopupTextPlayer(d, Color.red);
@@ -3145,6 +3149,8 @@ public class FightController2 : MonoBehaviour
         specialParticles.Stop();
         Destroy(particle);
 
+        ShowActions();
+
         if (playerScript.armor > 0)
         {
             if (d <= playerScript.armor)
@@ -3189,7 +3195,6 @@ public class FightController2 : MonoBehaviour
 
         bossScript.stats.charge = false;
         bossEndedMove = true;
-        ShowActions();
         RefreshUI();
     }
 
@@ -3498,5 +3503,13 @@ public class FightController2 : MonoBehaviour
         particle.Play();
         yield return new WaitForSecondsRealtime(1);
         particle.Stop();
+    }
+
+    IEnumerator DeadAnimation()
+    {
+        Debug.Log("sekiro");
+        bossAnimator.Play("Die");
+        yield return new WaitForSecondsRealtime(5);
+        SceneManager.LoadScene("Narrator", LoadSceneMode.Single); //WHAT IF YOU WIN THE BATTLE
     }
 }

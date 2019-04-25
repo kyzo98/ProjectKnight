@@ -1101,9 +1101,12 @@ MonoBehaviour:
   graceParticle: {fileID: 715326340}
   heavyAttackHolder: {fileID: 0}
   heavyAttackParticle: {fileID: 0}
-  paralizeEffect: {fileID: 0}
-  numbEffect: {fileID: 0}
-  griefEffect: {fileID: 0}
+  paralizeEffect: {fileID: 198274110459338142, guid: 701eb3264e9222741a41d8d4f1c5167a,
+    type: 2}
+  numbEffect: {fileID: 198681923936541794, guid: a3caed66b4e155b44b0822aa04c0eb04,
+    type: 2}
+  griefEffect: {fileID: 198664445348261608, guid: 4ae0120055958244498d7ef0c6315fbd,
+    type: 2}
   specialParticlesHolder: {fileID: 1096918781342582, guid: e20534bb9a5bf454d93fb7ffd7baa287,
     type: 2}
   specialParticles: {fileID: 198959884621003250, guid: e20534bb9a5bf454d93fb7ffd7baa287,
@@ -87378,7 +87381,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: GOLUR
+  m_Text: 'MORTE
+
+'
 --- !u!222 &1998532374
 CanvasRenderer:
   m_ObjectHideFlags: 0

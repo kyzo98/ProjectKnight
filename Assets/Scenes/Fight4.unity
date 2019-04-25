@@ -40593,11 +40593,11 @@ MonoBehaviour:
   focusParticle: {fileID: 1613532588}
   willParticle: {fileID: 469572113}
   graceParticle: {fileID: 1422554587}
-  paralizeEffect: {fileID: 198799121228056064, guid: 216a6b0ec485c6842ad23d4e06ed062c,
+  paralizeEffect: {fileID: 198069647721452648, guid: f4d002c3f112a534e9e59fc48b6c81f6,
     type: 2}
-  numbEffect: {fileID: 198425347705530054, guid: a9c007bddd2e0f142bc12aa5fa3225df,
+  numbEffect: {fileID: 198258746375973764, guid: 5e8bcf18e871b744a81a396375094262,
     type: 2}
-  griefEffect: {fileID: 198442591623068720, guid: dbb891cbc4f464946badc759b8f9120b,
+  griefEffect: {fileID: 198927861496576488, guid: 3a7339660d3c35349a485822816d025b,
     type: 2}
   specialParticlesHolder: {fileID: 1462937176863272, guid: 6cb1eaa5520c189459ff6d4f45859a4a,
     type: 2}
@@ -41270,7 +41270,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: HANARY
+  m_Text: 'JOKS
+
+'
 --- !u!222 &602602601
 CanvasRenderer:
   m_ObjectHideFlags: 0

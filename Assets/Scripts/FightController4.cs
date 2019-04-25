@@ -327,7 +327,11 @@ public class FightController4 : MonoBehaviour {
         }
         if (Input.GetKeyDown("p"))
         {
-            SceneManager.LoadScene("Fight2");
+            SceneManager.LoadScene("Fight3");
+        }
+        if (Input.GetKeyDown("l"))
+        {
+            SceneManager.LoadScene("Lobby");
         }
 
         playerScript = player.GetComponent<Player>();
@@ -484,7 +488,7 @@ public class FightController4 : MonoBehaviour {
                                 //nAttack++;
                                 break;
                             case 2:
-                                Attack();
+                                Heal();
                                 Debug.Log("Boss used normal attack.");
                                 //nAttack++;
                                 break;
@@ -835,7 +839,7 @@ public class FightController4 : MonoBehaviour {
                 orbs.quantity += 20;
                 PlayerPrefs.SetInt("COINS", playerScript.coins);
                 PlayerPrefs.SetInt("ORBS", orbs.quantity);
-                SceneManager.LoadScene("Narrator", LoadSceneMode.Single); //WHAT IF YOU WIN THE BATTLE
+                StartCoroutine(DeadAnimation());
             }
         }
     }
@@ -3543,5 +3547,13 @@ public class FightController4 : MonoBehaviour {
         particle.Play();
         yield return new WaitForSecondsRealtime(1);
         particle.Stop();
+    }
+
+    IEnumerator DeadAnimation()
+    {
+        Debug.Log("sekiro");
+        bossAnimator.Play("Die");
+        yield return new WaitForSecondsRealtime(5);
+        SceneManager.LoadScene("Narrator", LoadSceneMode.Single); //WHAT IF YOU WIN THE BATTLE
     }
 }

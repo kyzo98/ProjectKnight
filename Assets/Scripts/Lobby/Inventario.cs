@@ -103,6 +103,7 @@ public class Inventario : MonoBehaviour {
 
     void Update()
     {
+        RefreshUI();
         //if (Input.GetKeyDown("i"))
         //{
         //    inventoryActive = !inventoryActive;
@@ -144,6 +145,8 @@ public class Inventario : MonoBehaviour {
     {
         sorrows.rage += 1;
         PlayerPrefs.SetInt("Rage", sorrows.rage);
+        playerScript.coins -= 50;
+        PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
 
@@ -151,6 +154,8 @@ public class Inventario : MonoBehaviour {
     {
         sorrows.terror += 1;
         PlayerPrefs.SetInt("Terror", sorrows.terror);
+        playerScript.coins -= 50;
+        PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
 
@@ -158,6 +163,8 @@ public class Inventario : MonoBehaviour {
     {
         sorrows.grief += 1;
         PlayerPrefs.SetInt("Grief", sorrows.grief);
+        playerScript.coins -= 50;
+        PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
 
@@ -166,6 +173,8 @@ public class Inventario : MonoBehaviour {
     {
         drives.courage += 1;
         PlayerPrefs.SetInt("Courage", drives.courage);
+        playerScript.coins -= 50;
+        PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
 
@@ -173,6 +182,8 @@ public class Inventario : MonoBehaviour {
     {
         drives.focus += 1;
         PlayerPrefs.SetInt("Focus", drives.focus);
+        playerScript.coins -= 50;
+        PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
 
@@ -187,6 +198,8 @@ public class Inventario : MonoBehaviour {
     {
         drives.remembrance += 1;
         PlayerPrefs.SetInt("Remembrance", drives.remembrance);
+        playerScript.coins -= 50;
+        PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
 
@@ -194,6 +207,8 @@ public class Inventario : MonoBehaviour {
     {
         drives.spiritualHealing += 1;
         PlayerPrefs.SetInt("SpiritualHealing", drives.spiritualHealing);
+        playerScript.coins -= 50;
+        PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
 
@@ -201,6 +216,8 @@ public class Inventario : MonoBehaviour {
     {
         drives.clarity += 1;
         PlayerPrefs.SetInt("Clarity", drives.clarity);
+        playerScript.coins -= 50;
+        PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
 
@@ -208,6 +225,8 @@ public class Inventario : MonoBehaviour {
     {
         drives.grace += 1;
         PlayerPrefs.SetInt("Grace", drives.grace);
+        playerScript.coins -= 50;
+        PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
 

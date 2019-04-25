@@ -337,7 +337,11 @@ public class FightController : MonoBehaviour
         }
         if (Input.GetKeyDown("p"))
         {
-            SceneManager.LoadScene("Fight2");
+            SceneManager.LoadScene("Fight4");
+        }
+        if (Input.GetKeyDown("l"))
+        {
+            SceneManager.LoadScene("Lobby");
         }
 
         playerScript = player.GetComponent<Player>();

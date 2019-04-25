@@ -36,7 +36,7 @@ public class Player : MonoBehaviour {
     public int vigorMultiplier = 7;
     public int powerMultiplier = 20;
 
-	void Start () {
+	void Awake () {
         coins = PlayerPrefs.GetInt("COINS");
         playerScript = this;
 
