@@ -275,6 +275,7 @@
     <Compile Include="Assets\Scripts\Utilities\JumpScene.cs" />
     <Compile Include="Assets\Scripts\Utilities\MenuVideo.cs" />
     <Compile Include="Assets\Scripts\Utilities\UIWorldPosition.cs" />
+    <Compile Include="Assets\Starfield Skybox\Demo\Script\LookCamera.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\DepthOfField.shader" />
     <None Include="Assets\Aura\Shaders\Shaders\Particles\AuraParticlesBlendAdd.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
