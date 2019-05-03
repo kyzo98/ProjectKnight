@@ -72,8 +72,8 @@ MonoBehaviour:
     m_Enabled: 0
     m_Settings:
       focusDistance: 10
-      aperture: 5.6
-      focalLength: 50
+      aperture: 2.4
+      focalLength: 67
       useCameraFov: 0
       kernelSize: 1
   motionBlur:
@@ -125,7 +125,7 @@ MonoBehaviour:
         tint: 8
         hueShift: 0
         saturation: 0.89
-        contrast: 1
+        contrast: 0.93
       channelMixer:
         red: {x: 1, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
@@ -305,7 +305,7 @@ MonoBehaviour:
       lut: {fileID: 0}
       contribution: 1
   chromaticAberration:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       spectralTexture: {fileID: 0}
       intensity: 0
@@ -317,7 +317,7 @@ MonoBehaviour:
       size: 1
       luminanceContribution: 0.8
   vignette:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}

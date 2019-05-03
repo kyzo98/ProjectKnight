@@ -219,6 +219,9 @@ public class FightController4 : MonoBehaviour {
     public AudioClip HitSpellAudio;
     public AudioClip HitStrikeAudio;
 
+    //EXTRA VARIABLES
+    float skyboxRotSpeed;
+
     void Start()
     {
         HideActions();
@@ -314,10 +317,16 @@ public class FightController4 : MonoBehaviour {
         StartCoroutine(OrbWaiterCinem());
         StartCoroutine(PlayerWaiterCinem());
         StartCoroutine(BossWaiterCinem());
+
+        //Extra variables initialization
+        skyboxRotSpeed = 1;
     }
 
     void Update()
     {
+        //Skybox Rotation
+        //RenderSettings.skybox.SetFloat("SkyboxRot", Time.deltaTime * skyboxRotSpeed);
+
         if (Input.GetKeyDown("escape"))
         {
             if (!gamePaused)

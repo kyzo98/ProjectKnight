@@ -228,9 +228,15 @@ public class FightController2 : MonoBehaviour
     public GameObject teleportAura;
     public GameObject teleportOrb;
 
+    //EXTRA VARIABLES
+    float skyboxRotSpeed;
+
     void Start()
     {
         HideActions();
+
+        //EXTRA VARIABLES INITIALIZATION
+        skyboxRotSpeed = 1;
 
         //GETTING QUANTITY OF ORBS
         orbs.quantity = PlayerPrefs.GetInt("ORBS");
@@ -276,9 +282,7 @@ public class FightController2 : MonoBehaviour
         buttonGrief.onClick.AddListener(GriefSpell);
         //Cameras
         mainCamera.enabled = true;
-        //frontalPlayerCamera.enabled = false;
-        //frontalBossCamera.enabled = false;
-        //heavyAttackCam.enabled = false;
+
         //Buffs & Debuffs
         playerBuff = new Buff[2];
         playerBuff[0].StateType = BuffStateType.NULL;
@@ -325,6 +329,9 @@ public class FightController2 : MonoBehaviour
 
     void Update()
     {
+        //SKYBOX ROTATION
+        //RenderSettings.skybox.SetFloat("_Rotation", Time.deltaTime * skyboxRotSpeed);
+
         if (Input.GetKeyDown("escape"))
         {
             if (!gamePaused)
@@ -2625,8 +2632,6 @@ public class FightController2 : MonoBehaviour
         audioSource.clip = attackplusAudio;
         audioSource.Play();
         yield return new WaitForSecondsRealtime(0.8f); //Tiempo de espera de la animación
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
         playerAnimator.Play("HitReaction");
         audioSource.clip = HitStrikeAudio;
         audioSource.Play();
