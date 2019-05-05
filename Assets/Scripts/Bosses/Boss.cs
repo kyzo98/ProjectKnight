@@ -42,7 +42,7 @@ public class Boss : MonoBehaviour {
 
         //STATS
         maxHealth = stats.vitality * vitalityMultiplier;
-        health = 20;
+        health = maxHealth;
 	}
 	
 	// Update is called once per frame

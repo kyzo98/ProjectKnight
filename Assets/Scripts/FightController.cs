@@ -86,12 +86,13 @@ public class FightController : MonoBehaviour
     public GameObject optionsMenuMenu;
     bool gamePaused = false;
 
+    //LIGHTS
+    public Light playerLight;
+    public Light bossLight;
+
     //AUDIO
     public GameObject backgroundMusic;
     AudioSource[] backgroundAudio;
-
-    //INVENTARIO
-    public Inventario inventario;
 
     //PLAYER
     public GameObject player;
@@ -230,6 +231,8 @@ public class FightController : MonoBehaviour
     void Start()
     {
         HideActions();
+        playerLight.color = Color.white;
+        bossLight.color = Color.red;
 
         //GETTING QUANTITY OF ORBS
         orbs.quantity = PlayerPrefs.GetInt("ORBS");
@@ -259,7 +262,6 @@ public class FightController : MonoBehaviour
         playerAnimator = player.GetComponent<Animator>();
 
         //Particles
-        //healParticle.Stop();
         hitParticle.Stop();
 
         playerInitPos = player.transform.position;
@@ -274,11 +276,10 @@ public class FightController : MonoBehaviour
         buttonRage.onClick.AddListener(RageSpell);
         buttonGrief.onClick.AddListener(GriefSpell);
         buttonTerror.onClick.AddListener(TerrorSpell);
+
         //Cameras
         mainCamera.enabled = true;
-        //frontalPlayerCamera.enabled = false;
-        //frontalBossCamera.enabled = false;
-        //heavyAttackCam.enabled = false;
+
         //Buffs & Debuffs
         playerBuff = new Buff[2];
         playerBuff[0].StateType = BuffStateType.NULL;
@@ -2679,6 +2680,10 @@ public class FightController : MonoBehaviour
 
     IEnumerator BasicAtackWaiter(float d)
     {
+        ChangeLight(playerLight, playerLight.color, Color.red);
+        ChangeLight(bossLight, bossLight.color, Color.white);
+        playerLight.color = Color.red;
+        bossLight.color = Color.white;
         yield return new WaitForSecondsRealtime(1.8f);
         bossEndedMove = false;
         bossAnimator.Play("Attack");
@@ -2739,6 +2744,10 @@ public class FightController : MonoBehaviour
         }
 
         bossEndedMove = true;
+        ChangeLight(playerLight, playerLight.color, Color.white);
+        ChangeLight(bossLight, bossLight.color, Color.red);
+        //playerLight.color = Color.white;
+        //bossLight.color = Color.red;
         ShowActions();
         RefreshUI();
     }
@@ -3576,5 +3585,12 @@ public class FightController : MonoBehaviour
     IEnumerator BossWaitToAttack()
     {
         yield return new WaitForSecondsRealtime(10);
+    }
+
+    void ChangeLight(Light lightToChange, Color startColor, Color endColor)
+    {
+        float duration = 0.5f;
+        float time = Mathf.PingPong(Time.time, duration);
+        lightToChange.color = Color.Lerp(startColor, endColor, time);
     }
 }
