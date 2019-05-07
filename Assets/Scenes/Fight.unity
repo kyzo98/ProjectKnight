@@ -31062,6 +31062,11 @@ MonoBehaviour:
   strenghtMultiplier: 20
   vigorMultiplier: 7
   powerMultiplier: 20
+--- !u!4 &243331967 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400068, guid: c1afcd3e1b76a0a44ae79398e66bc0a0,
+    type: 3}
+  m_PrefabInternal: {fileID: 1316512466}
 --- !u!1 &254702450
 GameObject:
   m_ObjectHideFlags: 0
@@ -32687,7 +32692,7 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 11
-  m_LookAt: {fileID: 0}
+  m_LookAt: {fileID: 243331967}
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 65
@@ -32702,7 +32707,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 416813671}
-  m_LocalRotation: {x: 0.060074117, y: 0.60873216, z: -0.046305064, w: 0.78974175}
+  m_LocalRotation: {x: 0.06007412, y: 0.6087322, z: -0.046305068, w: 0.7897418}
   m_LocalPosition: {x: -14.71, y: 2.08, z: -1.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -82370,6 +82375,7 @@ MonoBehaviour:
   healParticlesBoss: {fileID: 1372210268}
   CM_vcam1: {fileID: 416813671}
   CM_vcam2: {fileID: 1801221953}
+  mainVCam: {fileID: 416813672}
   mainCamera: {fileID: 1752930248}
   teleportAura: {fileID: 481035362}
   teleportOrb: {fileID: 749887837}
@@ -113420,6 +113426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833715513}
   - component: {fileID: 1833715514}
+  - component: {fileID: 1833715515}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -113451,6 +113458,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1833715515
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1833715512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 68b0627ea3d796448b29ab0938f2c240, type: 2}
+  m_AmplitudeGain: 0.1
+  m_FrequencyGain: 5
 --- !u!4 &1849225522 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400022, guid: 2621667f07c93e34187f92f091d19f75,

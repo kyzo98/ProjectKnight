@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Cinemachine;
+using UnityEngine.Events;
 
 public class FightController2 : MonoBehaviour
 {
@@ -223,6 +225,12 @@ public class FightController2 : MonoBehaviour
     //CAMARAS CINEMATICA INICIAL
     public GameObject CM_vcam1;
     public GameObject CM_vcam2;
+
+    //VARIABLES CAMERA SHAKE
+    public CinemachineVirtualCamera mainVCam; //variable de la main virtual camera
+    private CinemachineBasicMultiChannelPerlin vCamNoise; //acceso a los ajustos de ruido de la camara (perlin noise).
+    float shakeAmplitudeLight = 0.07f;
+    float shakeFrequencyLight = 2.5f;
 
     //PARTICULAS CINEMATICA INICIAL
     public GameObject teleportAura;
@@ -1275,6 +1283,7 @@ public class FightController2 : MonoBehaviour
         }
         Destroy(lightStrikeClone);
         GameObject hitClone = Instantiate(hitHolder, finalPos, Quaternion.identity);
+        StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         audioSource.clip = receiveDamageAudio;
         audioSource.Play();
         hitParticle.Play();
@@ -1378,6 +1387,7 @@ public class FightController2 : MonoBehaviour
         audioSource.clip = heavyStrikeAudio;
         audioSource.Play();
         bossAnimator.Play("Damage");
+        StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(1.6f);
         player.transform.rotation = Quaternion.Euler(0, 81.5f, 0);
@@ -1803,6 +1813,7 @@ public class FightController2 : MonoBehaviour
         audioSource.clip = receiveDamageAudio;
         audioSource.Play();
         bossAnimator.Play("Damage");
+        StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         ShowPopupText(damage, Color.red);
     }
 
@@ -1946,7 +1957,6 @@ public class FightController2 : MonoBehaviour
         audioSource.clip = guardAudio;
         audioSource.Play();
         endedMove = false;
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         playerScript.blockChance += 5;
         if (playerScript.moves > 0 && playerScript.energy > 2)
             ShowActions();
@@ -1959,8 +1969,7 @@ public class FightController2 : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         armorEffect.SetActive(true);
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación        
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara a normal
+        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
 
         endedMove = true;
     }
@@ -1983,15 +1992,10 @@ public class FightController2 : MonoBehaviour
     IEnumerator SpiritBlastWaiter(int d)
     {
         endedMove = false;
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled; //Cambio de camara (cámara específica de la animación)
         yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
         StartCoroutine(ThrowProjectile(animaBlastParticleHolder, animaBlastParticleSystem, d, sorrow2Audio));
-        //frontalPlayerCamera.enabled = !frontalPlayerCamera.enabled;
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled;
-        //bossAnimator.Play("Damage");
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(3);
-        //frontalBossCamera.enabled = !frontalBossCamera.enabled; //Cambio de camara a normal
         for (int i = d; i > 0; i--)
         {
             bossScript.health--;
@@ -2633,6 +2637,7 @@ public class FightController2 : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSecondsRealtime(0.8f); //Tiempo de espera de la animación
         playerAnimator.Play("HitReaction");
+        StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         audioSource.clip = HitStrikeAudio;
         audioSource.Play();
         ShowPopupTextPlayer(d, Color.red);
@@ -2752,6 +2757,7 @@ public class FightController2 : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSecondsRealtime(0.8f);
         playerAnimator.Play("Damage");
+        StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         audioSource.clip = HitStrikeAudio;
         audioSource.Play();
         ShowPopupTextPlayer(d, Color.red);
@@ -2861,6 +2867,7 @@ public class FightController2 : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSecondsRealtime(3);
         playerAnimator.Play("Damage");
+        StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         audioSource.clip = receiveDamageAudio;
         audioSource.Play();
         ShowPopupTextPlayer(d, Color.red);
@@ -3147,6 +3154,7 @@ public class FightController2 : MonoBehaviour
         specialParticles.Play();
         yield return new WaitForSecondsRealtime(1);
         playerAnimator.Play("HitReaction");
+        StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         audioSource.clip = HitStrikeAudio;
         audioSource.Play();
         ShowPopupTextPlayer(d, Color.red);
@@ -3433,6 +3441,7 @@ public class FightController2 : MonoBehaviour
     {
         bossEndedMove = false;
         playerAnimator.Play("HitReaction");
+        StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         for (int i = 0; i < damage; i++)
         {
             playerScript.health--;
@@ -3450,6 +3459,7 @@ public class FightController2 : MonoBehaviour
         combatDialogue[0].color = new Color(1, 1, 1, 1);
         bossEndedMove = false;
         bossAnimator.Play("Damage");
+        StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         for (int i = 0; i < damage; i++)
         {
             bossScript.health--;
@@ -3458,6 +3468,16 @@ public class FightController2 : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         yield return new WaitForSecondsRealtime(2);
+    }
+
+    //CAMERA SHAKE
+    IEnumerator CameraShake(CinemachineBasicMultiChannelPerlin noiseChannel, float shakeAmplitude, float shakeFrequency)
+    {
+        noiseChannel.m_AmplitudeGain = shakeAmplitude; //set shaking values
+        noiseChannel.m_FrequencyGain = shakeFrequency;
+        yield return new WaitForSecondsRealtime(0.4f);
+        noiseChannel.m_AmplitudeGain = 0;
+        noiseChannel.m_FrequencyGain = 0;
     }
 
     //Corutinas encargadas de controlar las cinemáticas
