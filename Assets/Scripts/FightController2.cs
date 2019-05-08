@@ -243,6 +243,11 @@ public class FightController2 : MonoBehaviour
     {
         HideActions();
 
+        //GETTING NOISE PROFILE FOR THE CAMERA SHAKE
+        vCamNoise = mainVCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+        vCamNoise.m_FrequencyGain = 0; //setting all noise camera elements to 0, to not shake when starting the battle
+        vCamNoise.m_AmplitudeGain = 0;
+
         //EXTRA VARIABLES INITIALIZATION
         skyboxRotSpeed = 1;
 
