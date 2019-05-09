@@ -90,11 +90,14 @@ public class FightController3 : MonoBehaviour
 
     //PLAYER
     public GameObject player;
+    public GameObject revolver;
+    private Material revolverMaterial;
     Vector3 playerInitPos;
     private Player playerScript;
     private Buff[] playerBuff;
     private Debuff[] playerDebuff;
     public States3[] state;
+
     //UI PLAYER
     public Text actionPointsText;
     public Slider playerHealthBar;
@@ -109,20 +112,26 @@ public class FightController3 : MonoBehaviour
     public Button spiritBlastButton;
     public GameObject actionPanel;
     public Text[] combatDialogue;
+
     //PLAYER ANIMATIONS
     private Animator playerAnimator;
+
     //BOSS
     public GameObject boss;
     private Boss3 bossScript;
     public States3[] bossStates3;
+
     //UI BOSS
     public Slider bossHealthBar;
     public Text bossHealthNumber;
     public Text bossArmorNumber;
+
     //POPUP TEXT UI BOSS
     public GameObject popupText;
+
     //POPUP TEXT UI PLAYER
     public GameObject popupTextPlayer;
+
     //BOSS ANIMATIONS
     Animator bossAnimator;
 
@@ -148,6 +157,7 @@ public class FightController3 : MonoBehaviour
     public GameObject graceParticle;
     public GameObject heavyAttackHolder;
     public ParticleSystem heavyAttackParticle;
+
     //STATE EFFECTS PARTICLES
     public ParticleSystem paralizeEffect;
     public ParticleSystem numbEffect;
@@ -231,6 +241,10 @@ public class FightController3 : MonoBehaviour
     void Start()
     {
         HideActions();
+
+        //Hide revolver when battle starts, it only appears when using light attack
+        revolverMaterial = revolver.GetComponent<Renderer>().material;
+        revolverMaterial.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
         //GETTING NOISE PROFILE FOR THE CAMERA SHAKE
         vCamNoise = mainVCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
@@ -1267,6 +1281,7 @@ public class FightController3 : MonoBehaviour
 
         float time = 0.0f;
         playerAnimator.Play("LightAttack");
+        revolverMaterial.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         yield return new WaitForSecondsRealtime(1.87f);
         GameObject lightStrikeClone = Instantiate(particleHolder, initialPos, Quaternion.Euler(new Vector3(1.904f, 1.303f, 14.395f)));
         particleSystem.Play();
@@ -1279,6 +1294,7 @@ public class FightController3 : MonoBehaviour
 
             yield return null;
         }
+        revolverMaterial.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
         Destroy(lightStrikeClone);
         GameObject hitClone = Instantiate(hitHolder, finalPos, Quaternion.identity);
         audioSource.clip = receiveDamageAudio;
