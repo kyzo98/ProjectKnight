@@ -271,7 +271,6 @@
     <Compile Include="Assets\Scripts\PopupText.cs" />
     <Compile Include="Assets\Scripts\SecondCameraCinematic.cs" />
     <Compile Include="Assets\Scripts\Utilities\AlphaButton.cs" />
-    <Compile Include="Assets\Scripts\Utilities\CharacterControllerFreeLook.cs" />
     <Compile Include="Assets\Scripts\Utilities\GlitchEffect.cs" />
     <Compile Include="Assets\Scripts\Utilities\IslandRotation.cs" />
     <Compile Include="Assets\Scripts\Utilities\JumpScene.cs" />
