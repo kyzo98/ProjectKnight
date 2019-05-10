@@ -1,0 +1,199 @@
+fileFormatVersion: 2
+guid: cb4e29a277dfe4f4cb2bf0047ab34df5
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Cone001
+    100004: Hedra001
+    100006: Hedra002
+    100008: Hedra003
+    100010: Hedra004
+    100012: Hedra005
+    100014: Hedra006
+    100016: Hedra007
+    100018: Hedra008
+    100020: Hedra009
+    100022: Hedra010
+    100024: Hedra011
+    100026: Hedra012
+    100028: Hedra013
+    100030: Hedra014
+    100032: Hedra015
+    100034: Hedra016
+    100036: Hedra017
+    100038: Hedra018
+    100040: Hedra019
+    100042: Object001
+    400000: //RootNode
+    400002: Cone001
+    400004: Hedra001
+    400006: Hedra002
+    400008: Hedra003
+    400010: Hedra004
+    400012: Hedra005
+    400014: Hedra006
+    400016: Hedra007
+    400018: Hedra008
+    400020: Hedra009
+    400022: Hedra010
+    400024: Hedra011
+    400026: Hedra012
+    400028: Hedra013
+    400030: Hedra014
+    400032: Hedra015
+    400034: Hedra016
+    400036: Hedra017
+    400038: Hedra018
+    400040: Hedra019
+    400042: Object001
+    2100000: 07 - Default
+    2100002: 03 - Default
+    2100004: 01 - Default
+    2100006: 02 - Default
+    2100008: 09 - Default
+    2300000: Cone001
+    2300002: Hedra001
+    2300004: Hedra002
+    2300006: Hedra003
+    2300008: Hedra004
+    2300010: Hedra005
+    2300012: Hedra006
+    2300014: Hedra007
+    2300016: Hedra008
+    2300018: Hedra009
+    2300020: Hedra010
+    2300022: Hedra011
+    2300024: Hedra012
+    2300026: Hedra013
+    2300028: Hedra014
+    2300030: Hedra015
+    2300032: Hedra016
+    2300034: Hedra017
+    2300036: Hedra018
+    2300038: Hedra019
+    2300040: Object001
+    3300000: Cone001
+    3300002: Hedra001
+    3300004: Hedra002
+    3300006: Hedra003
+    3300008: Hedra004
+    3300010: Hedra005
+    3300012: Hedra006
+    3300014: Hedra007
+    3300016: Hedra008
+    3300018: Hedra009
+    3300020: Hedra010
+    3300022: Hedra011
+    3300024: Hedra012
+    3300026: Hedra013
+    3300028: Hedra014
+    3300030: Hedra015
+    3300032: Hedra016
+    3300034: Hedra017
+    3300036: Hedra018
+    3300038: Hedra019
+    3300040: Object001
+    4300000: Cone001
+    4300002: Hedra001
+    4300004: Hedra002
+    4300006: Hedra003
+    4300008: Hedra004
+    4300010: Hedra005
+    4300012: Hedra006
+    4300014: Hedra007
+    4300016: Hedra008
+    4300018: Hedra009
+    4300020: Hedra010
+    4300022: Object001
+    4300024: Hedra011
+    4300026: Hedra012
+    4300028: Hedra013
+    4300030: Hedra014
+    4300032: Hedra015
+    4300034: Hedra016
+    4300036: Hedra017
+    4300038: Hedra018
+    4300040: Hedra019
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

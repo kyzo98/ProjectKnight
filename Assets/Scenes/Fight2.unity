@@ -1116,6 +1116,7 @@ MonoBehaviour:
   optionsMenuMenu: {fileID: 1115685417}
   backgroundMusic: {fileID: 1709414693}
   player: {fileID: 1327596394}
+  revolver: {fileID: 0}
   actionPointsText: {fileID: 1688935218}
   playerHealthBar: {fileID: 607748074}
   spiritBlastCounter: {fileID: 197886708}
@@ -13916,6 +13917,72 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &405496789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 405496791}
+  - component: {fileID: 405496790}
+  m_Layer: 0
+  m_Name: Spot Light (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &405496790
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 405496789}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 0
+  m_Color: {r: 0.112273075, g: 0.7970269, b: 0.8207547, a: 1}
+  m_Intensity: 15.8
+  m_Range: 17.27
+  m_SpotAngle: 154.9
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &405496791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 405496789}
+  m_LocalRotation: {x: -0.548609, y: 0.086890325, z: -0.057462506, w: 0.829564}
+  m_LocalPosition: {x: 13.91, y: -0.73, z: 16.09}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 61
+  m_LocalEulerAnglesHint: {x: -64.188, y: 28.417002, z: -25.971}
 --- !u!1 &409812176
 GameObject:
   m_ObjectHideFlags: 0
@@ -34383,6 +34450,72 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1037572336}
   m_CullTransparentMesh: 0
+--- !u!1 &1038775348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1038775350}
+  - component: {fileID: 1038775349}
+  m_Layer: 0
+  m_Name: Spot Light (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &1038775349
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1038775348}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 0
+  m_Color: {r: 0.112273075, g: 0.7970269, b: 0.8207547, a: 1}
+  m_Intensity: 12.06
+  m_Range: 17.27
+  m_SpotAngle: 154.9
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &1038775350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1038775348}
+  m_LocalRotation: {x: -0.74484766, y: 0.09881327, z: -0.03298191, w: 0.6590525}
+  m_LocalPosition: {x: 8.47, y: 0.35, z: -7.22}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 62
+  m_LocalEulerAnglesHint: {x: -77.231, y: 125.74801, z: -120.378006}
 --- !u!4 &1045536454 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400016, guid: c1afcd3e1b76a0a44ae79398e66bc0a0,
@@ -41183,7 +41316,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -83373,8 +83506,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.0747597, g: 0.29815602, b: 0.754717, a: 1}
+  m_Intensity: 756.12
   m_Range: 10
   m_SpotAngle: 45.3
   m_CookieSize: 10
@@ -101240,7 +101373,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0, g: 0.6775255, b: 1, a: 1}
   m_Intensity: 31.91
-  m_Range: 7.3
+  m_Range: 18.43
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
