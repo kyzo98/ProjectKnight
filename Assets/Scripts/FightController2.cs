@@ -81,7 +81,6 @@ public class FightController2 : MonoBehaviour
     //public GameObject armorEffect;
     //public GameObject healEffect;
     public GameObject armorEffect;
-    public GameObject magicSpell;
     public GameObject pauseMenu;
     public GameObject exitGameMenu;
     public GameObject backMenuMenu;

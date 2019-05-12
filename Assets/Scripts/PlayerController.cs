@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerController : MonoBehaviour {
     private Camera mainCamera;                                           // Camera that follows the player in the lobby
+    public CinemachineFreeLook cinemachineFree;                          // saves the cm free look component
+    private float xAxisMaxSpeed;
+    private float yAxisMaxSpeed;
     public bool xMovementInverted;                                      // Bool to on/off inverted movement in x axis
     public bool zMovementInverted;                                      // Bool to on/off inverted movement in z axis
 
@@ -12,7 +16,7 @@ public class PlayerController : MonoBehaviour {
     private Transform mainCameraTransform;                              // Variable that saves the main camera transform
     private int X_MOVEMENT;                                             // Variable that saves the number that multiplies the control to invert it
     private int Z_MOVEMENT;                                             // Variable that saves the number that multiplies the control to invert it
-    private Rigidbody rigidbody;
+    private Rigidbody rigidbody;                                        // variable that saves the rigidbody component of the character.
 
     public Animator anim;                                                      // It saves the animator.
 
@@ -25,6 +29,9 @@ public class PlayerController : MonoBehaviour {
         anim = this.GetComponent<Animator>();                                // Gets the animator from the actual character.
         rigidbody = this.GetComponent<Rigidbody>();
         mainCamera = Camera.main;
+
+        xAxisMaxSpeed = 250;
+        yAxisMaxSpeed = 2;
 
         transform.position = new Vector3(4.89f, 0.002f, 4.56f);                      // Positions in which the character will be spawned
         transform.eulerAngles = new Vector3(0, 0, 0);                   // Orientation of character spawn
@@ -57,6 +64,8 @@ public class PlayerController : MonoBehaviour {
                 inventoryMenu.SetActive(false);
                 menusMenu.SetActive(true);
                 characterMenu.SetActive(true);
+                cinemachineFree.m_XAxis.m_MaxSpeed = 0;
+                cinemachineFree.m_YAxis.m_MaxSpeed = 0;
             }
             else
             {
@@ -65,11 +74,15 @@ public class PlayerController : MonoBehaviour {
                     inventoryMenu.SetActive(false);
                     menusMenu.SetActive(false);
                     characterMenu.SetActive(false);
+                    cinemachineFree.m_XAxis.m_MaxSpeed = xAxisMaxSpeed;
+                    cinemachineFree.m_YAxis.m_MaxSpeed = yAxisMaxSpeed;
                 }
                 else
                 {
                     inventoryMenu.SetActive(false);
                     characterMenu.SetActive(true);
+                    cinemachineFree.m_XAxis.m_MaxSpeed = 0;
+                    cinemachineFree.m_YAxis.m_MaxSpeed = 0;
                 }
             }
         }
@@ -80,6 +93,8 @@ public class PlayerController : MonoBehaviour {
                 characterMenu.SetActive(false);
                 menusMenu.SetActive(true);
                 inventoryMenu.SetActive(true);
+                cinemachineFree.m_XAxis.m_MaxSpeed = 0;
+                cinemachineFree.m_YAxis.m_MaxSpeed = 0;
             }
             else
             {
@@ -88,11 +103,15 @@ public class PlayerController : MonoBehaviour {
                     characterMenu.SetActive(false);
                     menusMenu.SetActive(false);
                     inventoryMenu.SetActive(false);
+                    cinemachineFree.m_XAxis.m_MaxSpeed = xAxisMaxSpeed;
+                    cinemachineFree.m_YAxis.m_MaxSpeed = yAxisMaxSpeed;
                 }
                 else
                 {
                     characterMenu.SetActive(false);
                     inventoryMenu.SetActive(true);
+                    cinemachineFree.m_XAxis.m_MaxSpeed = 0;
+                    cinemachineFree.m_YAxis.m_MaxSpeed = 0;
                 }
             }
         }
@@ -109,7 +128,16 @@ public class PlayerController : MonoBehaviour {
             anim.SetFloat("Speed", 0);
         }
 
-        Vector3 orientation = mainCamera.transform.forward * zMove + mainCamera.transform.right * xMove;                                               // Saves the orientation of the player based in where the camera is looking
+        Vector3 forward = mainCamera.transform.forward;
+        Vector3 right = mainCamera.transform.right;
+
+        forward.y = 0f;
+        right.y = 0f;
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 orientation = forward * zMove + right * xMove;                                               // Saves the orientation of the player based in where the camera is looking
         transform.rotation = Quaternion.LookRotation(orientation);                                        // Changes the orientation of the player based in his movement direction
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(orientation), 0.15f);  // Makes the orientation change more smooth.
 

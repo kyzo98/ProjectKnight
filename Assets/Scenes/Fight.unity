@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.42155796, g: 0.4016999, b: 0.4811321, a: 1}
+  m_FogColor: {r: 0.5188679, g: 0.39638788, b: 0.10524208, a: 1}
   m_FogMode: 2
   m_FogDensity: 0.001
   m_LinearFogStart: 0
@@ -95136,7 +95136,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300000, guid: 2621667f07c93e34187f92f091d19f75, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 07eb8dec7c573ed4a89cdda41f2a48df, type: 3}
   m_Bones:
   - {fileID: 0}
   - {fileID: 0}

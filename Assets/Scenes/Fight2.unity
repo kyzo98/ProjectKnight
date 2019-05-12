@@ -1108,15 +1108,14 @@ MonoBehaviour:
   buttonSpiritualHealing: {fileID: 475997769}
   buttonClarity: {fileID: 296754552}
   buttonGrace: {fileID: 313980268}
-  armorEffect: {fileID: 0}
-  magicSpell: {fileID: 0}
+  armorEffect: {fileID: 1933422744}
   pauseMenu: {fileID: 1742749101}
   exitGameMenu: {fileID: 1016995111}
   backMenuMenu: {fileID: 498316724}
   optionsMenuMenu: {fileID: 1115685417}
   backgroundMusic: {fileID: 1709414693}
   player: {fileID: 1327596394}
-  revolver: {fileID: 0}
+  revolver: {fileID: 415155363}
   actionPointsText: {fileID: 1688935218}
   playerHealthBar: {fileID: 607748074}
   spiritBlastCounter: {fileID: 197886708}
@@ -14223,6 +14222,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab6b041b28c10ad4ea07ef013ba8039b, type: 3}
   m_IsPrefabAsset: 0
+--- !u!1 &415155363 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: ab6b041b28c10ad4ea07ef013ba8039b,
+    type: 3}
+  m_PrefabInternal: {fileID: 415155362}
 --- !u!1 &437863691
 GameObject:
   m_ObjectHideFlags: 0
@@ -89295,7 +89299,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: f8aba975afdb9dd41991b53a55115aa8, type: 2}
     - target: {fileID: 400010, guid: 48764573ae7fe1c44b2147f6b0af4842, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 48764573ae7fe1c44b2147f6b0af4842, type: 3}
       propertyPath: m_RootOrder
@@ -89315,7 +89319,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 48764573ae7fe1c44b2147f6b0af4842, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 48764573ae7fe1c44b2147f6b0af4842, type: 3}
       propertyPath: m_RootOrder
