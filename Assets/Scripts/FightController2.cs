@@ -78,7 +78,6 @@ public class FightController2 : MonoBehaviour
     float speed = 10.0f;
 
     //GAMEOBJECTS
-    //public GameObject armorEffect;
     //public GameObject healEffect;
     public GameObject armorEffect;
     public GameObject pauseMenu;
@@ -397,8 +396,8 @@ public class FightController2 : MonoBehaviour
                         playerScript.armor = 0;
                         RefreshUI();
                     }
-                    if (playerScript.armor == 0)
-                        //armorEffect.SetActive(false); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //if (playerScript.armor == 0)
+                    //    //armorEffect.SetActive(false); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                         if (playerScript.moves > 0 && playerScript.energy > 2) //todo Mayor que dos porque ninguna habilidad cuesta menos de 3 actualmente
                         {
@@ -1977,6 +1976,10 @@ public class FightController2 : MonoBehaviour
         audioSource.clip = guardAudio;
         audioSource.Play();
         endedMove = false;
+        playerAnimator.Play("Guard");
+        armorEffect.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f); //Tiempo de espera de la animación
+        armorEffect.SetActive(false);
         playerScript.blockChance += 5;
         if (playerScript.moves > 0 && playerScript.energy > 2)
             ShowActions();
@@ -1988,8 +1991,6 @@ public class FightController2 : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        armorEffect.SetActive(true);
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
 
         endedMove = true;
     }
