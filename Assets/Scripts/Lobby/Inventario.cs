@@ -48,12 +48,24 @@ public class Inventario : MonoBehaviour {
     public Slider strenghtSlider;
     public Slider enduranceSlider;
     public Slider vigorSlider;
-    //Buttons
+    //Stats Buttons
     public Button sumVitalityButton;
     public Button sumPowerButton;
     public Button sumStrenghtButton;
     public Button sumEnduranceButton;
     public Button sumVigorButton;
+    //Sorrows buttons
+    public Button buttonRage;
+    public Button buttonTerror;
+    public Button buttonGrief;
+    //Drives buttons
+    public Button buttonCourage;
+    public Button buttonFocus;
+    public Button buttonWill;
+    public Button buttonRemembrance;
+    public Button buttonSpiritualHealing;
+    public Button buttonClarity;
+    public Button buttonGrace;
     //Orbs quantity
     public Text orbsQuantityUIText;
     //Drives & Sorrows quantity
@@ -86,6 +98,13 @@ public class Inventario : MonoBehaviour {
         drives.clarity = PlayerPrefs.GetInt("Clarity");
         drives.grace = PlayerPrefs.GetInt("Grace");
 
+        //GETTING STATS VALUE TO SAVE THEM
+        playerScript.stats.vitality = PlayerPrefs.GetInt("Vitality");
+        playerScript.stats.vitality = PlayerPrefs.GetInt("Strenght");
+        playerScript.stats.endurance = PlayerPrefs.GetInt("Endurance");
+        playerScript.stats.power = PlayerPrefs.GetInt("Power");
+        playerScript.stats.vigor = PlayerPrefs.GetInt("Vigor");
+
         //ORBS INITIALIZATION AND SAVE
         orbs.quantity = PlayerPrefs.GetInt("ORBS");
 
@@ -93,13 +112,27 @@ public class Inventario : MonoBehaviour {
         //Sliders
         RefreshUI();
 
-        //Buttons
+        //Stats Buttons
         sumVitalityButton.onClick.AddListener(AddVitality);
         sumPowerButton.onClick.AddListener(AddPower);
         sumStrenghtButton.onClick.AddListener(AddStrenght);
         sumEnduranceButton.onClick.AddListener(AddEndurance);
         sumVigorButton.onClick.AddListener(AddVigor);
-    }
+
+        //Drives buttons
+        buttonRage.onClick.AddListener(AddRage);
+        buttonTerror.onClick.AddListener(AddTerror);
+        buttonGrief.onClick.AddListener(AddGrief);
+
+        //Sorrows buttons
+        buttonCourage.onClick.AddListener(AddCourage);
+        buttonFocus.onClick.AddListener(AddFocus);
+        buttonWill.onClick.AddListener(AddWill);
+        buttonRemembrance.onClick.AddListener(AddRemembrance);
+        buttonSpiritualHealing.onClick.AddListener(AddSpiritualHealing);
+        buttonClarity.onClick.AddListener(AddClarity);
+        buttonGrace.onClick.AddListener(AddGrace);
+}
 
     void Update()
     {
@@ -191,6 +224,8 @@ public class Inventario : MonoBehaviour {
     {
         drives.will += 1;
         PlayerPrefs.SetInt("Will", drives.will);
+        playerScript.coins -= 50;
+        PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
 
@@ -235,9 +270,14 @@ public class Inventario : MonoBehaviour {
     {
         if (orbs.quantity > 0)
         {
+            Debug.Log("Player vitality afte adding more is: " + playerScript.stats.vitality.ToString());
+            Debug.Log("Player health after adding vitality is: " + playerScript.maxHealth.ToString());
             orbs.quantity -= 1;
             PlayerPrefs.SetInt("ORBS", orbs.quantity);
             playerScript.stats.vitality += 1;
+            PlayerPrefs.SetInt("Vitality", playerScript.stats.vitality);
+            Debug.Log("Player vitality now is: " + playerScript.stats.vitality.ToString());
+            Debug.Log("Player health now is: " + playerScript.maxHealth.ToString());
             RefreshUI();
         }
     }
@@ -249,6 +289,7 @@ public class Inventario : MonoBehaviour {
             orbs.quantity -= 1;
             PlayerPrefs.SetInt("ORBS", orbs.quantity);
             playerScript.stats.strenght += 1;
+            PlayerPrefs.SetInt("Strenght", playerScript.stats.strenght);
             strenghtSlider.value = playerScript.stats.strenght;
             RefreshUI();
         }
@@ -261,6 +302,7 @@ public class Inventario : MonoBehaviour {
             orbs.quantity -= 1;
             PlayerPrefs.SetInt("ORBS", orbs.quantity);
             playerScript.stats.endurance += 1;
+            PlayerPrefs.SetInt("Endurance", playerScript.stats.endurance);
             enduranceSlider.value = playerScript.stats.endurance;
             RefreshUI();
         }
@@ -273,6 +315,7 @@ public class Inventario : MonoBehaviour {
             orbs.quantity -= 1;
             PlayerPrefs.SetInt("ORBS", orbs.quantity);
             playerScript.stats.power += 1;
+            PlayerPrefs.SetInt("Power", playerScript.stats.power);
             powerSlider.value = playerScript.stats.power;
             RefreshUI();
         }
@@ -285,6 +328,7 @@ public class Inventario : MonoBehaviour {
             orbs.quantity -= 1;
             PlayerPrefs.SetInt("ORBS", orbs.quantity);
             playerScript.stats.vigor += 1;
+            PlayerPrefs.SetInt("Vigor", playerScript.stats.vigor);
             vigorSlider.value = playerScript.stats.power;
             RefreshUI();
         }

@@ -126,6 +126,12 @@ public class FightController4 : MonoBehaviour {
     public Text bossHealthNumber;
     public Text bossArmorNumber;
 
+    //UI WHEN YOU WIN
+    public GameObject winCanvas;
+    public Text orbsText;
+    public Text moneyText;
+    public Button continueButton;
+
     //POPUP TEXT UI BOSS
     public GameObject popupText;
 
@@ -869,12 +875,7 @@ public class FightController4 : MonoBehaviour {
             }
             else
             {
-                bossScript.health = 0;
-                playerScript.coins += 500;
-                orbs.quantity += 20;
-                PlayerPrefs.SetInt("COINS", playerScript.coins);
-                PlayerPrefs.SetInt("ORBS", orbs.quantity);
-                StartCoroutine(DeadAnimation());
+                StartCoroutine(WinScene());
             }
         }
     }
@@ -3570,11 +3571,22 @@ public class FightController4 : MonoBehaviour {
         particle.Stop();
     }
 
-    IEnumerator DeadAnimation()
+    IEnumerator WinScene()
     {
-        Debug.Log("sekiro");
         bossAnimator.Play("Die");
         yield return new WaitForSecondsRealtime(5);
-        SceneManager.LoadScene("Narrator", LoadSceneMode.Single); //WHAT IF YOU WIN THE BATTLE
+        winCanvas.SetActive(true);
+        playerScript.coins += 500;
+        orbs.quantity += 20;
+        PlayerPrefs.SetInt("COINS", playerScript.coins);
+        PlayerPrefs.SetInt("ORBS", orbs.quantity);
+        orbsText.text = "20 orbs";
+        moneyText.text = "500 coins";
+        continueButton.onClick.AddListener(JumpScene);
+    }
+
+    void JumpScene()
+    {
+        SceneManager.LoadScene("Narrator", LoadSceneMode.Single); //Change scene if continue button is pressed
     }
 }

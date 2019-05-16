@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class SpellsChick : MonoBehaviour
 {
@@ -41,6 +42,10 @@ public class SpellsChick : MonoBehaviour
     private DialogueState dialogueState;                                                    //Variable que guarda el estado del dialogo en el que estamos
     private float dialogueTimeLeft;                                                         //Tiempo que duran las cadenas de dialogo
     private Text dialogueText;                                                              //Texto a mostrar
+
+    //Camaras
+    public CinemachineVirtualCamera cmVcam1;
+    public CinemachineFreeLook movementCamera;
 
     void Start()
     {
@@ -89,7 +94,9 @@ public class SpellsChick : MonoBehaviour
                 Debug.Log("No estoy Conversando");
                 break;
             case DialogueState.INIT:
-				playerController.anim.SetFloat("Speed", 0);
+                movementCamera.Priority = 9;
+                cmVcam1.Priority = 20;
+                playerController.anim.SetFloat("Speed", 0);
                 playerController.enabled = false; //Ya no puedes mover el personaje
                 pressEImage.enabled = false; //Deja de aparecer el boton E
                 dialogueText.text = ""; //Aparece el cuadro de diálogo vacío
@@ -215,6 +222,8 @@ public class SpellsChick : MonoBehaviour
                 }
                 break;
             case DialogueState.END:
+                movementCamera.Priority = 20;
+                cmVcam1.Priority = 9;
                 buyButton.image.sprite = buyButtonHover;
                 exitButton.image.sprite = exitButtonDefault;
                 render.material = activeMaterial; //Cambiamos de material

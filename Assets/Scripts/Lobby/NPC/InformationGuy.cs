@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class InformationGuy : MonoBehaviour
 {
@@ -30,6 +31,10 @@ public class InformationGuy : MonoBehaviour
     private float dialogueTimeLeft;                                                         //Tiempo que duran las cadenas de dialogo
     private Text dialogueText;                                                              //Texto a mostrar
     bool info;
+
+    //Cameras
+    public CinemachineVirtualCamera cmVcam2;
+    public CinemachineFreeLook movementCamera;
 
     void Start()
     {
@@ -74,6 +79,8 @@ public class InformationGuy : MonoBehaviour
                 Debug.Log("No estoy Conversando");
                 break;
             case DialogueState.INIT:
+                movementCamera.Priority = 9;
+                cmVcam2.Priority = 20;
 				playerController.anim.SetFloat("Speed", 0);
                 playerController.enabled = false; //Ya no puedes mover el personaje
                 pressEImage.enabled = false; //Deja de aparecer el boton E
@@ -294,6 +301,8 @@ public class InformationGuy : MonoBehaviour
                 }
                 break;
             case DialogueState.END:
+                movementCamera.Priority = 20;
+                cmVcam2.Priority = 9;
                 render.material = activeMaterial; //Cambiamos de material
                 pressEImage.enabled = true; //Mostramos la imágen en pantalla
                 dialogue.SetActive(false); //Desactivamos el texto

@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour {
         xAxisMaxSpeed = 250;
         yAxisMaxSpeed = 2;
 
-        transform.position = new Vector3(4.89f, 0.002f, 4.56f);                      // Positions in which the character will be spawned
+        transform.position = new Vector3(-18.43f, 0.09f, 1.63f);                      // Positions in which the character will be spawned
         transform.eulerAngles = new Vector3(0, 0, 0);                   // Orientation of character spawn
 
         offset = mainCamera.transform.position - transform.position;    // Measures the distance between the character and the camera

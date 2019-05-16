@@ -134,6 +134,12 @@ public class FightController : MonoBehaviour
     public Text bossHealthNumber;
     public Text bossArmorNumber;
 
+    //UI WHEN YOU WIN
+    public GameObject winCanvas;
+    public Text orbsText;
+    public Text moneyText;
+    public Button continueButton;
+
     //POPUP TEXT UI BOSS
     public GameObject popupText;
 
@@ -287,6 +293,15 @@ public class FightController : MonoBehaviour
         bossScript = boss.GetComponent<Boss>();
         bossAnimator = boss.GetComponent<Animator>();
         playerAnimator = player.GetComponent<Animator>();
+
+        //GETTING STATS
+        playerScript.stats.vitality = PlayerPrefs.GetInt("Vitality");
+        playerScript.stats.strenght = PlayerPrefs.GetInt("Strenght");
+        playerScript.stats.endurance = PlayerPrefs.GetInt("Endurance");
+        playerScript.stats.power = PlayerPrefs.GetInt("Power");
+        playerScript.stats.vigor = PlayerPrefs.GetInt("Vigor");
+
+        Debug.Log("Player health is: " + playerScript.maxHealth.ToString());
 
         //Particles
         hitParticle.Stop();
@@ -872,12 +887,7 @@ public class FightController : MonoBehaviour
             }
             else
             {
-                bossScript.health = 0;
-                playerScript.coins += 500;
-                orbs.quantity += 20;
-                PlayerPrefs.SetInt("COINS", playerScript.coins);
-                PlayerPrefs.SetInt("ORBS", orbs.quantity);
-                SceneManager.LoadScene("Narrator", LoadSceneMode.Single); //WHAT IF YOU WIN THE BATTLE
+                StartCoroutine(WinScene());
             }
         }
     }
@@ -1863,6 +1873,7 @@ public class FightController : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
+        Debug.Log("Boss life: " + bossScript.health.ToString());
         endedMove = true;
         if (playerScript.moves > 0 && playerScript.energy > 2)
             ShowActions();
@@ -2129,6 +2140,7 @@ public class FightController : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
+        Debug.Log("Boss life: " + bossScript.health);
         endedMove = true;
         if (playerScript.moves > 0 && playerScript.energy > 2)
         {
@@ -3603,10 +3615,28 @@ public class FightController : MonoBehaviour
         yield return new WaitForSecondsRealtime(10);
     }
 
+    IEnumerator WinScene()
+    {
+        yield return new WaitForSecondsRealtime(1.5f);
+        winCanvas.SetActive(true);
+        playerScript.coins += 500;
+        orbs.quantity += 20;
+        PlayerPrefs.SetInt("COINS", playerScript.coins);
+        PlayerPrefs.SetInt("ORBS", orbs.quantity);
+        orbsText.text = "20 orbs";
+        moneyText.text = "500 coins";
+        continueButton.onClick.AddListener(JumpScene);
+    }
+
     void ChangeLight(Light lightToChange, Color startColor, Color endColor)
     {
         float duration = 0.5f;
         float time = Mathf.PingPong(Time.time, duration);
         lightToChange.color = Color.Lerp(startColor, endColor, time);
+    }
+
+    void JumpScene()
+    {
+        SceneManager.LoadScene("Narrator", LoadSceneMode.Single); //Change scene if continue button is pressed
     }
 }

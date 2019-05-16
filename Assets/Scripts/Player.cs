@@ -39,16 +39,16 @@ public class Player : MonoBehaviour {
 	void Awake () {
         coins = PlayerPrefs.GetInt("COINS");
         playerScript = this;
-
+        
         //BASE STATS
-        stats.vitality = 5;
-        stats.strenght = 5;
-        stats.endurance = 5;
-        stats.power = 5;
-        stats.vigor = 5;
+        stats.vitality = PlayerPrefs.GetInt("Vitality");
+        stats.strenght = PlayerPrefs.GetInt("Strenght");
+        stats.endurance = PlayerPrefs.GetInt("Endurance");
+        stats.power = PlayerPrefs.GetInt("Power");
+        stats.vigor = PlayerPrefs.GetInt("Vigor");
         blockChance = 0;
 
-        //STATS
+        //STARTING HEALTH STATS
         maxHealth = stats.vitality * vitalityMultiplier;
         health = maxHealth;
     }

@@ -529,6 +529,16 @@ Prefab:
       propertyPath: m_Center.y
       value: 0.7451081
       objectReference: {fileID: 0}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: movementCamera
+      value: 
+      objectReference: {fileID: 2141938272}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: cmVcam3
+      value: 
+      objectReference: {fileID: 37043221}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c85f4f044a61de444a9d135f1db27882, type: 2}
   m_IsPrefabAsset: 0
@@ -1261,6 +1271,61 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 35513463}
   m_Mesh: {fileID: 4300000, guid: 831834946cf621840983a213d5e42835, type: 3}
+--- !u!1 &37043220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 37043222}
+  - component: {fileID: 37043221}
+  m_Layer: 0
+  m_Name: CM vcam3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &37043221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 37043220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExcludedPropertiesInInspector:
+  - m_Script
+  m_LockStageInInspector: 
+  m_StreamingVersion: 20170927
+  m_Priority: 10
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
+  m_Lens:
+    FieldOfView: 40
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
+    Dutch: 0
+  m_ComponentOwner: {fileID: 365627072}
+--- !u!4 &37043222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 37043220}
+  m_LocalRotation: {x: 0.10851044, y: 0.6081047, z: -0.08439538, w: 0.7818641}
+  m_LocalPosition: {x: -1.65, y: 3.21, z: 0.92}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 365627072}
+  m_Father: {fileID: 0}
+  m_RootOrder: 61
+  m_LocalEulerAnglesHint: {x: 15.803, y: 75.749, z: 0}
 --- !u!1 &41491263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,7 +1594,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 48625865}
-  m_LocalRotation: {x: 0.17128679, y: -0.023085114, z: 0.0040145363, w: 0.98494256}
+  m_LocalRotation: {x: -0.118962854, y: -0.6670236, z: 0.10909739, w: -0.7273411}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1953,6 +2018,16 @@ MonoBehaviour:
   sumStrenghtButton: {fileID: 0}
   sumEnduranceButton: {fileID: 0}
   sumVigorButton: {fileID: 0}
+  buttonRage: {fileID: 0}
+  buttonTerror: {fileID: 0}
+  buttonGrief: {fileID: 0}
+  buttonCourage: {fileID: 0}
+  buttonFocus: {fileID: 0}
+  buttonWill: {fileID: 0}
+  buttonRemembrance: {fileID: 0}
+  buttonSpiritualHealing: {fileID: 0}
+  buttonClarity: {fileID: 0}
+  buttonGrace: {fileID: 0}
   orbsQuantityUIText: {fileID: 0}
   rageQuantity: {fileID: 0}
   terrorQuantity: {fileID: 0}
@@ -2568,6 +2643,61 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 75209990}
   m_CullTransparentMesh: 0
+--- !u!1 &84742653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 84742655}
+  - component: {fileID: 84742654}
+  m_Layer: 0
+  m_Name: CM vcam4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &84742654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 84742653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExcludedPropertiesInInspector:
+  - m_Script
+  m_LockStageInInspector: 
+  m_StreamingVersion: 20170927
+  m_Priority: 10
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
+  m_Lens:
+    FieldOfView: 40
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
+    Dutch: 0
+  m_ComponentOwner: {fileID: 2116983923}
+--- !u!4 &84742655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 84742653}
+  m_LocalRotation: {x: 0.005792998, y: 0.9824842, z: -0.030989496, w: 0.18365997}
+  m_LocalPosition: {x: -17.04, y: 2.09, z: 3.22}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2116983923}
+  m_Father: {fileID: 0}
+  m_RootOrder: 62
+  m_LocalEulerAnglesHint: {x: 3.6130002, y: 158.82301, z: 0}
 --- !u!1 &85523088
 GameObject:
   m_ObjectHideFlags: 0
@@ -3552,18 +3682,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 141363023}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 58455713}
-        m_MethodName: AddWill
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &141363023
@@ -3744,18 +3863,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 161392714}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 58455713}
-        m_MethodName: AddCourage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &161392714
@@ -4030,6 +4138,16 @@ Prefab:
       propertyPath: m_Center.z
       value: -0.19774085
       objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: movementCamera
+      value: 
+      objectReference: {fileID: 2141938272}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: cmVcam2
+      value: 
+      objectReference: {fileID: 1517028111}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fff63186f9e6e148931618dfd0088fe, type: 2}
   m_IsPrefabAsset: 0
@@ -5099,18 +5217,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 248595869}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 58455713}
-        m_MethodName: AddGrace
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &248595869
@@ -6647,9 +6754,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 2
   m_MinValue: 0
-  m_MaxValue: 400
+  m_MaxValue: 50
   m_WholeNumbers: 1
-  m_Value: 299
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7176,6 +7283,46 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 357930929}
   m_CullTransparentMesh: 0
+--- !u!1 &365627071
+GameObject:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 365627072}
+  - component: {fileID: 365627075}
+  m_Layer: 0
+  m_Name: cm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &365627072
+Transform:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 365627071}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 37043222}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &365627075
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 365627071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &370356373
 GameObject:
   m_ObjectHideFlags: 0
@@ -7692,9 +7839,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 2
   m_MinValue: 0
-  m_MaxValue: 400
+  m_MaxValue: 50
   m_WholeNumbers: 1
-  m_Value: 215
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8481,6 +8628,46 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300038, guid: 10045d34d2eecfd4dae6834945bfe20c, type: 3}
+--- !u!1 &419922692
+GameObject:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 419922693}
+  - component: {fileID: 419922696}
+  m_Layer: 0
+  m_Name: cm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &419922693
+Transform:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 419922692}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1517028112}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &419922696
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 419922692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &423427358
 GameObject:
   m_ObjectHideFlags: 0
@@ -8959,7 +9146,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 434400009}
-  m_LocalRotation: {x: 0.23292331, y: -0.022785947, z: 0.0054590767, w: 0.9722128}
+  m_LocalRotation: {x: -0.16425987, y: -0.65888387, z: 0.15063694, w: -0.7184701}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -12791,7 +12978,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400068, guid: c1afcd3e1b76a0a44ae79398e66bc0a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.14
+      value: -18.43
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: c1afcd3e1b76a0a44ae79398e66bc0a0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12799,7 +12986,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: c1afcd3e1b76a0a44ae79398e66bc0a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.16
+      value: 1.63
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: c1afcd3e1b76a0a44ae79398e66bc0a0, type: 3}
       propertyPath: m_LocalRotation.x
@@ -12807,7 +12994,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: c1afcd3e1b76a0a44ae79398e66bc0a0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: c1afcd3e1b76a0a44ae79398e66bc0a0, type: 3}
       propertyPath: m_LocalRotation.z
@@ -12815,7 +13002,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: c1afcd3e1b76a0a44ae79398e66bc0a0, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: c1afcd3e1b76a0a44ae79398e66bc0a0, type: 3}
       propertyPath: m_RootOrder
@@ -12849,6 +13036,14 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c08d10387eb66d14397a3bb4df982211, type: 2}
+    - target: {fileID: 400068, guid: c1afcd3e1b76a0a44ae79398e66bc0a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: c1afcd3e1b76a0a44ae79398e66bc0a0, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1afcd3e1b76a0a44ae79398e66bc0a0, type: 3}
   m_IsPrefabAsset: 0
@@ -13483,18 +13678,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 752680615}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 58455713}
-        m_MethodName: AddTerror
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &752680615
@@ -13679,6 +13863,16 @@ Prefab:
       propertyPath: m_Center.x
       value: 0.1945095
       objectReference: {fileID: 0}
+    - target: {fileID: 114112200853440358, guid: b1fe97c554b2e284abbb00a9da26a1d1,
+        type: 2}
+      propertyPath: cmVcam4
+      value: 
+      objectReference: {fileID: 84742654}
+    - target: {fileID: 114112200853440358, guid: b1fe97c554b2e284abbb00a9da26a1d1,
+        type: 2}
+      propertyPath: movementCamera
+      value: 
+      objectReference: {fileID: 2141938272}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1fe97c554b2e284abbb00a9da26a1d1, type: 2}
   m_IsPrefabAsset: 0
@@ -15180,18 +15374,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 835889820}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 58455713}
-        m_MethodName: AddClarity
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &835889820
@@ -15228,6 +15411,61 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 835889817}
   m_CullTransparentMesh: 0
+--- !u!1 &846842284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 846842286}
+  - component: {fileID: 846842285}
+  m_Layer: 0
+  m_Name: CM vcam1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &846842285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 846842284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExcludedPropertiesInInspector:
+  - m_Script
+  m_LockStageInInspector: 
+  m_StreamingVersion: 20170927
+  m_Priority: 9
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
+  m_Lens:
+    FieldOfView: 40
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
+    Dutch: 0
+  m_ComponentOwner: {fileID: 2135613347}
+--- !u!4 &846842286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 846842284}
+  m_LocalRotation: {x: 0.036389783, y: 0.9157584, z: -0.10116116, w: 0.3870774}
+  m_LocalPosition: {x: -11.69, y: 2.57, z: 1.28}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2135613347}
+  m_Father: {fileID: 0}
+  m_RootOrder: 59
+  m_LocalEulerAnglesHint: {x: 12.325001, y: 134.1, z: -0.684}
 --- !u!1 &847758825
 GameObject:
   m_ObjectHideFlags: 0
@@ -15849,6 +16087,8 @@ MonoBehaviour:
   dialogue: {fileID: 66345312}
   dialogueWaiter: {fileID: 1453667596}
   NPCModel: {fileID: 897636626}
+  cmVcam2: {fileID: 1517028111}
+  movementCamera: {fileID: 2141938272}
 --- !u!136 &897636629
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -16953,6 +17193,8 @@ MonoBehaviour:
   noButton: {fileID: 57818262}
   noButtonDefault: {fileID: 21300000, guid: d80c15dd3199f25468ceea22d99c2bc4, type: 3}
   noButtonHover: {fileID: 21300000, guid: 8f091f5e7fd5ebf48b472bf816742ade, type: 3}
+  cmVcam3: {fileID: 37043221}
+  movementCamera: {fileID: 2141938272}
 --- !u!82 &971384265
 AudioSource:
   m_ObjectHideFlags: 0
@@ -17612,18 +17854,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1001938842}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 58455713}
-        m_MethodName: AddFocus
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1001938842
@@ -18608,18 +18839,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1058708811}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 58455713}
-        m_MethodName: AddSpiritualHealing
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1058708811
@@ -20994,18 +21214,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1193309893}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 58455713}
-        m_MethodName: AddRemembrance
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1193309893
@@ -21778,9 +21987,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 2
   m_MinValue: 0
-  m_MaxValue: 400
+  m_MaxValue: 50
   m_WholeNumbers: 1
-  m_Value: 215
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -22814,6 +23023,16 @@ MonoBehaviour:
   sumStrenghtButton: {fileID: 1626327676}
   sumEnduranceButton: {fileID: 55095492}
   sumVigorButton: {fileID: 571129831}
+  buttonRage: {fileID: 1365269540}
+  buttonTerror: {fileID: 752680614}
+  buttonGrief: {fileID: 1520920910}
+  buttonCourage: {fileID: 161392713}
+  buttonFocus: {fileID: 1001938841}
+  buttonWill: {fileID: 141363022}
+  buttonRemembrance: {fileID: 1193309892}
+  buttonSpiritualHealing: {fileID: 1058708810}
+  buttonClarity: {fileID: 835889819}
+  buttonGrace: {fileID: 248595868}
   orbsQuantityUIText: {fileID: 2007704439}
   rageQuantity: {fileID: 646362432}
   terrorQuantity: {fileID: 1812690665}
@@ -24422,18 +24641,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1365269541}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 58455713}
-        m_MethodName: AddRage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1365269541
@@ -24885,6 +25093,16 @@ Prefab:
       propertyPath: m_Center.x
       value: -0.10058808
       objectReference: {fileID: 0}
+    - target: {fileID: 114832921048305098, guid: baf8dfdc863bd074c9031cd4c5b8126d,
+        type: 2}
+      propertyPath: cmVcam1
+      value: 
+      objectReference: {fileID: 846842285}
+    - target: {fileID: 114832921048305098, guid: baf8dfdc863bd074c9031cd4c5b8126d,
+        type: 2}
+      propertyPath: movementCamera
+      value: 
+      objectReference: {fileID: 2141938272}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baf8dfdc863bd074c9031cd4c5b8126d, type: 2}
   m_IsPrefabAsset: 0
@@ -26635,6 +26853,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1517028110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1517028112}
+  - component: {fileID: 1517028111}
+  m_Layer: 0
+  m_Name: CM vcam2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1517028111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1517028110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExcludedPropertiesInInspector:
+  - m_Script
+  m_LockStageInInspector: 
+  m_StreamingVersion: 20170927
+  m_Priority: 10
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
+  m_Lens:
+    FieldOfView: 40
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
+    Dutch: 0
+  m_ComponentOwner: {fileID: 419922693}
+--- !u!4 &1517028112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1517028110}
+  m_LocalRotation: {x: 0.010370128, y: 0.35336533, z: -0.012202537, w: 0.93534833}
+  m_LocalPosition: {x: -12.44, y: 2.11, z: 1.16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 419922693}
+  m_Father: {fileID: 0}
+  m_RootOrder: 60
+  m_LocalEulerAnglesHint: {x: 1.6060001, y: 41.38, z: -0.8880001}
 --- !u!1 &1517102681
 GameObject:
   m_ObjectHideFlags: 0
@@ -26776,18 +27049,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1520920911}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 58455713}
-        m_MethodName: AddGrief
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1520920911
@@ -27904,6 +28166,8 @@ MonoBehaviour:
   exitButton: {fileID: 511525954}
   exitButtonDefault: {fileID: 21300000, guid: e547e90a2eaa6844794cd0497619184a, type: 3}
   exitButtonHover: {fileID: 21300000, guid: dfeb549a077a53d428ed9b688db4a070, type: 3}
+  cmVcam4: {fileID: 84742654}
+  movementCamera: {fileID: 2141938272}
 --- !u!136 &1577649013
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -28887,9 +29151,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 2
   m_MinValue: 0
-  m_MaxValue: 400
+  m_MaxValue: 50
   m_WholeNumbers: 1
-  m_Value: 173
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -29012,6 +29276,8 @@ MonoBehaviour:
   exitButton: {fileID: 357930932}
   exitButtonDefault: {fileID: 21300000, guid: e547e90a2eaa6844794cd0497619184a, type: 3}
   exitButtonHover: {fileID: 21300000, guid: dfeb549a077a53d428ed9b688db4a070, type: 3}
+  cmVcam1: {fileID: 846842285}
+  movementCamera: {fileID: 2141938272}
 --- !u!82 &1643756490
 AudioSource:
   m_ObjectHideFlags: 0
@@ -30400,9 +30666,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 2
   m_MinValue: 0
-  m_MaxValue: 400
+  m_MaxValue: 50
   m_WholeNumbers: 1
-  m_Value: 106
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -31574,7 +31840,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1857300338}
-  m_LocalRotation: {x: 0.12475614, y: 0.05955947, z: -0.0075025316, w: 0.9903698}
+  m_LocalRotation: {x: -0.08485462, y: -0.7284401, z: 0.09176079, w: -0.6736132}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -33962,8 +34228,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2017347213}
-  m_LocalRotation: {x: 0.12475658, y: 0.05955956, z: -0.007502699, w: 0.99036974}
-  m_LocalPosition: {x: 5.281008, y: 2.59, z: 1.9931376}
+  m_LocalRotation: {x: 0.084854774, y: 0.7284403, z: -0.091761366, w: 0.6736129}
+  m_LocalPosition: {x: -21.58816, y: 2.5899994, z: 1.3562659}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -36210,6 +36476,46 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2114468829}
   m_CullTransparentMesh: 0
+--- !u!1 &2116983922
+GameObject:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2116983923}
+  - component: {fileID: 2116983924}
+  m_Layer: 0
+  m_Name: cm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2116983923
+Transform:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2116983922}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 84742655}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2116983924
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2116983922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2123346115
 GameObject:
   m_ObjectHideFlags: 0
@@ -36461,6 +36767,46 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2126091688}
   m_CullTransparentMesh: 0
+--- !u!1 &2135613346
+GameObject:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2135613347}
+  - component: {fileID: 2135613350}
+  m_Layer: 0
+  m_Name: cm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2135613347
+Transform:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2135613346}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 846842286}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2135613350
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2135613346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2137048028
 GameObject:
   m_ObjectHideFlags: 0
@@ -36886,7 +37232,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 11
   m_LookAt: {fileID: 1276252852}
   m_Follow: {fileID: 1276252852}
   m_CommonLens: 1
@@ -36943,7 +37289,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2141938270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.281008, y: 2.59, z: 1.9931376}
+  m_LocalPosition: {x: -21.58816, y: 2.5899994, z: 1.3562659}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 434400011}

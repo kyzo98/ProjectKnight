@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class DoorGuy : MonoBehaviour
 {
@@ -46,6 +47,10 @@ public class DoorGuy : MonoBehaviour
     private bool defeatedBoss3;
     private bool defeatedBoss4;
     private int fightSceneOrder;
+
+    //Cinematic cameras
+    public CinemachineVirtualCamera cmVcam3;
+    public CinemachineFreeLook movementCamera;
 
     void Start()
     {
@@ -103,6 +108,8 @@ public class DoorGuy : MonoBehaviour
                 Debug.Log("No estoy Conversando");
                 break;
             case DialogueState.INIT:
+                movementCamera.Priority = 9;
+                cmVcam3.Priority = 20;
                 playerController.anim.SetFloat("Speed", 0);
                 playerController.enabled = false; //Ya no puedes mover el personaje
                 pressEImage.enabled = false; //Deja de aparecer el boton E
@@ -121,6 +128,8 @@ public class DoorGuy : MonoBehaviour
                 optionSelected = 0;
                 break;
             case DialogueState.WELCOME1:
+                movementCamera.Priority = 9;
+                cmVcam3.Priority = 20;
                 if (dialogueTimeLeft == NPCSentencesAudio[0].length)//Inicia la animacion
                 {
                     animator.Play("Talk");
@@ -159,6 +168,8 @@ public class DoorGuy : MonoBehaviour
                 }
                 break;
             case DialogueState.WELCOME2:
+                movementCamera.Priority = 9;
+                cmVcam3.Priority = 20;
                 if (dialogueTimeLeft == NPCSentencesAudio[1].length)//Inicia la animacion
                 {
                     animator.Play("Talk");
@@ -199,6 +210,8 @@ public class DoorGuy : MonoBehaviour
 
 
             case DialogueState.WELCOME3:
+                movementCamera.Priority = 9;
+                cmVcam3.Priority = 20;
                 if (dialogueTimeLeft == NPCSentencesAudio[2].length)//Inicia la animacion
                 {
                     animator.Play("Talk");
@@ -305,30 +318,6 @@ public class DoorGuy : MonoBehaviour
                         endCorutines = false;
                         dialogueState = DialogueState.END;
                         SceneManager.LoadScene("Narrator", LoadSceneMode.Single);
-                        //switch (fightSceneOrder)
-                        //{
-                        //    case 0:
-                        //        SceneManager.LoadScene("Fight", LoadSceneMode.Single);
-                        //        fightSceneOrder++;
-                        //        PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
-                        //        defeatedBoss1 = true;
-                        //        break;
-                        //    case 1:
-                        //        SceneManager.LoadScene("Fight4", LoadSceneMode.Single);
-                        //        fightSceneOrder++;
-                        //        PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
-                        //        break;
-                        //    case 3:
-                        //        SceneManager.LoadScene("Fight3", LoadSceneMode.Single);
-                        //        fightSceneOrder++;
-                        //        PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
-                        //        break;
-                        //    case 4:
-                        //        SceneManager.LoadScene("Fight2", LoadSceneMode.Single);
-                        //        fightSceneOrder++;
-                        //        PlayerPrefs.SetInt("FIGHT_ORDER", fightSceneOrder);
-                        //        break;
-                        //}
                     }
                 }
                 else
@@ -379,6 +368,8 @@ public class DoorGuy : MonoBehaviour
 
 
             case DialogueState.END:
+                movementCamera.Priority = 20;
+                cmVcam3.Priority = 9;
                 render.material = activeMaterial; //Cambiamos de material
                 pressEImage.enabled = true; //Mostramos la imágen en pantalla
                 dialogue.SetActive(false); //Desactivamos el texto

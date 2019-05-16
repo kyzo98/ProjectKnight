@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class RuneSeller : MonoBehaviour {
     private LobbyShop lobbyShop;
@@ -40,6 +41,10 @@ public class RuneSeller : MonoBehaviour {
     private DialogueState dialogueState;                                                    //Variable que guarda el estado del dialogo en el que estamos
     private float dialogueTimeLeft;                                                         //Tiempo que duran las cadenas de dialogo
     private Text dialogueText;                                                              //Texto a mostrar
+
+    //Cinematic Cameras
+    public CinemachineVirtualCamera cmVcam4;
+    public CinemachineFreeLook movementCamera;
 
     void Start () {
         lobbyShop = storeWrap.GetComponent<LobbyShop>();
@@ -86,7 +91,9 @@ public class RuneSeller : MonoBehaviour {
                 Debug.Log("No estoy Conversando");
                 break;
             case DialogueState.INIT:
-				playerController.anim.SetFloat("Speed", 0);
+                movementCamera.Priority = 9;
+                cmVcam4.Priority = 20;
+                playerController.anim.SetFloat("Speed", 0);
                 playerController.enabled = false; //Ya no puedes mover el personaje
                 pressEImage.enabled = false; //Deja de aparecer el boton E
                 dialogueText.text = ""; //Aparece el cuadro de diálogo vacío
@@ -212,6 +219,8 @@ public class RuneSeller : MonoBehaviour {
                 }
                 break;
             case DialogueState.END:
+                movementCamera.Priority = 20;
+                cmVcam4.Priority = 9;
                 buyButton.image.sprite = buyButtonHover;
                 exitButton.image.sprite = exitButtonDefault;
                 render.material = activeMaterial; //Cambiamos de material

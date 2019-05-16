@@ -39,6 +39,13 @@ public class Menu : MonoBehaviour {
         PlayerPrefs.SetInt("Will", 0);
         PlayerPrefs.SetInt("Grace", 0);
 
+        //Setting player stats to 5 when the game starts
+        PlayerPrefs.SetInt("Vitality", 5);
+        PlayerPrefs.SetInt("Strenght", 5);
+        PlayerPrefs.SetInt("Endurance", 5);
+        PlayerPrefs.SetInt("Power", 5);
+        PlayerPrefs.SetInt("Vigor", 5);
+
         //Load settings Sound
         masterVolumeSlider.value = PlayerPrefs.GetInt("masterVolumeSlider");
         fxVolumeSlider.value = PlayerPrefs.GetInt("fxVolumeSlider");
