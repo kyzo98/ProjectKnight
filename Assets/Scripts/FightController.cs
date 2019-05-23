@@ -1863,7 +1863,7 @@ public class FightController : MonoBehaviour
     {
         endedMove = false;
         playerAnimator.Play("Despair");
-        yield return new WaitForSecondsRealtime(0.6f); //Tiempo de espera de la animación
+        yield return new WaitForSecondsRealtime(0.6f); //Tiempo de espera de la animación antes de disparar el proyectil
         StartCoroutine(ThrowProjectile(despairParticleHolder, despairParticleSystem, d, despairAudio));
         yield return new WaitForSecondsRealtime(3);
         for (int i = d; i > 0; i--)
