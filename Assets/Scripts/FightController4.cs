@@ -902,6 +902,7 @@ public class FightController4 : MonoBehaviour {
             }
             else
             {
+                PlayerPrefs.SetInt("FIGHT_ORDER", 2);
                 StartCoroutine(WinScene());
             }
         }

@@ -46,6 +46,8 @@ public class Menu : MonoBehaviour {
         PlayerPrefs.SetInt("Power", 5);
         PlayerPrefs.SetInt("Vigor", 5);
 
+        PlayerPrefs.SetInt("FIGHT_ORDER", 0);
+
         //Load settings Sound
         masterVolumeSlider.value = PlayerPrefs.GetInt("masterVolumeSlider");
         fxVolumeSlider.value = PlayerPrefs.GetInt("fxVolumeSlider");

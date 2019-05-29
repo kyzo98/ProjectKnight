@@ -272,11 +272,11 @@ public class SpellsChick : MonoBehaviour
     {
         foreach (char letter in message.ToCharArray())
         {
-            letterPause = .02f;
+            letterPause = .01f;
             dialogueText.text += letter;
 
             yield return 0;
-            yield return new WaitForSeconds(letterPause);
+            yield return new WaitForSecondsRealtime(letterPause);
             if (endCorutines)
             {
                 yield break;

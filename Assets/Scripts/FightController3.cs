@@ -889,6 +889,7 @@ public class FightController3 : MonoBehaviour
             }
             else
             {
+                PlayerPrefs.SetInt("FIGHT_ORDER", 3);
                 StartCoroutine(WinScene());
             }
         }

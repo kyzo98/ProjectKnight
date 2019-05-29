@@ -925,8 +925,10 @@ public class FightController : MonoBehaviour
             }
             else
             {
+                PlayerPrefs.SetInt("FIGHT_ORDER", 1);
                 Debug.Log("Player coins: " + playerScript.coins.ToString());
                 StartCoroutine(WinScene());
+
             }
         }
     }

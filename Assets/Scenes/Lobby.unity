@@ -407,6 +407,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: NPCSentences.Array.size
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4114433603785458, guid: c85f4f044a61de444a9d135f1db27882, type: 2}
       propertyPath: m_LocalPosition.x
       value: 5.07
@@ -539,6 +544,74 @@ Prefab:
       propertyPath: cmVcam3
       value: 
       objectReference: {fileID: 37043221}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: NPCName
+      value: Name
+      objectReference: {fileID: 0}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[0]
+      value: "Welcome again, if your here it means you are ready to face your fears
+        once again.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[1]
+      value: "You are somewhere and nowhere\u2026 A place you know, but rarely remember.
+        you are here to fight your way through your \rdeepest fears.       \r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[2]
+      value: "You should first have a look around and get ready for the fight. I will
+        be waiting for when you\u2019re ready.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[3]
+      value: "Are you all set for the challenge ahead?\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: yesButtonDefault
+      value: 
+      objectReference: {fileID: 21300000, guid: 49ae39039d5bfaa48b6701ee57359eec,
+        type: 3}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: yesButtonHover
+      value: 
+      objectReference: {fileID: 21300000, guid: 6e700f826c50cf74ea2f81abf487b078,
+        type: 3}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: noButtonDefault
+      value: 
+      objectReference: {fileID: 21300000, guid: d80c15dd3199f25468ceea22d99c2bc4,
+        type: 3}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: noButtonHover
+      value: 
+      objectReference: {fileID: 21300000, guid: 8f091f5e7fd5ebf48b472bf816742ade,
+        type: 3}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[6]
+      value: "Welcome, I see you managed it. Well done..\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[7]
+      value: You should now be able to upgrade your fighting stats by checking your
+        stats window by pressing C
+      objectReference: {fileID: 0}
+    - target: {fileID: 114563433976779670, guid: c85f4f044a61de444a9d135f1db27882,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[8]
+      value: "Let me know when you are all prepared for your next battle\r\n"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c85f4f044a61de444a9d135f1db27882, type: 2}
   m_IsPrefabAsset: 0
@@ -4057,6 +4130,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.size
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 4590222685192160, guid: 0fff63186f9e6e148931618dfd0088fe, type: 2}
       propertyPath: m_LocalPosition.x
       value: -8.9
@@ -4148,6 +4226,120 @@ Prefab:
       propertyPath: cmVcam2
       value: 
       objectReference: {fileID: 1517028111}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[3]
+      value: "I don\u2019t really know too much about it for now, but I do know that
+        you\u2019re capable of defending yourself. But you should go check what those
+        guys in the shops offer, it might help. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[6]
+      value: Hey fella! Good job out there!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[7]
+      value: "You are probably filled with questions, but for now let me tell you
+        about your Anima\u2026\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[8]
+      value: "Your Anima is what you\u2019re made of here, and you need to use it
+        to do any action when you\u2019re in a battle.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[9]
+      value: "You have a limited amount of it, but worry not!\r\nIt will replenish
+        once it\u2019s your turn again. \r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[10]
+      value: "Take care\r boy."
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[11]
+      value: There's no much more I can do for you for now.. Good luck then!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[12]
+      value: Hey fella! I see you did it good out there!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[13]
+      value: Let me tell you this time about your Strikes and Anima Blast.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[14]
+      value: "You have a Light strike and a Heavy strike, they\u2019re attacks that
+        inflict damage to your opponent by attacking them with your weapons. Your
+        Light strike costs less Anima and does some damage and your Heavy strike deals
+        more damage in exchange for more Anima and has a better chance of doing critical
+        damage. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[15]
+      value: "All the anima you don\u2019t use during your turn will be stored for
+        later in your Anima Container, when it\u2019s full you\u2019ll be able to
+        use your Anima Blast, a massive attack that will deal great damage to your
+        enemies.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[16]
+      value: "Take care\r boy."
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[17]
+      value: There's no much more I can do for you.. Go get them!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[18]
+      value: Hey fella! You've come real far!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[19]
+      value: There's only a bit left kid! Just one more push and you'll make it out
+        of here.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[20]
+      value: Just one more push and you'll make it out of here.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[21]
+      value: Dont go giving up on me now!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[22]
+      value: Take care, and I hope i don't have to see you around here never again!
+        haha!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[23]
+      value: There's no much more I can do for you.. Go get them!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114213935313695324, guid: 0fff63186f9e6e148931618dfd0088fe,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[5]
+      value: There's no much more I can do for you for now.. Go get them!
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fff63186f9e6e148931618dfd0088fe, type: 2}
   m_IsPrefabAsset: 0
@@ -10403,7 +10595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a80fca5145cda498d1557dccd26713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPC: {fileID: 1897306146}
 --- !u!1 &516870573
 GameObject:
   m_ObjectHideFlags: 0
@@ -12408,7 +12599,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a80fca5145cda498d1557dccd26713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPC: {fileID: 1897306146}
 --- !u!1 &672038576 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100068, guid: 10045d34d2eecfd4dae6834945bfe20c,
@@ -13873,7 +14063,8 @@ Prefab:
       propertyPath: movementCamera
       value: 
       objectReference: {fileID: 2141938272}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114112200853440358, guid: b1fe97c554b2e284abbb00a9da26a1d1, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: b1fe97c554b2e284abbb00a9da26a1d1, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &759581013
@@ -17153,48 +17344,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100014, guid: e58da60ba381d2947bfba89510d794a4,
     type: 3}
   m_PrefabInternal: {fileID: 568658672}
---- !u!114 &971384264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 971384263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 033a10ce6c10ef2468503729555ec52f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NPCName: Name
-  NPCSentences:
-  - It seems your back here.
-  - You fell asleep, do you remember?
-  - It does seem that way, good luck.
-  - Do you wish to continue to your battle?
-  - "Okay, I\u2019ll see you next time. "
-  - "Okay, i\u2019ll be here if you decide to leave."
-  NPCSentencesAudio:
-  - {fileID: 8300000, guid: c4ccc465bf34fcb45a8388bae880e379, type: 3}
-  - {fileID: 8300000, guid: b93394ecaa3b334488f1f355c190d01b, type: 3}
-  - {fileID: 8300000, guid: 186438cb10a1ec24982a863d5a10c499, type: 3}
-  - {fileID: 8300000, guid: e2288406978cd9842ab7b9e5da0269e4, type: 3}
-  - {fileID: 8300000, guid: 974fe143686e78843bfb46e4a057acd9, type: 3}
-  - {fileID: 8300000, guid: 45f5027a6aba42e49893a19f9483a2a8, type: 3}
-  defaultMaterial: {fileID: 2100000, guid: 3496c3f6dc6d6f74f9bfcbe546e93910, type: 2}
-  activeMaterial: {fileID: 2100000, guid: 6d0e268b165f5c34695db3d20fe69d64, type: 2}
-  pressEImage: {fileID: 770063548}
-  dialogue: {fileID: 233341504}
-  dialogueOptionsWrap: {fileID: 568342997}
-  dialogueWaiter: {fileID: 319043767}
-  NPCModel: {fileID: 971384263}
-  optionSelected: 0
-  yesButton: {fileID: 1075416389}
-  yesButtonDefault: {fileID: 21300000, guid: 49ae39039d5bfaa48b6701ee57359eec, type: 3}
-  yesButtonHover: {fileID: 21300000, guid: 6e700f826c50cf74ea2f81abf487b078, type: 3}
-  noButton: {fileID: 57818262}
-  noButtonDefault: {fileID: 21300000, guid: d80c15dd3199f25468ceea22d99c2bc4, type: 3}
-  noButtonHover: {fileID: 21300000, guid: 8f091f5e7fd5ebf48b472bf816742ade, type: 3}
-  cmVcam3: {fileID: 37043221}
-  movementCamera: {fileID: 2141938272}
 --- !u!82 &971384265
 AudioSource:
   m_ObjectHideFlags: 0
@@ -25103,6 +25252,18 @@ Prefab:
       propertyPath: movementCamera
       value: 
       objectReference: {fileID: 2141938272}
+    - target: {fileID: 114832921048305098, guid: baf8dfdc863bd074c9031cd4c5b8126d,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[2]
+      value: "I have \u201CSorrows\u201D that can be used to hurt someone a little
+        bit and \u201CDrives\u201D that will get yourself feeling better. Each one
+        can only be used once though, so use them wisely.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114832921048305098, guid: baf8dfdc863bd074c9031cd4c5b8126d,
+        type: 2}
+      propertyPath: NPCSentences.Array.data[0]
+      value: "Hey kid.. Need anything?\r I've got many things that can help you out."
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baf8dfdc863bd074c9031cd4c5b8126d, type: 2}
   m_IsPrefabAsset: 0
@@ -28131,43 +28292,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100068, guid: 59d2d9b930bf86a428f4f7c58eccbf34,
     type: 3}
   m_PrefabInternal: {fileID: 678161131}
---- !u!114 &1577649012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1577649011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d6cb5d5c71613048ad8514a6495ca43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NPCName: Rune Seller
-  NPCSentences:
-  - Quit staring would you?
-  - "later.\r"
-  - "Yeah\u2026 Take a look."
-  NPCSentencesAudio:
-  - {fileID: 8300000, guid: dee5942ad684bef4a99dfbe420d3f326, type: 3}
-  - {fileID: 8300000, guid: d7c4659dc33052d4484cef682d189668, type: 3}
-  - {fileID: 8300000, guid: ebcc0f0e33365a64cb12bd322208c7f2, type: 3}
-  defaultMaterial: {fileID: 2100000, guid: 3496c3f6dc6d6f74f9bfcbe546e93910, type: 2}
-  activeMaterial: {fileID: 2100000, guid: 6d0e268b165f5c34695db3d20fe69d64, type: 2}
-  pressEImage: {fileID: 448049549}
-  dialogue: {fileID: 114226959}
-  storeWrap: {fileID: 1485548480}
-  dialogueOptionsWrap: {fileID: 911236487}
-  dialogueWaiter: {fileID: 1098794966}
-  NPCModel: {fileID: 1577649011}
-  optionSelected: 0
-  buyButton: {fileID: 650474259}
-  buyButtonDefault: {fileID: 21300000, guid: 7f5be3366c4008544bae8eafd548eefc, type: 3}
-  buyButtonHover: {fileID: 21300000, guid: 39364aae333fd3247aed350d686012fe, type: 3}
-  exitButton: {fileID: 511525954}
-  exitButtonDefault: {fileID: 21300000, guid: e547e90a2eaa6844794cd0497619184a, type: 3}
-  exitButtonHover: {fileID: 21300000, guid: dfeb549a077a53d428ed9b688db4a070, type: 3}
-  cmVcam4: {fileID: 84742654}
-  movementCamera: {fileID: 2141938272}
 --- !u!136 &1577649013
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -31840,7 +31964,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1857300338}
-  m_LocalRotation: {x: -0.08485462, y: -0.7284401, z: 0.09176079, w: -0.6736132}
+  m_LocalRotation: {x: -0.084864944, y: -0.72836626, z: 0.091751546, w: -0.67369306}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -32454,6 +32578,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4325983033634040, guid: b1fe97c554b2e284abbb00a9da26a1d1,
     type: 2}
   m_PrefabInternal: {fileID: 757630911}
+--- !u!114 &1897306149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1897306146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6cb5d5c71613048ad8514a6495ca43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPCName: Jung
+  NPCSentences:
+  - Go away! I'm trying to play Grinder here!
+  - 'I like trains. '
+  - Half life 3 confirmed.
+  - '"Being a developer takes away my will to live..." that''s what my friend always
+    says...'
+  NPCSentencesAudio:
+  - {fileID: 8300000, guid: dee5942ad684bef4a99dfbe420d3f326, type: 3}
+  defaultMaterial: {fileID: 2100000, guid: 3496c3f6dc6d6f74f9bfcbe546e93910, type: 2}
+  activeMaterial: {fileID: 2100000, guid: 6d0e268b165f5c34695db3d20fe69d64, type: 2}
+  pressEImage: {fileID: 448049549}
+  dialogue: {fileID: 114226959}
+  storeWrap: {fileID: 1485548480}
+  dialogueOptionsWrap: {fileID: 911236487}
+  dialogueWaiter: {fileID: 1098794966}
+  NPCModel: {fileID: 1577649011}
+  cmVcam4: {fileID: 84742654}
+  movementCamera: {fileID: 2141938272}
 --- !u!1 &1900219318
 GameObject:
   m_ObjectHideFlags: 0
@@ -34228,8 +34382,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2017347213}
-  m_LocalRotation: {x: 0.084854774, y: 0.7284403, z: -0.091761366, w: 0.6736129}
-  m_LocalPosition: {x: -21.58816, y: 2.5899994, z: 1.3562659}
+  m_LocalRotation: {x: 0.08486491, y: 0.7283662, z: -0.09175208, w: 0.673693}
+  m_LocalPosition: {x: -21.58816, y: 2.59, z: 1.3562653}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -37289,7 +37443,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2141938270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.58816, y: 2.5899994, z: 1.3562659}
+  m_LocalPosition: {x: -21.58816, y: 2.59, z: 1.3562653}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 434400011}

@@ -31,6 +31,7 @@ public class InformationGuy : MonoBehaviour
     private float dialogueTimeLeft;                                                         //Tiempo que duran las cadenas de dialogo
     private Text dialogueText;                                                              //Texto a mostrar
     bool info;
+    private int fightSceneOrder;
 
     //Cameras
     public CinemachineVirtualCamera cmVcam2;
@@ -38,6 +39,7 @@ public class InformationGuy : MonoBehaviour
 
     void Start()
     {
+        fightSceneOrder = PlayerPrefs.GetInt("FIGHT_ORDER");
         render = GetComponent<Renderer>();                                                  //Guardamos componente Renderer
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();      //Guardamos script PlayerController
         audioSource = GetComponent<AudioSource>();                                          //Guardamos componente AudioSource
@@ -73,245 +75,973 @@ public class InformationGuy : MonoBehaviour
     //Función iniciar diálogo vendedor
     void sellerTalk()
     {
-        switch (dialogueState)
-        {
-            case DialogueState.NULL:
-                Debug.Log("No estoy Conversando");
-                break;
-            case DialogueState.INIT:
-                movementCamera.Priority = 9;
-                cmVcam2.Priority = 20;
-				playerController.anim.SetFloat("Speed", 0);
-                playerController.enabled = false; //Ya no puedes mover el personaje
-                pressEImage.enabled = false; //Deja de aparecer el boton E
-                dialogueText.text = ""; //Aparece el cuadro de diálogo vacío
-                dialogue.SetActive(true); //Activamos el texto
-                if (!info)
+        switch (fightSceneOrder) {
+            case 1:
+                switch (dialogueState)
                 {
-                    dialogueTimeLeft = NPCSentencesAudio[0].length; //Preparamos la duración del siguiente audio
-                    dialogueState = DialogueState.WELCOME;
-                }
-                else
-                {
-                    dialogueTimeLeft = NPCSentencesAudio[5].length; //Preparamos la duración del siguiente audio
-                    dialogueState = DialogueState.BYE2;
-                }
-                break;
-            case DialogueState.WELCOME:
-                if (dialogueTimeLeft == NPCSentencesAudio[0].length)//Inicia la animacion
-                {
-                    animator.Play("Talk");
-                    audioSource.clip = NPCSentencesAudio[0];
-                    audioSource.Play(); //Ejecutamos el audio
-                    StartCoroutine(TypeText(NPCSentences[0])); //Escribimos el texto
-                }
-                dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
-                if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
-                {
-                    dialogueWaiter.SetActive(true);
+                    case DialogueState.NULL:
+                        Debug.Log("No estoy Conversando");
+                        break;
+                    case DialogueState.INIT:
+                        movementCamera.Priority = 9;
+                        cmVcam2.Priority = 20;
+                        playerController.anim.SetFloat("Speed", 0);
+                        playerController.enabled = false; //Ya no puedes mover el personaje
+                        pressEImage.enabled = false; //Deja de aparecer el boton E
+                        dialogueText.text = ""; //Aparece el cuadro de diálogo vacío
+                        dialogue.SetActive(true); //Activamos el texto
+                        if (!info)
+                        {
+                            dialogueTimeLeft = NPCSentencesAudio[0].length; //Preparamos la duración del siguiente audio
+                            dialogueState = DialogueState.WELCOME;
+                        }
+                        else
+                        {
+                            dialogueTimeLeft = NPCSentencesAudio[5].length; //Preparamos la duración del siguiente audio
+                            dialogueState = DialogueState.BYE2;
+                        }
+                        break;
+                    case DialogueState.WELCOME:
+                        if (dialogueTimeLeft == NPCSentencesAudio[0].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[0];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[6])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
 
-                    if (Input.GetButtonDown("E"))
-                    {
-                        dialogueWaiter.SetActive(false);
-                        dialogueText.text = ""; //Reseteamos el texto
-                        dialogueTimeLeft = NPCSentencesAudio[1].length; //Preparamos la duración del siguiente audio
-                        endCorutines = false;
-                        dialogueState = DialogueState.ASK;
-                    }
-                }
-                else
-                {
-                    if (Input.GetButtonDown("E"))
-                    {
-                        audioSource.Stop();
-                        endCorutines = true;
-                        dialogueText.text = "";
-                        dialogueText.text = NPCSentences[0];
-                        dialogueTimeLeft = 0;
-                    }
-                }
-                break;
-            case DialogueState.ASK:
-                if (dialogueTimeLeft == NPCSentencesAudio[1].length)//Inicia la animacion
-                {
-                    animator.Play("Talk");
-                    audioSource.clip = NPCSentencesAudio[1];
-                    audioSource.Play(); //Ejecutamos el audio
-                    StartCoroutine(TypeText(NPCSentences[1])); //Escribimos el texto
-                }
-                dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
-                if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
-                {
-                    dialogueWaiter.SetActive(true);
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[1].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.ASK;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[6];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.ASK:
+                        if (dialogueTimeLeft == NPCSentencesAudio[1].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[1];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[7])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
 
-                    if (Input.GetButtonDown("E"))
-                    {
-                        dialogueWaiter.SetActive(false);
-                        dialogueText.text = ""; //Reseteamos el texto
-                        dialogueTimeLeft = NPCSentencesAudio[2].length; //Preparamos la duración del siguiente audio
-                        endCorutines = false;
-                        dialogueState = DialogueState.INFO1;
-                    }
-                }
-                else
-                {
-                    if (Input.GetButtonDown("E"))
-                    {
-                        audioSource.Stop();
-                        endCorutines = true;
-                        dialogueText.text = "";
-                        dialogueText.text = NPCSentences[1];
-                        dialogueTimeLeft = 0;
-                    }
-                }
-                break;
-            case DialogueState.INFO1:
-                if (dialogueTimeLeft == NPCSentencesAudio[2].length)//Inicia la animacion
-                {
-                    animator.Play("Talk");
-                    audioSource.clip = NPCSentencesAudio[2];
-                    audioSource.Play(); //Ejecutamos el audio
-                    StartCoroutine(TypeText(NPCSentences[2])); //Escribimos el texto
-                }
-                dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
-                if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
-                {
-                    dialogueWaiter.SetActive(true);
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[2].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.INFO1;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[7];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.INFO1:
+                        if (dialogueTimeLeft == NPCSentencesAudio[2].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[2];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[8])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
 
-                    if (Input.GetButtonDown("E"))
-                    {
-                        dialogueWaiter.SetActive(false);
-                        dialogueText.text = ""; //Reseteamos el texto
-                        dialogueTimeLeft = NPCSentencesAudio[3].length; //Preparamos la duración del siguiente audio
-                        endCorutines = false;
-                        dialogueState = DialogueState.INFO2;
-                    }
-                }
-                else
-                {
-                    if (Input.GetButtonDown("E"))
-                    {
-                        audioSource.Stop();
-                        endCorutines = true;
-                        dialogueText.text = "";
-                        dialogueText.text = NPCSentences[2];
-                        dialogueTimeLeft = 0;
-                    }
-                }
-                break;
-            case DialogueState.INFO2:
-                if (dialogueTimeLeft == NPCSentencesAudio[3].length)//Inicia la animacion
-                {
-                    animator.Play("Talk");
-                    audioSource.clip = NPCSentencesAudio[3];
-                    audioSource.Play(); //Ejecutamos el audio
-                    StartCoroutine(TypeText(NPCSentences[3])); //Escribimos el texto
-                }
-                dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
-                if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
-                {
-                    dialogueWaiter.SetActive(true);
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[3].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.INFO2;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[8];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.INFO2:
+                        if (dialogueTimeLeft == NPCSentencesAudio[3].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[3];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[9])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
 
-                    if (Input.GetButtonDown("E"))
-                    {
-                        dialogueWaiter.SetActive(false);
-                        dialogueText.text = ""; //Reseteamos el texto
-                        dialogueTimeLeft = NPCSentencesAudio[4].length; //Preparamos la duración del siguiente audio
-                        endCorutines = false;
-                        dialogueState = DialogueState.BYE1;
-                    }
-                }
-                else
-                {
-                    if (Input.GetButtonDown("E"))
-                    {
-                        audioSource.Stop();
-                        endCorutines = true;
-                        dialogueText.text = "";
-                        dialogueText.text = NPCSentences[3];
-                        dialogueTimeLeft = 0;
-                    }
-                }
-                break;
-            case DialogueState.BYE1:
-                if (dialogueTimeLeft == NPCSentencesAudio[4].length)//Inicia la animacion
-                {
-                    animator.Play("Talk");
-                    audioSource.clip = NPCSentencesAudio[4];
-                    audioSource.Play(); //Ejecutamos el audio
-                    StartCoroutine(TypeText(NPCSentences[4])); //Escribimos el texto
-                }
-                dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
-                if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
-                {
-                    dialogueWaiter.SetActive(true);
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[4].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.BYE1;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[9];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.BYE1:
+                        if (dialogueTimeLeft == NPCSentencesAudio[4].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[4];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[10])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
 
-                    if (Input.GetButtonDown("E"))
-                    {
-                        dialogueWaiter.SetActive(false);
-                        dialogueText.text = ""; //Reseteamos el texto
-                        info = true;
-                        endCorutines = false;
-                        dialogueState = DialogueState.END;
-                    }
-                }
-                else
-                {
-                    if (Input.GetButtonDown("E"))
-                    {
-                        audioSource.Stop();
-                        endCorutines = true;
-                        dialogueText.text = "";
-                        dialogueText.text = NPCSentences[4];
-                        dialogueTimeLeft = 0;
-                    }
-                }
-                break;
-            case DialogueState.BYE2:
-                if (dialogueTimeLeft == NPCSentencesAudio[5].length)//Inicia la animacion
-                {
-                    animator.Play("Talk");
-                    audioSource.clip = NPCSentencesAudio[5];
-                    audioSource.Play(); //Ejecutamos el audio
-                    StartCoroutine(TypeText(NPCSentences[5])); //Escribimos el texto
-                }
-                dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
-                if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
-                {
-                    dialogueWaiter.SetActive(true);
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                info = true;
+                                endCorutines = false;
+                                dialogueState = DialogueState.END;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[10];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.BYE2:
+                        if (dialogueTimeLeft == NPCSentencesAudio[5].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[5];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[11])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
 
-                    if (Input.GetButtonDown("E"))
-                    {
-                        dialogueWaiter.SetActive(false);
-                        dialogueText.text = ""; //Reseteamos el texto
-                        endCorutines = false;
-                        dialogueState = DialogueState.END;
-                    }
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                endCorutines = false;
+                                dialogueState = DialogueState.END;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[11];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.END:
+                        movementCamera.Priority = 20;
+                        cmVcam2.Priority = 9;
+                        render.material = activeMaterial; //Cambiamos de material
+                        pressEImage.enabled = true; //Mostramos la imágen en pantalla
+                        dialogue.SetActive(false); //Desactivamos el texto
+                        playerController.enabled = true; //Volvemos a darle al jugador el movimiento
+                        dialogueState = DialogueState.NULL;
+                        break;
+                    default:
+                        break;
                 }
-                else
+                break;
+            case 0:
+                switch (dialogueState)
                 {
-                    if (Input.GetButtonDown("E"))
-                    {
-                        audioSource.Stop();
-                        endCorutines = true;
-                        dialogueText.text = "";
-                        dialogueText.text = NPCSentences[5];
-                        dialogueTimeLeft = 0;
-                    }
+                    case DialogueState.NULL:
+                        Debug.Log("No estoy Conversando");
+                        break;
+                    case DialogueState.INIT:
+                        movementCamera.Priority = 9;
+                        cmVcam2.Priority = 20;
+                        playerController.anim.SetFloat("Speed", 0);
+                        playerController.enabled = false; //Ya no puedes mover el personaje
+                        pressEImage.enabled = false; //Deja de aparecer el boton E
+                        dialogueText.text = ""; //Aparece el cuadro de diálogo vacío
+                        dialogue.SetActive(true); //Activamos el texto
+                        if (!info)
+                        {
+                            dialogueTimeLeft = NPCSentencesAudio[0].length; //Preparamos la duración del siguiente audio
+                            dialogueState = DialogueState.WELCOME;
+                        }
+                        else
+                        {
+                            dialogueTimeLeft = NPCSentencesAudio[5].length; //Preparamos la duración del siguiente audio
+                            dialogueState = DialogueState.BYE2;
+                        }
+                        break;
+                    case DialogueState.WELCOME:
+                        if (dialogueTimeLeft == NPCSentencesAudio[0].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[0];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[0])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[1].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.ASK;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[0];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.ASK:
+                        if (dialogueTimeLeft == NPCSentencesAudio[1].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[1];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[1])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[2].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.INFO1;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[1];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.INFO1:
+                        if (dialogueTimeLeft == NPCSentencesAudio[2].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[2];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[2])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[3].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.INFO2;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[2];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.INFO2:
+                        if (dialogueTimeLeft == NPCSentencesAudio[3].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[3];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[3])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[4].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.BYE1;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[3];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.BYE1:
+                        if (dialogueTimeLeft == NPCSentencesAudio[4].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[4];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[4])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                info = true;
+                                endCorutines = false;
+                                dialogueState = DialogueState.END;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[4];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.BYE2:
+                        if (dialogueTimeLeft == NPCSentencesAudio[5].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[5];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[5])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                endCorutines = false;
+                                dialogueState = DialogueState.END;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[5];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.END:
+                        movementCamera.Priority = 20;
+                        cmVcam2.Priority = 9;
+                        render.material = activeMaterial; //Cambiamos de material
+                        pressEImage.enabled = true; //Mostramos la imágen en pantalla
+                        dialogue.SetActive(false); //Desactivamos el texto
+                        playerController.enabled = true; //Volvemos a darle al jugador el movimiento
+                        dialogueState = DialogueState.NULL;
+                        break;
+                    default:
+                        break;
                 }
                 break;
-            case DialogueState.END:
-                movementCamera.Priority = 20;
-                cmVcam2.Priority = 9;
-                render.material = activeMaterial; //Cambiamos de material
-                pressEImage.enabled = true; //Mostramos la imágen en pantalla
-                dialogue.SetActive(false); //Desactivamos el texto
-                playerController.enabled = true; //Volvemos a darle al jugador el movimiento
-                dialogueState = DialogueState.NULL;
+            case 2:
+                switch (dialogueState)
+                {
+                    case DialogueState.NULL:
+                        Debug.Log("No estoy Conversando");
+                        break;
+                    case DialogueState.INIT:
+                        movementCamera.Priority = 9;
+                        cmVcam2.Priority = 20;
+                        playerController.anim.SetFloat("Speed", 0);
+                        playerController.enabled = false; //Ya no puedes mover el personaje
+                        pressEImage.enabled = false; //Deja de aparecer el boton E
+                        dialogueText.text = ""; //Aparece el cuadro de diálogo vacío
+                        dialogue.SetActive(true); //Activamos el texto
+                        if (!info)
+                        {
+                            dialogueTimeLeft = NPCSentencesAudio[0].length; //Preparamos la duración del siguiente audio
+                            dialogueState = DialogueState.WELCOME;
+                        }
+                        else
+                        {
+                            dialogueTimeLeft = NPCSentencesAudio[5].length; //Preparamos la duración del siguiente audio
+                            dialogueState = DialogueState.BYE2;
+                        }
+                        break;
+                    case DialogueState.WELCOME:
+                        if (dialogueTimeLeft == NPCSentencesAudio[0].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[0];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[12])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[1].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.ASK;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[12];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.ASK:
+                        if (dialogueTimeLeft == NPCSentencesAudio[1].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[1];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[13])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[2].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.INFO1;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[13];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.INFO1:
+                        if (dialogueTimeLeft == NPCSentencesAudio[2].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[2];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[14])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[3].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.INFO2;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[14];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.INFO2:
+                        if (dialogueTimeLeft == NPCSentencesAudio[3].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[3];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[15])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[4].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.BYE1;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[15];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.BYE1:
+                        if (dialogueTimeLeft == NPCSentencesAudio[4].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[4];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[16])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                info = true;
+                                endCorutines = false;
+                                dialogueState = DialogueState.END;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[16];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.BYE2:
+                        if (dialogueTimeLeft == NPCSentencesAudio[5].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[5];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[17])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                endCorutines = false;
+                                dialogueState = DialogueState.END;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[17];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.END:
+                        movementCamera.Priority = 20;
+                        cmVcam2.Priority = 9;
+                        render.material = activeMaterial; //Cambiamos de material
+                        pressEImage.enabled = true; //Mostramos la imágen en pantalla
+                        dialogue.SetActive(false); //Desactivamos el texto
+                        playerController.enabled = true; //Volvemos a darle al jugador el movimiento
+                        dialogueState = DialogueState.NULL;
+                        break;
+                    default:
+                        break;
+                }
                 break;
-            default:
+            case 3:
+                switch (dialogueState)
+                {
+                    case DialogueState.NULL:
+                        Debug.Log("No estoy Conversando");
+                        break;
+                    case DialogueState.INIT:
+                        movementCamera.Priority = 9;
+                        cmVcam2.Priority = 20;
+                        playerController.anim.SetFloat("Speed", 0);
+                        playerController.enabled = false; //Ya no puedes mover el personaje
+                        pressEImage.enabled = false; //Deja de aparecer el boton E
+                        dialogueText.text = ""; //Aparece el cuadro de diálogo vacío
+                        dialogue.SetActive(true); //Activamos el texto
+                        if (!info)
+                        {
+                            dialogueTimeLeft = NPCSentencesAudio[0].length; //Preparamos la duración del siguiente audio
+                            dialogueState = DialogueState.WELCOME;
+                        }
+                        else
+                        {
+                            dialogueTimeLeft = NPCSentencesAudio[5].length; //Preparamos la duración del siguiente audio
+                            dialogueState = DialogueState.BYE2;
+                        }
+                        break;
+                    case DialogueState.WELCOME:
+                        if (dialogueTimeLeft == NPCSentencesAudio[0].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[0];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[18])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[1].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.ASK;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[18];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.ASK:
+                        if (dialogueTimeLeft == NPCSentencesAudio[1].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[1];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[19])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[2].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.INFO1;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[19];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.INFO1:
+                        if (dialogueTimeLeft == NPCSentencesAudio[2].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[2];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[20])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[3].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.INFO2;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[20];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.INFO2:
+                        if (dialogueTimeLeft == NPCSentencesAudio[3].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[3];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[21])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                dialogueTimeLeft = NPCSentencesAudio[4].length; //Preparamos la duración del siguiente audio
+                                endCorutines = false;
+                                dialogueState = DialogueState.BYE1;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[21];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.BYE1:
+                        if (dialogueTimeLeft == NPCSentencesAudio[4].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[4];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[22])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                info = true;
+                                endCorutines = false;
+                                dialogueState = DialogueState.END;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[22];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.BYE2:
+                        if (dialogueTimeLeft == NPCSentencesAudio[5].length)//Inicia la animacion
+                        {
+                            animator.Play("Talk");
+                            audioSource.clip = NPCSentencesAudio[5];
+                            audioSource.Play(); //Ejecutamos el audio
+                            StartCoroutine(TypeText(NPCSentences[23])); //Escribimos el texto
+                        }
+                        dialogueTimeLeft -= Time.deltaTime; //Restando el tiempo
+                        if (dialogueTimeLeft <= 0) //Comprovando que haya acabado la frase y que el jugador quiere avanzar
+                        {
+                            dialogueWaiter.SetActive(true);
+
+                            if (Input.GetButtonDown("E"))
+                            {
+                                dialogueWaiter.SetActive(false);
+                                dialogueText.text = ""; //Reseteamos el texto
+                                endCorutines = false;
+                                dialogueState = DialogueState.END;
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("E"))
+                            {
+                                audioSource.Stop();
+                                endCorutines = true;
+                                dialogueText.text = "";
+                                dialogueText.text = NPCSentences[23];
+                                dialogueTimeLeft = 0;
+                            }
+                        }
+                        break;
+                    case DialogueState.END:
+                        movementCamera.Priority = 20;
+                        cmVcam2.Priority = 9;
+                        render.material = activeMaterial; //Cambiamos de material
+                        pressEImage.enabled = true; //Mostramos la imágen en pantalla
+                        dialogue.SetActive(false); //Desactivamos el texto
+                        playerController.enabled = true; //Volvemos a darle al jugador el movimiento
+                        dialogueState = DialogueState.NULL;
+                        break;
+                    default:
+                        break;
+                }
                 break;
         }
+       
     }
 
     //Detección de collider del NPC con el del player
@@ -353,7 +1083,7 @@ public class InformationGuy : MonoBehaviour
             dialogueText.text += letter;
 
             yield return 0;
-            yield return new WaitForSeconds(letterPause);
+            yield return new WaitForSecondsRealtime(letterPause);
             if (endCorutines)
             {
                 yield break;
