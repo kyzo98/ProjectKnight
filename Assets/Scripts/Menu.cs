@@ -94,11 +94,12 @@ public class Menu : MonoBehaviour {
         alpha = 0;
         rawImageFade.color = new Color32(0, 0, 0, alpha);
 
-        StartCoroutine(FadeIn());
+        //StartCoroutine(FadeIn());
     }
 
     public void NewGame()
     {
+        StartCoroutine(FadeIn());
         SceneManager.LoadScene(SceneToLoad, LoadSceneMode.Single);
     }
 

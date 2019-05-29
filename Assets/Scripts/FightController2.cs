@@ -859,7 +859,6 @@ public class FightController2 : MonoBehaviour
             if (bossScript.health > 0)
             {
                 playerScript.health = 0;
-                //Boss gana
                 Debug.Log("Boss gana");
             }
             else
@@ -1050,7 +1049,7 @@ public class FightController2 : MonoBehaviour
         {
             if (usedLightAttack1 == false && usedLightAttack2 == false)
             {
-                playerScript.energy -= 3;
+                playerScript.energy -= 4;
                 playerScript.moves--;
 
                 if (Random.value <= 0.05) //critico
@@ -1074,7 +1073,7 @@ public class FightController2 : MonoBehaviour
             }
             else if (usedLightAttack1 == true)
             {
-                playerScript.energy -= 3;
+                playerScript.energy -= 4;
                 playerScript.moves--;
 
                 if (Random.value > 0.3)
@@ -1106,7 +1105,7 @@ public class FightController2 : MonoBehaviour
                     combatDialogue[0].text = "Light Attack failed";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
                     usedLightAttack2 = true;
-                    if (playerScript.moves > 0 && playerScript.energy > 2)
+                    if (playerScript.moves > 0 && playerScript.energy > 3)
                     {
                         ShowActions();
                     }
@@ -1114,7 +1113,7 @@ public class FightController2 : MonoBehaviour
             }
             else if (usedLightAttack2 == true)
             {
-                playerScript.energy -= 3;
+                playerScript.energy -= 4;
                 playerScript.moves--;
 
                 if (Random.value > 0.5)
@@ -1143,7 +1142,7 @@ public class FightController2 : MonoBehaviour
                     AddCombatText();
                     combatDialogue[0].text = "Light Attack failed";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
-                    if (playerScript.moves > 0 && playerScript.energy > 2)
+                    if (playerScript.moves > 0 && playerScript.energy > 3)
                     {
                         ShowActions();
                     }
@@ -1160,7 +1159,7 @@ public class FightController2 : MonoBehaviour
                 {
                     if (usedLightAttack1 == false && usedLightAttack2 == false)
                     {
-                        playerScript.energy -= 3;
+                        playerScript.energy -= 4;
                         playerScript.moves--;
 
                         if (Random.value <= 0.05) //critico
@@ -1184,7 +1183,7 @@ public class FightController2 : MonoBehaviour
                     }
                     else if (usedLightAttack1 == true)
                     {
-                        playerScript.energy -= 3;
+                        playerScript.energy -= 4;
                         playerScript.moves--;
 
                         if (Random.value > 0.3)
@@ -1216,7 +1215,7 @@ public class FightController2 : MonoBehaviour
                             combatDialogue[0].text = "Light Attack failed";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
                             usedLightAttack2 = true;
-                            if (playerScript.moves > 0 && playerScript.energy > 2)
+                            if (playerScript.moves > 0 && playerScript.energy > 3)
                             {
                                 ShowActions();
                             }
@@ -1224,7 +1223,7 @@ public class FightController2 : MonoBehaviour
                     }
                     else if (usedLightAttack2 == true)
                     {
-                        playerScript.energy -= 3;
+                        playerScript.energy -= 4;
                         playerScript.moves--;
 
                         if (Random.value > 0.5)
@@ -1253,7 +1252,7 @@ public class FightController2 : MonoBehaviour
                             AddCombatText();
                             combatDialogue[0].text = "Light Attack failed";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
-                            if (playerScript.moves > 0 && playerScript.energy > 2)
+                            if (playerScript.moves > 0 && playerScript.energy > 3)
                             {
                                 ShowActions();
                             }
@@ -1263,13 +1262,13 @@ public class FightController2 : MonoBehaviour
                 else
                 {
                     Debug.Log("You can't attack your player is paralized");
-                    playerScript.energy -= 3;
+                    playerScript.energy -= 4;
                     playerScript.moves--;
                     AddCombatText();
                     combatDialogue[0].text = "You can't attack, your player is paralized";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
                     StartCoroutine(StateEffectFeedback(paralizeEffect));
-                    if (playerScript.moves > 0 && playerScript.energy > 2)
+                    if (playerScript.moves > 0 && playerScript.energy > 3)
                     {
                         ShowActions();
                     }
@@ -1330,7 +1329,7 @@ public class FightController2 : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         endedMove = true;
-        if (playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 3)
             ShowActions();
         RefreshUI();
     }
@@ -1339,7 +1338,7 @@ public class FightController2 : MonoBehaviour
     {
         HideActions();
 
-        playerScript.energy -= 7;
+        playerScript.energy -= 8;
         playerScript.moves--;
 
         if (state[0].name2 != StateType2.PARALISIS || state[1].name2 != StateType2.PARALISIS || state[2].name2 != StateType2.PARALISIS)
@@ -1419,7 +1418,7 @@ public class FightController2 : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         endedMove = true;
-        if (playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 3)
             ShowActions();
         RefreshUI();
     }
@@ -1432,7 +1431,7 @@ public class FightController2 : MonoBehaviour
         {
             if (usedBasicHeal1 == false && usedBasicHeal2 == false)
             {
-                playerScript.energy -= 3;
+                playerScript.energy -= 4;
                 playerScript.moves--;
 
                 float healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
@@ -1446,7 +1445,7 @@ public class FightController2 : MonoBehaviour
             }
             else if (usedBasicHeal1 == true)
             {
-                playerScript.energy -= 3;
+                playerScript.energy -= 4;
                 playerScript.moves--;
 
                 if (Random.value > 0.8)
@@ -1468,7 +1467,7 @@ public class FightController2 : MonoBehaviour
                     combatDialogue[0].text = "Player failed heal";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
                     usedBasicHeal2 = true;
-                    if (playerScript.moves > 0 && playerScript.energy > 2)
+                    if (playerScript.moves > 0 && playerScript.energy > 3)
                     {
                         ShowActions();
                     }
@@ -1476,7 +1475,7 @@ public class FightController2 : MonoBehaviour
             }
             else if (usedBasicHeal2 == true)
             {
-                playerScript.energy -= 3;
+                playerScript.energy -= 4;
                 playerScript.moves--;
 
                 if (Random.value > 0.6)
@@ -1496,7 +1495,7 @@ public class FightController2 : MonoBehaviour
                     AddCombatText();
                     combatDialogue[0].text = "Player failed heal";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
-                    if (playerScript.moves > 0 && playerScript.energy > 2)
+                    if (playerScript.moves > 0 && playerScript.energy > 3)
                     {
                         ShowActions();
                     }
@@ -1512,7 +1511,7 @@ public class FightController2 : MonoBehaviour
                 {
                     if (usedBasicHeal1 == false && usedBasicHeal2 == false)
                     {
-                        playerScript.energy -= 3;
+                        playerScript.energy -= 4;
                         playerScript.moves--;
 
                         float healing = playerScript.stats.vigor * playerScript.vigorMultiplier;
@@ -1526,7 +1525,7 @@ public class FightController2 : MonoBehaviour
                     }
                     else if (usedBasicHeal1 == true)
                     {
-                        playerScript.energy -= 3;
+                        playerScript.energy -= 4;
                         playerScript.moves--;
 
                         if (Random.value > 0.8)
@@ -1548,7 +1547,7 @@ public class FightController2 : MonoBehaviour
                             combatDialogue[0].text = "Player failed heal";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
                             usedBasicHeal2 = true;
-                            if (playerScript.moves > 0 && playerScript.energy > 2)
+                            if (playerScript.moves > 0 && playerScript.energy > 3)
                             {
                                 ShowActions();
                             }
@@ -1556,7 +1555,7 @@ public class FightController2 : MonoBehaviour
                     }
                     else if (usedBasicHeal2 == true)
                     {
-                        playerScript.energy -= 3;
+                        playerScript.energy -= 4;
                         playerScript.moves--;
 
                         if (Random.value > 0.6)
@@ -1576,7 +1575,7 @@ public class FightController2 : MonoBehaviour
                             AddCombatText();
                             combatDialogue[0].text = "Player failed heal";
                             combatDialogue[0].color = new Color(1, 1, 1, 1);
-                            if (playerScript.moves > 0 && playerScript.energy > 2)
+                            if (playerScript.moves > 0 && playerScript.energy > 3)
                             {
                                 ShowActions();
                             }
@@ -1591,7 +1590,7 @@ public class FightController2 : MonoBehaviour
                     combatDialogue[0].text = "Failed to heal due to paralisis.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
                     StartCoroutine(StateEffectFeedback(paralizeEffect));
-                    if (playerScript.moves > 0 && playerScript.energy > 2)
+                    if (playerScript.moves > 0 && playerScript.energy > 3)
                     {
                         ShowActions();
                     }
@@ -1615,7 +1614,7 @@ public class FightController2 : MonoBehaviour
         ps.Stop();
         yield return new WaitForSecondsRealtime(1.5f);
         healParticle.SetActive(false);
-        if (playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 3)
             ShowActions();
         RefreshUI();
         for (float i = d; i > 0; i--)
@@ -1640,7 +1639,7 @@ public class FightController2 : MonoBehaviour
         {
             if (usedBasicSpell1 == false && usedBasicSpell2 == false)
             {
-                playerScript.energy -= 3;
+                playerScript.energy -= 4;
                 playerScript.moves--;
 
                 int damage = (((playerScript.stats.power * playerScript.powerMultiplier) * 20) / 100);
@@ -1652,7 +1651,7 @@ public class FightController2 : MonoBehaviour
             }
             else if (usedBasicSpell1 == true)
             {
-                playerScript.energy -= 3;
+                playerScript.energy -= 4;
                 playerScript.moves--;
 
                 if (Random.value > 0.7)
@@ -1666,13 +1665,13 @@ public class FightController2 : MonoBehaviour
                 }
                 else
                 {
-                    if (playerScript.moves > 0 && playerScript.energy > 2)
+                    if (playerScript.moves > 0 && playerScript.energy > 3)
                     {
                         Debug.Log("Player failed basic spell");
                         AddCombatText();
                         combatDialogue[0].text = "Player failed basic spell";
                         combatDialogue[0].color = new Color(1, 1, 1, 1);
-                        if (playerScript.moves > 0 && playerScript.energy > 2)
+                        if (playerScript.moves > 0 && playerScript.energy > 3)
                         {
                             ShowActions();
                         }
@@ -1682,7 +1681,7 @@ public class FightController2 : MonoBehaviour
             }
             else if (usedBasicSpell2 == true)
             {
-                playerScript.energy -= 3;
+                playerScript.energy -= 4;
                 playerScript.moves--;
 
                 if (Random.value > 0.5)
@@ -1695,13 +1694,13 @@ public class FightController2 : MonoBehaviour
                 }
                 else
                 {
-                    if (playerScript.moves > 0 && playerScript.energy > 2)
+                    if (playerScript.moves > 0 && playerScript.energy > 3)
                     {
                         Debug.Log("Player failed basic spell");
                         AddCombatText();
                         combatDialogue[0].text = "Player failed basic spell";
                         combatDialogue[0].color = new Color(1, 1, 1, 1);
-                        if (playerScript.moves > 0 && playerScript.energy > 2)
+                        if (playerScript.moves > 0 && playerScript.energy > 3)
                         {
                             ShowActions();
                         }
@@ -1719,7 +1718,7 @@ public class FightController2 : MonoBehaviour
                 {
                     if (usedBasicSpell1 == false && usedBasicSpell2 == false)
                     {
-                        playerScript.energy -= 3;
+                        playerScript.energy -= 4;
                         playerScript.moves--;
 
                         int damage = (((playerScript.stats.power * playerScript.powerMultiplier) * 20) / 100);
@@ -1731,7 +1730,7 @@ public class FightController2 : MonoBehaviour
                     }
                     else if (usedBasicSpell1 == true)
                     {
-                        playerScript.energy -= 3;
+                        playerScript.energy -= 4;
                         playerScript.moves--;
 
                         if (Random.value > 0.7)
@@ -1745,14 +1744,14 @@ public class FightController2 : MonoBehaviour
                         }
                         else
                         {
-                            if (playerScript.moves > 0 && playerScript.energy > 2)
+                            if (playerScript.moves > 0 && playerScript.energy > 3)
                             {
                                 Debug.Log("Player failed basic spell");
                                 ShowFailText(Color.red);
                                 AddCombatText();
                                 combatDialogue[0].text = "Player failed basic spell";
                                 combatDialogue[0].color = new Color(1, 1, 1, 1);
-                                if (playerScript.moves > 0 && playerScript.energy > 2)
+                                if (playerScript.moves > 0 && playerScript.energy > 3)
                                 {
                                     ShowActions();
                                 }
@@ -1762,7 +1761,7 @@ public class FightController2 : MonoBehaviour
                     }
                     else if (usedBasicSpell2 == true)
                     {
-                        playerScript.energy -= 3;
+                        playerScript.energy -= 4;
                         playerScript.moves--;
 
                         if (Random.value > 0.5)
@@ -1775,14 +1774,14 @@ public class FightController2 : MonoBehaviour
                         }
                         else
                         {
-                            if (playerScript.moves > 0 && playerScript.energy > 2)
+                            if (playerScript.moves > 0 && playerScript.energy > 3)
                             {
                                 Debug.Log("Player failed basic spell");
                                 ShowFailText(Color.red);
                                 AddCombatText();
                                 combatDialogue[0].text = "Player failed basic spell";
                                 combatDialogue[0].color = new Color(1, 1, 1, 1);
-                                if (playerScript.moves > 0 && playerScript.energy > 2)
+                                if (playerScript.moves > 0 && playerScript.energy > 3)
                                 {
                                     ShowActions();
                                 }
@@ -1798,7 +1797,7 @@ public class FightController2 : MonoBehaviour
                     combatDialogue[0].text = "Failed to use spell due to paralisis.";
                     combatDialogue[0].color = new Color(1, 1, 1, 1);
                     StartCoroutine(StateEffectFeedback(paralizeEffect));
-                    if (playerScript.moves > 0 && playerScript.energy > 2)
+                    if (playerScript.moves > 0 && playerScript.energy > 3)
                     {
                         ShowActions();
                     }
@@ -1855,7 +1854,7 @@ public class FightController2 : MonoBehaviour
         }
         //ShowPopupText(d);
         endedMove = true;
-        if (playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 3)
             ShowActions();
         RefreshUI();
     }
@@ -1982,7 +1981,7 @@ public class FightController2 : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f); //Tiempo de espera de la animación
         armorEffect.SetActive(false);
         playerScript.blockChance += 5;
-        if (playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 3)
             ShowActions();
         RefreshUI();
         for (float i = d; i > 0; i--)
@@ -2027,7 +2026,7 @@ public class FightController2 : MonoBehaviour
         }
         //ShowPopupText(d);
         endedMove = true;
-        if (playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 3)
             ShowActions();
         RefreshUI();
     }
@@ -2041,7 +2040,7 @@ public class FightController2 : MonoBehaviour
         if(terrorCooldown == false)
         {
             playerScript.moves--;
-            playerScript.energy -= 5;
+            playerScript.energy -= 6;
 
             int damage = playerScript.stats.power * playerScript.powerMultiplier;
             StartCoroutine(TerrorSpellWaiter(damage));
@@ -2121,7 +2120,7 @@ public class FightController2 : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         endedMove = true;
-        if (playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 3)
         {
             ShowActions();
         }
@@ -2136,7 +2135,7 @@ public class FightController2 : MonoBehaviour
         if(rageCooldown == false)
         {
             playerScript.moves--;
-            playerScript.energy -= 5;
+            playerScript.energy -= 6;
 
             int damage = (playerScript.stats.power * playerScript.powerMultiplier) * 2;
             StartCoroutine(RageSpellWaiter(damage));
@@ -2216,7 +2215,7 @@ public class FightController2 : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         endedMove = true;
-        if (playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 3)
         {
             ShowActions();
         }
@@ -2231,7 +2230,7 @@ public class FightController2 : MonoBehaviour
         if(griefCooldown == false)
         {
             playerScript.moves--;
-            playerScript.energy -= 5;
+            playerScript.energy -= 6;
 
             int damage = (playerScript.stats.power * playerScript.powerMultiplier) / 2;
             StartCoroutine(GriefSpellWaiter(damage));
@@ -2311,7 +2310,7 @@ public class FightController2 : MonoBehaviour
             yield return new WaitForSeconds(0);
         }
         endedMove = true;
-        if (playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 3)
         {
             ShowActions();
         }
@@ -2326,7 +2325,7 @@ public class FightController2 : MonoBehaviour
         if(courageCooldown == false)
         {
             playerScript.moves--;
-            playerScript.energy -= 4;
+            playerScript.energy -= 5;
 
             if (state[0].name2 == StateType2.PARALISIS)
             {
@@ -2362,7 +2361,7 @@ public class FightController2 : MonoBehaviour
         ps.Stop();
         yield return new WaitForSecondsRealtime(1.5f);
         courageParticle.SetActive(false);
-        if(playerScript.moves > 0 && playerScript.energy > 2)
+        if(playerScript.moves > 0 && playerScript.energy > 3)
         {
             ShowActions();
         }
@@ -2378,7 +2377,7 @@ public class FightController2 : MonoBehaviour
         if(focusCooldown == false)
         {
             playerScript.moves--;
-            playerScript.energy -= 4;
+            playerScript.energy -= 5;
 
             if (state[0].name2 == StateType2.NUMB)
             {
@@ -2415,7 +2414,7 @@ public class FightController2 : MonoBehaviour
         ps.Stop();
         yield return new WaitForSecondsRealtime(1.5f);
         focusParticle.SetActive(false);
-        if (playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 3)
         {
             ShowActions();
         }
@@ -2431,7 +2430,7 @@ public class FightController2 : MonoBehaviour
         if(willCooldown == false)
         {
             playerScript.moves--;
-            playerScript.energy -= 4;
+            playerScript.energy -= 5;
 
             if (state[0].name2 == StateType2.GRIEF)
             {
@@ -2467,7 +2466,7 @@ public class FightController2 : MonoBehaviour
         ps.Stop();
         yield return new WaitForSecondsRealtime(1.5f);
         willParticle.SetActive(false);
-        if (playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 3)
         {
             ShowActions();
         }
@@ -2482,7 +2481,7 @@ public class FightController2 : MonoBehaviour
         if(graceCooldown == false)
         {
             playerScript.moves--;
-            playerScript.energy -= 4;
+            playerScript.energy -= 5;
 
             float healing = 3;
             StartCoroutine(GraceDriveWaiter(healing));
@@ -2575,7 +2574,7 @@ public class FightController2 : MonoBehaviour
         ShowPopupTextPlayer(healing, Color.green);
         yield return new WaitForSecondsRealtime(1.5f);
         graceParticle.SetActive(false);
-        if (playerScript.moves > 0 && playerScript.energy > 2)
+        if (playerScript.moves > 0 && playerScript.energy > 3)
         {
             ShowActions();
         }
@@ -3554,20 +3553,21 @@ public class FightController2 : MonoBehaviour
 
     IEnumerator WinScene()
     {
+        Debug.Log("Player coins: " + playerScript.coins.ToString());
         bossAnimator.Play("Die");
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSeconds(5);
         winCanvas.SetActive(true);
+        orbsText.text = "20 orbs";
+        moneyText.text = "500 coins";
+    }
+
+    public void ClickContinue()
+    {
         playerScript.coins += 500;
         orbs.quantity += 20;
         PlayerPrefs.SetInt("COINS", playerScript.coins);
         PlayerPrefs.SetInt("ORBS", orbs.quantity);
-        orbsText.text = "20 orbs";
-        moneyText.text = "500 coins";
-        continueButton.onClick.AddListener(JumpScene);
-    }
-
-    void JumpScene()
-    {
-        SceneManager.LoadScene("Narrator", LoadSceneMode.Single); //Change scene if continue button is pressed
+        Debug.Log("Player coins: " + playerScript.coins.ToString());
+        SceneManager.LoadScene("Narrator", LoadSceneMode.Single);
     }
 }

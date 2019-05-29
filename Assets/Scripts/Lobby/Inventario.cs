@@ -81,6 +81,7 @@ public class Inventario : MonoBehaviour {
 
     void Start()
     {
+
         //GETTING ACCESS TO PLAYER SCRIPT
         playerScript = this.GetComponent<Player>();
 
@@ -107,6 +108,7 @@ public class Inventario : MonoBehaviour {
 
         //ORBS INITIALIZATION AND SAVE
         orbs.quantity = PlayerPrefs.GetInt("ORBS");
+        playerScript.coins = PlayerPrefs.GetInt("COINS");
 
         //UI INITIALIZATION
         //Sliders
@@ -137,21 +139,6 @@ public class Inventario : MonoBehaviour {
     void Update()
     {
         RefreshUI();
-        //if (Input.GetKeyDown("i"))
-        //{
-        //    inventoryActive = !inventoryActive;
-        //}
-
-        //if(inventoryActive == true)
-        //{
-        //    OpenInventory();
-        //    //Debug.Log("inventory active");
-        //}
-        //else
-        //{
-        //    CloseInventory();
-        //    //Debug.Log("Inventory unactive");
-        //}
     }
 
     void RefreshUI()

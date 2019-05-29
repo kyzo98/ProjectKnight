@@ -246,6 +246,7 @@
     <Compile Include="Assets\Scripts\Bosses\Boss4.cs" />
     <Compile Include="Assets\Scripts\CameraRotation.cs" />
     <Compile Include="Assets\Scripts\Cinematics\CinematicPlayer.cs" />
+    <Compile Include="Assets\Scripts\DieNarrator.cs" />
     <Compile Include="Assets\Scripts\FightController.cs" />
     <Compile Include="Assets\Scripts\FightController2.cs" />
     <Compile Include="Assets\Scripts\FightController3.cs" />
