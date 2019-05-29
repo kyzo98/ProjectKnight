@@ -82337,6 +82337,16 @@ MonoBehaviour:
     type: 2}
   CH_Particles_Terror: {fileID: 198718251626196460, guid: 5422f2fb22256c649907a84bf96f253d,
     type: 2}
+  CH_floor_Despair: {fileID: 198011054539995164, guid: 90a4819e7d0cd9b4a9407eb76350a01f,
+    type: 2}
+  CH_floor_Grief: {fileID: 198710959212085662, guid: 4e7907ef912f4414981ad8f61f89f89a,
+    type: 2}
+  CH_floor_LightAttack: {fileID: 198504261595203796, guid: 42baa20e4576c37468667ba0ed296cc6,
+    type: 2}
+  CH_floor_Rage: {fileID: 198401784259045808, guid: 8ba5f93b5bee80446ab35f4ffc257f5e,
+    type: 2}
+  CH_floor_Terror: {fileID: 198243955735477832, guid: 6234c982c50fc0340b9223ecd7018be6,
+    type: 2}
   paralizeEffect: {fileID: 198799121228056064, guid: 216a6b0ec485c6842ad23d4e06ed062c,
     type: 2}
   numbEffect: {fileID: 198425347705530054, guid: a9c007bddd2e0f142bc12aa5fa3225df,
@@ -82356,6 +82366,14 @@ MonoBehaviour:
   guardParticles: {fileID: 198275028259861596, guid: c119bd3fbb8459f49b42ab8ca4dd08b0,
     type: 2}
   healParticlesBoss: {fileID: 1372210268}
+  Attack1_boss: {fileID: 0}
+  Attack1_boss_holder: {fileID: 0}
+  Attack2_boss: {fileID: 0}
+  Attack2_boss_holder: {fileID: 0}
+  Attack3_boss: {fileID: 0}
+  Attack3_boss_holder: {fileID: 0}
+  Attack4_boss: {fileID: 0}
+  Attack4_boss_holder: {fileID: 0}
   CM_vcam1: {fileID: 416813671}
   CM_vcam2: {fileID: 1801221953}
   mainVCam: {fileID: 416813672}

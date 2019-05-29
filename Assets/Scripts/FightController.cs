@@ -183,6 +183,12 @@ public class FightController : MonoBehaviour
     public ParticleSystem CH_Particles_LightAttack;
     public ParticleSystem CH_Particles_Rage;
     public ParticleSystem CH_Particles_Terror;
+    //FloorChargingParticles
+    public ParticleSystem CH_floor_Despair;
+    public ParticleSystem CH_floor_Grief;
+    public ParticleSystem CH_floor_LightAttack;
+    public ParticleSystem CH_floor_Rage;
+    public ParticleSystem CH_floor_Terror;
 
     //STATE EFFECTS PARTICLES
     public ParticleSystem paralizeEffect;
@@ -197,6 +203,14 @@ public class FightController : MonoBehaviour
     public GameObject guardParticlesHolder;
     public ParticleSystem guardParticles;
     public GameObject healParticlesBoss;
+    public ParticleSystem Attack1_boss;
+    public GameObject Attack1_boss_holder;
+    public ParticleSystem Attack2_boss;
+    public GameObject Attack2_boss_holder;
+    public ParticleSystem Attack3_boss;
+    public GameObject Attack3_boss_holder;
+    public ParticleSystem Attack4_boss;
+    public GameObject Attack4_boss_holder;
 
     //CAMERAS PARA LAS CINEMATICAS SON TODAS DEL CINEMACHINE; LA VCAM1 ES LA CAMARA POR DEFECTO
     public GameObject CM_vcam1;
@@ -651,6 +665,10 @@ public class FightController : MonoBehaviour
                     }
                     else if (bossScript.health >= 250 && bossScript.health <= 700)
                     {
+                        if(nAttack > 0)
+                        {
+                            nAttack = 0;
+                        }
                         //When the boss is numb he losses some life
                         if (bossStates[0].name == StateType.GRIEF || bossStates[1].name == StateType.GRIEF || bossStates[2].name == StateType.GRIEF)
                         {
@@ -767,6 +785,10 @@ public class FightController : MonoBehaviour
                     }
                     else if (bossScript.health >= 0 && bossScript.health <= 250)
                     {
+                        if(nAttack2 > 0)
+                        {
+                            nAttack2 = 0;
+                        }
                         //When the boss is numb he losses some life
                         if (bossStates[0].name == StateType.GRIEF || bossStates[1].name == StateType.GRIEF || bossStates[2].name == StateType.GRIEF)
                         {
@@ -1319,18 +1341,25 @@ public class FightController : MonoBehaviour
         }
     }
 
-    IEnumerator ThrowLightStrike(GameObject particleHolder, ParticleSystem particleSystem, int damage)
+    IEnumerator ThrowLightStrike(GameObject particleHolder, ParticleSystem particleSystem, ParticleSystem chargeSystem, ParticleSystem floorCharger, int damage)
     {
 
         float speed = 20.0f;
         Vector3 initialPos = new Vector3(-9.971f, 1.061f, -0.302f);
+        Vector3 chargerInitPos = new Vector3(-9.283f, 1.337f, -0.281f);
         Vector3 finalPos = new Vector3(7.97f, 3.53f, -3.9f);
+        Vector3 floorChargerPos = new Vector3(-10.78f, -0.15f, -0.69f);
+        Vector3 floorChargerRot = new Vector3(-90f, 0f, 0f);
         float timeToReachTarget = Vector3.Distance(initialPos, finalPos) / speed;
 
+        Quaternion test = Quaternion.Euler(floorChargerRot);
+
         float time = 0.0f;
-        playerAnimator.Play("LightAttack");
         revolverMaterial.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        yield return new WaitForSecondsRealtime(1.87f);
+        yield return new WaitForSecondsRealtime(1.28f);
+        ParticleSystem floorChargerClone = Instantiate(floorCharger, floorChargerPos, test);
+        ParticleSystem chargeParticle = Instantiate(chargeSystem, chargerInitPos, Quaternion.identity);
+        yield return new WaitForSecondsRealtime(0.56f);
         GameObject lightStrikeClone = Instantiate(particleHolder, initialPos, Quaternion.Euler(new Vector3(1.904f, 1.303f, 14.395f)));
         particleSystem.Play();
         audioSource.clip = lightStrikeAudio;
@@ -1358,8 +1387,9 @@ public class FightController : MonoBehaviour
     IEnumerator LightAttackWaiter(int d)
     {
         endedMove = false;
-        StartCoroutine(ThrowLightStrike(lightStrikeHolder, lightStrikeParticleSystem, d));
+        StartCoroutine(ThrowLightStrike(lightStrikeHolder, lightStrikeParticleSystem, CH_Particles_LightAttack, CH_floor_LightAttack, d));
         player.transform.rotation = Quaternion.Euler(0f, 170.944f, 0f);
+        playerAnimator.Play("LightAttack");
         yield return new WaitForSecondsRealtime(3f); //Tiempo de espera de la animación
         player.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
         for (int i = d; i > 0; i--)
@@ -1866,21 +1896,29 @@ public class FightController : MonoBehaviour
         }
     }
 
-    IEnumerator ThrowProjectile(GameObject particleHolder, ParticleSystem particleSystem, ParticleSystem chargeSystem, int damage, AudioClip auxClip)
+    IEnumerator ThrowProjectile(GameObject particleHolder, ParticleSystem particleSystem, ParticleSystem chargeSystem, ParticleSystem floorCharger, int damage, AudioClip auxClip)
     {
         float speed = 20.0f;
         Vector3 initialPos = new Vector3(-6.4f, 0.508f, -0.31f);
         Vector3 finalPos = new Vector3(7.97f, 3.53f, -3.38f);
-        GameObject despairClone = Instantiate(particleHolder, initialPos, Quaternion.identity);
+        Vector3 floorChargerPos = new Vector3(-10.78f, -0.15f, -0.69f);
+        Vector3 floorChargerRot = new Vector3(-90f, 0f, 0f);
+
+        Quaternion test = Quaternion.Euler(floorChargerRot);
+
+        ParticleSystem floorChargerClone = Instantiate(floorCharger, floorChargerPos, test);
         ParticleSystem chargeParticle = Instantiate(chargeSystem, initialPos, Quaternion.identity);
         chargeParticle.Play();
+        floorChargerClone.Play();
         float timeToReachTarget = Vector3.Distance(initialPos, finalPos) / speed;
 
         float time = 0.0f;
         particleSystem.Play();
         audioSource.clip = auxClip;
         audioSource.Play();
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(0.2f);
+        GameObject despairClone = Instantiate(particleHolder, initialPos, Quaternion.identity);
+        yield return new WaitForSecondsRealtime(1f);
         while (time < 1)
         {
             time += Time.deltaTime / timeToReachTarget;
@@ -1901,9 +1939,10 @@ public class FightController : MonoBehaviour
     IEnumerator BasicSpellWaiter(int d)
     {
         endedMove = false;
-        StartCoroutine(ThrowProjectile(despairParticleHolder, despairParticleSystem, CH_Particles_Despair, d, despairAudio));
-        yield return new WaitForSecondsRealtime(0.6f); //Tiempo de espera de la animación antes de disparar el proyectil
         playerAnimator.Play("Despair");
+        yield return new WaitForSecondsRealtime(0.2f);
+        StartCoroutine(ThrowProjectile(despairParticleHolder, despairParticleSystem, CH_Particles_Despair ,CH_floor_Despair, d, despairAudio));
+        //yield return new WaitForSecondsRealtime(0.1f); //Tiempo de espera de la animación antes de disparar el proyectil
         yield return new WaitForSecondsRealtime(3);
         for (int i = d; i > 0; i--)
         {
@@ -2115,8 +2154,8 @@ public class FightController : MonoBehaviour
     {
         endedMove = false;
         playerAnimator.Play("Despair");
-        yield return new WaitForSecondsRealtime(0.5f);
-        StartCoroutine(ThrowProjectile(terrorParticleHolder, terrorParticleSystem, CH_Particles_Terror, damage, sorrow2Audio));
+        yield return new WaitForSecondsRealtime(0.2f);
+        StartCoroutine(ThrowProjectile(terrorParticleHolder, terrorParticleSystem, CH_Particles_Terror, CH_floor_Terror, damage, sorrow2Audio));
         yield return new WaitForSecondsRealtime(3);
         ShowPopupText(damage, Color.red);
 
@@ -2211,8 +2250,8 @@ public class FightController : MonoBehaviour
     {
         endedMove = false;
         playerAnimator.Play("Despair");
-        yield return new WaitForSecondsRealtime(0.5f);
-        StartCoroutine(ThrowProjectile(rageParticleHolder, rageParticleSystem, CH_Particles_Rage, damage, sorrow1Audio));
+        yield return new WaitForSecondsRealtime(0.2f);
+        StartCoroutine(ThrowProjectile(rageParticleHolder, rageParticleSystem, CH_Particles_Rage, CH_Particles_Rage, damage, sorrow1Audio));
         yield return new WaitForSecondsRealtime(3);
         ShowPopupText(damage, Color.red);
 
@@ -2306,8 +2345,8 @@ public class FightController : MonoBehaviour
     {
         endedMove = false;
         playerAnimator.Play("Despair");
-        yield return new WaitForSecondsRealtime(0.5f);
-        StartCoroutine(ThrowProjectile(griefParticleHolder, griefParticleSystem, CH_Particles_Grief, damage, sorrow2Audio));
+        yield return new WaitForSecondsRealtime(0.2f);
+        StartCoroutine(ThrowProjectile(griefParticleHolder, griefParticleSystem, CH_Particles_Grief, CH_Particles_Grief, damage, sorrow2Audio));
         yield return new WaitForSecondsRealtime(3);
         ShowPopupText(damage, Color.red);
 
@@ -3656,6 +3695,7 @@ public class FightController : MonoBehaviour
 
     IEnumerator WinScene()
     {
+        yield return new WaitForSecondsRealtime(1f);
         bossAnimator.Play("Die");
         yield return new WaitForSeconds(2.5f);
         winCanvas.SetActive(true);
