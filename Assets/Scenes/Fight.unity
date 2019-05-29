@@ -82327,6 +82327,16 @@ MonoBehaviour:
     type: 2}
   heavyAttackParticle: {fileID: 198184807100714174, guid: 89ddae82d4a8a8149ae5acdab2356d1f,
     type: 2}
+  CH_Particles_Despair: {fileID: 198277828757975912, guid: c9ff08a630cb7234db39a5622ba9945d,
+    type: 2}
+  CH_Particles_Grief: {fileID: 198994138374783016, guid: 89ea5f44a4b051e44bb6b071c6022d7f,
+    type: 2}
+  CH_Particles_LightAttack: {fileID: 198829890978738438, guid: d953bb92ae355334e878af4a2d7e17a8,
+    type: 2}
+  CH_Particles_Rage: {fileID: 198444193783466348, guid: ca1b23391e7ef3b459dfd8101b9cf2ce,
+    type: 2}
+  CH_Particles_Terror: {fileID: 198718251626196460, guid: 5422f2fb22256c649907a84bf96f253d,
+    type: 2}
   paralizeEffect: {fileID: 198799121228056064, guid: 216a6b0ec485c6842ad23d4e06ed062c,
     type: 2}
   numbEffect: {fileID: 198425347705530054, guid: a9c007bddd2e0f142bc12aa5fa3225df,
@@ -113548,6 +113558,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a5f8b266ad235d34fb949775e88b350d, type: 2}
+    - target: {fileID: 13700002, guid: 06b7bc43c493b5e4bb3e809921ac017c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1f90ea6b83753b5438e4215ad9c8c857, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06b7bc43c493b5e4bb3e809921ac017c, type: 3}
   m_IsPrefabAsset: 0
@@ -113584,10 +113598,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.4627059
-  m_Height: 2.0206807
+  m_Radius: 0.6425443
+  m_Height: 2.0318246
   m_Direction: 1
-  m_Center: {x: 0.03729398, y: 1.094665, z: 0.0000000011810527}
+  m_Center: {x: 0.020059068, y: 1.0890931, z: 3.1023872e-10}
 --- !u!1 &1805014182
 GameObject:
   m_ObjectHideFlags: 0
