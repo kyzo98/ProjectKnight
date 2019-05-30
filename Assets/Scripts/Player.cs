@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct Stats
 {
@@ -55,5 +56,10 @@ public class Player : MonoBehaviour {
 	
 	void Update () {
         
+    }
+
+    public int GetspiritBlast()
+    {
+        return spiritBlast;
     }
 }

@@ -62,9 +62,6 @@ public class Inventario : MonoBehaviour {
     public Button buttonCourage;
     public Button buttonFocus;
     public Button buttonWill;
-    public Button buttonRemembrance;
-    public Button buttonSpiritualHealing;
-    public Button buttonClarity;
     public Button buttonGrace;
     //Orbs quantity
     public Text orbsQuantityUIText;
@@ -130,9 +127,6 @@ public class Inventario : MonoBehaviour {
         buttonCourage.onClick.AddListener(AddCourage);
         buttonFocus.onClick.AddListener(AddFocus);
         buttonWill.onClick.AddListener(AddWill);
-        buttonRemembrance.onClick.AddListener(AddRemembrance);
-        buttonSpiritualHealing.onClick.AddListener(AddSpiritualHealing);
-        buttonClarity.onClick.AddListener(AddClarity);
         buttonGrace.onClick.AddListener(AddGrace);
 }
 
@@ -193,7 +187,7 @@ public class Inventario : MonoBehaviour {
     {
         drives.courage += 1;
         PlayerPrefs.SetInt("Courage", drives.courage);
-        playerScript.coins -= 50;
+        playerScript.coins -= 80;
         PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
@@ -202,7 +196,7 @@ public class Inventario : MonoBehaviour {
     {
         drives.focus += 1;
         PlayerPrefs.SetInt("Focus", drives.focus);
-        playerScript.coins -= 50;
+        playerScript.coins -= 80;
         PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
@@ -211,7 +205,7 @@ public class Inventario : MonoBehaviour {
     {
         drives.will += 1;
         PlayerPrefs.SetInt("Will", drives.will);
-        playerScript.coins -= 50;
+        playerScript.coins -= 80;
         PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
@@ -220,7 +214,7 @@ public class Inventario : MonoBehaviour {
     {
         drives.remembrance += 1;
         PlayerPrefs.SetInt("Remembrance", drives.remembrance);
-        playerScript.coins -= 50;
+        playerScript.coins -= 80;
         PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
@@ -229,7 +223,7 @@ public class Inventario : MonoBehaviour {
     {
         drives.spiritualHealing += 1;
         PlayerPrefs.SetInt("SpiritualHealing", drives.spiritualHealing);
-        playerScript.coins -= 50;
+        playerScript.coins -= 80;
         PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
@@ -238,7 +232,7 @@ public class Inventario : MonoBehaviour {
     {
         drives.clarity += 1;
         PlayerPrefs.SetInt("Clarity", drives.clarity);
-        playerScript.coins -= 50;
+        playerScript.coins -= 80;
         PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }
@@ -247,7 +241,7 @@ public class Inventario : MonoBehaviour {
     {
         drives.grace += 1;
         PlayerPrefs.SetInt("Grace", drives.grace);
-        playerScript.coins -= 50;
+        playerScript.coins -= 80;
         PlayerPrefs.SetInt("COINS", playerScript.coins);
         RefreshUI();
     }

@@ -272,7 +272,7 @@ public class SpellsChick : MonoBehaviour
     {
         foreach (char letter in message.ToCharArray())
         {
-            letterPause = .01f;
+            letterPause = .0f;
             dialogueText.text += letter;
 
             yield return 0;

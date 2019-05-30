@@ -1289,16 +1289,16 @@ public class DoorGuy : MonoBehaviour
     public void yesOptionSelected()
     {
         optionSelected = 0;
-        yesButton.image.sprite = yesButtonHover;
-        noButton.image.sprite = noButtonDefault;
+        yesButton.image.sprite = noButtonHover;
+        noButton.image.sprite = yesButtonDefault;
         Debug.Log(optionSelected);
     }
 
     public void noOptionSelected()
     {
         optionSelected = 1;
-        yesButton.image.sprite = yesButtonDefault;
-        noButton.image.sprite = noButtonHover;
+        yesButton.image.sprite = noButtonDefault;
+        noButton.image.sprite = yesButtonHover;
         Debug.Log(optionSelected);
     }
 }

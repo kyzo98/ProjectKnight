@@ -1079,7 +1079,7 @@ public class InformationGuy : MonoBehaviour
     {
         foreach (char letter in message.ToCharArray())
         {
-            letterPause = .02f;
+            letterPause = .0f;
             dialogueText.text += letter;
 
             yield return 0;
