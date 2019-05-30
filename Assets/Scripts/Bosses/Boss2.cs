@@ -29,7 +29,7 @@ public class Boss2 : MonoBehaviour {
     public float vigorMultiplier = 7;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         //BASE STATS
         stats.vitality = 40;
@@ -41,7 +41,7 @@ public class Boss2 : MonoBehaviour {
 
         //STATS
         maxHealth = stats.vitality * vitalityMultiplier;
-        health = 15;
+        health = maxHealth;
     }
 
     // Update is called once per frame

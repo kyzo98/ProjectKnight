@@ -162,7 +162,6 @@ public class FightController3 : MonoBehaviour
     public GameObject willParticle;
     public GameObject graceParticle;
     public GameObject heavyAttackHolder;
-    public ParticleSystem heavyAttackParticle;
     //ChargingParticles
     public ParticleSystem CH_Particles_Despair;
     public ParticleSystem CH_Particles_Grief;
@@ -884,7 +883,7 @@ public class FightController3 : MonoBehaviour
             if (bossScript.health > 0)
             {
                 playerScript.health = 0;
-                //Boss gana
+                StartCoroutine(DieScene());
                 Debug.Log("Boss gana");
             }
             else
@@ -1431,17 +1430,19 @@ public class FightController3 : MonoBehaviour
     {
         endedMove = false;
         playerAnimator.Play("HeavyAttack");
-        yield return new WaitForSecondsRealtime(0.7f);
+        heavyAttackHolder.SetActive(true);
+        yield return new WaitForSecondsRealtime(1f);
         audioSource.clip = heavyStrikeAudio;
         audioSource.Play();
+        heavyAttackHolder.SetActive(false);
         bossAnimator.Play("Damage");
         StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(1.6f);
         player.transform.rotation = Quaternion.Euler(0, 81.5f, 0);
-        for (int i = d; i > 0; i--)
+        for (int i = d; i > 0; i-=5)
         {
-            bossScript.health--;
+            bossScript.health-=5;
             RefreshUI();
             yield return 0;
             yield return new WaitForSeconds(0);
@@ -1451,6 +1452,7 @@ public class FightController3 : MonoBehaviour
         if (playerScript.moves > 0 && playerScript.energy > 3)
             ShowActions();
         RefreshUI();
+        Debug.Log("Boss life is: " + bossScript.health);
     }
 
     void BasicHeal()
@@ -3590,6 +3592,14 @@ public class FightController3 : MonoBehaviour
         winCanvas.SetActive(true);
         orbsText.text = "20 orbs";
         moneyText.text = "500 coins";
+    }
+
+    IEnumerator DieScene()
+    {
+        yield return new WaitForSecondsRealtime(0.8f);
+        playerAnimator.Play("Die");
+        yield return new WaitForSecondsRealtime(2.5f);
+        SceneManager.LoadScene("DieNarrator");
     }
 
     public void ClickContinue()

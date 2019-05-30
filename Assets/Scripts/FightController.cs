@@ -88,10 +88,6 @@ public class FightController : MonoBehaviour
     public GameObject optionsMenuMenu;
     bool gamePaused = false;
 
-    //LIGHTS
-    public Light playerLight;
-    public Light bossLight;
-
     //AUDIO
     public GameObject backgroundMusic;
     AudioSource[] backgroundAudio;
@@ -176,7 +172,7 @@ public class FightController : MonoBehaviour
     public GameObject willParticle;
     public GameObject graceParticle;
     public GameObject heavyAttackHolder;
-    public ParticleSystem heavyAttackParticle;
+    //public ParticleSystem heavyAttackParticle;
     //ChargingParticles
     public ParticleSystem CH_Particles_Despair;
     public ParticleSystem CH_Particles_Grief;
@@ -293,9 +289,6 @@ public class FightController : MonoBehaviour
         vCamNoise = mainVCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
         vCamNoise.m_FrequencyGain = 0; //setting all noise camera elements to 0, to not shake when starting the battle
         vCamNoise.m_AmplitudeGain = 0;
-
-        playerLight.color = Color.white;
-        bossLight.color = Color.red;
 
         //GETTING QUANTITY OF ORBS
         orbs.quantity = PlayerPrefs.GetInt("ORBS");
@@ -920,7 +913,7 @@ public class FightController : MonoBehaviour
             if (bossScript.health > 0) //WHAT IF YOU LOSE THE BATTLE
             {
                 playerScript.health = 0;
-                //Boss gana
+                StartCoroutine(DieScene());
                 Debug.Log("Boss gana");
             }
             else
@@ -1475,9 +1468,11 @@ public class FightController : MonoBehaviour
     {
         endedMove = false;
         playerAnimator.Play("HeavyAttack");
+        heavyAttackHolder.SetActive(true);
         //ThrowProjectile(heavyAttackHolder, heavyAttackParticle, d, heavyStrikeAudio);
-        yield return new WaitForSecondsRealtime(0.7f);
+        yield return new WaitForSecondsRealtime(1f);
         bossAnimator.Play("Damage");
+        heavyAttackHolder.SetActive(false);
         CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight);
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(1.6f);
@@ -1489,7 +1484,6 @@ public class FightController : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        //ShowPopupText(d);
         endedMove = true;
         if (playerScript.moves > 0 && playerScript.energy > 3)
             ShowActions();
@@ -2774,10 +2768,6 @@ public class FightController : MonoBehaviour
 
     IEnumerator BasicAtackWaiter(float d)
     {
-        ChangeLight(playerLight, playerLight.color, Color.red);
-        ChangeLight(bossLight, bossLight.color, Color.white);
-        playerLight.color = Color.red;
-        bossLight.color = Color.white;
         yield return new WaitForSecondsRealtime(1.8f);
         bossEndedMove = false;
         bossAnimator.Play("Attack");
@@ -2839,8 +2829,6 @@ public class FightController : MonoBehaviour
         }
 
         bossEndedMove = true;
-        ChangeLight(playerLight, playerLight.color, Color.white);
-        ChangeLight(bossLight, bossLight.color, Color.red);
         ShowActions();
         RefreshUI();
     }
@@ -3721,6 +3709,14 @@ public class FightController : MonoBehaviour
         Debug.Log("Player coins: " + playerScript.coins.ToString());
         //SceneManager.LoadScene("Narrator", LoadSceneMode.Single);
         StartCoroutine(FadeOut());
+    }
+
+    IEnumerator DieScene()
+    {
+        yield return new WaitForSecondsRealtime(0.8f);
+        playerAnimator.Play("Die");
+        yield return new WaitForSecondsRealtime(2.5f);
+        SceneManager.LoadScene("DieNarrator");
     }
 
     IEnumerator FadeOut()

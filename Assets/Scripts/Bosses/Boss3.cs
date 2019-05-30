@@ -30,7 +30,7 @@ public class Boss3 : MonoBehaviour
     public int vigorMultiplier = 7;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         //BASE STATS
         stats.vitality = 60;

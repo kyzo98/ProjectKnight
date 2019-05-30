@@ -26,7 +26,7 @@ public class Menu : MonoBehaviour {
 
     private void Start()
     { //Reset narrador
-        PlayerPrefs.SetInt("NarrativeScreenOrder", 0);
+        PlayerPrefs.SetInt("NarrativeScreenOrder", 8);
         PlayerPrefs.SetInt("FIGHT_ORDER", 0);
         PlayerPrefs.SetInt("COINS", 0);
         PlayerPrefs.SetInt("ORBS", 0);

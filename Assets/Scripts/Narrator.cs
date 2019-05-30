@@ -138,7 +138,7 @@ public class Narrator : MonoBehaviour {
                 else if ((SentenceFinished && SentenceCounter == 4) || jumpScene)
                 {
                     NarrativeScreenOrder++;
-                    PlayerPrefs.SetInt("NarrativeScreenOrder", 0);  // Resetj
+                    PlayerPrefs.SetInt("NarrativeScreenOrder", NarrativeScreenOrder);  // Resetj
                     SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
                 }
                 break;
@@ -164,7 +164,7 @@ public class Narrator : MonoBehaviour {
                 else if ((SentenceFinished && SentenceCounter == 3) || jumpScene)
                 {
                     NarrativeScreenOrder++;
-                    PlayerPrefs.SetInt("NarrativeScreenOrder", 0);  // Resetj
+                    PlayerPrefs.SetInt("NarrativeScreenOrder", NarrativeScreenOrder);  // Resetj
                     SceneManager.LoadScene("EndScene", LoadSceneMode.Single);
                 }
                 break;

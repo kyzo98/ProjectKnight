@@ -161,8 +161,7 @@ public class FightController4 : MonoBehaviour {
     public GameObject focusParticle;
     public GameObject willParticle;
     public GameObject graceParticle;
-    //public GameObject heavyAttackHolder;
-    //public ParticleSystem heavyAttackParticle;
+    public GameObject heavyAttackHolder;
     //STATE PARTICLE EFFECTS
     public ParticleSystem paralizeEffect;
     public ParticleSystem numbEffect;
@@ -897,7 +896,7 @@ public class FightController4 : MonoBehaviour {
             if (bossScript.health > 0) //WHAT IF YOU LOSE THE BATTLE
             {
                 playerScript.health = 0;
-                //Boss gana
+                StartCoroutine(DieScene());
                 Debug.Log("Boss gana");
             }
             else
@@ -1447,9 +1446,11 @@ public class FightController4 : MonoBehaviour {
     {
         endedMove = false;
         playerAnimator.Play("HeavyAttack");
-        yield return new WaitForSecondsRealtime(0.7f);
+        heavyAttackHolder.SetActive(true);
+        yield return new WaitForSecondsRealtime(1f);
         audioSource.clip = heavyStrikeAudio;
         audioSource.Play();
+        heavyAttackHolder.SetActive(false);
         bossAnimator.Play("Damage");
         StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         ShowPopupText(d, Color.red);
@@ -3624,6 +3625,14 @@ public class FightController4 : MonoBehaviour {
         winCanvas.SetActive(true);
         orbsText.text = "20 orbs";
         moneyText.text = "500 coins";
+    }
+
+    IEnumerator DieScene()
+    {
+        yield return new WaitForSecondsRealtime(0.8f);
+        playerAnimator.Play("Die");
+        yield return new WaitForSecondsRealtime(2.5f);
+        SceneManager.LoadScene("DieNarrator");
     }
 
     public void ClickContinue()
