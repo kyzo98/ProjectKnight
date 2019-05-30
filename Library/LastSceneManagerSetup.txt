@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< Updated upstream
 - path: Assets/Scenes/Fight4.unity
+=======
+- path: Assets/Scenes/Menu.unity
+>>>>>>> Stashed changes
   isLoaded: 1
   isActive: 1

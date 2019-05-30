@@ -51,7 +51,7 @@ public class Player : MonoBehaviour {
 
         //STARTING HEALTH STATS
         maxHealth = stats.vitality * vitalityMultiplier;
-        health = 15;
+        health = maxHealth;
     }
 	
 	void Update () {

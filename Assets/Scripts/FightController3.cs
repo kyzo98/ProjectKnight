@@ -168,12 +168,14 @@ public class FightController3 : MonoBehaviour
     public ParticleSystem CH_Particles_LightAttack;
     public ParticleSystem CH_Particles_Rage;
     public ParticleSystem CH_Particles_Terror;
+    public ParticleSystem CH_Particles_Anima_Blast;
     //FloorChargingParticles
     public ParticleSystem CH_floor_Despair;
     public ParticleSystem CH_floor_Grief;
     public ParticleSystem CH_floor_LightAttack;
     public ParticleSystem CH_floor_Rage;
     public ParticleSystem CH_floor_Terror;
+    public ParticleSystem CH_floor_Anima_Blast;
 
     //STATE EFFECTS PARTICLES
     public ParticleSystem paralizeEffect;
@@ -188,14 +190,8 @@ public class FightController3 : MonoBehaviour
     public GameObject guardParticlesHolder;
     public ParticleSystem guardParticles;
     public GameObject healParticlesBoss;
-    public ParticleSystem Attack1_boss;
-    public GameObject Attack1_boss_holder;
-    public ParticleSystem Attack2_boss;
-    public GameObject Attack2_boss_holder;
-    public ParticleSystem Attack3_boss;
-    public GameObject Attack3_boss_holder;
-    public ParticleSystem Attack4_boss;
-    public GameObject Attack4_boss_holder;
+    public GameObject heavyAttackBoss;
+    public GameObject effectAttackBoss;
 
     //Sounds
     private AudioSource audioSource;
@@ -222,6 +218,7 @@ public class FightController3 : MonoBehaviour
     public AudioClip bossHealAudio;
     public AudioClip receiveDamageAudio;
     public AudioClip deathAudio;
+    public AudioClip guardBossAudio;
     //CinematicSounds
     public AudioClip introAudio;
     public AudioClip teleportAudio;
@@ -316,6 +313,10 @@ public class FightController3 : MonoBehaviour
         buttonTerror.onClick.AddListener(TerrorSpell);
         buttonRage.onClick.AddListener(RageSpell);
         buttonGrief.onClick.AddListener(GriefSpell);
+        buttonGrace.onClick.AddListener(GraceDrive);
+        buttonCourage.onClick.AddListener(CourageDrive);
+        buttonWill.onClick.AddListener(WillDrive);
+        buttonFocus.onClick.AddListener(FocusDrive);
 
         //Cameras
         mainCamera.enabled = true;
@@ -539,7 +540,7 @@ public class FightController3 : MonoBehaviour
                                 //nAttack++;
                                 break;
                             case 3:
-                                GuardBoss();
+                                EffectAttack();
                                 Debug.Log("Boss used Guard.");
                                 //nAttack++;
                                 break;
@@ -564,7 +565,7 @@ public class FightController3 : MonoBehaviour
                                 //nAttack++;
                                 break;
                             case 8:
-                                bossScript.health += 1;
+                                AttackPlus();
                                 Debug.Log("Boss healed 1 HP");
                                 RefreshUI();
                                 ShowActions();
@@ -1305,9 +1306,9 @@ public class FightController3 : MonoBehaviour
     {
         float speed = 20.0f;
         Vector3 initialPos = new Vector3(-10.38f, 1.44f, -0.16f);
-        Vector3 chargerInitPos = new Vector3(-9.283f, 1.337f, -0.281f);
+        Vector3 chargerInitPos = new Vector3(-10.277f, 1.411f, -0.408f);
         Vector3 finalPos = new Vector3(-7.02f, 1.71f, -0.23f);
-        Vector3 floorChargerPos = new Vector3(-10.78f, -0.15f, -0.69f);
+        Vector3 floorChargerPos = new Vector3(-11.72f, 0.2f, -0.464f);
         Vector3 floorChargerRot = new Vector3(-90f, 0f, 0f);
         float timeToReachTarget = Vector3.Distance(initialPos, finalPos) / speed;
 
@@ -1339,6 +1340,11 @@ public class FightController3 : MonoBehaviour
         bossAnimator.Play("Damage");
         StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         ShowPopupText(damage, Color.red);
+        yield return new WaitForSecondsRealtime(0.8f);
+        Destroy(hitClone);
+        Destroy(floorChargerClone);
+        Destroy(chargeParticle);
+        Destroy(lightStrikeClone);
     }
 
     IEnumerator LightAttackWaiter(int d)
@@ -1429,6 +1435,7 @@ public class FightController3 : MonoBehaviour
     IEnumerator HeavyAttackWaiter(int d)
     {
         endedMove = false;
+        Vector3 finalPos = new Vector3(-7.02f, 1.71f, -0.23f);
         playerAnimator.Play("HeavyAttack");
         heavyAttackHolder.SetActive(true);
         yield return new WaitForSecondsRealtime(1f);
@@ -1436,6 +1443,8 @@ public class FightController3 : MonoBehaviour
         audioSource.Play();
         heavyAttackHolder.SetActive(false);
         bossAnimator.Play("Damage");
+        GameObject hitClone = Instantiate(hitHolder, finalPos, Quaternion.identity);
+        hitParticle.Play();
         StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(1.6f);
@@ -1447,7 +1456,7 @@ public class FightController3 : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        //ShowPopupText(d);
+        Destroy(hitClone);
         endedMove = true;
         if (playerScript.moves > 0 && playerScript.energy > 3)
             ShowActions();
@@ -1839,7 +1848,7 @@ public class FightController3 : MonoBehaviour
         float speed = 20.0f;
         Vector3 initialPos = new Vector3(-8.761f, 1.157f, -0.549f);
         Vector3 finalPos = new Vector3(-6.888f, 1.627f, -0.423f);
-        Vector3 floorChargerPos = new Vector3(-10.78f, -0.15f, -0.69f);
+        Vector3 floorChargerPos = new Vector3(-11.72f, 0.2f, -0.464f);
         Vector3 floorChargerRot = new Vector3(-90f, 0f, 0f);
 
         Quaternion test = Quaternion.Euler(floorChargerRot);
@@ -1872,6 +1881,11 @@ public class FightController3 : MonoBehaviour
         bossAnimator.Play("Damage");
         StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         ShowPopupText(damage, Color.red);
+        yield return new WaitForSecondsRealtime(0.8f);
+        Destroy(hitClone);
+        Destroy(despairClone);
+        Destroy(floorChargerClone);
+        Destroy(chargeParticle);
     }
 
     IEnumerator BasicSpellWaiter(int d)
@@ -2049,10 +2063,11 @@ public class FightController3 : MonoBehaviour
     IEnumerator SpiritBlastWaiter(int d)
     {
         endedMove = false;
-        yield return new WaitForSecondsRealtime(3); //Tiempo de espera de la animación
-        //StartCoroutine(ThrowProjectile(animaBlastParticleHolder, animaBlastParticleSystem, d, sorrow2Audio));
+        playerAnimator.Play("Despair");
+        yield return new WaitForSecondsRealtime(0.6f); //Tiempo de espera de la animación
+        StartCoroutine(ThrowProjectile(animaBlastParticleHolder, animaBlastParticleSystem, CH_Particles_Anima_Blast, CH_floor_Anima_Blast, d, sorrow2Audio));
         ShowPopupText(d, Color.red);
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(3f);
         for (int i = d; i > 0; i--)
         {
             bossScript.health--;
@@ -2060,7 +2075,6 @@ public class FightController3 : MonoBehaviour
             yield return 0;
             yield return new WaitForSeconds(0);
         }
-        //ShowPopupText(d);
         endedMove = true;
         if (playerScript.moves > 0 && playerScript.energy > 3)
             ShowActions();
@@ -2687,9 +2701,11 @@ public class FightController3 : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.8f);
         bossEndedMove = false;
         bossAnimator.Play("Attack");
+        heavyAttackBoss.SetActive(true);
         audioSource.clip = attackplusAudio;
         audioSource.Play();
-        yield return new WaitForSecondsRealtime(0.8f); //Tiempo de espera de la animación
+        yield return new WaitForSecondsRealtime(1f); //Tiempo de espera de la animación
+        heavyAttackBoss.SetActive(false);
         playerAnimator.Play("HitReaction");
         StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         audioSource.clip = HitStrikeAudio;
@@ -2814,10 +2830,12 @@ public class FightController3 : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1.8f);
         bossEndedMove = false;
-        bossAnimator.SetTrigger("Attack+");
+        bossAnimator.Play("Attack+");
+        heavyAttackBoss.SetActive(true);
         audioSource.clip = attackplusAudio;
         audioSource.Play();
-        yield return new WaitForSecondsRealtime(0.8f); //Tiempo de espera de la animación
+        yield return new WaitForSecondsRealtime(1f); //Tiempo de espera de la animación
+        heavyAttackBoss.SetActive(false);
         playerAnimator.Play("Damage");
         StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         audioSource.clip = HitStrikeAudio;
@@ -2926,8 +2944,11 @@ public class FightController3 : MonoBehaviour
         bossAnimator.Play("EffectAttack");
         audioSource.clip = effectAttackAudio;
         audioSource.Play();
-        yield return new WaitForSecondsRealtime(3);
-        playerAnimator.Play("Damage");
+        yield return new WaitForSecondsRealtime(0.8f);
+        effectAttackBoss.SetActive(true);
+        yield return new WaitForSecondsRealtime(2.2f);
+        playerAnimator.Play("HitReaction");
+        effectAttackBoss.SetActive(false);
         StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         audioSource.clip = HitStrikeAudio;
         audioSource.Play();
