@@ -226,6 +226,9 @@ public class FightController3 : MonoBehaviour
     //CAMARAS CINEMATICA INICIAL
     public GameObject CM_vcam1;
     public GameObject CM_vcam2;
+    public GameObject attack1_camera;
+    public GameObject attack2_camera;
+    public GameObject attack3_camera;
 
     //VARIABLES CAMERA SHAKE
     public CinemachineVirtualCamera mainVCam; //variable de la main virtual camera
@@ -1351,9 +1354,14 @@ public class FightController3 : MonoBehaviour
     {
         endedMove = false;
         StartCoroutine(ThrowLightStrike(lightStrikeHolder, lightStrikeParticleSystem, CH_Particles_LightAttack, CH_floor_LightAttack, d));
+        CM_vcam1.SetActive(false);
+        attack1_camera.SetActive(true);
         player.transform.rotation = Quaternion.Euler(0f, 170.944f, 0f);
         playerAnimator.Play("LightAttack");
-        yield return new WaitForSecondsRealtime(3f); //Tiempo de espera de la animación
+        yield return new WaitForSecondsRealtime(1f); //Tiempo de espera de la animación
+        CM_vcam1.SetActive(true);
+        attack1_camera.SetActive(false);
+        yield return new WaitForSecondsRealtime(2f); //Tiempo de espera de la animación
         player.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
         for (int i = d; i > 0; i--)
         {
@@ -1438,6 +1446,8 @@ public class FightController3 : MonoBehaviour
         Vector3 finalPos = new Vector3(-7.02f, 1.71f, -0.23f);
         playerAnimator.Play("HeavyAttack");
         heavyAttackHolder.SetActive(true);
+        CM_vcam1.SetActive(false);
+        attack2_camera.SetActive(true);
         yield return new WaitForSecondsRealtime(1f);
         audioSource.clip = heavyStrikeAudio;
         audioSource.Play();
@@ -1448,6 +1458,8 @@ public class FightController3 : MonoBehaviour
         StartCoroutine(CameraShake(vCamNoise, shakeAmplitudeLight, shakeFrequencyLight));
         ShowPopupText(d, Color.red);
         yield return new WaitForSecondsRealtime(1.6f);
+        CM_vcam1.SetActive(true);
+        attack2_camera.SetActive(false);
         player.transform.rotation = Quaternion.Euler(0, 81.5f, 0);
         for (int i = d; i > 0; i-=5)
         {
@@ -1647,11 +1659,15 @@ public class FightController3 : MonoBehaviour
         healParticle.SetActive(true);
         audioSource.clip = healAudio;
         audioSource.Play();
+        CM_vcam1.SetActive(false);
+        attack3_camera.SetActive(true);
         yield return new WaitForSecondsRealtime(0.5f);
         ShowPopupTextPlayer(d, Color.green);
         yield return new WaitForSecondsRealtime(1);
         ParticleSystem ps = healParticle.GetComponent<ParticleSystem>();
         ps.Stop();
+        CM_vcam1.SetActive(true);
+        attack3_camera.SetActive(false);
         yield return new WaitForSecondsRealtime(1.5f);
         healParticle.SetActive(false);
         if (playerScript.moves > 0 && playerScript.energy > 3)
@@ -1892,9 +1908,15 @@ public class FightController3 : MonoBehaviour
     {
         endedMove = false;
         playerAnimator.Play("Despair");
+        CM_vcam1.SetActive(false);
+        attack1_camera.SetActive(true);
         yield return new WaitForSecondsRealtime(0.6f);
         StartCoroutine(ThrowProjectile(despairParticleHolder, despairParticleSystem, CH_Particles_Despair, CH_floor_Despair, d, despairAudio));
-        yield return new WaitForSecondsRealtime(3f); //Tiempo de espera de la animación
+        yield return new WaitForSecondsRealtime(1f);
+        CM_vcam1.SetActive(true);
+        attack1_camera.SetActive(false);
+        ShowPopupText(d, Color.red);
+        yield return new WaitForSecondsRealtime(2);
         for (int i = d; i > 0; i--)
         {
             bossScript.health--;
@@ -2028,7 +2050,11 @@ public class FightController3 : MonoBehaviour
         endedMove = false;
         playerAnimator.Play("Guard");
         armorEffect.SetActive(true);
-        yield return new WaitForSecondsRealtime(2f); //Tiempo de espera de la animación        
+        CM_vcam1.SetActive(false);
+        attack3_camera.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f); //Tiempo de espera de la animación     
+        CM_vcam1.SetActive(true);
+        attack3_camera.SetActive(false);
         armorEffect.SetActive(false);
         playerScript.blockChance += 5;
         if (playerScript.moves > 0 && playerScript.energy > 3)
@@ -2064,10 +2090,15 @@ public class FightController3 : MonoBehaviour
     {
         endedMove = false;
         playerAnimator.Play("Despair");
+        CM_vcam1.SetActive(false);
+        attack2_camera.SetActive(true);
         yield return new WaitForSecondsRealtime(0.6f); //Tiempo de espera de la animación
         StartCoroutine(ThrowProjectile(animaBlastParticleHolder, animaBlastParticleSystem, CH_Particles_Anima_Blast, CH_floor_Anima_Blast, d, sorrow2Audio));
         ShowPopupText(d, Color.red);
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(1f);
+        CM_vcam1.SetActive(true);
+        attack2_camera.SetActive(false);
+        yield return new WaitForSecondsRealtime(2f);
         for (int i = d; i > 0; i--)
         {
             bossScript.health--;
